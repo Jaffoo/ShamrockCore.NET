@@ -1,0 +1,36 @@
+﻿namespace Helper
+{
+    public class Base64
+    {
+        public static async Task<string> UrlImgToBase64(string url)
+        {
+            try
+            {
+                HttpClient client = new();
+                byte[] bytes = await client.GetByteArrayAsync(url);
+                return Convert.ToBase64String(bytes);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public static string PathToBase64(string path)
+        {
+            try
+            {
+                using FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
+                byte[] bt = new byte[fs.Length];
+                fs.Read(bt, 0, bt.Length);
+                var str = Convert.ToBase64String(bt);
+                fs.Close();
+                return str;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+    }
+}
