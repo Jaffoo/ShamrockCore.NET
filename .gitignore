@@ -2,5 +2,5 @@
 # 此 .gitignore 文件已由 Microsoft(R) Visual Studio 自动创建。
 ################################################################################
 
-/Shamrock.NET/.vs/Shamrock.NET
-/Shamrock.NET/Models/obj
+/Shamrock.NET/obj
+/.vs/Shamrock.NET/v17/.suo

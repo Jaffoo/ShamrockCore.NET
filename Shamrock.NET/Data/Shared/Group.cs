@@ -1,0 +1,29 @@
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
+namespace Mirai.Net.Data.Shared;
+
+/// <summary>
+/// 群
+/// </summary>
+public record Group
+{
+    /// <summary>
+    ///     群号
+    /// </summary>
+    [JsonProperty("group_id")]
+    public string Id { get; set; }
+
+    /// <summary>
+    ///     群名称
+    /// </summary>
+    [JsonProperty("name")]
+    public string Name { get; set; }
+
+    /// <summary>
+    ///     权限类型
+    /// </summary>
+    [JsonProperty("permission")]
+    [JsonConverter(typeof(StringEnumConverter))]
+    public Permissions Permission { get; set; }
+}
