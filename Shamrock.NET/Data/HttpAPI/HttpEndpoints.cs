@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Mirai.Net.Data.Sessions;
+namespace Shamrock.Net.Data.Sessions;
 
 /// <summary>
 ///     http请求端点

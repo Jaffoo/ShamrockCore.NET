@@ -1,9 +1,9 @@
 ﻿using Manganese.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using Mirai.Net.Data.Messages.Concretes;
+using Shamrock.Net.Data.Messages.Concretes;
 
-namespace Mirai.Net.Data.Messages;
+namespace Shamrock.Net.Data.Messages;
 
 /// <summary>
 /// 所有消息的基类
@@ -27,7 +27,7 @@ public record MessageBase
     }
 
     /// <summary>
-    /// 提供Mirai码序列化方法
+    /// 提供Shamrock码序列化方法
     /// </summary>
     /// <returns></returns>
     public string SerializeToMiraiCode()

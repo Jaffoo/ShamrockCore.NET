@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Mirai.Net.Data.Events;
+namespace Shamrock.Net.Data.Events;
 
 /// <summary>
 /// 事件基类

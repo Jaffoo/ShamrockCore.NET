@@ -1,8 +1,8 @@
-﻿using Mirai.Net.Data.Messages;
-using Mirai.Net.Data.Messages.Concretes;
-using Mirai.Net.Data.Shared;
+﻿using Shamrock.Net.Data.Messages;
+using Shamrock.Net.Data.Messages.Concretes;
+using Shamrock.Net.Data.Shared;
 
-namespace Mirai.Net.Utils.Scaffolds;
+namespace Shamrock.Net.Utils.Scaffolds;
 
 /// <summary>
 /// 消息链建造者

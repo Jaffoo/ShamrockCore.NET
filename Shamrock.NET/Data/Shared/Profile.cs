@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Mirai.Net.Data.Shared;
+namespace Shamrock.Net.Data.Shared;
 
 /// <summary>
 /// 资料卡

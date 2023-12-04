@@ -1,10 +1,10 @@
-﻿using Mirai.Net.Data.Events.Concretes.Request;
-using Mirai.Net.Data.Sessions;
-using Mirai.Net.Data.Shared;
-using Mirai.Net.Utils.Internal;
+﻿using Shamrock.Net.Data.Events.Concretes.Request;
+using Shamrock.Net.Data.Sessions;
+using Shamrock.Net.Data.Shared;
+using Shamrock.Net.Utils.Internal;
 using System.Threading.Tasks;
 
-namespace Mirai.Net;
+namespace Shamrock.Net;
 
 /// <summary>
 /// 请求管理器

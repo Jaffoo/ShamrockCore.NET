@@ -1,8 +1,8 @@
 ﻿using Manganese.Text;
-using Mirai.Net.Data.Exceptions;
+using Shamrock.Net.Data.Exceptions;
 using System.Linq;
 
-namespace Mirai.Net.Data.Sessions
+namespace Shamrock.Net.Data.Sessions
 {
 
     /// <summary>

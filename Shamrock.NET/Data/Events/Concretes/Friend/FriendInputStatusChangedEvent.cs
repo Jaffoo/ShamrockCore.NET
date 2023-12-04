@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Mirai.Net.Data.Events.Concretes.Friend;
+namespace Shamrock.Net.Data.Events.Concretes.Friend;
 
 /// <summary>
 /// 好友输入状态改变

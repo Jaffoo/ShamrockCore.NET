@@ -1,17 +1,17 @@
 ﻿using Manganese.Text;
-using Mirai.Net.Data.Messages;
-using Mirai.Net.Data.Messages.Concretes;
-using Mirai.Net.Data.Messages.Receivers;
-using Mirai.Net.Data.Sessions;
-using Mirai.Net.Data.Shared;
-using Mirai.Net.Utils.Internal;
+using Shamrock.Net.Data.Messages;
+using Shamrock.Net.Data.Messages.Concretes;
+using Shamrock.Net.Data.Messages.Receivers;
+using Shamrock.Net.Data.Sessions;
+using Shamrock.Net.Data.Shared;
+using Shamrock.Net.Utils.Internal;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Mirai.Net;
+namespace Shamrock.Net;
 
 /// <summary>
 /// 群管理器

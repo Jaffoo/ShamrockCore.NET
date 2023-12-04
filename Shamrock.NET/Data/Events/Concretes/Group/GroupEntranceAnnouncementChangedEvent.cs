@@ -1,4 +1,4 @@
-﻿namespace Mirai.Net.Data.Events.Concretes.Group;
+﻿namespace Shamrock.Net.Data.Events.Concretes.Group;
 
 /// <summary>
 /// 入群公告发生改变

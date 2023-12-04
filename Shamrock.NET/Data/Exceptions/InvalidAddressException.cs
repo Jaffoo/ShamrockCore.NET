@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Mirai.Net.Data.Exceptions;
+namespace Shamrock.Net.Data.Exceptions;
 
 /// <summary>
 ///     地址错误异常

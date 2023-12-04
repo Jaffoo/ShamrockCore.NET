@@ -1,11 +1,11 @@
-﻿using Mirai.Net.Bot.Managers;
-using Mirai.Net.Data.Messages;
-using Mirai.Net.Utils.Internal;
+﻿using Shamrock.Net.Bot.Managers;
+using Shamrock.Net.Data.Messages;
+using Shamrock.Net.Utils.Internal;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Mirai.Net.Utils.Scaffolds;
+namespace Shamrock.Net.Utils.Scaffolds;
 
 /// <summary>
 ///     消息相关的脚手架

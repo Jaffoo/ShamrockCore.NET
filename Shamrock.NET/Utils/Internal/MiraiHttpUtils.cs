@@ -1,15 +1,15 @@
 ﻿using Flurl;
 using Flurl.Http;
 using Manganese.Text;
-using Mirai.Net.Data.Exceptions;
-using Mirai.Net.Data.Sessions;
-using Mirai.Net.Sessions;
+using Shamrock.Net.Data.Exceptions;
+using Shamrock.Net.Data.Sessions;
+using Shamrock.Net.Sessions;
 using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
 using NullValueHandling = Newtonsoft.Json.NullValueHandling;
 
-namespace Mirai.Net.Utils.Internal;
+namespace Shamrock.Net.Utils.Internal;
 
 /// <summary>
 /// 用户自定义错误处理

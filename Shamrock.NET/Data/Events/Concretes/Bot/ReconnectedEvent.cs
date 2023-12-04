@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Mirai.Net.Data.Events.Concretes.Bot;
+namespace Shamrock.Net.Data.Events.Concretes.Bot;
 
 /// <summary>
 /// Bot主动重新登录

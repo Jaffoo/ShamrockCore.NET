@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
-namespace Mirai.Net.Data.Shared
+namespace Shamrock.Net.Data.Shared
 {
     /// <summary>
     /// 群公告
@@ -8,46 +9,63 @@ namespace Mirai.Net.Data.Shared
     public record Announcement
     {
         /// <summary>
-        /// 群信息
+        /// 公告发表者
         /// </summary>
-        [JsonProperty("group")]
-        public Group Group { get; set; }
+        [JsonProperty("sender_id")]
+        public long Sender { get; set; }
 
         /// <summary>
-        /// 群公告内容
+        /// 公告发布时间
         /// </summary>
-        [JsonProperty("content")]
-        public string Content { get; set; }
+        [JsonProperty("publish_time")]
+        public long SenderTime { get; set; }
 
         /// <summary>
-        /// 发布者账号
+        /// 公告内容
         /// </summary>
-        [JsonProperty("senderID")]
-        public string SenderID { get; set; }
+        [JsonProperty("message")]
+        public AnnouncementMsg Message { get; set; }
+    }
+
+    /// <summary>
+    /// 公告内容
+    /// </summary>
+    public record AnnouncementMsg
+    {
+        /// <summary>
+        /// 公告内容
+        /// </summary>
+        [JsonProperty("text")]
+        public string Text { get; set; }
 
         /// <summary>
-        /// 公告唯一id
+        /// 公告图片
         /// </summary>
-        [JsonProperty("fid")]
-        public string Fid { get; set; }
+        [JsonProperty("images")]
+        public List<AnnouncementImg> Images { get; set; }
+    }
+
+    /// <summary>
+    /// 公告图片
+    /// </summary>
+    public record AnnouncementImg
+    {
+        /// <summary>
+        /// 图片高度
+        /// </summary>
+        [JsonProperty("height")]
+        public string Height { get; set; }
 
         /// <summary>
-        /// 是否所有群成员已确认
+        /// 图片宽度
         /// </summary>
-        [JsonProperty("allConfirmed")]
-        public bool AllConfirmed { get; set; }
+        [JsonProperty("width")]
+        public string Width { get; set; }
 
         /// <summary>
-        /// 确认群成员人数
+        /// 图片ID，可用https://gdynamic.qpic.cn/gdynamic/{id}/628获取
         /// </summary>
-        [JsonProperty("confirmedMembersCount")]
-        public string ConfirmedMembersCount { get; set; }
-
-        /// <summary>
-        /// 发布时间
-        /// </summary>
-        [JsonProperty("publicationTime")]
-        public string PublicationTime { get; set; }
-
+        [JsonProperty("id")]
+        public string Id { get; set; }
     }
 }

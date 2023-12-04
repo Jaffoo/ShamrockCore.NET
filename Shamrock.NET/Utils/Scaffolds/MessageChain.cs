@@ -1,14 +1,14 @@
 ﻿using Manganese.Array;
 using Manganese.Text;
-using Mirai.Net.Data.Messages.Concretes;
-using Mirai.Net.Data.Messages.Receivers;
-using Mirai.Net.Utils.Scaffolds;
+using Shamrock.Net.Data.Messages.Concretes;
+using Shamrock.Net.Data.Messages.Receivers;
+using Shamrock.Net.Utils.Scaffolds;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 // ReSharper disable once CheckNamespace
-namespace Mirai.Net.Data.Messages;
+namespace Shamrock.Net.Data.Messages;
 
 /// <summary>
 /// 消息链
@@ -31,7 +31,7 @@ public partial class MessageChain : List<MessageBase>
     }
 
     /// <summary>
-    /// 运行时安全的Mirai码
+    /// 运行时安全的Shamrock码
     /// </summary>
     public string MiraiCode
     {

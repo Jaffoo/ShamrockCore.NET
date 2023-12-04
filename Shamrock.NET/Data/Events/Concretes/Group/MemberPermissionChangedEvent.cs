@@ -1,6 +1,6 @@
-﻿using Mirai.Net.Data.Shared;
+﻿using Shamrock.Net.Data.Shared;
 
-namespace Mirai.Net.Data.Events.Concretes.Group;
+namespace Shamrock.Net.Data.Events.Concretes.Group;
 
 /// <summary>
 /// 某群员权限改变，操作者一定是群主

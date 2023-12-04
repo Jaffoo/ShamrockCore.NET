@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Mirai.Net.Data.Messages;
+namespace Shamrock.Net.Data.Messages;
 
 /// <summary>
 /// 消息接收器基类

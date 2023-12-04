@@ -1,15 +1,15 @@
 ﻿using Flurl;
 using Manganese.Text;
-using Mirai.Net.Bot.Managers;
-using Mirai.Net.Data.Events;
-using Mirai.Net.Data.Events.Concretes.Message;
-using Mirai.Net.Data.Exceptions;
-using Mirai.Net.Data.Messages;
-using Mirai.Net.Data.Messages.Concretes;
-using Mirai.Net.Data.Messages.Receivers;
-using Mirai.Net.Data.Sessions;
-using Mirai.Net.Data.Shared;
-using Mirai.Net.Utils.Internal;
+using Shamrock.Net.Bot.Managers;
+using Shamrock.Net.Data.Events;
+using Shamrock.Net.Data.Events.Concretes.Message;
+using Shamrock.Net.Data.Exceptions;
+using Shamrock.Net.Data.Messages;
+using Shamrock.Net.Data.Messages.Concretes;
+using Shamrock.Net.Data.Messages.Receivers;
+using Shamrock.Net.Data.Sessions;
+using Shamrock.Net.Data.Shared;
+using Shamrock.Net.Utils.Internal;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -20,7 +20,7 @@ using System.Reactive.Subjects;
 using System.Threading.Tasks;
 using Websocket.Client;
 
-namespace Mirai.Net;
+namespace Shamrock.Net;
 
 /// <summary>
 ///     mirai-api-http机器人描述

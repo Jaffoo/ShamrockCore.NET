@@ -1,13 +1,13 @@
 ﻿using Manganese.Text;
-using Mirai.Net.Data.Messages;
-using Mirai.Net.Data.Sessions;
-using Mirai.Net.Data.Shared;
-using Mirai.Net.Utils.Internal;
+using Shamrock.Net.Data.Messages;
+using Shamrock.Net.Data.Sessions;
+using Shamrock.Net.Data.Shared;
+using Shamrock.Net.Utils.Internal;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Mirai.Net;
+namespace Shamrock.Net;
 
 /// <summary>
 /// 消息管理器

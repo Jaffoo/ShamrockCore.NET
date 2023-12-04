@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Mirai.Net.Data.Events.Concretes;
+namespace Shamrock.Net.Data.Events.Concretes;
 
 /// <summary>
 /// 未知的事件

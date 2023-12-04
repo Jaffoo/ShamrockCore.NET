@@ -1,8 +1,8 @@
-﻿using Mirai.Net.Data.Shared;
+﻿using Shamrock.Net.Data.Shared;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Mirai.Net.Data.Events.Concretes.Group;
+namespace Shamrock.Net.Data.Events.Concretes.Group;
 
 /// <summary>
 /// Bot在群内的权限改变，操作者一定是群主

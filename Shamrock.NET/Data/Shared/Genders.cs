@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.Serialization;
 
-namespace Mirai.Net.Data.Shared;
+namespace Shamrock.Net.Data.Shared;
 
 /// <summary>
 /// 发送者的性别

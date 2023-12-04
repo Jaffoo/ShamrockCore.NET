@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Mirai.Net.Data.Events.Concretes.Bot;
+namespace Shamrock.Net.Data.Events.Concretes.Bot;
 
 /// <summary>
 /// Bot被服务器断开或因网络问题而掉线

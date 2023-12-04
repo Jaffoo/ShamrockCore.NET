@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Mirai.Net.Data.Messages.Receivers;
+namespace Shamrock.Net.Data.Messages.Receivers;
 
 /// <summary>
 /// 未知类型的消息接收器

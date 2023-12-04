@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Mirai.Net.Data.Messages.Concretes;
+namespace Shamrock.Net.Data.Messages.Concretes;
 
 /// <summary>
 /// 未知的（没有实现）的消息类型

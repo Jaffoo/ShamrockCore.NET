@@ -1,6 +1,6 @@
-﻿using Mirai.Net.Data.Messages;
+﻿using Shamrock.Net.Data.Messages;
 
-namespace Mirai.Net.Modules;
+namespace Shamrock.Net.Modules;
 
 /// <summary>
 /// 模块化接口

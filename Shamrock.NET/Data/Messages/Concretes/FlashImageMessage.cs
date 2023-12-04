@@ -1,4 +1,4 @@
-﻿namespace Mirai.Net.Data.Messages.Concretes;
+﻿namespace Shamrock.Net.Data.Messages.Concretes;
 
 /// <summary>
 /// 闪照，构造方式与<see cref="ImageMessage"/>相同

@@ -1,11 +1,11 @@
-﻿using Mirai.Net.Data.Messages;
-using Mirai.Net.Modules;
+﻿using Shamrock.Net.Data.Messages;
+using Shamrock.Net.Modules;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Mirai.Net.Utils.Scaffolds;
+namespace Shamrock.Net.Utils.Scaffolds;
 
 /// <summary>
 /// 模块化拓展方法

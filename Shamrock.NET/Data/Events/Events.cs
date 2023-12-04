@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.Serialization;
 
-namespace Mirai.Net.Data.Events;
+namespace Shamrock.Net.Data.Events;
 
 /// <summary>
 /// 事件类型

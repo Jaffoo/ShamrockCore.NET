@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 
-namespace Mirai.Net.Data.Messages.Concretes;
+namespace Shamrock.Net.Data.Messages.Concretes;
 
 /// <summary>
-/// Mirai码，
+/// Shamrock码，
 /// <a href="https://docs.mirai.mamoe.net/mirai-api-http/api/MessageType.html#miraicode">看这里</a>
 /// </summary>
 public record MiraiCodeMessage : MessageBase

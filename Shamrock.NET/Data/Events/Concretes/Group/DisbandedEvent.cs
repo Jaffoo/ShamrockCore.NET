@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Mirai.Net.Data.Events.Concretes.Group
+namespace Shamrock.Net.Data.Events.Concretes.Group
 {
 
     /// <summary>

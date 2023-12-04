@@ -1,4 +1,4 @@
-﻿namespace Mirai.Net.Data.Messages;
+﻿namespace Shamrock.Net.Data.Messages;
 
 /// <summary>
 /// 消息类型

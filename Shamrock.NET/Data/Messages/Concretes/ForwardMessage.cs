@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Mirai.Net.Data.Messages.Concretes;
+namespace Shamrock.Net.Data.Messages.Concretes;
 
 /// <summary>
 /// 转发的消息

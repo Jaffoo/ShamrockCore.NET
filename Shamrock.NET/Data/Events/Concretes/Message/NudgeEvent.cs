@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Mirai.Net.Data.Events.Concretes.Message;
+namespace Shamrock.Net.Data.Events.Concretes.Message;
 
 /// <summary>
 /// 某人被戳了一戳

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Mirai.Net.Utils.Internal;
+namespace Shamrock.Net.Utils.Internal;
 
 /// <summary>
 /// 调度工具类

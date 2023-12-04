@@ -1,8 +1,8 @@
-﻿using Mirai.Net.Bot.Managers;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System.Collections.Generic;
 
-namespace Mirai.Net.Data.Shared;
+namespace Shamrock.Net.Data.Shared;
 
 /// <summary>
 ///     群成员
@@ -18,7 +18,13 @@ public record Member
     ///     群员的QQ号
     /// </summary>
     [JsonProperty("user_id")]
-    public string Id { get; set; }
+    public long Id { get; set; }
+
+    /// <summary>
+    ///     群QQ号
+    /// </summary>
+    [JsonProperty("group_id")]
+    public long GroupId { get; set; }
 
     /// <summary>
     ///     群员的群名片
@@ -27,39 +33,101 @@ public record Member
     public string Name { get; set; }
 
     /// <summary>
+    ///     性别
+    /// </summary>
+    [JsonProperty("sex")]
+    [JsonConverter(typeof(StringEnumConverter))]
+    public Genders Sex { get; set; }
+
+    /// <summary>
     ///     操作者在群中的权限
     /// </summary>
-    [JsonProperty("permission")]
+    [JsonProperty("role")]
     [JsonConverter(typeof(StringEnumConverter))]
-    public Permissions Permission { get; set; }
+    public Permissions Role { get; set; }
 
     /// <summary>
     ///     操作者的群头衔
     /// </summary>
-    [JsonProperty("specialTitle")]
+    [JsonProperty("title")]
     public string SpecialTitle { get; set; }
+
+    /// <summary>
+    ///     专属头衔过期时间戳
+    /// </summary>
+    [JsonProperty("title_expire_time")]
+    public long TitleExpireTime { get; set; }
 
     /// <summary>
     ///     加入时间戳
     /// </summary>
-    [JsonProperty("joinTimestamp")]
+    [JsonProperty("join_time")]
     public string JoinTime { get; set; }
 
     /// <summary>
     ///     最后发言时间戳
     /// </summary>
-    [JsonProperty("lastSpeakTimestamp")]
+    [JsonProperty("last_sent_time")]
     public string LastSpeakTime { get; set; }
 
     /// <summary>
-    ///     禁言时间还剩余
+    ///     最后活跃时间戳
     /// </summary>
-    [JsonProperty("muteTimeRemaining")]
-    public string MuteTimeRemaining { get; set; }
+    [JsonProperty("last_active_time")]
+    public string LastActiveTime { get; set; }
 
     /// <summary>
-    ///     产生此操作的群
+    ///     群头衔
     /// </summary>
-    [JsonProperty("group")]
-    public Group Group { get; set; }
+    [JsonProperty("unique_name")]
+    public string UniqueName { get; set; }
+
+    /// <summary>
+    ///     群昵称
+    /// </summary>
+    [JsonProperty("nickname")]
+    public string GroupName { get; set; }
+
+    /// <summary>
+    ///     显示名
+    /// </summary>
+    [JsonProperty("user_displayname")]
+    public string DisplayName { get; set; }
+
+    /// <summary>
+    ///     距离
+    /// </summary>
+    [JsonProperty("distance")]
+    public int Distance { get; set; }
+
+    /// <summary>
+    ///     地区
+    /// </summary>
+    [JsonProperty("area")]
+    public int Area { get; set; }
+
+    /// <summary>
+    ///     等级
+    /// </summary>
+    [JsonProperty("level")]
+    public int Level { get; set; }
+
+    /// <summary>
+    ///     是否不良记录成员
+    /// </summary>
+    [JsonProperty("unfriendly")]
+    public bool Unfriendly { get; set; }
+
+    /// <summary>
+    ///     是否允许修改群名片
+    /// </summary>
+    [JsonProperty("card_changeable")]
+    public bool CanChangeCard { get; set; }
+
+    /// <summary>
+    ///     群荣誉
+    /// </summary>
+    [JsonProperty("honor")]
+    public List<int> Honor { get; set; }
+
 }

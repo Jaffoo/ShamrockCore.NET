@@ -1,17 +1,16 @@
 ﻿using Flurl.Http;
 using Manganese.Text;
-using Mirai.Net.Data.Sessions;
-using Mirai.Net.Data.Shared;
-using Mirai.Net.Utils.Internal;
+using Shamrock.Net.Data.Sessions;
+using Shamrock.Net.Utils.Internal;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using File = Mirai.Net.Data.Shared.File;
+using File = Shamrock.Net.Data.Shared.File;
 
-namespace Mirai.Net;
+namespace Shamrock.Net;
 
 /// <summary>
 /// 文件管理器
@@ -124,7 +123,7 @@ public static class FileManager
     }
 
     /// <summary>
-    ///     上传群文件，修复 https://github.com/SinoAHpx/Mirai.Net/issues/72 中提到的编码错误
+    ///     上传群文件，修复 https://github.com/SinoAHpx/Shamrock.Net/issues/72 中提到的编码错误
     /// </summary>
     /// <param name="groupId">上传到哪个群</param>
     /// <param name="filePath">文件的路径</param>

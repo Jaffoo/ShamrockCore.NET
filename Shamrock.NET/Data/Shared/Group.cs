@@ -1,7 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System.Collections.Generic;
 
-namespace Mirai.Net.Data.Shared;
+namespace Shamrock.Net.Data.Shared;
 
 /// <summary>
 /// 群
@@ -12,18 +13,65 @@ public record Group
     ///     群号
     /// </summary>
     [JsonProperty("group_id")]
-    public string Id { get; set; }
+    public long Id { get; set; }
+
+    /// <summary>
+    ///     群 Uin
+    /// </summary>
+    [JsonProperty("group_uin")]
+    public long UinId { get; set; }
 
     /// <summary>
     ///     群名称
     /// </summary>
-    [JsonProperty("name")]
+    [JsonProperty("group_name")]
     public string Name { get; set; }
 
     /// <summary>
-    ///     权限类型
+    ///     群备注
     /// </summary>
-    [JsonProperty("permission")]
-    [JsonConverter(typeof(StringEnumConverter))]
-    public Permissions Permission { get; set; }
+    [JsonProperty("group_remark")]
+    public string Remark { get; set; }
+
+    /// <summary>
+    ///     群分类
+    /// </summary>
+    [JsonProperty("class_text")]
+    public string Text { get; set; }
+
+    /// <summary>
+    ///     是否冻结
+    /// </summary>
+    [JsonProperty("is_frozen")]
+    public bool Frozen { get; set; }
+
+    /// <summary>
+    ///     最大成员数
+    /// </summary>
+    [JsonProperty("max_member_count")]
+    public int MaxCount { get; set; }
+
+    /// <summary>
+    ///     最大成员数
+    /// </summary>
+    [JsonProperty("max_member")]
+    public int Max { get; set; }
+
+    /// <summary>
+    ///     成员数量
+    /// </summary>
+    [JsonProperty("member_num")]
+    public int MemberNum { get; set; }
+
+    /// <summary>
+    ///     成员数量
+    /// </summary>
+    [JsonProperty("member_count")]
+    public int MemberCount { get; set; }
+
+    /// <summary>
+    /// 管理员列表
+    /// </summary>
+    [JsonProperty("admins")]
+    public List<long> Admins { get; set; }
 }

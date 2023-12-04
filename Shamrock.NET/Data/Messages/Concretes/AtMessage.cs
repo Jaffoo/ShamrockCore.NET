@@ -1,7 +1,7 @@
-﻿using Mirai.Net.Data.Shared;
+﻿using Shamrock.Net.Data.Shared;
 using Newtonsoft.Json;
 
-namespace Mirai.Net.Data.Messages.Concretes;
+namespace Shamrock.Net.Data.Messages.Concretes;
 
 /// <summary>
 /// @某人

@@ -1,7 +1,7 @@
-﻿using Mirai.Net.Data.Shared;
+﻿using Shamrock.Net.Data.Shared;
 using Newtonsoft.Json;
 
-namespace Mirai.Net.Data.Events.Concretes.Group;
+namespace Shamrock.Net.Data.Events.Concretes.Group;
 
 /// <summary>
 /// Bot被禁言

@@ -1,17 +1,17 @@
 ﻿using Manganese.Text;
-using Mirai.Net.Data.Events;
-using Mirai.Net.Data.Events.Concretes;
-using Mirai.Net.Data.Messages;
-using Mirai.Net.Data.Messages.Concretes;
-using Mirai.Net.Data.Messages.Receivers;
-using Mirai.Net.Utils.Scaffolds;
+using Shamrock.Net.Data.Events;
+using Shamrock.Net.Data.Events.Concretes;
+using Shamrock.Net.Data.Messages;
+using Shamrock.Net.Data.Messages.Concretes;
+using Shamrock.Net.Data.Messages.Receivers;
+using Shamrock.Net.Utils.Scaffolds;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Mirai.Net.Utils.Internal;
+namespace Shamrock.Net.Utils.Internal;
 
 internal static class ReflectionUtils
 {
@@ -92,7 +92,7 @@ internal static class ReflectionUtils
     /// </summary>
     private static readonly IEnumerable<MessageReceiverBase> MessageReceiverBases =
         GetDefaultInstances<MessageReceiverBase>(
-            "Mirai.Net.Data.Messages.Receivers");
+            "Shamrock.Net.Data.Messages.Receivers");
 
     /// <summary>
     ///     默认消息接收器类型字典(K: 接收器的类别, V: 实例的Type)
@@ -105,7 +105,7 @@ internal static class ReflectionUtils
     ///     默认消息实例
     /// </summary>
     private static readonly IEnumerable<MessageBase> MessageBases =
-        GetDefaultInstances<MessageBase>("Mirai.Net.Data.Messages.Concretes");
+        GetDefaultInstances<MessageBase>("Shamrock.Net.Data.Messages.Concretes");
 
     /// <summary>
     ///     默认消息实例类型字典(K: 消息的类别, V: 实例的Type)
@@ -118,7 +118,7 @@ internal static class ReflectionUtils
     ///     默认事件实例
     /// </summary>
     private static readonly IEnumerable<EventBase> EventBases =
-        GetDefaultInstances<EventBase>("Mirai.Net.Data.Events.Concretes");
+        GetDefaultInstances<EventBase>("Shamrock.Net.Data.Events.Concretes");
 
     /// <summary>
     ///     默认事件实例类型字典(K: 事件类别, V: 实例Type)
@@ -131,7 +131,7 @@ internal static class ReflectionUtils
     /// <summary>
     ///     根据json动态解析对应的消息子类
     /// </summary>
-    /// <param name="data">as: {"type": "Plain", "text": "Mirai牛逼" }</param>
+    /// <param name="data">as: {"type": "Plain", "text": "Shamrock牛逼" }</param>
     /// <returns></returns>
     internal static MessageBase GetMessageBase(string data)
     {

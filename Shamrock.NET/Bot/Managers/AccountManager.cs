@@ -1,13 +1,13 @@
 ﻿using Manganese.Text;
-using Mirai.Net.Data.Sessions;
-using Mirai.Net.Data.Shared;
-using Mirai.Net.Utils.Internal;
+using Shamrock.Net.Data.Sessions;
+using Shamrock.Net.Data.Shared;
+using Shamrock.Net.Utils.Internal;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Mirai.Net;
+namespace Shamrock.Net;
 
 /// <summary>
 ///     账号管理器
@@ -54,7 +54,7 @@ public static class AccountManager
     /// <summary>
     ///     获取某群的全部群成员
     /// </summary>
-    public static async Task<IEnumerable<Member>> GetGroupMembersAsync(string groupId)
+    public static async Task<IEnumerable<Member>> GetGroupMembersAsync(long groupId)
     {
         return await GetCollectionAsync<Member>(HttpEndpoints.GetGroupMemberList, new
         {
@@ -74,11 +74,11 @@ public static class AccountManager
     ///     删除好友（未实现）
     /// </summary>
     /// <param name="friendId"></param>
-    public static async Task DeleteFriendAsync(string friendId)
+    public static async Task DeleteFriendAsync(long friendId)
     {
         _ = await HttpEndpoints.DeleteFriend.PostJsonAsync(new
         {
-            target = friendId
+            user_id = friendId
         });
     }
 
@@ -113,11 +113,11 @@ public static class AccountManager
     /// <summary>
     ///     获取好友资料
     /// </summary>
-    public static async Task<Profile> GetFriendProfileAsync(string friendId)
+    public static async Task<Profile> GetFriendProfileAsync(long friendId)
     {
         return await GetProfileAsync(HttpEndpoints.GetStrangerInfo, new
         {
-            target = friendId
+            user_id = friendId
         });
     }
 
@@ -132,14 +132,14 @@ public static class AccountManager
     /// <summary>
     ///     获取群员资料
     /// </summary>
-    /// <param name="id"></param>
-    /// <param name="memberId">群号</param>
-    public static async Task<Profile> GetMemberProfileAsync(string id, string memberId)
+    /// <param name="groupId"></param>
+    /// <param name="memberId"></param>
+    public static async Task<Profile> GetMemberProfileAsync(long groupId, long memberId)
     {
         return await GetProfileAsync(HttpEndpoints.GetGroupMemberInfo, new
         {
-            target = memberId,
-            memberId = id
+            user_id = memberId,
+            group_id = groupId
         });
     }
 
@@ -148,7 +148,7 @@ public static class AccountManager
     /// </summary>
     public static async Task<Profile> GetMemberProfileAsync(this Member member)
     {
-        return await GetMemberProfileAsync(member.Id, member.Group.Id);
+        return await GetMemberProfileAsync(member.Id, member.GroupId);
     }
     #endregion
 }

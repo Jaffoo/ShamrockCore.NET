@@ -1,6 +1,6 @@
-﻿using Mirai.Net.Data.Messages.Receivers;
+﻿using Shamrock.Net.Data.Messages.Receivers;
 
-namespace Mirai.Net.Data.Events.Concretes.Message;
+namespace Shamrock.Net.Data.Events.Concretes.Message;
 
 /// <summary>
 /// Bot被人at

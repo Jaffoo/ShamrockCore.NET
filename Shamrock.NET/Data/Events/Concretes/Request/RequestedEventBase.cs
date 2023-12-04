@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Mirai.Net.Data.Events.Concretes.Request;
+namespace Shamrock.Net.Data.Events.Concretes.Request;
 
 /// <summary>
 /// 请求事件基类

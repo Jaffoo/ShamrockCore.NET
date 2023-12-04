@@ -1,7 +1,7 @@
-﻿using Mirai.Net.Bot.Managers;
+﻿using Shamrock.Net.Bot.Managers;
 using Newtonsoft.Json;
 
-namespace Mirai.Net.Data.Shared;
+namespace Shamrock.Net.Data.Shared;
 
 /// <summary>
 /// 好友
@@ -17,12 +17,18 @@ public record Friend
     ///     好友的QQ号
     /// </summary>
     [JsonProperty("user_id")]
-    public string Id { get; set; }
+    public long Id { get; set; }
+
+    /// <summary>
+    ///     好友的备注
+    /// </summary>
+    [JsonProperty("user_remark")]
+    public string RemarkName { get; set; }
 
     /// <summary>
     ///     好友的昵称
     /// </summary>
-    [JsonProperty("nickname")]
+    [JsonProperty("user_displayname")]
     public string NickName { get; set; }
 
     /// <summary>
@@ -34,12 +40,24 @@ public record Friend
     /// <summary>
     ///     好友的性别
     /// </summary>
-    [JsonProperty("sex")]
-    public string Sex { get; set; }
+    [JsonProperty("gender")]
+    public int Gender { get; set; }
 
     /// <summary>
-    ///     扩展字段
+    ///     分组 ID
     /// </summary>
-    [JsonProperty("ext")]
-    public object Ext { get; set; }
+    [JsonProperty("group_id")]
+    public long GroupId { get; set; }
+
+    /// <summary>
+    ///     平台
+    /// </summary>
+    [JsonProperty("platform")]
+    public object Platform { get; set; }
+
+    /// <summary>
+    ///     终端类型
+    /// </summary>
+    [JsonProperty("term_type")]
+    public string TermType { get; set; }
 }

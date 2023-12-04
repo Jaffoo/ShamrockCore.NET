@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Mirai.Net.Data.Events.Concretes.OtherClient;
+namespace Shamrock.Net.Data.Events.Concretes.OtherClient;
 
 /// <summary>
 /// 其它客户端上线

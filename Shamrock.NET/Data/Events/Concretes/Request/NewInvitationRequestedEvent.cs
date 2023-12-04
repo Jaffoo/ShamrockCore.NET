@@ -1,4 +1,4 @@
-﻿namespace Mirai.Net.Data.Events.Concretes.Request;
+﻿namespace Shamrock.Net.Data.Events.Concretes.Request;
 
 /// <summary>
 /// 新的邀请（邀请bot加入某群）

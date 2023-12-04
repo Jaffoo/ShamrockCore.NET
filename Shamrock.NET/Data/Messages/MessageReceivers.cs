@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.Serialization;
 
-namespace Mirai.Net.Data.Messages;
+namespace Shamrock.Net.Data.Messages;
 
 /// <summary>
 /// 消息接收器的类型

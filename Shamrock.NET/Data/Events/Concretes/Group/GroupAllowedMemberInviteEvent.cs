@@ -1,4 +1,4 @@
-﻿namespace Mirai.Net.Data.Events.Concretes.Group;
+﻿namespace Shamrock.Net.Data.Events.Concretes.Group;
 
 /// <summary>
 /// 群内是否允许群员邀请新成员的状态发生改变

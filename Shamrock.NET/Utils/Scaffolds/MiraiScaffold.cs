@@ -1,21 +1,21 @@
 ﻿using Manganese.Text;
-using Mirai.Net.Bot.Managers;
-using Mirai.Net.Data.Events.Concretes.Request;
-using Mirai.Net.Data.Messages;
-using Mirai.Net.Data.Messages.Concretes;
-using Mirai.Net.Data.Messages.Receivers;
-using Mirai.Net.Data.Sessions;
-using Mirai.Net.Data.Shared;
-using Mirai.Net.Modules;
-using Mirai.Net.Sessions;
-using Mirai.Net.Utils.Internal;
+using Shamrock.Net.Bot.Managers;
+using Shamrock.Net.Data.Events.Concretes.Request;
+using Shamrock.Net.Data.Messages;
+using Shamrock.Net.Data.Messages.Concretes;
+using Shamrock.Net.Data.Messages.Receivers;
+using Shamrock.Net.Data.Sessions;
+using Shamrock.Net.Data.Shared;
+using Shamrock.Net.Modules;
+using Shamrock.Net.Sessions;
+using Shamrock.Net.Utils.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 
-namespace Mirai.Net.Utils.Scaffolds;
+namespace Shamrock.Net.Utils.Scaffolds;
 
 /// <summary>
 /// mirai相关拓展方法

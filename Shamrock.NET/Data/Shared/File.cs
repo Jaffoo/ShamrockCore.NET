@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 
-namespace Mirai.Net.Data.Shared;
+namespace Shamrock.Net.Data.Shared;
 
 /// <summary>
 /// 文件
@@ -11,108 +10,111 @@ public record File
     /// <summary>
     /// 文件名
     /// </summary>
-    [JsonProperty("name")] public string Name { get; set; }
+    [JsonProperty("file_name")] public string Name { get; set; }
 
     /// <summary>
     /// 文件标识id
     /// </summary>
-    [JsonProperty("id")] public string Id { get; set; }
+    [JsonProperty("file_id")] public long Id { get; set; }
 
     /// <summary>
-    /// 文件路径
+    /// 群号
     /// </summary>
-    [JsonProperty("path")] public string Path { get; set; }
+    [JsonProperty("group_id")] public long GroupId { get; set; }
 
     /// <summary>
-    /// 父目录
+    /// 文件类型
     /// </summary>
-    [JsonProperty("parent")] public File Parent { get; set; }
+    [JsonProperty("busid")] public int Busid { get; set; }
 
     /// <summary>
-    /// 是不是文件
+    /// 文件大小
     /// </summary>
-    [JsonProperty("isFile")] public bool IsFile { get; set; }
+    [JsonProperty("file_size")] public long Size { get; set; }
 
     /// <summary>
-    /// 是不是母鹿
+    /// 上传时间
     /// </summary>
-    [JsonProperty("isDirectory")] public bool IsDirectory { get; set; }
+    [JsonProperty("upload_time")] public long UploadTime { get; set; }
 
     /// <summary>
-    /// 上传者
+    /// 过期时间，永久文件恒为0
     /// </summary>
-    [JsonProperty("contact")] public FileUploader Contact { get; set; }
+    [JsonProperty("dead_time")] public long DeadTime { get; set; }
 
     /// <summary>
-    /// 下载信息
+    /// 最后修改时间
     /// </summary>
-    [JsonProperty("downloadInfo")] public FileDownloadInfo DownloadInfo { get; set; }
+    [JsonProperty("modify_time")] public long ModifyTime { get; set; }
 
     /// <summary>
-    /// 文件上传者
+    /// 下载次数
     /// </summary>
-    public record FileUploader
-    {
-        /// <summary>
-        /// 上传者qq
-        /// </summary>
-        [JsonProperty("id")] public string Id { get; set; }
-
-        /// <summary>
-        /// 上传者昵称
-        /// </summary>
-        [JsonProperty("name")] public string Name { get; set; }
-
-        /// <summary>
-        /// 上传者在群内的权限
-        /// </summary>
-        [JsonProperty("permission")]
-        [JsonConverter(typeof(StringEnumConverter))]
-        public Permissions Permission { get; set; }
-    }
+    [JsonProperty("download_times")] public long DownloadCount { get; set; }
 
     /// <summary>
-    /// 文件下载信息
+    /// 上传者ID
     /// </summary>
-    public record FileDownloadInfo
-    {
-        /// <summary>
-        /// sha1
-        /// </summary>
-        [JsonProperty("sha1")] public string Sha1 { get; set; }
+    [JsonProperty("uploader")] public long UploaderID { get; set; }
 
-        /// <summary>
-        /// md5
-        /// </summary>
-        [JsonProperty("md5")] public string Md5 { get; set; }
+    /// <summary>
+    /// 上传者名称
+    /// </summary>
+    [JsonProperty("uploader_name")] public long Uploader { get; set; }
 
-        /// <summary>
-        /// 下载链接
-        /// </summary>
-        [JsonProperty("url")] public string Url { get; set; }
+    /// <summary>
+    /// md5
+    /// </summary>
+    [JsonProperty("md5")] public string MD5 { get; set; }
 
-        /// <summary>
-        /// 下载次数
-        /// </summary>
-        [JsonProperty("downloadTimes")]
-        public string DownloadTimes { get; set; }
+    /// <summary>
+    /// sha
+    /// </summary>
+    [JsonProperty("sha")] public string Sha { get; set; }
 
-        /// <summary>
-        /// 上传者id
-        /// </summary>
-        [JsonProperty("uploaderId")]
-        public string UploaderId { get; set; }
+    /// <summary>
+    /// sha3可能获取不到
+    /// </summary>
+    [JsonProperty("sha3")] public string Sha3 { get; set; }
+}
 
-        /// <summary>
-        /// 上传时间戳
-        /// </summary>
-        [JsonProperty("uploadTime")]
-        public string UploadTime { get; set; }
+/// <summary>
+/// 文件夹
+/// </summary>
+public record Floder
+{
+    /// <summary>
+    /// 群号
+    /// </summary>
+    [JsonProperty("group_id")] public long GroupId { get; set; }
 
-        /// <summary>
-        /// 最后修改时间
-        /// </summary>
-        [JsonProperty("lastModifyTime")]
-        public string LastModifyTime { get; set; }
-    }
+    /// <summary>
+    /// 文件夹ID
+    /// </summary>
+    [JsonProperty("folder_id")] public string FolderId { get; set; }
+
+    /// <summary>
+    /// 文件夹
+    /// </summary>
+    [JsonProperty("folder_name")] public string Folder { get; set; }
+
+    /// <summary>
+    /// 创建时间
+    /// </summary>
+    [JsonProperty("create_time")] public long CreateTime { get; set; }
+
+    /// <summary>
+    /// 创建者ID
+    /// </summary>
+    [JsonProperty("creator")] public string CreatorId { get; set; }
+
+    /// <summary>
+    /// 创建者
+    /// </summary>
+    [JsonProperty("creator_name")] public string Creator { get; set; }
+
+    /// <summary>
+    /// 子文件数量
+    /// </summary>
+    [JsonProperty("total_file_count")] public int FileCount { get; set; }
 }

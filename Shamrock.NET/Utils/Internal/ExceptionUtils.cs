@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Mirai.Net.Utils.Internal;
+namespace Shamrock.Net.Utils.Internal;
 
 internal static class ExceptionUtils
 {

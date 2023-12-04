@@ -1,4 +1,4 @@
-﻿namespace Mirai.Net.Data.Messages.Concretes;
+﻿namespace Shamrock.Net.Data.Messages.Concretes;
 
 /// <summary>
 /// @全体成员

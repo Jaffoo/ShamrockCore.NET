@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mirai.Net", "Shamrock.NET\Mirai.Net.csproj", "{2F437527-3353-42E2-9F5B-3F919D9947A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shamrock.Net", "Shamrock.NET\Shamrock.Net.csproj", "{2F437527-3353-42E2-9F5B-3F919D9947A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
