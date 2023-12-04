@@ -20,12 +20,12 @@ internal enum HttpEndpoints
     /// <summary>
     /// 获取在线机型
     /// </summary>
-    [Description("_get_model_show")] GetModelShow,
+    [Description("get_model_show")] GetModelShow,
 
     /// <summary>
     /// 设置在线机型
     /// </summary>
-    [Description("_set_model_show")] SetModelShow,
+    [Description("set_model_show")] SetModelShow,
 
     /// <summary>
     /// 获取当前账号在线客户端列表（未实现）
@@ -240,12 +240,12 @@ internal enum HttpEndpoints
     /// <summary>
     /// 发送群公告
     /// </summary>
-    [Description("_send_group_notice")] SendGroupNotice,
+    [Description("send_group_notice")] SendGroupNotice,
 
     /// <summary>
     /// 获取群公告
     /// </summary>
-    [Description("_get_group_notice")] GetGroupNotice,
+    [Description("get_group_notice")] GetGroupNotice,
 
     /// <summary>
     /// 群组踢人

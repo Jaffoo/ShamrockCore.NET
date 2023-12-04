@@ -1,31 +1,32 @@
 ﻿using System.ComponentModel;
 using System.Runtime.Serialization;
 
-namespace Shamrock.Net.Data.Shared;
-
-/// <summary>
-/// 发送者的性别
-/// </summary>
-public enum Genders
+namespace Shamrock.Net.Data.Shared
 {
     /// <summary>
-    /// 男性
+    /// 发送者的性别
     /// </summary>
-    [EnumMember(Value = "MALE")]
-    [Description("MALE")]
-    Male,
+    public enum Genders
+    {
+        /// <summary>
+        /// 男性
+        /// </summary>
+        [EnumMember(Value = "MALE")]
+        [Description("MALE")]
+        Male,
 
-    /// <summary>
-    /// 女性
-    /// </summary>
-    [EnumMember(Value = "FEMALE")]
-    [Description("FEMALE")]
-    Female,
+        /// <summary>
+        /// 女性
+        /// </summary>
+        [EnumMember(Value = "FEMALE")]
+        [Description("FEMALE")]
+        Female,
 
-    /// <summary>
-    /// 未知
-    /// </summary>
-    [EnumMember(Value = "UNKNOWN")]
-    [Description("UNKNOWN")]
-    Unknown
+        /// <summary>
+        /// 未知
+        /// </summary>
+        [EnumMember(Value = "UNKNOWN")]
+        [Description("UNKNOWN")]
+        Unknown
+    }
 }

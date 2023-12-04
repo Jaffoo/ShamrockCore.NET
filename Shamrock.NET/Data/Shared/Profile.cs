@@ -1,43 +1,52 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 
-namespace Shamrock.Net.Data.Shared;
-
-/// <summary>
-/// 资料卡
-/// </summary>
-public record Profile
+namespace Shamrock.Net.Data.Shared
 {
     /// <summary>
-    /// 昵称
+    /// QQ 个人资料
     /// </summary>
-    [JsonProperty("nickname")] public string NickName { get; set; }
+    public record QQProfile
+    {
+        /// <summary>
+        /// 昵称
+        /// </summary>
+        [JsonProperty("nickname")]
+        public string Name { get; set; }
 
-    /// <summary>
-    /// 邮箱
-    /// </summary>
-    [JsonProperty("email")] public string Email { get; set; }
+        /// <summary>
+        /// 公司
+        /// </summary>
+        [JsonProperty("company")]
+        public string Company { get; set; }
 
-    /// <summary>
-    /// 年龄
-    /// </summary>
-    [JsonProperty("age")] public string Age { get; set; }
+        /// <summary>
+        /// 邮箱
+        /// </summary>
+        [JsonProperty("email")]
+        public string Email { get; set; }
 
-    /// <summary>
-    /// 等级
-    /// </summary>
-    [JsonProperty("level")] public string Level { get; set; }
+        /// <summary>
+        /// 大学
+        /// </summary>
+        [JsonProperty("college")]
+        public string College { get; set; }
 
-    /// <summary>
-    ///     签名
-    /// </summary>
-    [JsonProperty("sign")]
-    public string Signature { get; set; }
+        /// <summary>
+        /// 个人备注
+        /// </summary>
+        [JsonProperty("personal_note")]
+        public string Note { get; set; }
 
-    /// <summary>
-    /// 性别
-    /// </summary>
-    [JsonProperty("sex")]
-    [JsonConverter(typeof(StringEnumConverter))]
-    public Genders Gender { get; set; }
+        /// <summary>
+        /// 年龄
+        /// </summary>
+        [JsonProperty("age")]
+        public int Age { get; set; }
+
+        /// <summary>
+        /// 生日
+        /// </summary>
+        [JsonProperty("birthday")]
+        public string Birthday { get; set; }
+    }
 }

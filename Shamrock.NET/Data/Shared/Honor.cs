@@ -1,0 +1,102 @@
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
+
+namespace Shamrock.Net.Data.Shared
+{
+    /// <summary>
+    /// 群荣誉信息
+    /// </summary>
+    public record Honor
+    {
+        /// <summary>
+        /// 群号
+        /// </summary>
+        [JsonProperty("group_id")]
+        public long GroupId { get; set; }
+
+        /// <summary>
+        /// 当前龙王
+        /// </summary>
+        [JsonProperty("current_talkative")]
+        public List<HonorInfo> CurrentTalkative { get; set; }
+
+        /// <summary>
+        /// 历史龙王
+        /// </summary>
+        [JsonProperty("talkative_list")]
+        public List<HonorInfo> TalkativeList { get; set; }
+
+        /// <summary>
+        /// 群聊之火
+        /// </summary>
+        [JsonProperty("performer_list")]
+        public List<HonorInfo> PerformerList { get; set; }
+
+        /// <summary>
+        /// 群聊炽焰
+        /// </summary>
+        [JsonProperty("legend_list")]
+        public List<HonorInfo> LegendList { get; set; }
+
+        /// <summary>
+        /// 冒尖小春笋
+        /// </summary>
+        [JsonProperty("strong_newbie_list")]
+        public List<HonorInfo> StrongNewbieList { get; set; }
+
+        /// <summary>
+        /// 快乐之源
+        /// </summary>
+        [JsonProperty("emotion_list")]
+        public List<HonorInfo> EmotionList { get; set; }
+
+        /// <summary>
+        /// 全部荣誉
+        /// </summary>
+        [JsonProperty("all")]
+        public List<HonorInfo> All { get; set; }
+
+    }
+
+    /// <summary>
+    /// 详情
+    /// </summary>
+    public record HonorInfo
+    {
+        /// <summary>
+        /// QQ
+        /// </summary>
+        [JsonProperty("user_id")]
+        public long Id { get; set; }
+
+        /// <summary>
+        /// 昵称
+        /// </summary>
+        [JsonProperty("nickname")]
+        public string Nickname { get; set; }
+
+        /// <summary>
+        /// 头像链接
+        /// </summary>
+        [JsonProperty("avatar")]
+        public string Avatar { get; set; }
+
+        /// <summary>
+        /// 持续天数
+        /// </summary>
+        [JsonProperty("day_count")]
+        public int DayCount { get; set; }
+
+        /// <summary>
+        /// ID
+        /// </summary>
+        [JsonProperty("id")]
+        public string HonorId { get; set; }
+
+        /// <summary>
+        /// 描述
+        /// </summary>
+        [JsonProperty("description")]
+        public string Description { get; set; }
+    }
+}
