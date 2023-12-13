@@ -116,6 +116,12 @@ namespace ShamrockCore
                 //添加好友请求
                 if (data.Fetch(postType + "_type") == "friend_add")
                     _messageReceivedSubject.OnNext(data.ToObject<FriendAddEvent>());
+                //群成员增加事件
+                if (data.Fetch(postType + "_type") == "group_increase")
+                    _messageReceivedSubject.OnNext(data.ToObject<GroupIncreaseEvent>());
+                //群成员减少事件
+                if (data.Fetch(postType + "_type") == "group_increase")
+                    _messageReceivedSubject.OnNext(data.ToObject<GroupDecreaseEvent>());
             }
             else
                 _unknownMessageReceived.OnNext(data);

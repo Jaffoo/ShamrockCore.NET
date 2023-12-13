@@ -32,6 +32,14 @@ namespace ShamrockCore.Test
             {
                 Console.WriteLine("好友请求事件：" + msg.ToJsonString());
             });
+            bot.MessageReceived.OfType<GroupIncreaseEvent>().Subscribe(msg =>
+            {
+                Console.WriteLine("群成员增加事件：" + msg.ToJsonString());
+            });
+            bot.MessageReceived.OfType<GroupDecreaseEvent>().Subscribe(msg =>
+            {
+                Console.WriteLine("群成员减少事件：" + msg.ToJsonString());
+            });
             bot.UnknownMessageReceived.Subscribe(msg =>
             {
                 Console.WriteLine("未知消息：" + msg);
