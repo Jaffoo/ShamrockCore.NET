@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using Manganese.Text;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace ShamrockCore.Utils
 {
@@ -17,6 +19,25 @@ namespace ShamrockCore.Utils
             try
             {
                 if (string.IsNullOrWhiteSpace(str)) throw new ArgumentNullException(nameof(str));
+                var obj = JObject.Parse(str);
+                var arr = obj["message"] ?? null;
+                if (arr != null && arr.Any())
+                {
+                    foreach (JObject item in arr.Cast<JObject>())
+                    {
+                        var type = item["type"]?.ToString() ?? "";
+                        if (type == "json")
+                        {
+                            var dataStr = item["data"]?["data"]?.ToString();
+                            if (!string.IsNullOrWhiteSpace(dataStr))
+                            {
+                                item["data"]!["data"] = JObject.Parse(dataStr.Replace("\"{", "{").Replace("}\"", "}").Replace("\\", ""));
+                            }
+                        }
+                    }
+                    obj["message"] = arr;
+                    str = obj.ToString();
+                }
                 var res = JsonConvert.DeserializeObject<T>(str);
                 return res == null ? throw new Exception("反序列化失败！") : res;
             }
