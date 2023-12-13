@@ -30,7 +30,7 @@ namespace ShamrockCore.Test
             });
             bot.MessageReceived.OfType<FriendAddEvent>().Subscribe(msg =>
             {
-                Console.WriteLine("好友请求：" + msg.ToJsonString());
+                Console.WriteLine("好友请求事件：" + msg.ToJsonString());
             });
             bot.UnknownMessageReceived.Subscribe(msg =>
             {
