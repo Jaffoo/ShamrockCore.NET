@@ -28,15 +28,15 @@ namespace ShamrockCore.Test
             {
                 Console.WriteLine("好友消息：" + msg.ToJsonString());
             });
-            bot.MessageReceived.OfType<FriendAddEvent>().Subscribe(msg =>
+            bot.EventReceived.OfType<FriendAddEvent>().Subscribe(msg =>
             {
                 Console.WriteLine("好友请求事件：" + msg.ToJsonString());
             });
-            bot.MessageReceived.OfType<GroupIncreaseEvent>().Subscribe(msg =>
+            bot.EventReceived.OfType<GroupIncreaseEvent>().Subscribe(msg =>
             {
                 Console.WriteLine("群成员增加事件：" + msg.ToJsonString());
             });
-            bot.MessageReceived.OfType<GroupDecreaseEvent>().Subscribe(msg =>
+            bot.EventReceived.OfType<GroupDecreaseEvent>().Subscribe(msg =>
             {
                 Console.WriteLine("群成员减少事件：" + msg.ToJsonString());
             });

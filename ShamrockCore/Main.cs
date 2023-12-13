@@ -94,7 +94,7 @@ namespace ShamrockCore
                 throw new InvalidDataException("Websocket数据响应错误！");
             else if (postType == "meta_event")
             {
-                var isHeart = data.Fetch(postType+"_type");
+                var isHeart = data.Fetch(postType + "_type");
                 if (!string.IsNullOrWhiteSpace(isHeart) && isHeart == "heartbeat")
                     return;
             }
@@ -114,23 +114,24 @@ namespace ShamrockCore
             {
                 //添加好友请求
                 if (data.Fetch(postType + "_type") == "friend_add")
-                    _messageReceivedSubject.OnNext(data.ToObject<FriendAddEvent>());
+                    _eventReceivedSubject.OnNext(data.ToObject<FriendAddEvent>());
                 //群成员增加事件
                 if (data.Fetch(postType + "_type") == "group_increase")
-                    _messageReceivedSubject.OnNext(data.ToObject<GroupIncreaseEvent>());
+                    _eventReceivedSubject.OnNext(data.ToObject<GroupIncreaseEvent>());
                 //群成员减少事件
-                if (data.Fetch(postType + "_type") == "group_increase")
-                    _messageReceivedSubject.OnNext(data.ToObject<GroupDecreaseEvent>());
+                if (data.Fetch(postType + "_type") == "group_decrease")
+                    _eventReceivedSubject.OnNext(data.ToObject<GroupDecreaseEvent>());
             }
             else
                 _unknownMessageReceived.OnNext(data);
+            Console.WriteLine("原始数据：" + data);
         }
 
         /// <summary>
         /// 接收到事件
         /// </summary>
-        public IObservable<MessageReceiverBase> EventReceived { get; }
-        private readonly Subject<MessageReceiverBase> _eventReceivedSubject = new();
+        public IObservable<EventBase> EventReceived { get; }
+        private readonly Subject<EventBase> _eventReceivedSubject = new();
 
         /// <summary>
         /// 收到消息
@@ -167,10 +168,10 @@ namespace ShamrockCore
     /// <summary>
     /// 连接类
     /// </summary>
-    /// <param name="host">主机地址</param>
-    /// <param name="wsPort">websocket端口</param>
-    /// <param name="httpPort">http端口</param>
-    /// <param name="token">token</param>
+    /// <param name="Host">主机地址</param>
+    /// <param name="WsPort">websocket端口</param>
+    /// <param name="HttpPort">http端口</param>
+    /// <param name="Token">token</param>
     public record ConnectConfig(string Host, int WsPort, int HttpPort, string? Token = null)
     {
         /// <summary>

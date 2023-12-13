@@ -41,7 +41,7 @@ namespace ShamrockCore.Data.Model
         /// 公告图片
         /// </summary>
         [JsonProperty("images")]
-        public List<AnnouncementImg> Images { get; set; }=[];
+        public List<AnnouncementImg> Images { get; set; }=new();
     }
 
     /// <summary>

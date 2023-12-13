@@ -12,13 +12,13 @@ namespace ShamrockCore.Data.Model
         /// 邀请消息列表
         /// </summary>
         [JsonProperty("invited_requests")]
-        public List<InvitedRequest> InvitedRequest { get; set; } = [];
+        public List<InvitedRequest> InvitedRequest { get; set; } = new();
 
         /// <summary>
         /// 进群消息列表
         /// </summary>
         [JsonProperty("join_requests")]
-        public List<JoinRequest> JoinRequest { get; set; } = [];
+        public List<JoinRequest> JoinRequest { get; set; } = new();
     }
 
     /// <summary>

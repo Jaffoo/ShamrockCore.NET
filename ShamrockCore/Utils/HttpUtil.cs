@@ -26,7 +26,7 @@ namespace ShamrockCore.Utils
             {
                 var result = withToken
                     ? await url
-                        .WithHeader("Authorization", $"Bearer {Bot.Instance!.GetConfig().Token}")
+                        .WithHeader("Authorization", $"Bearer {Bot.Instance!.Config.Token}")
                         .GetAsync()
                     : await url.GetAsync();
 

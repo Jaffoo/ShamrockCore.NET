@@ -72,6 +72,6 @@ namespace ShamrockCore.Data.Model
         /// 管理员列表
         /// </summary>
         [JsonProperty("admins")]
-        public List<long> Admins { get; set; } = [];
+        public List<long> Admins { get; set; } = new();
     }
 }

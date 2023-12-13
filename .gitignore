@@ -4,8 +4,7 @@
 
 /.vs/ShamrockCore/v17
 /.vs
-/ShamrockCore/bin/Debug/net8.0
-/ShamrockCore/obj
-/ShamrockCore.Test/bin/Debug/net8.0
-/ShamrockCore.Test/obj
-/ShamrockCore.Test/obj/Debug/net8.0/ref/ShamrockCore.Test.dll
+/ShamrockCore/bin/**
+/ShamrockCore/obj/**
+/ShamrockCore.Test/bin/**
+/ShamrockCore.Test/obj/**

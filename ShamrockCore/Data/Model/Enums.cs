@@ -34,6 +34,7 @@ namespace ShamrockCore.Data.Model
     {
         Text,
         Face,
-        Image
+        Image,
+        Json
     }
 }
