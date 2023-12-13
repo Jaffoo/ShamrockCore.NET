@@ -2,7 +2,10 @@
 # 此 .gitignore 文件已由 Microsoft(R) Visual Studio 自动创建。
 ################################################################################
 
-/Shamrock.NET/obj
-/.vs/Shamrock.NET/v17/.suo
-/.vs/Shamrock.Net/v17/.wsuo
-/.vs/Shamrock.Net/FileContentIndex
+/.vs/ShamrockCore/v17
+/.vs
+/ShamrockCore/bin/Debug/net8.0
+/ShamrockCore/obj
+/ShamrockCore.Test/bin/Debug/net8.0
+/ShamrockCore.Test/obj
+/ShamrockCore.Test/obj/Debug/net8.0/ref/ShamrockCore.Test.dll
