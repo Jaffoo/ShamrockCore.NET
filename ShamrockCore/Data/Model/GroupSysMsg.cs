@@ -12,13 +12,13 @@ namespace ShamrockCore.Data.Model
         /// 邀请消息列表
         /// </summary>
         [JsonProperty("invited_requests")]
-        public List<InvitedRequest> InvitedRequest { get; set; }
+        public List<InvitedRequest> InvitedRequest { get; set; } = [];
 
         /// <summary>
         /// 进群消息列表
         /// </summary>
         [JsonProperty("join_requests")]
-        public List<JoinRequest> JoinRequest { get; set; }
+        public List<JoinRequest> JoinRequest { get; set; } = [];
     }
 
     /// <summary>
@@ -77,9 +77,7 @@ namespace ShamrockCore.Data.Model
         /// <summary>
         /// flag,用于处理请求
         /// </summary>
-        [JsonProperty("flag")]
-        public string Flag { get; set; }
-
+        public string Flag { get; set; } = "";
     }
 
     /// <summary>
@@ -132,13 +130,11 @@ namespace ShamrockCore.Data.Model
         /// <summary>
         /// flag,用于处理请求
         /// </summary>
-        [JsonProperty("flag")]
-        public string Flag { get; set; }
+        public string Flag { get; set; } = "";
 
         /// <summary>
         /// 验证消息
         /// </summary>
-        [JsonProperty("message")]
-        public string Message { get; set; }
+        public string Message { get; set; } = "";
     }
 }

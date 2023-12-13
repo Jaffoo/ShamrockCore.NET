@@ -16,7 +16,6 @@ namespace ShamrockCore.Data.Model
         /// <summary>
         /// 昵称
         /// </summary>
-        [JsonProperty("nickname")]
-        public string Name { get; set; }
+        public string Nickname { get; set; } = "";
     }
 }

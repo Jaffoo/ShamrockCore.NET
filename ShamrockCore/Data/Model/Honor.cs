@@ -18,43 +18,43 @@ namespace ShamrockCore.Data.Model
         /// 当前龙王
         /// </summary>
         [JsonProperty("current_talkative")]
-        public List<HonorInfo> CurrentTalkative { get; set; }
+        public List<HonorInfo> CurrentTalkative { get; set; } = [];
 
         /// <summary>
         /// 历史龙王
         /// </summary>
         [JsonProperty("talkative_list")]
-        public List<HonorInfo> TalkativeList { get; set; }
+        public List<HonorInfo> TalkativeList { get; set; } = [];
 
         /// <summary>
         /// 群聊之火
         /// </summary>
         [JsonProperty("performer_list")]
-        public List<HonorInfo> PerformerList { get; set; }
+        public List<HonorInfo> PerformerList { get; set; } = [];
 
         /// <summary>
         /// 群聊炽焰
         /// </summary>
         [JsonProperty("legend_list")]
-        public List<HonorInfo> LegendList { get; set; }
+        public List<HonorInfo> LegendList { get; set; } = [];
 
         /// <summary>
         /// 冒尖小春笋
         /// </summary>
         [JsonProperty("strong_newbie_list")]
-        public List<HonorInfo> StrongNewbieList { get; set; }
+        public List<HonorInfo> StrongNewbieList { get; set; } = [];
 
         /// <summary>
         /// 快乐之源
         /// </summary>
         [JsonProperty("emotion_list")]
-        public List<HonorInfo> EmotionList { get; set; }
+        public List<HonorInfo> EmotionList { get; set; } = [];
 
         /// <summary>
         /// 全部荣誉
         /// </summary>
         [JsonProperty("all")]
-        public List<HonorInfo> All { get; set; }
+        public List<HonorInfo> All { get; set; } = [];
 
     }
 
@@ -72,14 +72,12 @@ namespace ShamrockCore.Data.Model
         /// <summary>
         /// 昵称
         /// </summary>
-        [JsonProperty("nickname")]
-        public string Nickname { get; set; }
+        public string Nickname { get; set; } = "";
 
         /// <summary>
         /// 头像链接
         /// </summary>
-        [JsonProperty("avatar")]
-        public string Avatar { get; set; }
+        public string Avatar { get; set; } = "";
 
         /// <summary>
         /// 持续天数
@@ -91,12 +89,11 @@ namespace ShamrockCore.Data.Model
         /// ID
         /// </summary>
         [JsonProperty("id")]
-        public string HonorId { get; set; }
+        public string HonorId { get; set; } = "";
 
         /// <summary>
         /// 描述
         /// </summary>
-        [JsonProperty("description")]
-        public string Description { get; set; }
+        public string Description { get; set; } = "";
     }
 }

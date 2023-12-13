@@ -24,19 +24,19 @@ namespace ShamrockCore.Data.Model
         ///     群名称
         /// </summary>
         [JsonProperty("group_name")]
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
 
         /// <summary>
         ///     群备注
         /// </summary>
         [JsonProperty("group_remark")]
-        public string Remark { get; set; }
+        public string Remark { get; set; } = "";
 
         /// <summary>
         ///     群分类
         /// </summary>
         [JsonProperty("class_text")]
-        public string Text { get; set; }
+        public string Text { get; set; } = "";
 
         /// <summary>
         ///     是否冻结
@@ -72,6 +72,6 @@ namespace ShamrockCore.Data.Model
         /// 管理员列表
         /// </summary>
         [JsonProperty("admins")]
-        public List<long> Admins { get; set; }
+        public List<long> Admins { get; set; } = [];
     }
 }

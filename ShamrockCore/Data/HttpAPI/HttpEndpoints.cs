@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace ShamrockCore.Data.Model
+namespace ShamrockCore.Data.HttpAPI
 {
     /// <summary>
     ///     http请求端点
