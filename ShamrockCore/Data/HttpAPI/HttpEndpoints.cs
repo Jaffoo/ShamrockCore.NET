@@ -5,7 +5,7 @@ namespace ShamrockCore.Data.HttpAPI
     /// <summary>
     ///     http请求端点
     /// </summary>
-    internal enum HttpEndpoints
+    public enum HttpEndpoints
     {
         /// <summary>
         /// 获取登录号信息
