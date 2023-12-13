@@ -13,27 +13,26 @@ namespace ShamrockCore
     /// <summary>
     /// 机器人对象
     /// </summary>
-    public class Bot : IDisposable
+    public sealed partial class Bot : IDisposable
     {
         public static Bot? Instance { get; set; }
         private WebsocketClient? _client;
-        private bool disposedValue;
-        private readonly ConnectConfig _connectConfig;
 
         public Bot(ConnectConfig config)
         {
             Instance?.Dispose();
-            _connectConfig = config;
+            Config = config;
+            EventReceived = _eventReceivedSubject.AsObservable();
+            MessageReceived = _messageReceivedSubject.AsObservable();
+            UnknownMessageReceived = _unknownMessageReceived.AsObservable();
+            DisconnectionHappened = _disconnectionHappened.AsObservable();
         }
 
         /// <summary>
         /// 获取配置信息
         /// </summary>
         /// <returns></returns>
-        public ConnectConfig GetConfig()
-        {
-            return _connectConfig;
-        }
+        public ConnectConfig Config { get; }
 
         /// <summary>
         /// 启动机器人
@@ -49,18 +48,18 @@ namespace ShamrockCore
         /// 启动websocket
         /// </summary>
         /// <returns></returns>
-        /// <exception cref="InvalidWebsocketReponseException"></exception>
+        /// <exception cref="InvalidDataException"></exception>
         private async Task StartWebsocket()
         {
             var clientFactory = new Func<Uri, CancellationToken, Task<WebSocket>>(async (uri, cancellationToken) =>
             {
                 var client = new ClientWebSocket();
-                if (!string.IsNullOrWhiteSpace(_connectConfig.Token))
-                    client.Options.SetRequestHeader("authorization", "Bearer " + _connectConfig.Token);
+                if (!string.IsNullOrWhiteSpace(Config.Token))
+                    client.Options.SetRequestHeader("authorization", "Bearer " + Config.Token);
                 await client.ConnectAsync(uri, cancellationToken).ConfigureAwait(false);
                 return client;
             });
-            var url = new Uri($"ws://{_connectConfig.Host}:{_connectConfig.WsPort}");
+            var url = new Uri($"ws://{Config.Host}:{Config.WsPort}");
             _client = new WebsocketClient(url, null, clientFactory)
             {
                 IsReconnectionEnabled = false,
@@ -78,7 +77,7 @@ namespace ShamrockCore
                 {
                     var data = message?.Text;
                     if (string.IsNullOrWhiteSpace(data))
-                        throw new Exception("Websocket数据响应错误！");
+                        throw new InvalidDataException("Websocket数据响应错误！");
                     ProcessWebSocketData(data);
                 });
         }
@@ -87,12 +86,12 @@ namespace ShamrockCore
         /// 消息处理
         /// </summary>
         /// <param name="data"></param>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="InvalidDataException"></exception>
         private void ProcessWebSocketData(string data)
         {
             var postType = data.Fetch("post_type");
             if (string.IsNullOrWhiteSpace(postType))
-                throw new Exception("Websocket数据响应错误！");
+                throw new InvalidDataException("Websocket数据响应错误！");
             else if (postType == "meta_event")
             {
                 var isHeart = data.Fetch(postType+"_type");
@@ -130,84 +129,68 @@ namespace ShamrockCore
         /// <summary>
         /// 接收到事件
         /// </summary>
-        public IObservable<MessageReceiverBase> EventReceived => _eventReceivedSubject.AsObservable();
+        public IObservable<MessageReceiverBase> EventReceived { get; }
         private readonly Subject<MessageReceiverBase> _eventReceivedSubject = new();
 
         /// <summary>
         /// 收到消息
         /// </summary>
-        public IObservable<MessageReceiverBase> MessageReceived => _messageReceivedSubject.AsObservable();
+        public IObservable<MessageReceiverBase> MessageReceived { get; }
         private readonly Subject<MessageReceiverBase> _messageReceivedSubject = new();
 
         /// <summary>
         /// 接收到未知类型的Websocket消息
         /// </summary>
-        public IObservable<string> UnknownMessageReceived => _unknownMessageReceived.AsObservable();
+        public IObservable<string> UnknownMessageReceived { get; }
         private readonly Subject<string> _unknownMessageReceived = new();
 
         /// <summary>
         /// Websocket断开连接
         /// </summary>
-        public IObservable<WebSocketCloseStatus> DisconnectionHappened => _disconnectionHappened.AsObservable();
+        public IObservable<WebSocketCloseStatus> DisconnectionHappened { get; }
         private readonly Subject<WebSocketCloseStatus> _disconnectionHappened = new();
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposedValue)
-            {
-                if (disposing)
-                {
-                    // TODO: 释放托管状态(托管对象)
-                }
-
-                // TODO: 释放未托管的资源(未托管的对象)并重写终结器
-                // TODO: 将大型字段设置为 null
-                disposedValue = true;
-            }
-        }
-
-        // // TODO: 仅当“Dispose(bool disposing)”拥有用于释放未托管资源的代码时才替代终结器
-        // ~Bot()
-        // {
-        //     // 不要更改此代码。请将清理代码放入“Dispose(bool disposing)”方法中
-        //     Dispose(disposing: false);
-        // }
 
         public void Dispose()
         {
-            // 不要更改此代码。请将清理代码放入“Dispose(bool disposing)”方法中
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
+            OnDispose();
+            _client?.Stop(WebSocketCloseStatus.NormalClosure, "ClientClosed");
+            _client?.Dispose();
+            _eventReceivedSubject.Dispose();
+            _messageReceivedSubject.Dispose();
+            _unknownMessageReceived.Dispose();
+            _disconnectionHappened.Dispose();
         }
+
+        partial void OnDispose();
     }
 
     /// <summary>
-    /// 链接类
+    /// 连接类
     /// </summary>
     /// <param name="host">主机地址</param>
     /// <param name="wsPort">websocket端口</param>
     /// <param name="httpPort">http端口</param>
     /// <param name="token">token</param>
-    public class ConnectConfig(string host, int wsPort, int httpPort, string? token = null)
+    public record ConnectConfig(string Host, int WsPort, int HttpPort, string? Token = null)
     {
         /// <summary>
         /// 主机地址
         /// </summary>
-        public string Host { get; set; } = host;
+        public string Host { get; set; } = Host;
 
         /// <summary>
         /// websocket端口
         /// </summary>
-        public int WsPort { get; set; } = wsPort;
+        public int WsPort { get; set; } = WsPort;
 
         /// <summary>
         /// http端口
         /// </summary>
-        public int HttpPort { get; set; } = httpPort;
+        public int HttpPort { get; set; } = HttpPort;
 
         /// <summary>
         /// token
         /// </summary>
-        public string? Token { get; set; } = token;
+        public string? Token { get; set; } = Token;
     }
 }
