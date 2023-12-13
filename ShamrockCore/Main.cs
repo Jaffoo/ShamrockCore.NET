@@ -77,7 +77,7 @@ namespace ShamrockCore
                 .Subscribe(message =>
                 {
                     var data = message?.Text;
-                    if (data == null || data.IsNullOrEmpty())
+                    if (string.IsNullOrWhiteSpace(data))
                         throw new Exception("Websocket数据响应错误！");
                     ProcessWebSocketData(data);
                 });
