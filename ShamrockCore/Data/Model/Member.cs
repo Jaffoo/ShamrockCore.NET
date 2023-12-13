@@ -128,6 +128,6 @@ namespace ShamrockCore.Data.Model
         ///     群荣誉
         /// </summary>
         [JsonProperty("honor")]
-        public List<int> Honor { get; set; } = new();
+        public List<int>? Honor { get; set; } = null;
     }
 }

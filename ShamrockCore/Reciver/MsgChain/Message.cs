@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using ShamrockCore.Data.Model;
 
 namespace ShamrockCore.Reciver.MsgChain
@@ -14,7 +13,7 @@ namespace ShamrockCore.Reciver.MsgChain
         /// <summary>
         /// 消息体
         /// </summary>
-        public MsgBody Data { get; set; } = new();
+        public MsgBody? Data { get; set; } = null;
     }
 
     public record MsgBody
@@ -27,7 +26,7 @@ namespace ShamrockCore.Reciver.MsgChain
         /// <summary>
         /// Type为json
         /// </summary>
-        public JsonData Data { get; set; } = new();
+        public JsonData? Data { get; set; } = null;
 
         /// <summary>
         /// 文件名
@@ -43,10 +42,10 @@ namespace ShamrockCore.Reciver.MsgChain
     public record JsonData
     {
         public string App { get; set; } = "";
-        public Config Config { get; set; } = new();
+        public Config? Config { get; set; } = null;
         public string Desc { get; set; } = "";
-        public Extra Extra { get; set; } = new();
-        public Meta Meta { get; set; } = new();
+        public Extra? Extra { get; set; } = null;
+        public Meta? Meta { get; set; } = null;
         public string Prompt { get; set; } = "";
         public string Ver { get; set; } = "";
         public string View { get; set; } = "";
@@ -66,7 +65,7 @@ namespace ShamrockCore.Reciver.MsgChain
     }
     public class Meta
     {
-        public Mannounce Mannounce { get; set; } = new();
+        public Mannounce? Mannounce { get; set; } = null;
     }
     public class Mannounce
     {

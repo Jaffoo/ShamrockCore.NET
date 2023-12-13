@@ -23,7 +23,7 @@ namespace ShamrockCore.Data.Model
         /// 公告内容
         /// </summary>
         [JsonProperty("message")]
-        public AnnouncementMsg Message { get; set; } = new();
+        public AnnouncementMsg? Message { get; set; } = null;
     }
 
     /// <summary>
@@ -41,7 +41,7 @@ namespace ShamrockCore.Data.Model
         /// 公告图片
         /// </summary>
         [JsonProperty("images")]
-        public List<AnnouncementImg> Images { get; set; }=new();
+        public List<AnnouncementImg>? Images { get; set; } = null;
     }
 
     /// <summary>

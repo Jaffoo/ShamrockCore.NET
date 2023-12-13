@@ -49,13 +49,13 @@ namespace ShamrockCore.Reciver.Receivers
         /// 发送人信息
         /// </summary>
         [JsonProperty("sender")]
-        public Sender Sender { get; set; } = new();
+        public Sender? Sender { get; set; } = null;
 
         /// <summary>
         /// 消息内容
         /// </summary>
         [JsonProperty("message")]
-        public MessageChain Message { get; set; } = new();
+        public MessageChain? Message { get; set; } = null;
     }
     public class Sender
     {

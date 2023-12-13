@@ -18,43 +18,43 @@ namespace ShamrockCore.Data.Model
         /// 当前龙王
         /// </summary>
         [JsonProperty("current_talkative")]
-        public List<HonorInfo> CurrentTalkative { get; set; } = new();
+        public List<HonorInfo>? CurrentTalkative { get; set; } = null;
 
         /// <summary>
         /// 历史龙王
         /// </summary>
         [JsonProperty("talkative_list")]
-        public List<HonorInfo> TalkativeList { get; set; } = new();
+        public List<HonorInfo>? TalkativeList { get; set; } = null;
 
         /// <summary>
         /// 群聊之火
         /// </summary>
         [JsonProperty("performer_list")]
-        public List<HonorInfo> PerformerList { get; set; } = new();
+        public List<HonorInfo>? PerformerList { get; set; } = null;
 
         /// <summary>
         /// 群聊炽焰
         /// </summary>
         [JsonProperty("legend_list")]
-        public List<HonorInfo> LegendList { get; set; } = new();
+        public List<HonorInfo>? LegendList { get; set; } = null;
 
         /// <summary>
         /// 冒尖小春笋
         /// </summary>
         [JsonProperty("strong_newbie_list")]
-        public List<HonorInfo> StrongNewbieList { get; set; } = new();
+        public List<HonorInfo>? StrongNewbieList { get; set; } = null;
 
         /// <summary>
         /// 快乐之源
         /// </summary>
         [JsonProperty("emotion_list")]
-        public List<HonorInfo> EmotionList { get; set; } = new();
+        public List<HonorInfo>? EmotionList { get; set; } = null;
 
         /// <summary>
         /// 全部荣誉
         /// </summary>
         [JsonProperty("all")]
-        public List<HonorInfo> All { get; set; } = new();
+        public List<HonorInfo>? All { get; set; } = null;
 
     }
 

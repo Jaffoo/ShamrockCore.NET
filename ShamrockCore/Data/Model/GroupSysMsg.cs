@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System.Collections.Generic;
 
 namespace ShamrockCore.Data.Model
 {
@@ -12,13 +11,13 @@ namespace ShamrockCore.Data.Model
         /// 邀请消息列表
         /// </summary>
         [JsonProperty("invited_requests")]
-        public List<InvitedRequest> InvitedRequest { get; set; } = new();
+        public List<InvitedRequest>? InvitedRequest { get; set; } = null;
 
         /// <summary>
         /// 进群消息列表
         /// </summary>
         [JsonProperty("join_requests")]
-        public List<JoinRequest> JoinRequest { get; set; } = new();
+        public List<JoinRequest>? JoinRequest { get; set; } = null;
     }
 
     /// <summary>
