@@ -5,7 +5,7 @@ namespace ShamrockCore.Reciver.Events
     /// <summary>
     /// 群组成员减少事件
     /// </summary>
-    public class GroupDecreaseEvent:EventBase
+    public class GroupDecreaseEvent : EventBase
     {
         /// <summary>
         /// 子类型(leave/kick/kick_me)
