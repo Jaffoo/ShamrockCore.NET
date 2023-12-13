@@ -90,7 +90,6 @@ namespace ShamrockCore
         /// <exception cref="Exception"></exception>
         private void ProcessWebSocketData(string data)
         {
-            Console.WriteLine(data);
             var isHeart = data.Fetch("meta_event_type");
             if (!string.IsNullOrWhiteSpace(isHeart) && isHeart == "heartbeat")
                 return;
