@@ -90,14 +90,14 @@ namespace ShamrockCore
         /// <exception cref="Exception"></exception>
         private void ProcessWebSocketData(string data)
         {
-            var isHeart = data.Fetch("meta_event_type");
-            if (!string.IsNullOrWhiteSpace(isHeart) && isHeart == "heartbeat")
-                return;
             var postType = data.Fetch("post_type");
             if (string.IsNullOrWhiteSpace(postType))
                 throw new Exception("Websocket数据响应错误！");
             else if (postType == "meta_event")
             {
+                var isHeart = data.Fetch(postType+"_type");
+                if (!string.IsNullOrWhiteSpace(isHeart) && isHeart == "heartbeat")
+                    return;
             }
             else if (postType == "message")
             {
