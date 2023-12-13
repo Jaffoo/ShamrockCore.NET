@@ -55,7 +55,7 @@ namespace ShamrockCore.Reciver.Receivers
         /// 消息内容
         /// </summary>
         [JsonProperty("message")]
-        public MessageChain? Message { get; set; } = null;
+        public MessageChain Message { get; set; } = new();
     }
     public class Sender
     {

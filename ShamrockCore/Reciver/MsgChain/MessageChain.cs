@@ -11,7 +11,7 @@ namespace ShamrockCore.Reciver.MsgChain
         /// 获取文本
         /// </summary>
         /// <returns></returns>
-        public List<string> GetTextChain()
+        public List<string>? GetTextChain()
         {
             try
             {

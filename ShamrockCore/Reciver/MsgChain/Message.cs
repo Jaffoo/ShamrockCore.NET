@@ -13,7 +13,7 @@ namespace ShamrockCore.Reciver.MsgChain
         /// <summary>
         /// 消息体
         /// </summary>
-        public MsgBody? Data { get; set; } = null;
+        public MsgBody Data { get; set; } = new();
     }
 
     public record MsgBody
