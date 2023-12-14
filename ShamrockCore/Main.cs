@@ -186,7 +186,7 @@ namespace ShamrockCore
         /// </summary>
         /// <param name="bot"></param>
         /// <returns></returns>
-        public static async Task<LoginInfo?> LoginInfo()
+        public async Task<LoginInfo?> LoginInfo()
         {
             try
             {
@@ -204,7 +204,7 @@ namespace ShamrockCore
         /// </summary>
         /// <param name="bot"></param>
         /// <returns></returns>
-        public static async Task<List<Group>?> Groups()
+        public async Task<List<Group>?> Groups()
         {
             try
             {
@@ -222,7 +222,7 @@ namespace ShamrockCore
         /// </summary>
         /// <param name="bot"></param>
         /// <returns></returns>
-        public static async Task<List<Friend>?> Friends()
+        public async Task<List<Friend>?> Friends()
         {
             try
             {

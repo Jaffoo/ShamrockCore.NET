@@ -52,7 +52,7 @@ namespace ShamrockCore.Test
             #endregion
 
             #region 接口测试
-            System.Console.WriteLine((await Bot.Groups()).ToJsonString());
+            System.Console.WriteLine((await bot.Groups()).ToJsonString());
             System.Console.WriteLine((await Extension.GetGroups()).ToJsonString());
             #endregion
 
