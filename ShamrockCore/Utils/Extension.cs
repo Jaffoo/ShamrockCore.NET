@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.Reflection;
-using Manganese.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using ShamrockCore.Data.HttpAPI;
@@ -60,17 +59,74 @@ namespace ShamrockCore.Utils
             return attribute != null ? attribute.Description : name;
         }
 
-        #region 机器人扩展方法
+        #region 接口
+        #region 获取信息
+        /// <summary>
+        /// 获取登录号信息
+        /// </summary>
+        /// <param name="bot"></param>
+        /// <returns></returns>
+        public static async Task<LoginInfo?> GetLoginInfo()
+        {
+            try
+            {
+                var res = await HttpEndpoints.GetLoginInfo.GetAsync<LoginInfo>();
+                return res;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 获取陌生人信息
+        /// </summary>
+        /// <param name="bot"></param>
+        /// <param name="stangerId"></param>
+        /// <returns></returns>
+        public static async Task<Stranger?> GetStrangerInfo(long stangerId)
+        {
+            try
+            {
+                var res = await HttpEndpoints.GetStrangerInfo.GetAsync<Stranger>("user_id=" + stangerId);
+                return res;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         /// <summary>
         /// 获取群列表
         /// </summary>
         /// <param name="bot"></param>
         /// <returns></returns>
-        public static async Task<List<Group>?> GetGroups(this Bot bot)
+        public static async Task<List<Group>?> GetGroups()
         {
             try
             {
                 var res = await HttpEndpoints.GetGroupList.GetAsync<List<Group>>();
+                return res;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 获取群信息
+        /// </summary>
+        /// <param name="bot"></param>
+        /// <param name="groupId"></param>
+        /// <returns></returns>
+        public static async Task<Group?> GetGroupInfo(long groupId)
+        {
+            try
+            {
+                var res = await HttpEndpoints.GetGroupInfo.GetAsync<Group>("group_id=" + groupId);
                 return res;
             }
             catch (Exception)
@@ -84,7 +140,7 @@ namespace ShamrockCore.Utils
         /// </summary>
         /// <param name="bot"></param>
         /// <returns></returns>
-        public static async Task<List<Friend>?> GetFriends(this Bot bot)
+        public static async Task<List<Friend>?> GetFriends()
         {
             try
             {
@@ -96,6 +152,10 @@ namespace ShamrockCore.Utils
                 throw;
             }
         }
+        #endregion
+
+        #region 设置/发布信息
+        #endregion
         #endregion
     }
 }

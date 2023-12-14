@@ -7,6 +7,7 @@ using ShamrockCore.Reciver;
 using ShamrockCore.Utils;
 using ShamrockCore.Reciver.Receivers;
 using ShamrockCore.Reciver.Events;
+using ShamrockCore.Data.Model;
 
 namespace ShamrockCore
 {
@@ -51,35 +52,42 @@ namespace ShamrockCore
         /// <exception cref="InvalidDataException"></exception>
         private async Task StartWebsocket()
         {
-            var clientFactory = new Func<Uri, CancellationToken, Task<WebSocket>>(async (uri, cancellationToken) =>
+            try
             {
-                var client = new ClientWebSocket();
-                if (!string.IsNullOrWhiteSpace(Config.Token))
-                    client.Options.SetRequestHeader("authorization", "Bearer " + Config.Token);
-                await client.ConnectAsync(uri, cancellationToken).ConfigureAwait(false);
-                return client;
-            });
-            var url = new Uri($"ws://{Config.Host}:{Config.WsPort}");
-            _client = new WebsocketClient(url, null, clientFactory)
-            {
-                IsReconnectionEnabled = false,
-            };
-            await _client.StartOrFail();
-            _client.DisconnectionHappened
-                .Subscribe(x =>
+                var clientFactory = new Func<Uri, CancellationToken, Task<WebSocket>>(async (uri, cancellationToken) =>
                 {
-                    _disconnectionHappened.OnNext(x.CloseStatus ?? WebSocketCloseStatus.Empty);
+                    var client = new ClientWebSocket();
+                    if (!string.IsNullOrWhiteSpace(Config.Token))
+                        client.Options.SetRequestHeader("authorization", "Bearer " + Config.Token);
+                    await client.ConnectAsync(uri, cancellationToken).ConfigureAwait(false);
+                    return client;
                 });
+                var url = new Uri($"ws://{Config.Host}:{Config.WsPort}");
+                _client = new WebsocketClient(url, null, clientFactory)
+                {
+                    IsReconnectionEnabled = false,
+                };
+                await _client.StartOrFail();
+                _client.DisconnectionHappened
+                    .Subscribe(x =>
+                    {
+                        _disconnectionHappened.OnNext(x.CloseStatus ?? WebSocketCloseStatus.Empty);
+                    });
 
-            _client.MessageReceived
-                .Where(message => message.MessageType == WebSocketMessageType.Text)
-                .Subscribe(message =>
-                {
-                    var data = message?.Text;
-                    if (string.IsNullOrWhiteSpace(data))
-                        throw new InvalidDataException("Websocket数据响应错误！");
-                    ProcessWebSocketData(data);
-                });
+                _client.MessageReceived
+                    .Where(message => message.MessageType == WebSocketMessageType.Text)
+                    .Subscribe(message =>
+                    {
+                        var data = message?.Text;
+                        if (string.IsNullOrWhiteSpace(data))
+                            throw new InvalidDataException("Websocket数据响应错误！");
+                        ProcessWebSocketData(data);
+                    });
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         /// <summary>
@@ -89,42 +97,49 @@ namespace ShamrockCore
         /// <exception cref="InvalidDataException"></exception>
         private void ProcessWebSocketData(string data)
         {
-            var postType = data.Fetch("post_type");
-            if (string.IsNullOrWhiteSpace(postType))
-                throw new InvalidDataException("Websocket数据响应错误！");
-            else if (postType == "meta_event")
+            try
             {
-                var isHeart = data.Fetch(postType + "_type");
-                if (!string.IsNullOrWhiteSpace(isHeart) && isHeart == "heartbeat")
-                    return;
+                var postType = data.Fetch("post_type");
+                if (string.IsNullOrWhiteSpace(postType))
+                    throw new InvalidDataException("Websocket数据响应错误！");
+                else if (postType == "meta_event")
+                {
+                    var isHeart = data.Fetch(postType + "_type");
+                    if (!string.IsNullOrWhiteSpace(isHeart) && isHeart == "heartbeat")
+                        return;
+                }
+                else if (postType == "message")
+                {
+                    //群
+                    if (data.Fetch(postType + "_type") == "group")
+                        _messageReceivedSubject.OnNext(data.ToObject<GroupReceiver>());
+                    //私聊
+                    if (data.Fetch(postType + "_type") == "private")
+                        //好友
+                        if (data.Fetch("sub_type") == "friend")
+                            _messageReceivedSubject.OnNext(data.ToObject<FriendReceiver>());
+                }
+                //事件通知
+                else if (postType == "notice")
+                {
+                    //添加好友请求
+                    if (data.Fetch(postType + "_type") == "friend_add")
+                        _eventReceivedSubject.OnNext(data.ToObject<FriendAddEvent>());
+                    //群成员增加事件
+                    if (data.Fetch(postType + "_type") == "group_increase")
+                        _eventReceivedSubject.OnNext(data.ToObject<GroupIncreaseEvent>());
+                    //群成员减少事件
+                    if (data.Fetch(postType + "_type") == "group_decrease")
+                        _eventReceivedSubject.OnNext(data.ToObject<GroupDecreaseEvent>());
+                }
+                else
+                    _unknownMessageReceived.OnNext(data);
+                Console.WriteLine("原始数据：" + data);
             }
-            else if (postType == "message")
+            catch (Exception)
             {
-                //群
-                if (data.Fetch(postType + "_type") == "group")
-                    _messageReceivedSubject.OnNext(data.ToObject<GroupReceiver>());
-                //私聊
-                if (data.Fetch(postType + "_type") == "private")
-                    //好友
-                    if (data.Fetch("sub_type") == "friend")
-                        _messageReceivedSubject.OnNext(data.ToObject<FriendReceiver>());
+                throw;
             }
-            //事件通知
-            else if (postType == "notice")
-            {
-                //添加好友请求
-                if (data.Fetch(postType + "_type") == "friend_add")
-                    _eventReceivedSubject.OnNext(data.ToObject<FriendAddEvent>());
-                //群成员增加事件
-                if (data.Fetch(postType + "_type") == "group_increase")
-                    _eventReceivedSubject.OnNext(data.ToObject<GroupIncreaseEvent>());
-                //群成员减少事件
-                if (data.Fetch(postType + "_type") == "group_decrease")
-                    _eventReceivedSubject.OnNext(data.ToObject<GroupDecreaseEvent>());
-            }
-            else
-                _unknownMessageReceived.OnNext(data);
-            Console.WriteLine("原始数据：" + data);
         }
 
         /// <summary>
@@ -163,6 +178,62 @@ namespace ShamrockCore
         }
 
         partial void OnDispose();
+
+        #region 接口
+        /// <summary>
+        /// 登录用户信息
+        /// </summary>
+        /// <param name="bot"></param>
+        /// <returns></returns>
+        public static async Task<LoginInfo?> LoginInfo()
+        {
+            try
+            {
+                var res = await Extension.GetLoginInfo();
+                return res;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 群列表
+        /// </summary>
+        /// <param name="bot"></param>
+        /// <returns></returns>
+        public static async Task<List<Group>?> Groups()
+        {
+            try
+            {
+                var res = await Extension.GetGroups();
+                return res;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        // <summary>
+        /// 好友列表
+        /// </summary>
+        /// <param name="bot"></param>
+        /// <returns></returns>
+        public static async Task<List<Friend>?> Friends()
+        {
+            try
+            {
+                var res = await Extension.GetFriends();
+                return res;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        #endregion
     }
 
     /// <summary>

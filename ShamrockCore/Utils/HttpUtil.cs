@@ -1,4 +1,5 @@
-﻿using Flurl.Http;
+﻿using Flurl;
+using Flurl.Http;
 using Manganese.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -57,18 +58,16 @@ namespace ShamrockCore.Utils
         /// get请求
         /// </summary>
         /// <param name="url">url</param>
-        /// <param name="withToken">是否携带token</param>
+        /// <param name="url">param</param>
         /// <returns></returns>
-        public static async Task<Result?> GetAsync(string url, bool withToken = true)
+        public static async Task<Result?> GetAsync(string url, params string[] param)
         {
             try
             {
-                var result = withToken
-                    ? await url
-                        .WithHeader("Authorization", $"Bearer {Bot.Instance!.Config.Token}")
-                        .GetAsync()
-                    : await url.GetAsync();
-
+                var result = await url
+                        .SetQueryParams(param)
+                        .WithHeader("Authorization", $"Bearer {Bot.Instance?.Config.Token ?? ""}")
+                        .GetAsync();
                 var re = await result.GetJsonAsync<Result>();
                 return re;
             }
@@ -91,18 +90,14 @@ namespace ShamrockCore.Utils
         /// </summary>
         /// <param name="url">url</param>
         /// <param name="url">提交内容</param>
-        /// <param name="withToken">是否携带token</param>
         /// <returns></returns>
-        public static async Task<Result?> PostAsync(string url, object body, bool withToken = true)
+        public static async Task<Result?> PostAsync(string url, object? body = null)
         {
             try
             {
-                var result = withToken
-                    ? await url
-                        .WithHeader("Authorization", $"Bearer {Bot.Instance!.Config.Token}")
-                        .PostAsync()
-                    : await url.PostJsonAsync(body);
-
+                var result = await url
+                        .WithHeader("Authorization", $"Bearer {Bot.Instance?.Config.Token ?? ""}")
+                        .PostJsonAsync(body);
                 var re = await result.GetJsonAsync<Result>();
                 return re;
             }
@@ -124,18 +119,17 @@ namespace ShamrockCore.Utils
         /// get请求
         /// </summary>
         /// <param name="url">url</param>
-        /// <param name="withToken">是否携带token</param>
+        /// <param name="param">参数</param>
         /// <returns></returns>
-        public static async Task<T?> GetAsync<T>(this HttpEndpoints endpoints, bool withToken = true)
+        public static async Task<T?> GetAsync<T>(this HttpEndpoints endpoints, params string[] param)
         {
             var url = Bot.Instance!.Config.HttpUrl + endpoints.Description();
             try
             {
-                var result = withToken
-                    ? await url
-                        .WithHeader("Authorization", $"Bearer {Bot.Instance!.Config.Token}")
-                        .GetAsync()
-                    : await url.GetAsync();
+                var result = await url
+                         .SetQueryParams(param)
+                         .WithHeader("Authorization", $"Bearer {Bot.Instance?.Config.Token ?? ""}")
+                         .GetAsync();
                 var re = await result.GetJsonAsync<Result>();
                 if (re.Status != "ok") throw new Exception("请求失败：" + re.Msg);
                 if (re.Retcode != 0) throw new Exception("请求失败：" + re.Msg);
@@ -163,19 +157,15 @@ namespace ShamrockCore.Utils
         /// </summary>
         /// <param name="url">url</param>
         /// <param name="url">提交内容</param>
-        /// <param name="withToken">是否携带token</param>
         /// <returns></returns>
-        public static async Task<T?> PostAsync<T>(this HttpEndpoints endpoints, object body, bool withToken = true)
+        public static async Task<T?> PostAsync<T>(this HttpEndpoints endpoints, object? body = null)
         {
             var url = Bot.Instance!.Config.HttpUrl + endpoints.Description();
             try
             {
-                var result = withToken
-                    ? await url
-                        .WithHeader("Authorization", $"Bearer {Bot.Instance!.Config.Token}")
-                        .PostAsync()
-                    : await url.PostJsonAsync(body);
-
+                var result = await url
+                       .WithHeader("Authorization", $"Bearer {Bot.Instance?.Config.Token ?? ""}")
+                       .PostJsonAsync(body);
                 var re = await result.GetJsonAsync<Result>();
                 if (re.Status != "ok") throw new Exception("请求失败：" + re.Msg);
                 if (re.Retcode != 0) throw new Exception("请求失败：" + re.Msg);

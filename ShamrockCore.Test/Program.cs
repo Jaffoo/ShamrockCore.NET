@@ -31,7 +31,7 @@ namespace ShamrockCore.Test
                 Console.WriteLine("好友消息：" + msg.ToJsonString());
             });
             #endregion
-            
+
             #region 事件测试
             bot.EventReceived.OfType<FriendAddEvent>().Subscribe(msg =>
             {
@@ -52,8 +52,8 @@ namespace ShamrockCore.Test
             #endregion
 
             #region 接口测试
-            System.Console.WriteLine((await bot.GetGroups()).ToJsonString());
-            System.Console.WriteLine((await bot.GetFriends()).ToJsonString());
+            System.Console.WriteLine((await Bot.Groups()).ToJsonString());
+            System.Console.WriteLine((await Extension.GetGroups()).ToJsonString());
             #endregion
 
             while (true)
