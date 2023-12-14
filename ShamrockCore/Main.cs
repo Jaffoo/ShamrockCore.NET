@@ -100,21 +100,22 @@ namespace ShamrockCore
             try
             {
                 var postType = data.Fetch("post_type");
+                var type1 = data.Fetch(postType + "_type");
+
                 if (string.IsNullOrWhiteSpace(postType))
                     throw new InvalidDataException("Websocket数据响应错误！");
                 else if (postType == "meta_event")
                 {
-                    var isHeart = data.Fetch(postType + "_type");
-                    if (!string.IsNullOrWhiteSpace(isHeart) && isHeart == "heartbeat")
+                    if (!string.IsNullOrWhiteSpace(type1) && type1 == "heartbeat")
                         return;
                 }
                 else if (postType == "message")
                 {
                     //群
-                    if (data.Fetch(postType + "_type") == "group")
+                    if (type1 == "group")
                         _messageReceivedSubject.OnNext(data.ToObject<GroupReceiver>());
                     //私聊
-                    if (data.Fetch(postType + "_type") == "private")
+                    if (type1 == "private")
                         //好友
                         if (data.Fetch("sub_type") == "friend")
                             _messageReceivedSubject.OnNext(data.ToObject<FriendReceiver>());
@@ -123,13 +124,13 @@ namespace ShamrockCore
                 else if (postType == "notice")
                 {
                     //添加好友请求
-                    if (data.Fetch(postType + "_type") == "friend_add")
+                    if (type1 == "friend_add")
                         _eventReceivedSubject.OnNext(data.ToObject<FriendAddEvent>());
                     //群成员增加事件
-                    if (data.Fetch(postType + "_type") == "group_increase")
+                    if (type1 == "group_increase")
                         _eventReceivedSubject.OnNext(data.ToObject<GroupIncreaseEvent>());
                     //群成员减少事件
-                    if (data.Fetch(postType + "_type") == "group_decrease")
+                    if (type1 == "group_decrease")
                         _eventReceivedSubject.OnNext(data.ToObject<GroupDecreaseEvent>());
                 }
                 else
