@@ -1,5 +1,4 @@
-﻿using Flurl;
-using Flurl.Http;
+﻿using Flurl.Http;
 
 namespace ShamrockCore.Utils
 {
@@ -20,7 +19,7 @@ namespace ShamrockCore.Utils
         /// <param name="url">url</param>
         /// <param name="withToken">是否携带token</param>
         /// <returns></returns>
-        public static async Task<string> GetAsync(string url, bool withToken)
+        public static async Task<string> GetAsync(string url, bool withToken = true)
         {
             try
             {
@@ -29,6 +28,39 @@ namespace ShamrockCore.Utils
                         .WithHeader("Authorization", $"Bearer {Bot.Instance!.Config.Token}")
                         .GetAsync()
                     : await url.GetAsync();
+
+                var re = await result.GetStringAsync();
+                return re;
+            }
+            catch (Exception e)
+            {
+                if (HttpErrorHandler != null)
+                {
+                    e.Data["method"] = "get";
+                    e.Data["url"] = url;
+                    HttpErrorHandler.Invoke(e); // 如果错误处理器不为 null，则调用
+                }
+                else
+                    throw; // 否则，重新抛出异常
+                return "";
+            }
+        }
+
+        /// <summary>
+        /// post请求
+        /// </summary>
+        /// <param name="url">url</param>
+        /// <param name="withToken">是否携带token</param>
+        /// <returns></returns>
+        public static async Task<string> PostAsync(string url, bool withToken = true)
+        {
+            try
+            {
+                var result = withToken
+                    ? await url
+                        .WithHeader("Authorization", $"Bearer {Bot.Instance!.Config.Token}")
+                        .PostAsync()
+                    : await url.PostAsync();
 
                 var re = await result.GetStringAsync();
                 return re;
