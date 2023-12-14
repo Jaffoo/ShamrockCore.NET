@@ -1,6 +1,10 @@
-﻿using Manganese.Text;
+﻿using System.ComponentModel;
+using System.Reflection;
+using Manganese.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using ShamrockCore.Data.HttpAPI;
+using ShamrockCore.Data.Model;
 
 namespace ShamrockCore.Utils
 {
@@ -46,5 +50,52 @@ namespace ShamrockCore.Utils
                 throw;
             }
         }
+
+        public static string Description<T>(this T value) where T : Enum
+        {
+            Type type = typeof(T);
+            string name = Enum.GetName(type, value)!;
+            MemberInfo member = type.GetMember(name)[0];
+            DescriptionAttribute? attribute = member.GetCustomAttribute<DescriptionAttribute>();
+            return attribute != null ? attribute.Description : name;
+        }
+
+        #region 机器人扩展方法
+        /// <summary>
+        /// 获取群列表
+        /// </summary>
+        /// <param name="bot"></param>
+        /// <returns></returns>
+        public static async Task<List<Group>?> GetGroups(this Bot bot)
+        {
+            try
+            {
+                var res = await HttpEndpoints.GetGroupList.GetAsync<List<Group>>();
+                return res;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        // <summary>
+        /// 获取好友列表
+        /// </summary>
+        /// <param name="bot"></param>
+        /// <returns></returns>
+        public static async Task<List<Friend>?> GetFriends(this Bot bot)
+        {
+            try
+            {
+                var res = await HttpEndpoints.GetFriendList.GetAsync<List<Friend>>();
+                return res;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        #endregion
     }
 }

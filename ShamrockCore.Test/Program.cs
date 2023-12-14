@@ -19,6 +19,8 @@ namespace ShamrockCore.Test
             {
                 Console.WriteLine("webscoket断开连接：" + e);
             });
+
+            #region 消息测试
             bot.MessageReceived.OfType<GroupReceiver>().Subscribe(msg =>
             {
                 msg.Message.GetPlainText();
@@ -28,6 +30,9 @@ namespace ShamrockCore.Test
             {
                 Console.WriteLine("好友消息：" + msg.ToJsonString());
             });
+            #endregion
+            
+            #region 事件测试
             bot.EventReceived.OfType<FriendAddEvent>().Subscribe(msg =>
             {
                 Console.WriteLine("好友请求事件：" + msg.ToJsonString());
@@ -44,6 +49,13 @@ namespace ShamrockCore.Test
             {
                 Console.WriteLine("未知消息：" + msg);
             });
+            #endregion
+
+            #region 接口测试
+            System.Console.WriteLine((await bot.GetGroups()).ToJsonString());
+            System.Console.WriteLine((await bot.GetFriends()).ToJsonString());
+            #endregion
+
             while (true)
             {
                 Thread.Sleep(10);

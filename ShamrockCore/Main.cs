@@ -193,5 +193,15 @@ namespace ShamrockCore
         /// token
         /// </summary>
         public string? Token { get; set; } = Token;
+
+        /// <summary>
+        /// httpUrl
+        /// </summary>
+        public string HttpUrl => "http://" + Host + ":" + HttpPort + "/";
+
+        /// <summary>
+        /// wsUrl
+        /// </summary>
+        public string WsUrl => "ws://" + Host + ":" + WsPort + "/";
     }
 }
