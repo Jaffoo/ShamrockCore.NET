@@ -50,9 +50,10 @@ namespace ShamrockCore.Utils
         /// post请求
         /// </summary>
         /// <param name="url">url</param>
+        /// <param name="url">提交内容</param>
         /// <param name="withToken">是否携带token</param>
         /// <returns></returns>
-        public static async Task<string> PostAsync(string url, bool withToken = true)
+        public static async Task<string> PostAsync(string url, object body, bool withToken = true)
         {
             try
             {
@@ -60,7 +61,7 @@ namespace ShamrockCore.Utils
                     ? await url
                         .WithHeader("Authorization", $"Bearer {Bot.Instance!.Config.Token}")
                         .PostAsync()
-                    : await url.PostAsync();
+                    : await url.PostJsonAsync(body);
 
                 var re = await result.GetStringAsync();
                 return re;
