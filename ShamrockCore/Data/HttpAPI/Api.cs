@@ -1164,7 +1164,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// <param name="message"></param>
         /// <param name="autoEscape"></param>
         /// <returns></returns>
-        public static async Task<string> SendPrivateMsg(string qq, object message, bool autoEscape = false)
+        public static async Task<string> SendPrivateMsg(long qq, object message, bool autoEscape = false)
         {
             try
             {
@@ -1190,7 +1190,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// <param name="message"></param>
         /// <param name="autoEscape"></param>
         /// <returns></returns>
-        public static async Task<string> SendGroupMsg(string groupId, object message, bool autoEscape = false)
+        public static async Task<string> SendGroupMsg(long groupId, object message, bool autoEscape = false)
         {
             try
             {
@@ -1244,7 +1244,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// <param name="groupId"></param>
         /// <param name="messages"></param>
         /// <returns></returns>
-        public static async Task<string> SendGroupForwardMsg(string groupId, object messages)
+        public static async Task<string> SendGroupForwardMsg(long groupId, object messages)
         {
             try
             {
@@ -1268,7 +1268,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// <param name="qq"></param>
         /// <param name="messages"></param>
         /// <returns></returns>
-        public static async Task<string> SendPrivateForwardMsg(string qq, object messages)
+        public static async Task<string> SendPrivateForwardMsg(long qq, object messages)
         {
             try
             {

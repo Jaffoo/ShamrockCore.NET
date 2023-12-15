@@ -1,5 +1,6 @@
 ﻿using ShamrockCore.Data.HttpAPI;
 using ShamrockCore.Data.Model;
+using ShamrockCore.Reciver.MsgChain;
 
 namespace ShamrockCore.Reciver
 {
@@ -15,7 +16,28 @@ namespace ShamrockCore.Reciver
         /// <param name="message"></param>
         /// <param name="autoEscape"></param>
         /// <returns></returns>
-        public static async Task<string> SendPrivateMsg(string qq, object message, bool autoEscape = false) => await Api.SendPrivateMsg(qq, message, autoEscape);
+        public static async Task<string> SendPrivateMsg(long qq, object message, bool autoEscape = false) => await Api.SendPrivateMsg(qq, message, autoEscape);
+
+        /// <summary>
+        /// 发送私聊，返回消息id
+        /// </summary>
+        /// <param name="qq"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        public static async Task<string> SendPrivateMsg(this Friend friend, MessageChain message) => await Api.SendPrivateMsg(friend.Id, message);
+
+        /// <summary>
+        /// 发送私聊，返回消息id
+        /// </summary>
+        /// <returns></returns>
+        public static async Task<string> SendPrivateMsg(this Friend friend, string message)
+        {
+            MessageChain chain = new()
+            {
+                new() { Type = MessageType.Text, Data = new() { Text = message } }
+            };
+            return await SendPrivateMsg(friend, chain);
+        }
 
         /// <summary>
         /// 发送群聊消息，返回消息id
@@ -24,7 +46,29 @@ namespace ShamrockCore.Reciver
         /// <param name="message"></param>
         /// <param name="autoEscape"></param>
         /// <returns></returns>
-        public static async Task<string> SendGroupMsg(string groupId, object message, bool autoEscape = false) => await Api.SendGroupMsg(groupId, message, autoEscape);
+        public static async Task<string> SendGroupMsg(long groupId, object message, bool autoEscape = false) => await Api.SendGroupMsg(groupId, message, autoEscape);
+
+        /// <summary>
+        /// 发送群聊消息，返回消息id
+        /// </summary>
+        /// <param name="groupId"></param>
+        /// <param name="message"></param>
+        /// <param name="autoEscape"></param>
+        /// <returns></returns>
+        public static async Task<string> SendGroupMsg(this Group group, MessageChain message) => await Api.SendGroupMsg(group.Id, message);
+
+        /// <summary>
+        /// 发送私聊，返回消息id
+        /// </summary>
+        /// <returns></returns>
+        public static async Task<string> SendGroupMsg(this Group group, string message)
+        {
+            MessageChain chain = new()
+            {
+                new() { Type = MessageType.Text, Data = new() { Text = message } }
+            };
+            return await SendGroupMsg(group, chain);
+        }
 
         /// <summary>
         /// 发送群聊消息，返回消息id
@@ -41,7 +85,15 @@ namespace ShamrockCore.Reciver
         /// <param name="groupId"></param>
         /// <param name="messages"></param>
         /// <returns></returns>
-        public static async Task<string> SendGroupForwardMsg(string groupId, object messages) => await Api.SendGroupForwardMsg(groupId, messages);
+        public static async Task<string> SendGroupForwardMsg(long groupId, object messages) => await Api.SendGroupForwardMsg(groupId, messages);
+
+        /// <summary>
+        /// 发送群聊合并转发
+        /// </summary>
+        /// <param name="groupId"></param>
+        /// <param name="messages"></param>
+        /// <returns></returns>
+        public static async Task<string> SendGroupForwardMsg(this Group group, MessageChain messages) => await Api.SendGroupForwardMsg(group.Id, messages);
 
         /// <summary>
         /// 发送私聊合并转发
@@ -49,6 +101,14 @@ namespace ShamrockCore.Reciver
         /// <param name="qq"></param>
         /// <param name="messages"></param>
         /// <returns></returns>
-        public static async Task<string> SendPrivateForwardMsg(string qq, object messages) => await Api.SendPrivateForwardMsg(qq, messages);
+        public static async Task<string> SendPrivateForwardMsg(long qq, object messages) => await Api.SendPrivateForwardMsg(qq, messages);
+
+        /// <summary>
+        /// 发送私聊合并转发
+        /// </summary>
+        /// <param name="qq"></param>
+        /// <param name="messages"></param>
+        /// <returns></returns>
+        public static async Task<string> SendPrivateForwardMsg(this Friend friend, object messages) => await Api.SendPrivateForwardMsg(friend.Id, messages);
     }
 }
