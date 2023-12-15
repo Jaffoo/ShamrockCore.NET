@@ -32,9 +32,23 @@ namespace ShamrockCore.Data.Model
 
     public enum MessageType
     {
+        At,
         Text,
         Face,
         Image,
-        Json
+        Json,
+        Reply,
+        Record,
+        Video,
+        Basketball,
+        New_rps,
+        New_dice,
+        Poke,
+        Touch,
+        Music,
+        Weather,
+        Location,
+        Share,
+        Gift
     }
 }

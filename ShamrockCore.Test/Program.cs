@@ -1,8 +1,6 @@
 ﻿using Manganese.Text;
-using Newtonsoft.Json;
 using ShamrockCore.Reciver.Events;
 using ShamrockCore.Reciver.Receivers;
-using ShamrockCore.Utils;
 using System.Reactive.Linq;
 
 namespace ShamrockCore.Test
@@ -52,8 +50,7 @@ namespace ShamrockCore.Test
             #endregion
 
             #region 接口测试
-            System.Console.WriteLine((await bot.Groups()).ToJsonString());
-            System.Console.WriteLine((await Extension.GetGroups()).ToJsonString());
+            System.Console.WriteLine(bot.Groups.ToJsonString());
             #endregion
 
             while (true)

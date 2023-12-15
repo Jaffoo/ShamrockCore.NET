@@ -43,6 +43,11 @@ namespace ShamrockCore.Data.HttpAPI
         [Description("get_friend_list")] GetFriendList,
 
         /// <summary>
+        /// 获取好友系统消息
+        /// </summary>
+        [Description("get_friend_system_msg")] GetFriendSysMsg,
+
+        /// <summary>
         /// 获取单向好友列表（未实现）
         /// </summary>
         [Description("get_unidirectional_friend_list")] GetUnidirectionalFriendList,
@@ -333,25 +338,13 @@ namespace ShamrockCore.Data.HttpAPI
         [Description("get_device_battery")] GetDeviceBattery,
 
         /// <summary>
+        /// 获取Shamrock日志
+        /// </summary>
+        [Description("log")] Log,
+
+        /// <summary>
         /// 获取Shamerock启动时间
         /// </summary>
         [Description("get_start_time")] GetStartTime,
-
-        /// <summary>
-        /// 获取城市ADCode
-        /// </summary>
-        [Description("get_weather_city_code")] GetWeatherCityCode,
-
-        /// <summary>
-        /// 获取天气
-        /// </summary>
-        [Description("get_weather")] GetWeather,
-
-        /// <summary>
-        /// [实验] 上传群图片
-        /// 该接口用于上传群聊图片, 注意该接口是上传群消息的图片，不是群文件，也不是群相册。
-        /// 请求类型POST
-        /// </summary>
-        [Description("upload_group_image")] UploadGroupMsgImg,
     }
 }

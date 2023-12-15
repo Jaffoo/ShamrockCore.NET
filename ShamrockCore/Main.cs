@@ -8,6 +8,8 @@ using ShamrockCore.Utils;
 using ShamrockCore.Reciver.Receivers;
 using ShamrockCore.Reciver.Events;
 using ShamrockCore.Data.Model;
+using ShamrockCore.Data.HttpAPI;
+using System.Reflection;
 
 namespace ShamrockCore
 {
@@ -184,56 +186,83 @@ namespace ShamrockCore
         /// <summary>
         /// 登录用户信息
         /// </summary>
-        /// <param name="bot"></param>
-        /// <returns></returns>
-        public async Task<LoginInfo?> LoginInfo()
-        {
-            try
-            {
-                var res = await Extension.GetLoginInfo();
-                return res;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+        public LoginInfo LoginInfo => Api.GetLoginInfo().Result ?? new();
 
         /// <summary>
         /// 群列表
         /// </summary>
-        /// <param name="bot"></param>
-        /// <returns></returns>
-        public async Task<List<Group>?> Groups()
-        {
-            try
-            {
-                var res = await Extension.GetGroups();
-                return res;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+        public IEnumerable<Group> Groups => Api.GetGroups().Result ?? Enumerable.Empty<Group>();
 
         // <summary>
         /// 好友列表
         /// </summary>
-        /// <param name="bot"></param>
+        public IEnumerable<Friend> Friends => Api.GetFriends().Result ?? Enumerable.Empty<Friend>();
+
+        /// <summary>
+        /// 手机电池信息
+        /// </summary>
+        public BatteryInfo Battery => Api.GetDeviceBattery().Result ?? new();
+
+        /// <summary>
+        /// shamrock启动时间
+        /// </summary>
+        public long StartTime => Api.GetStartTime().Result;
+
+        /// <summary>
+        /// 获取好友系统消息(未能正确获取到数据)
+        /// </summary>
         /// <returns></returns>
-        public async Task<List<Friend>?> Friends()
-        {
-            try
-            {
-                var res = await Extension.GetFriends();
-                return res;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+        public async Task<List<FriendSysMsg>?> GetFriendSysMsg() => await Api.GetFriendSysMsg();
+
+        // <summary>
+        /// 是否在黑名单中
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IsInBack?> InBlack() => await Api.IsBlacklistUin();
+
+        /// <summary>
+        /// 获取图片
+        /// </summary>
+        /// <param name="fileMd5">文件 MD5</param>
+        /// <returns></returns>
+        public async Task<Data.Model.FileInfo?> GetImage(string fileMd5) => await Api.GetImage(fileMd5);
+
+        /// <summary>
+        /// 获取语音(要使用此接口, 通常需要安装 ffmpeg, 请参考 OneBot 实现的相关说明)
+        /// </summary>
+        /// <param name="fileMd5">文件 MD5</param>
+        /// <param name="OutFormat">输出格式(mp3、amr、wma、m4a、spx、ogg、wav、flac)</param>
+        /// <returns></returns>
+        public async Task<RecordInfo?> GetRecord(string fileMd5, string OutFormat = "mp3") => await Api.GetRecord(fileMd5, OutFormat);
+
+        // <summary>
+        /// 获取消息
+        /// </summary>
+        /// <returns></returns>
+        public async Task<MsgInfo?> GetMsg(int messageId) => await Api.GetMsg(messageId);
+
+        /// <summary>
+        /// 获取历史消息
+        /// </summary>
+        /// <param name="msgType"></param>
+        /// <param name="qq"></param>
+        /// <param name="group"></param>
+        /// <param name="count"></param>
+        /// <param name="start"></param>
+        /// <returns></returns>
+        public async Task<List<MsgInfo>?> GetHistoryMsg(MessageType msgType, long qq = 0, long group = 0, int count = 10, int start = 0) => await Api.GetHistoryMsg(msgType, qq, group, count, start);
+
+        // <summary>
+        /// 设置 QQ 个人资料
+        /// </summary>
+        /// <returns></returns>
+        public async Task<bool> SetQQProfile(Profile profile) => await Api.SetQQProfile(profile);
+
+        /// <summary>
+        /// 清除本地缓存消息
+        /// </summary>
+        /// <returns></returns>
+        public async Task<bool> ClearMsgs(MessageType msgType, long qq = 0, long group = 0) => await Api.ClearMsgs(msgType, qq, group);
         #endregion
     }
 

@@ -4,6 +4,7 @@ using Manganese.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using ShamrockCore.Data.HttpAPI;
+using ShamrockCore.Reciver;
 
 namespace ShamrockCore.Utils
 {
@@ -86,6 +87,37 @@ namespace ShamrockCore.Utils
         }
 
         /// <summary>
+        /// get请求
+        /// </summary>
+        /// <param name="url">url</param>
+        /// <param name="url">param</param>
+        /// <returns></returns>
+        public static async Task<string> GetStringAsync(string url, params string[] param)
+        {
+            try
+            {
+                var result = await url
+                        .SetQueryParams(param)
+                        .WithHeader("Authorization", $"Bearer {Bot.Instance?.Config.Token ?? ""}")
+                        .GetAsync();
+                var re = await result.GetStringAsync();
+                return re;
+            }
+            catch (Exception e)
+            {
+                if (HttpErrorHandler != null)
+                {
+                    e.Data["method"] = "get";
+                    e.Data["url"] = url;
+                    HttpErrorHandler.Invoke(e); // 如果错误处理器不为 null，则调用
+                }
+                else
+                    throw; // 否则，重新抛出异常
+                return "";
+            }
+        }
+
+        /// <summary>
         /// post请求
         /// </summary>
         /// <param name="url">url</param>
@@ -133,7 +165,7 @@ namespace ShamrockCore.Utils
                 var re = await result.GetJsonAsync<Result>();
                 if (re.Status != "ok") throw new Exception("请求失败：" + re.Msg);
                 if (re.Retcode != 0) throw new Exception("请求失败：" + re.Msg);
-                if (re.Data == null) throw new InvalidDataException("数据请求错误");
+                if (re.Data == null) throw new InvalidDataException("无数据或数据请求错误");
                 var dataStr = JsonConvert.SerializeObject(re.Data);
                 var res = JsonConvert.DeserializeObject<T>(dataStr);
                 return res;
@@ -149,6 +181,40 @@ namespace ShamrockCore.Utils
                 else
                     throw; // 否则，重新抛出异常
                 return default;
+            }
+        }
+
+        /// <summary>
+        /// get请求
+        /// </summary>
+        /// <param name="url">url</param>
+        /// <param name="param">参数</param>
+        /// <returns></returns>
+        public static async Task<bool> GetAsync(this HttpEndpoints endpoints, params string[] param)
+        {
+            var url = Bot.Instance!.Config.HttpUrl + endpoints.Description();
+            try
+            {
+                var result = await url
+                         .SetQueryParams(param)
+                         .WithHeader("Authorization", $"Bearer {Bot.Instance?.Config.Token ?? ""}")
+                         .GetAsync();
+                var re = await result.GetJsonAsync<Result>();
+                if (re.Status != "ok" && re.Retcode != 0)
+                    return true;
+                else return false;
+            }
+            catch (Exception e)
+            {
+                if (HttpErrorHandler != null)
+                {
+                    e.Data["method"] = "get";
+                    e.Data["url"] = url;
+                    HttpErrorHandler.Invoke(e); // 如果错误处理器不为 null，则调用
+                }
+                else
+                    throw; // 否则，重新抛出异常
+                return false;
             }
         }
 
@@ -185,6 +251,75 @@ namespace ShamrockCore.Utils
                 else
                     throw; // 否则，重新抛出异常
                 return default;
+            }
+        }
+
+        /// <summary>
+        /// post请求
+        /// </summary>
+        /// <param name="url">url</param>
+        /// <param name="url">提交内容</param>
+        /// <returns></returns>
+        public static async Task<bool> PostAsync(this HttpEndpoints endpoints, object? body = null)
+        {
+            var url = Bot.Instance!.Config.HttpUrl + endpoints.Description();
+            try
+            {
+                var result = await url
+                       .WithHeader("Authorization", $"Bearer {Bot.Instance?.Config.Token ?? ""}")
+                       .PostJsonAsync(body);
+                var re = await result.GetJsonAsync<Result>();
+                if (re.Status != "ok" && re.Retcode != 0)
+                    return true;
+                else return false;
+            }
+            catch (Exception e)
+            {
+                if (HttpErrorHandler != null)
+                {
+                    e.Data["method"] = "get";
+                    e.Data["url"] = url;
+                    HttpErrorHandler.Invoke(e); // 如果错误处理器不为 null，则调用
+                }
+                else
+                    throw; // 否则，重新抛出异常
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// post请求
+        /// </summary>
+        /// <param name="url">url</param>
+        /// <param name="url">提交内容</param>
+        /// <returns></returns>
+        public static async Task<string> SendMsgAsync(this HttpEndpoints endpoints, object? body = null)
+        {
+            var url = Bot.Instance!.Config.HttpUrl + endpoints.Description();
+            try
+            {
+                var result = await url
+                       .WithHeader("Authorization", $"Bearer {Bot.Instance?.Config.Token ?? ""}")
+                       .PostJsonAsync(body);
+                var re = await result.GetJsonAsync<Result>();
+                if (re.Status != "ok") throw new Exception("请求失败：" + re.Msg);
+                if (re.Retcode != 0) throw new Exception("请求失败：" + re.Msg);
+                if (re.Data == null) throw new InvalidDataException("数据请求错误");
+                var dataStr = JsonConvert.SerializeObject(re.Data);
+                var res = JsonConvert.DeserializeObject<MessageReceiverBase>(dataStr);
+                return res?.MessageId.ToString()??"";
+            }
+            catch (Exception e)
+            {
+                if (HttpErrorHandler != null)
+                {
+                    e.Data["method"] = "get";
+                    e.Data["url"] = url;
+                    HttpErrorHandler.Invoke(e); // 如果错误处理器不为 null，则调用
+                }
+                else
+                    throw; // 否则，重新抛出异常
+                return "";
             }
         }
     }

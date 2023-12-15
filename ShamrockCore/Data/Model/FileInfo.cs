@@ -5,7 +5,7 @@ namespace ShamrockCore.Data.Model
     /// <summary>
     /// 文件
     /// </summary>
-    public record File
+    public record FileInfo
     {
         /// <summary>
         /// 文件名
@@ -76,5 +76,71 @@ namespace ShamrockCore.Data.Model
         /// sha3可能获取不到
         /// </summary>
         [JsonProperty("sha3")] public string Sha3 { get; set; } = "";
+    }
+
+    /// <summary>
+    /// 图片
+    /// </summary>
+    public record ImageInfo
+    {
+        /// <summary>
+        /// 大小
+        /// </summary>
+        public long Size { get; set; }
+
+        /// <summary>
+        /// url
+        /// </summary>
+        public string Url { get; set; } = "";
+
+        /// <summary>
+        /// 图片名
+        /// </summary>
+        public string FileName { get; set; } = "";
+    }
+    public record CanSendImg
+    {
+        public bool Yes { get; set; }
+    }
+
+    /// <summary>
+    /// 语音信息
+    /// </summary>
+    public record RecordInfo
+    {
+        /// <summary>
+        /// url
+        /// </summary>
+        public string Url { get; set; } = "";
+
+        /// <summary>
+        /// 文件路径
+        /// </summary>
+        public string File { get; set; } = "";
+    }
+
+    public record UploadInfo
+    {
+        /// <summary>
+        /// 消息id
+        /// </summary>
+        [JsonProperty("msg_id")]
+        public int MsgId { get; set; }
+
+        /// <summary>
+        /// 文件类型
+        /// </summary>
+        public int Busid { get; set; }
+
+        /// <summary>
+        /// md5
+        /// </summary>
+        public string Md5 { get; set; } = "";
+
+        /// <summary>
+        /// 文件uuid
+        /// </summary>
+        [JsonProperty("file_id")]
+        public string FileId { get; set; } = "";
     }
 }

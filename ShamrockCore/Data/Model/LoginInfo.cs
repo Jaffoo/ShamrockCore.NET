@@ -18,4 +18,12 @@ namespace ShamrockCore.Data.Model
         /// </summary>
         public string Nickname { get; set; } = "";
     }
+
+    public class IsInBack
+    {
+        /// <summary>
+        /// 是否在黑名单
+        /// </summary>
+        public bool Id { get; set; }
+    }
 }
