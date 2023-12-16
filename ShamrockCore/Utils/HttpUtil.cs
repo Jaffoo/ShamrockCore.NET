@@ -1,8 +1,6 @@
 ﻿using Flurl;
 using Flurl.Http;
-using Manganese.Text;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using ShamrockCore.Data.HttpAPI;
 using ShamrockCore.Reciver;
 
@@ -41,7 +39,7 @@ namespace ShamrockCore.Utils
         /// <summary>
         /// 数据
         /// </summary>
-        public object? Data { get; set; }
+        public dynamic? Data { get; set; }
     }
 
     /// <summary>
@@ -302,12 +300,12 @@ namespace ShamrockCore.Utils
                        .WithHeader("Authorization", $"Bearer {Bot.Instance?.Config.Token ?? ""}")
                        .PostJsonAsync(body);
                 var re = await result.GetJsonAsync<Result>();
-                if (re.Status != "ok") throw new Exception("请求失败：" + re.Msg);
-                if (re.Retcode != 0) throw new Exception("请求失败：" + re.Msg);
+                if (re.Status != "ok") throw new Exception("请求失败，url:" + re.Data!.url + "，消息:" + re.Data!.error);
+                if (re.Retcode != 0) throw new Exception("请求失败，url:" + re.Data!.url + "，消息:" + re.Data!.error);
                 if (re.Data == null) throw new InvalidDataException("数据请求错误");
                 var dataStr = JsonConvert.SerializeObject(re.Data);
                 var res = JsonConvert.DeserializeObject<MessageReceiverBase>(dataStr);
-                return res?.MessageId.ToString()??"";
+                return res?.MessageId.ToString() ?? "";
             }
             catch (Exception e)
             {

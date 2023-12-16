@@ -2,8 +2,6 @@
 using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using ShamrockCore.Data.HttpAPI;
-using ShamrockCore.Data.Model;
 
 namespace ShamrockCore.Utils
 {

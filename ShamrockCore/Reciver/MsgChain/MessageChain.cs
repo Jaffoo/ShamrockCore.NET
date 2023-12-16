@@ -15,7 +15,7 @@ namespace ShamrockCore.Reciver.MsgChain
         {
             try
             {
-                return this.Where(t => t.Type == MessageType.Text).Select(t => t.Data.Text).ToList();
+                return this.Where(t => t.Type == MessageType.Text).Select(t => ((TextMessage)t.Data).Text).ToList();
             }
             catch (Exception)
             {
@@ -31,7 +31,7 @@ namespace ShamrockCore.Reciver.MsgChain
         {
             try
             {
-                return this.FirstOrDefault(t => t.Type == MessageType.Text)?.Data?.Text ?? "";
+                return ((TextMessage)(this.FirstOrDefault(t => t.Type == MessageType.Text)?.Data ?? new()))?.Text ?? "";
             }
             catch (Exception)
             {

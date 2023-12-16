@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 
 namespace ShamrockCore.Data.Model
@@ -50,5 +52,20 @@ namespace ShamrockCore.Data.Model
         Location,
         Share,
         Gift
+    }
+    public class LowercaseStringEnumConverter : StringEnumConverter
+    {
+        public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
+        {
+            if (value is Enum)
+            {
+                string enumString = value!.ToString()!.ToLower();
+                writer.WriteValue(enumString);
+            }
+            else
+            {
+                base.WriteJson(writer, value, serializer);
+            }
+        }
     }
 }

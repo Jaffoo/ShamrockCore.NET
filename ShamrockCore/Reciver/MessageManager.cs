@@ -1,6 +1,7 @@
 ﻿using ShamrockCore.Data.HttpAPI;
 using ShamrockCore.Data.Model;
 using ShamrockCore.Reciver.MsgChain;
+using ShamrockCore.Reciver.Receivers;
 
 namespace ShamrockCore.Reciver
 {
@@ -34,7 +35,28 @@ namespace ShamrockCore.Reciver
         {
             MessageChain chain = new()
             {
-                new() { Type = MessageType.Text, Data = new() { Text = message } }
+                new() { Type = MessageType.Text, Data = new TextMessage() { Text = message } }
+            };
+            return await SendPrivateMsg(friend, chain);
+        }
+
+        /// <summary>
+        /// 发送私聊，返回消息id
+        /// </summary>
+        /// <param name="qq"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        public static async Task<string> SendPrivateMsg(this FriendReceiver friend, MessageChain message) => await Api.SendPrivateMsg(friend.Sender!.UserId, message);
+
+        /// <summary>
+        /// 发送私聊，返回消息id
+        /// </summary>
+        /// <returns></returns>
+        public static async Task<string> SendPrivateMsg(this FriendReceiver friend, string message)
+        {
+            MessageChain chain = new()
+            {
+                new () { Type = MessageType.Text, Data = new TextMessage() { Text = message } }
             };
             return await SendPrivateMsg(friend, chain);
         }
@@ -65,7 +87,7 @@ namespace ShamrockCore.Reciver
         {
             MessageChain chain = new()
             {
-                new() { Type = MessageType.Text, Data = new() { Text = message } }
+                new() { Type = MessageType.Text, Data = new TextMessage() { Text = message } }
             };
             return await SendGroupMsg(group, chain);
         }

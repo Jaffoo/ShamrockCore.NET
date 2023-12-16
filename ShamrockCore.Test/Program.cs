@@ -1,4 +1,5 @@
 ﻿using Manganese.Text;
+using ShamrockCore.Reciver;
 using ShamrockCore.Reciver.Events;
 using ShamrockCore.Reciver.Receivers;
 using System.Reactive.Linq;
@@ -24,8 +25,9 @@ namespace ShamrockCore.Test
                 msg.Message.GetPlainText();
                 Console.WriteLine("群消息：" + msg.ToJsonString());
             });
-            bot.MessageReceived.OfType<FriendReceiver>().Subscribe(msg =>
+            bot.MessageReceived.OfType<FriendReceiver>().Subscribe(async msg =>
             {
+                await msg.SendPrivateMsg("你好");
                 Console.WriteLine("好友消息：" + msg.ToJsonString());
             });
             #endregion
