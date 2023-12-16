@@ -1,6 +1,7 @@
 ﻿using Manganese.Text;
 using ShamrockCore.Reciver;
 using ShamrockCore.Reciver.Events;
+using ShamrockCore.Reciver.MsgChain;
 using ShamrockCore.Reciver.Receivers;
 using System.Reactive.Linq;
 
@@ -22,6 +23,13 @@ namespace ShamrockCore.Test
             #region 消息测试
             bot.MessageReceived.OfType<GroupReceiver>().Subscribe(msg =>
             {
+                foreach (var item in msg.Message)
+                {
+                    if (item.Type == Data.Model.MessageType.Text)
+                    {
+                        var text = item as TextMessage; 
+                    }
+                }
                 msg.Message.GetPlainText();
                 Console.WriteLine("群消息：" + msg.ToJsonString());
             });

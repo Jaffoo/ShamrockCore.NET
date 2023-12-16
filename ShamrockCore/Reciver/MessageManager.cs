@@ -35,7 +35,7 @@ namespace ShamrockCore.Reciver
         {
             MessageChain chain = new()
             {
-                new() { Type = MessageType.Text, Data = new TextMessage() { Text = message } }
+                new TextMessage() { Type = MessageType.Text, Data = new() { Text = message } }
             };
             return await SendPrivateMsg(friend, chain);
         }
@@ -56,7 +56,7 @@ namespace ShamrockCore.Reciver
         {
             MessageChain chain = new()
             {
-                new () { Type = MessageType.Text, Data = new TextMessage() { Text = message } }
+                new TextMessage() { Type = MessageType.Text, Data = new() { Text = message } }
             };
             return await SendPrivateMsg(friend, chain);
         }
@@ -87,7 +87,7 @@ namespace ShamrockCore.Reciver
         {
             MessageChain chain = new()
             {
-                new() { Type = MessageType.Text, Data = new TextMessage() { Text = message } }
+                new TextMessage() { Type = MessageType.Text, Data = new() { Text = message } }
             };
             return await SendGroupMsg(group, chain);
         }

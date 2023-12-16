@@ -10,308 +10,423 @@ namespace ShamrockCore.Reciver.MsgChain
         /// </summary>
         [JsonProperty("type")]
         [JsonConverter(typeof(LowercaseStringEnumConverter))]
-        public MessageType Type { get; set; }
+        public virtual MessageType Type { get; set; }
 
         /// <summary>
         /// 消息体
         /// </summary>
         [JsonProperty("data")]
-        public object Data { get; set; } = new();
+        public virtual MsgBody Data { get; set; } = new();
+    }
 
+    public record MsgBody
+    {
+        [JsonProperty("text")] public string Text { get; set; } = "";
+        [JsonProperty("qq")] public long QQ { get; set; }
+        [JsonProperty("id")] public int Id { get; set; }
+        [JsonProperty("file")] public string File { get; set; } = "";
+        [JsonProperty("type")] public int Type { get; set; }
+        [JsonProperty("strength")] public int Strength { get; set; }
+        [JsonProperty("url")] public string Url { get; set; } = "";
+        [JsonProperty("audio")] public string Audio { get; set; } = "";
+        [JsonProperty("title")] public string Title { get; set; } = "";
+        [JsonProperty("singer")] public string Singer { get; set; } = "";
+        [JsonProperty("image")] public string Image { get; set; } = "";
+        [JsonProperty("city")] public string City { get; set; } = "";
+        [JsonProperty("code")] public string Code { get; set; } = "";
+        [JsonProperty("lat")] public string Lat { get; set; } = "";
+        [JsonProperty("lon")] public string Lon { get; set; } = "";
+        [JsonProperty("content")] public string Content { get; set; } = "";
+        [JsonProperty("data")] public JsonData Data { get; set; } = new();
     }
 
     /// <summary>
     /// 文本
     /// </summary>
-    public record TextMessage
+    public record TextMessage : Message
     {
-        /// <summary>
-        /// 文本
-        /// </summary>
-        [JsonProperty("text")] public string Text { get; set; } = "";
+        public new MessageType Type { get; set; } = MessageType.Text;
+        public new Body Data { get; set; } = new();
+        public record Body
+        {
+            /// <summary>
+            /// 文本
+            /// </summary>
+            [JsonProperty("text")] public string Text { get; set; } = "";
+        }
     }
 
     /// <summary>
     /// at
     /// </summary>
-    public record AtMessage
+    public record AtMessage : Message
     {
-        /// <summary>
-        /// atQQ号，"0"或"all"时,表示 AT 全体成员
-        /// </summary>
-        [JsonProperty("qq")] public long QQ { get; set; }
+        public new MessageType Type { get; set; } = MessageType.At;
+        public new Body Data { get; set; } = new();
+        public record Body
+        {
+            /// <summary>
+            /// atQQ号，"0"或"all"时,表示 AT 全体成员
+            /// </summary>
+            [JsonProperty("qq")] public long QQ { get; set; }
+        }
     }
 
     /// <summary>
     /// 表情
     /// </summary>
-    public record FaceMessage
+    public record FaceMessage : Message
     {
-        /// <summary>
-        /// 表情id
-        /// </summary>
-        [JsonProperty("id")] public int Id { get; set; }
+        public new MessageType Type { get; set; } = MessageType.Face;
+        public new Body Data { get; set; } = new();
+        public record Body
+        {
+            /// <summary>
+            /// 表情id
+            /// </summary>
+            [JsonProperty("id")] public int Id { get; set; }
+        }
     }
 
     /// <summary>
     /// 回复
     /// </summary>
-    public record ReplyMessage
+    public record ReplyMessage : Message
     {
-        /// <summary>
-        /// 回复消息id
-        /// </summary>
-        [JsonProperty("id")] public int Id { get; set; }
+        public new MessageType Type { get; set; } = MessageType.Reply;
+        public new Body Data { get; set; } = new();
+        public record Body
+        {
+            /// <summary>
+            /// 回复消息id
+            /// </summary>
+            [JsonProperty("id")] public int Id { get; set; }
+        }
     }
 
     /// <summary>
     /// 图片
     /// </summary>
-    public record ImageMessage
+    public record ImageMessage : Message
     {
-        /// <summary>
-        /// 文件名
-        /// </summary>
-        [JsonProperty("file")] public string File { get; set; } = "";
+        public new MessageType Type { get; set; } = MessageType.Image;
+        public new Body Data { get; set; } = new();
+        public record Body
+        {
+            /// <summary>
+            /// 文件名
+            /// </summary>
+            [JsonProperty("file")] public string File { get; set; } = "";
+        }
     }
 
     /// <summary>
     /// 语音
     /// </summary>
-    public record RecordMessage
+    public record RecordMessage : Message
     {
-        /// <summary>
-        /// 文件名
-        /// </summary>
-        [JsonProperty("file")] public string File { get; set; } = "";
+        public new MessageType Type { get; set; } = MessageType.Record;
+        public new Body Data { get; set; } = new();
+        public record Body
+        {
+            /// <summary>
+            /// 文件名
+            /// </summary>
+            [JsonProperty("file")] public string File { get; set; } = "";
+        }
     }
 
     /// <summary>
     /// 视频
     /// </summary>
-    public record VideoMessage
+    public record VideoMessage : Message
     {
-        /// <summary>
-        /// 文件名
-        /// </summary>
-        [JsonProperty("file")] public string File { get; set; } = "";
+        public new MessageType Type { get; set; } = MessageType.Video;
+        public new Body Data { get; set; } = new();
+        public record Body
+        {
+            /// <summary>
+            /// 文件名
+            /// </summary>
+            [JsonProperty("file")] public string File { get; set; } = "";
+        }
     }
 
     /// <summary>
     /// 篮球表情
     /// </summary>
-    public record BallMessage
+    public record BallMessage : Message
     {
-        /// <summary>
-        /// 5 没中, 4 擦边没中, 3 卡框, 2 擦边中, 1 正中
-        /// </summary>
-        [JsonProperty("id")] public int Id { get; set; }
+        public new MessageType Type { get; set; } = MessageType.Basketball;
+        public new Body Data { get; set; } = new();
+        public record Body
+        {
+            /// <summary>
+            /// 5 没中, 4 擦边没中, 3 卡框, 2 擦边中, 1 正中
+            /// </summary>
+            [JsonProperty("id")] public int Id { get; set; }
+        }
     }
 
     /// <summary>
     /// 猜拳表情
     /// </summary>
-    public record RpsMessage
+    public record RpsMessage : Message
     {
-        /// <summary>
-        /// 5 没中, 4 擦边没中, 3 卡框, 2 擦边中, 1 正中
-        /// </summary>
-        [JsonProperty("id")] public int Id { get; set; }
+        public new MessageType Type { get; set; } = MessageType.New_rps;
+        public new Body Data { get; set; } = new();
+        public record Body
+        {
+            /// <summary>
+            /// 锤 3 剪 2 布 1
+            /// </summary>
+            [JsonProperty("id")] public int Id { get; set; }
+        }
     }
 
     /// <summary>
     /// 骰子表情
     /// </summary>
-    public record DiceMessage
+    public record DiceMessage : Message
     {
-        /// <summary>
-        /// 点数 ID
-        /// </summary>
-        [JsonProperty("id")] public int Id { get; set; }
+        public new MessageType Type { get; set; } = MessageType.New_dice;
+        public new Body Data { get; set; } = new();
+        public record Body
+        {
+            /// <summary>
+            /// 点数 ID
+            /// </summary>
+            [JsonProperty("id")] public int Id { get; set; }
+        }
     }
 
     /// <summary>
     /// 戳一戳表情
     /// </summary>
-    public record PokeMessage
+    public record PokeMessage : Message
     {
-        /// <summary>
-        /// 戳一戳 ID
-        /// </summary>
-        [JsonProperty("id")] public int Id { get; set; }
+        public new MessageType Type { get; set; } = MessageType.Poke;
+        public new Body Data { get; set; } = new();
+        public record Body
+        {
+            /// <summary>
+            /// 戳一戳 ID
+            /// </summary>
+            [JsonProperty("id")] public int Id { get; set; }
 
-        /// <summary>
-        /// 戳一戳类型
-        /// </summary>
-        [JsonProperty("type")] public int Type { get; set; }
+            /// <summary>
+            /// 戳一戳类型
+            /// </summary>
+            [JsonProperty("type")] public int Type { get; set; }
 
-        /// <summary>
-        /// 戳一戳强度(1-5 默认1)
-        /// </summary>
-        [JsonProperty("strength")] public int Strength { get; set; }
+            /// <summary>
+            /// 戳一戳强度(1-5 默认1)
+            /// </summary>
+            [JsonProperty("strength")] public int Strength { get; set; }
+        }
     }
 
     /// <summary>
     /// 戳一戳(双击头像)
     /// </summary>
-    public record TouchMessage
+    public record TouchMessage : Message
     {
-        /// <summary>
-        /// QQ号
-        /// </summary>
-        [JsonProperty("id")] public int Id { get; set; }
+        public new MessageType Type { get; set; } = MessageType.Touch;
+        public new Body Data { get; set; } = new();
+        public record Body
+        {
+            /// <summary>
+            /// QQ号
+            /// </summary>
+            [JsonProperty("id")] public int Id { get; set; }
+        }
     }
 
     /// <summary>
     /// 音乐
     /// </summary>
-    public record MusicMessage
+    public record MusicMessage : Message
     {
-        /// <summary>
-        /// 音乐 ID
-        /// </summary>
-        [JsonProperty("id")] public int Id { get; set; }
+        public new MessageType Type { get; set; } = MessageType.Music;
+        public new Body Data { get; set; } = new();
+        public record Body
+        {
+            /// <summary>
+            /// 音乐 ID
+            /// </summary>
+            [JsonProperty("id")] public int Id { get; set; }
 
-        /// <summary>
-        /// 音乐类型(qq/163)
-        /// </summary>
-        [JsonProperty("type")] public string Type { get; set; } = "qq";
+            /// <summary>
+            /// 音乐类型(qq/163)
+            /// </summary>
+            [JsonProperty("type")] public string Type { get; set; } = "qq";
+        }
     }
 
     /// <summary>
     /// 音乐
     /// </summary>
-    public record MusicCustomMessage
+    public record MusicCustomMessage : Message
     {
-        /// <summary>
-        /// 音乐类型
-        /// </summary>
-        [JsonProperty("type")] public string Type { get; set; } = "qq";
+        public new MessageType Type { get; set; } = MessageType.Music;
+        public new Body Data { get; set; } = new();
+        public record Body
+        {
+            /// <summary>
+            /// 音乐类型
+            /// </summary>
+            [JsonProperty("type")] public string Type { get; set; } = "qq";
 
-        /// <summary>
-        /// 跳转链接
-        /// </summary>
-        [JsonProperty("url")] public string Url { get; set; } = "";
+            /// <summary>
+            /// 跳转链接
+            /// </summary>
+            [JsonProperty("url")] public string Url { get; set; } = "";
 
-        /// <summary>
-        /// 音乐音频链接
-        /// </summary>
-        [JsonProperty("audio")] public string Audio { get; set; } = "";
+            /// <summary>
+            /// 音乐音频链接
+            /// </summary>
+            [JsonProperty("audio")] public string Audio { get; set; } = "";
 
-        /// <summary>
-        /// 标题
-        /// </summary>
-        [JsonProperty("title")] public string Title { get; set; } = "";
+            /// <summary>
+            /// 标题
+            /// </summary>
+            [JsonProperty("title")] public string Title { get; set; } = "";
 
-        /// <summary>
-        /// 歌手
-        /// </summary>
-        [JsonProperty("singer")] public string Singer { get; set; } = "";
+            /// <summary>
+            /// 歌手
+            /// </summary>
+            [JsonProperty("singer")] public string Singer { get; set; } = "";
 
-        /// <summary>
-        /// 封面图片链接
-        /// </summary>
-        [JsonProperty("image")] public string Image { get; set; } = "";
+            /// <summary>
+            /// 封面图片链接
+            /// </summary>
+            [JsonProperty("image")] public string Image { get; set; } = "";
+        }
     }
 
     /// <summary>
     /// 天气
     /// </summary>
-    public record WeatherMessage
+    public record WeatherMessage : Message
     {
-        /// <summary>
-        /// 城市名称
-        /// </summary>
-        [JsonProperty("city")] public string City { get; set; } = "";
+        public new MessageType Type { get; set; } = MessageType.Weather;
+        public new Body Data { get; set; } = new();
+        public record Body
+        {
+            /// <summary>
+            /// 城市名称
+            /// </summary>
+            [JsonProperty("city")] public string City { get; set; } = "";
 
-        /// <summary>
-        /// 城市代码
-        /// </summary>
-        [JsonProperty("code")] public string Code { get; set; } = "";
+            /// <summary>
+            /// 城市代码
+            /// </summary>
+            [JsonProperty("code")] public string Code { get; set; } = "";
+        }
     }
 
     /// <summary>
     /// 位置
     /// </summary>
-    public record LocationMessage
+    public record LocationMessage : Message
     {
-        /// <summary>
-        /// 纬度
-        /// </summary>
-        [JsonProperty("lat")] public string Lat { get; set; } = "";
+        public new MessageType Type { get; set; } = MessageType.Location;
+        public new Body Data { get; set; } = new();
+        public record Body
+        {
+            /// <summary>
+            /// 纬度
+            /// </summary>
+            [JsonProperty("lat")] public string Lat { get; set; } = "";
 
-        /// <summary>
-        /// 经度
-        /// </summary>
-        [JsonProperty("lon")] public string Lon { get; set; } = "";
+            /// <summary>
+            /// 经度
+            /// </summary>
+            [JsonProperty("lon")] public string Lon { get; set; } = "";
 
-        /// <summary>
-        /// 标题
-        /// </summary>
-        [JsonProperty("title")] public string Title { get; set; } = "";
+            /// <summary>
+            /// 标题
+            /// </summary>
+            [JsonProperty("title")] public string Title { get; set; } = "";
 
-        /// <summary>
-        /// 内容
-        /// </summary>
-        [JsonProperty("content")] public string Content { get; set; } = "";
+            /// <summary>
+            /// 内容
+            /// </summary>
+            [JsonProperty("content")] public string Content { get; set; } = "";
+        }
     }
 
     /// <summary>
     /// 链接分享
     /// </summary>
-    public record ShareMessage
+    public record ShareMessage : Message
     {
-        /// <summary>
-        /// 链接地址
-        /// </summary>
-        [JsonProperty("url")] public string Url { get; set; } = "";
+        public new MessageType Type { get; set; } = MessageType.Share;
+        public new Body Data { get; set; } = new();
+        public record Body
+        {
+            /// <summary>
+            /// 链接地址
+            /// </summary>
+            [JsonProperty("url")] public string Url { get; set; } = "";
 
-        /// <summary>
-        /// 图片链接
-        /// </summary>
-        [JsonProperty("image")] public string Image { get; set; } = "";
+            /// <summary>
+            /// 图片链接
+            /// </summary>
+            [JsonProperty("image")] public string Image { get; set; } = "";
 
-        /// <summary>
-        /// 文件链接
-        /// </summary>
-        [JsonProperty("file")] public string File { get; set; } = "";
+            /// <summary>
+            /// 文件链接
+            /// </summary>
+            [JsonProperty("file")] public string File { get; set; } = "";
 
-        /// <summary>
-        /// 标题
-        /// </summary>
-        [JsonProperty("title")] public string Title { get; set; } = "";
+            /// <summary>
+            /// 标题
+            /// </summary>
+            [JsonProperty("title")] public string Title { get; set; } = "";
 
-        /// <summary>
-        /// 内容
-        /// </summary>
-        [JsonProperty("content")] public string Content { get; set; } = "";
+            /// <summary>
+            /// 内容
+            /// </summary>
+            [JsonProperty("content")] public string Content { get; set; } = "";
+        }
     }
 
     /// <summary>
     /// 礼物消息
     /// </summary>
-    public record GiftMessage
+    public record GiftMessage : Message
     {
-        /// <summary>
-        /// qq
-        /// </summary>
-        [JsonProperty("qq")] public long QQ { get; set; }
+        public new MessageType Type { get; set; } = MessageType.Gift;
+        public new Body Data { get; set; } = new();
+        public record Body
+        {
+            /// <summary>
+            /// qq
+            /// </summary>
+            [JsonProperty("qq")] public long QQ { get; set; }
 
-        /// <summary>
-        /// 礼物id
-        /// </summary>
-        [JsonProperty("id")] public int Id { get; set; }
+            /// <summary>
+            /// 礼物id
+            /// </summary>
+            [JsonProperty("id")] public int Id { get; set; }
+        }
     }
 
     /// <summary>
     /// JSON 消息
     /// </summary>
-    public record JsonMessage
+    public record JsonMessage : Message
     {
-        /// <summary>
-        /// json数据
-        /// </summary>
-        [JsonProperty("data")] public JsonData Data { get; set; } = new();
+        public new MessageType Type { get; set; } = MessageType.Json;
+        public new Body Data { get; set; } = new();
+        public record Body
+        {
+            /// <summary>
+            /// json数据
+            /// </summary>
+            [JsonProperty("data")] public JsonData Data { get; set; } = new();
+        }
     }
 
     public record JsonData
