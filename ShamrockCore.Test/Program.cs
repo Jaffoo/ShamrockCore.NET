@@ -3,6 +3,7 @@ using ShamrockCore.Reciver;
 using ShamrockCore.Reciver.Events;
 using ShamrockCore.Reciver.MsgChain;
 using ShamrockCore.Reciver.Receivers;
+using ShamrockCore.Utils;
 using System.Reactive.Linq;
 
 namespace ShamrockCore.Test
@@ -27,11 +28,11 @@ namespace ShamrockCore.Test
                 {
                     if (item.Type == Data.Model.MessageType.Text)
                     {
-                        var text = item as TextMessage; 
+                        var text = item.ConvertTo<TextMessage>();
                     }
                 }
                 msg.Message.GetPlainText();
-                Console.WriteLine("群消息：" + msg.ToJsonString());
+                
             });
             bot.MessageReceived.OfType<FriendReceiver>().Subscribe(async msg =>
             {
@@ -60,7 +61,7 @@ namespace ShamrockCore.Test
             #endregion
 
             #region 接口测试
-            System.Console.WriteLine(bot.Groups.ToJsonString());
+            //System.Console.WriteLine(bot.Groups.ToJsonString());
             #endregion
 
             while (true)

@@ -19,7 +19,7 @@ namespace ShamrockCore.Reciver.MsgChain
         public virtual MsgBody Data { get; set; } = new();
     }
 
-    public record MsgBody
+    public record MsgBody() 
     {
         [JsonProperty("text")] public string Text { get; set; } = "";
         [JsonProperty("qq")] public long QQ { get; set; }
@@ -45,8 +45,10 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record TextMessage : Message
     {
+        [JsonProperty("type")]
+        [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.Text;
-        public new Body Data { get; set; } = new();
+        [JsonProperty("data")] public new Body Data { get; set; } = new();
         public record Body
         {
             /// <summary>
@@ -61,8 +63,10 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record AtMessage : Message
     {
+        [JsonProperty("type")]
+        [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.At;
-        public new Body Data { get; set; } = new();
+        [JsonProperty("data")] public new Body Data { get; set; } = new();
         public record Body
         {
             /// <summary>
@@ -77,8 +81,10 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record FaceMessage : Message
     {
+        [JsonProperty("type")]
+        [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.Face;
-        public new Body Data { get; set; } = new();
+        [JsonProperty("data")] public new Body Data { get; set; } = new();
         public record Body
         {
             /// <summary>
@@ -93,8 +99,10 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record ReplyMessage : Message
     {
+        [JsonProperty("type")]
+        [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.Reply;
-        public new Body Data { get; set; } = new();
+        [JsonProperty("data")] public new Body Data { get; set; } = new();
         public record Body
         {
             /// <summary>
@@ -109,8 +117,10 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record ImageMessage : Message
     {
+        [JsonProperty("type")]
+        [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.Image;
-        public new Body Data { get; set; } = new();
+        [JsonProperty("data")] public new Body Data { get; set; } = new();
         public record Body
         {
             /// <summary>
@@ -125,8 +135,10 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record RecordMessage : Message
     {
+        [JsonProperty("type")]
+        [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.Record;
-        public new Body Data { get; set; } = new();
+        [JsonProperty("data")] public new Body Data { get; set; } = new();
         public record Body
         {
             /// <summary>
@@ -141,8 +153,10 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record VideoMessage : Message
     {
+        [JsonProperty("type")]
+        [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.Video;
-        public new Body Data { get; set; } = new();
+        [JsonProperty("data")] public new Body Data { get; set; } = new();
         public record Body
         {
             /// <summary>
@@ -157,8 +171,10 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record BallMessage : Message
     {
+        [JsonProperty("type")]
+        [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.Basketball;
-        public new Body Data { get; set; } = new();
+        [JsonProperty("data")] public new Body Data { get; set; } = new();
         public record Body
         {
             /// <summary>
@@ -173,8 +189,10 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record RpsMessage : Message
     {
+        [JsonProperty("type")]
+        [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.New_rps;
-        public new Body Data { get; set; } = new();
+        [JsonProperty("data")] public new Body Data { get; set; } = new();
         public record Body
         {
             /// <summary>
@@ -189,8 +207,10 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record DiceMessage : Message
     {
+        [JsonProperty("type")]
+        [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.New_dice;
-        public new Body Data { get; set; } = new();
+        [JsonProperty("data")] public new Body Data { get; set; } = new();
         public record Body
         {
             /// <summary>
@@ -205,8 +225,10 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record PokeMessage : Message
     {
+        [JsonProperty("type")]
+        [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.Poke;
-        public new Body Data { get; set; } = new();
+        [JsonProperty("data")] public new Body Data { get; set; } = new();
         public record Body
         {
             /// <summary>
@@ -231,8 +253,10 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record TouchMessage : Message
     {
+        [JsonProperty("type")]
+        [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.Touch;
-        public new Body Data { get; set; } = new();
+        [JsonProperty("data")] public new Body Data { get; set; } = new();
         public record Body
         {
             /// <summary>
@@ -247,8 +271,10 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record MusicMessage : Message
     {
+        [JsonProperty("type")]
+        [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.Music;
-        public new Body Data { get; set; } = new();
+        [JsonProperty("data")] public new Body Data { get; set; } = new();
         public record Body
         {
             /// <summary>
@@ -268,8 +294,10 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record MusicCustomMessage : Message
     {
+        [JsonProperty("type")]
+        [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.Music;
-        public new Body Data { get; set; } = new();
+        [JsonProperty("data")] public new Body Data { get; set; } = new();
         public record Body
         {
             /// <summary>
@@ -309,8 +337,10 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record WeatherMessage : Message
     {
+        [JsonProperty("type")]
+        [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.Weather;
-        public new Body Data { get; set; } = new();
+        [JsonProperty("data")] public new Body Data { get; set; } = new();
         public record Body
         {
             /// <summary>
@@ -330,8 +360,10 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record LocationMessage : Message
     {
+        [JsonProperty("type")]
+        [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.Location;
-        public new Body Data { get; set; } = new();
+        [JsonProperty("data")] public new Body Data { get; set; } = new();
         public record Body
         {
             /// <summary>
@@ -361,8 +393,10 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record ShareMessage : Message
     {
+        [JsonProperty("type")]
+        [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.Share;
-        public new Body Data { get; set; } = new();
+        [JsonProperty("data")] public new Body Data { get; set; } = new();
         public record Body
         {
             /// <summary>
@@ -397,8 +431,10 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record GiftMessage : Message
     {
+        [JsonProperty("type")]
+        [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.Gift;
-        public new Body Data { get; set; } = new();
+        [JsonProperty("data")] public new Body Data { get; set; } = new();
         public record Body
         {
             /// <summary>
@@ -418,8 +454,10 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record JsonMessage : Message
     {
+        [JsonProperty("type")]
+        [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.Json;
-        public new Body Data { get; set; } = new();
+        [JsonProperty("data")] public new Body Data { get; set; } = new();
         public record Body
         {
             /// <summary>

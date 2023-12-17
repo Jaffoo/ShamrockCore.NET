@@ -137,7 +137,6 @@ namespace ShamrockCore
                 }
                 else
                     _unknownMessageReceived.OnNext(data);
-                Console.WriteLine("原始数据：" + data);
             }
             catch (Exception)
             {

@@ -2,6 +2,7 @@
 using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using ShamrockCore.Reciver.MsgChain;
 
 namespace ShamrockCore.Utils
 {
@@ -55,6 +56,37 @@ namespace ShamrockCore.Utils
             MemberInfo member = type.GetMember(name)[0];
             DescriptionAttribute? attribute = member.GetCustomAttribute<DescriptionAttribute>();
             return attribute != null ? attribute.Description : name;
+        }
+
+        public static T ConvertTo<T>(this Message message) where T : class
+        {
+            T result = Activator.CreateInstance<T>();
+            PropertyInfo[] properties = typeof(T).GetProperties();
+            foreach (PropertyInfo property in properties)
+            {
+                if (property.Name == "Type")
+                {
+                    property.SetValue(result, message.Type);
+                }
+                if (property.Name == "Data" && property.PropertyType.Name == "Body")
+                {
+                    PropertyInfo[]? msgProperty = message.Data.GetType().GetProperties();
+                    PropertyInfo[]? tProperty = property.GetValue(result)?.GetType().GetProperties();
+                    if (tProperty != null)
+                    {
+                        foreach (var tProp in tProperty)
+                        {
+                            var matchingProp = msgProperty.FirstOrDefault(p => p.Name == tProp.Name && p.PropertyType == tProp.PropertyType);
+                            if (matchingProp != null)
+                            {
+                                var value = matchingProp.GetValue(message.Data);
+                                tProp.SetValue(property.GetValue(result), value);
+                            }
+                        }
+                    }
+                }
+            }
+            return result;
         }
     }
 }
