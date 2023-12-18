@@ -3,6 +3,24 @@
 namespace ShamrockCore.Data.Model
 {
     /// <summary>
+    /// 根目录文件
+    /// </summary>
+    public record FilesFloders
+    {
+        /// <summary>
+        /// 文件列表
+        /// </summary>
+        [JsonProperty("files")]
+        public List<FileInfo> Files { get; set; } = new();
+
+        /// <summary>
+        /// 文件夹列表
+        /// </summary>
+        [JsonProperty("floders")]
+        public List<Floder>  Floders { get; set; } = new();
+    }
+
+    /// <summary>
     /// 文件
     /// </summary>
     public record FileInfo
@@ -78,10 +96,18 @@ namespace ShamrockCore.Data.Model
         [JsonProperty("sha3")] public string Sha3 { get; set; } = "";
     }
 
+    public record FileBaseInfo
+    {
+        /// <summary>
+        /// url
+        /// </summary>
+        public string Url { get; set; } = "";
+    }
+
     /// <summary>
     /// 图片
     /// </summary>
-    public record ImageInfo
+    public record ImageInfo: FileBaseInfo
     {
         /// <summary>
         /// 大小
@@ -89,30 +115,16 @@ namespace ShamrockCore.Data.Model
         public long Size { get; set; }
 
         /// <summary>
-        /// url
-        /// </summary>
-        public string Url { get; set; } = "";
-
-        /// <summary>
         /// 图片名
         /// </summary>
         public string FileName { get; set; } = "";
-    }
-    public record CanSendImg
-    {
-        public bool Yes { get; set; }
     }
 
     /// <summary>
     /// 语音信息
     /// </summary>
-    public record RecordInfo
+    public record RecordInfo: FileBaseInfo
     {
-        /// <summary>
-        /// url
-        /// </summary>
-        public string Url { get; set; } = "";
-
         /// <summary>
         /// 文件路径
         /// </summary>

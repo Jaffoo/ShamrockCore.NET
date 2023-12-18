@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using ShamrockCore.Data.HttpAPI;
 
 namespace ShamrockCore.Data.Model
 {

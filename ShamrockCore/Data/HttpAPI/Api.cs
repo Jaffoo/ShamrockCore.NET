@@ -375,7 +375,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// </summary>
         /// <param name="groupId">群号</param>
         /// <returns></returns>
-        public static async Task<bool> GetBanList(long groupId)
+        public static async Task<List<Ban>?> GetBanList(long groupId)
         {
             try
             {
@@ -383,7 +383,7 @@ namespace ShamrockCore.Data.HttpAPI
                 {
                     group_id = groupId
                 };
-                var res = await HttpEndpoints.GetBanList.PostAsync(obj);
+                var res = await HttpEndpoints.GetBanList.PostAsync<List<Ban>>(obj);
                 return res;
             }
             catch (Exception)
@@ -396,7 +396,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 获取群文件系统信息
         /// </summary>
         /// <returns></returns>
-        public static async Task<bool> GetGroupFileSystemInfo(long groupId)
+        public static async Task<FileSystemInfo?> GetGroupFileSystemInfo(long groupId)
         {
             try
             {
@@ -404,7 +404,7 @@ namespace ShamrockCore.Data.HttpAPI
                 {
                     group_id = groupId
                 };
-                var res = await HttpEndpoints.GetGroupFileSystemInfo.PostAsync(obj);
+                var res = await HttpEndpoints.GetGroupFileSystemInfo.PostAsync<FileSystemInfo>(obj);
                 return res;
             }
             catch (Exception)
@@ -417,7 +417,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 获取群根目录文件列表
         /// </summary>
         /// <returns></returns>
-        public static async Task<bool> GetGroupRootFiles(long groupId)
+        public static async Task<FilesFloders?> GetGroupRootFiles(long groupId)
         {
             try
             {
@@ -425,7 +425,7 @@ namespace ShamrockCore.Data.HttpAPI
                 {
                     group_id = groupId,
                 };
-                var res = await HttpEndpoints.GetGroupRootFiles.PostAsync(obj);
+                var res = await HttpEndpoints.GetGroupRootFiles.PostAsync<FilesFloders>(obj);
                 return res;
             }
             catch (Exception)
@@ -438,7 +438,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 获取群子目录文件列表
         /// </summary>
         /// <returns></returns>
-        public static async Task<bool> GetGroupFiles(long groupId, string folderId)
+        public static async Task<FilesFloders?> GetGroupFiles(long groupId, string folderId)
         {
             try
             {
@@ -447,7 +447,7 @@ namespace ShamrockCore.Data.HttpAPI
                     group_id = groupId,
                     folder_id = folderId
                 };
-                var res = await HttpEndpoints.GetGroupFiles.PostAsync(obj);
+                var res = await HttpEndpoints.GetGroupFiles.PostAsync<FilesFloders>(obj);
                 return res;
             }
             catch (Exception)
@@ -460,7 +460,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 获取群文件资源链接
         /// </summary>
         /// <returns></returns>
-        public static async Task<bool> GetGroupFileUrl(long groupId, string fileId, int busid)
+        public static async Task<FileBaseInfo?> GetGroupFileUrl(long groupId, string fileId, int busid)
         {
             try
             {
@@ -470,7 +470,7 @@ namespace ShamrockCore.Data.HttpAPI
                     file_id = fileId,
                     busid
                 };
-                var res = await HttpEndpoints.GetGroupFileUrl.PostAsync(obj);
+                var res = await HttpEndpoints.GetGroupFileUrl.PostAsync<FileBaseInfo>(obj);
                 return res;
             }
             catch (Exception)
