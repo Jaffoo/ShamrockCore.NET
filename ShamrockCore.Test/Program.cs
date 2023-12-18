@@ -22,7 +22,7 @@ namespace ShamrockCore.Test
             });
 
             #region 消息测试
-            bot.MessageReceived.OfType<GroupReceiver>().Subscribe(msg =>
+            bot.MessageReceived.OfType<GroupReceiver>().Subscribe(async msg =>
             {
                 foreach (var item in msg.Message)
                 {
@@ -31,12 +31,16 @@ namespace ShamrockCore.Test
                         var text = item.ConvertTo<TextMessage>();
                     }
                 }
-                msg.Message.GetPlainText();
-                
+                var msgStr = msg.Message.GetPlainText();
+                if (msgStr == "你好")
+                {
+                    var build = new MessageChainBuilder().AtAll().Build();
+                    await msg.SendMessageAsync(build);
+                }
+
             });
             bot.MessageReceived.OfType<FriendReceiver>().Subscribe(async msg =>
             {
-                await msg.SendPrivateMsg("你好");
                 Console.WriteLine("好友消息：" + msg.ToJsonString());
             });
             #endregion

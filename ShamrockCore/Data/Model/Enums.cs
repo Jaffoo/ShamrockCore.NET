@@ -53,6 +53,53 @@ namespace ShamrockCore.Data.Model
         Share,
         Gift
     }
+
+    public enum Ball
+    {
+        /// <summary>
+        /// 正中
+        /// </summary>
+        ZZ = 1,
+
+        /// <summary>
+        /// 擦边中
+        /// </summary>
+        CBZ = 2,
+
+        /// <summary>
+        /// 卡框
+        /// </summary>
+        KK = 3,
+
+        /// <summary>
+        /// 擦边没中
+        /// </summary>
+        CBMZ = 4,
+
+        /// <summary>
+        /// 没中
+        /// </summary>
+        MZ = 5
+    }
+
+    public enum Rps
+    {
+        /// <summary>
+        /// 布
+        /// </summary>
+        B = 1,
+
+        /// <summary>
+        /// 见到
+        /// </summary>
+        JD = 2,
+
+        /// <summary>
+        /// 石头
+        /// </summary>
+        ST = 3,
+    }
+
     public class LowercaseStringEnumConverter : StringEnumConverter
     {
         public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using ShamrockCore.Data.HttpAPI;
 using ShamrockCore.Data.Model;
 using ShamrockCore.Reciver.MsgChain;
 

@@ -1164,10 +1164,12 @@ namespace ShamrockCore.Data.HttpAPI
         /// <param name="message"></param>
         /// <param name="autoEscape"></param>
         /// <returns></returns>
-        public static async Task<string> SendPrivateMsg(long qq, object message, bool autoEscape = false)
+        public static async Task<string> SendPrivateMsgAsync(long qq, object message, bool autoEscape = false)
         {
             try
             {
+                if (qq <= 0) return "";
+                if (message == null) return "";
                 var obj = new
                 {
                     user_id = qq,
@@ -1190,10 +1192,12 @@ namespace ShamrockCore.Data.HttpAPI
         /// <param name="message"></param>
         /// <param name="autoEscape"></param>
         /// <returns></returns>
-        public static async Task<string> SendGroupMsg(long groupId, object message, bool autoEscape = false)
+        public static async Task<string> SendGroupMsgAsync(long groupId, object message, bool autoEscape = false)
         {
             try
             {
+                if (groupId <= 0) return "";
+                if (message == null) return "";
                 var obj = new
                 {
                     group_id = groupId,
@@ -1210,16 +1214,18 @@ namespace ShamrockCore.Data.HttpAPI
         }
 
         /// <summary>
-        /// 发送群聊消息，返回消息id
+        /// 发送消息，返回消息id
         /// </summary>
         /// <param name="qq"></param>
         /// <param name="message"></param>
         /// <param name="autoEscape"></param>
         /// <returns></returns>
-        public static async Task<string> SendMsg(MessageType type, long qq, long groupId, long discussId, object message, bool autoEscape = false)
+        public static async Task<string> SendMsgAsync(MessageType type, long qq, long groupId, long discussId, object message, bool autoEscape = false)
         {
             try
             {
+                if (qq <= 0 || groupId <= 0) return "";
+                if (message == null) return "";
                 var obj = new
                 {
                     message_type = type,
@@ -1244,10 +1250,12 @@ namespace ShamrockCore.Data.HttpAPI
         /// <param name="groupId"></param>
         /// <param name="messages"></param>
         /// <returns></returns>
-        public static async Task<string> SendGroupForwardMsg(long groupId, object messages)
+        public static async Task<string> SendGroupForwardMsgAsync(long groupId, object messages)
         {
             try
             {
+                if (groupId <= 0) return "";
+                if (messages == null) return "";
                 var obj = new
                 {
                     group_id = groupId,
@@ -1268,10 +1276,12 @@ namespace ShamrockCore.Data.HttpAPI
         /// <param name="qq"></param>
         /// <param name="messages"></param>
         /// <returns></returns>
-        public static async Task<string> SendPrivateForwardMsg(long qq, object messages)
+        public static async Task<string> SendPrivateForwardMsgAsync(long qq, object messages)
         {
             try
             {
+                if (qq <= 0) return "";
+                if (messages == null) return "";
                 var obj = new
                 {
                     user_id = qq,

@@ -19,12 +19,13 @@ namespace ShamrockCore.Reciver.MsgChain
         public virtual MsgBody Data { get; set; } = new();
     }
 
-    public record MsgBody() 
+    public record MsgBody()
     {
         [JsonProperty("text")] public string Text { get; set; } = "";
         [JsonProperty("qq")] public long QQ { get; set; }
-        [JsonProperty("id")] public int Id { get; set; }
+        [JsonProperty("id")] public long Id { get; set; }
         [JsonProperty("file")] public string File { get; set; } = "";
+        [JsonProperty("magic")] public bool Magic { get; set; }
         [JsonProperty("type")] public int Type { get; set; }
         [JsonProperty("strength")] public int Strength { get; set; }
         [JsonProperty("url")] public string Url { get; set; } = "";
@@ -34,8 +35,8 @@ namespace ShamrockCore.Reciver.MsgChain
         [JsonProperty("image")] public string Image { get; set; } = "";
         [JsonProperty("city")] public string City { get; set; } = "";
         [JsonProperty("code")] public string Code { get; set; } = "";
-        [JsonProperty("lat")] public string Lat { get; set; } = "";
-        [JsonProperty("lon")] public string Lon { get; set; } = "";
+        [JsonProperty("lat")] public float Lat { get; set; }
+        [JsonProperty("lon")] public float Lon { get; set; }
         [JsonProperty("content")] public string Content { get; set; } = "";
         [JsonProperty("data")] public JsonData Data { get; set; } = new();
     }
@@ -45,6 +46,13 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record TextMessage : Message
     {
+        public TextMessage() { }
+
+        /// <summary>
+        /// 文本
+        /// </summary>
+        /// <param name="text">消息</param>
+        public TextMessage(string text) => Data.Text = text;
         [JsonProperty("type")]
         [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.Text;
@@ -52,7 +60,7 @@ namespace ShamrockCore.Reciver.MsgChain
         public record Body
         {
             /// <summary>
-            /// 文本
+            /// 消息
             /// </summary>
             [JsonProperty("text")] public string Text { get; set; } = "";
         }
@@ -63,6 +71,13 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record AtMessage : Message
     {
+        public AtMessage() { }
+
+        /// <summary>
+        /// at
+        /// </summary>
+        /// <param name="qq">qq号</param>
+        public AtMessage(long qq) => Data.QQ = qq;
         [JsonProperty("type")]
         [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.At;
@@ -81,6 +96,13 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record FaceMessage : Message
     {
+        public FaceMessage() { }
+
+        /// <summary>
+        /// 表情
+        /// </summary>
+        /// <param name="id">表情id</param>
+        public FaceMessage(int id) => Data.Id = id;
         [JsonProperty("type")]
         [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.Face;
@@ -90,7 +112,7 @@ namespace ShamrockCore.Reciver.MsgChain
             /// <summary>
             /// 表情id
             /// </summary>
-            [JsonProperty("id")] public int Id { get; set; }
+            [JsonProperty("id")] public long Id { get; set; }
         }
     }
 
@@ -99,6 +121,13 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record ReplyMessage : Message
     {
+        public ReplyMessage() { }
+
+        /// <summary>
+        /// 回复
+        /// </summary>
+        /// <param name="msgId">消息id</param>
+        public ReplyMessage(int msgId) => Data.Id = msgId;
         [JsonProperty("type")]
         [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.Reply;
@@ -108,7 +137,7 @@ namespace ShamrockCore.Reciver.MsgChain
             /// <summary>
             /// 回复消息id
             /// </summary>
-            [JsonProperty("id")] public int Id { get; set; }
+            [JsonProperty("id")] public long Id { get; set; }
         }
     }
 
@@ -117,6 +146,18 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record ImageMessage : Message
     {
+        public ImageMessage() { }
+
+        /// <summary>
+        /// 图片
+        /// </summary>
+        /// <param name="file">文件路径</param>
+        /// <param name="url">文件链接</param>
+        public ImageMessage(string file = "", string url = "")
+        {
+            Data.File = file;
+            Data.Url = url;
+        }
         [JsonProperty("type")]
         [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.Image;
@@ -127,6 +168,11 @@ namespace ShamrockCore.Reciver.MsgChain
             /// 文件名
             /// </summary>
             [JsonProperty("file")] public string File { get; set; } = "";
+
+            /// <summary>
+            /// 链接
+            /// </summary>
+            [JsonProperty("url")] public string Url { get; set; } = "";
         }
     }
 
@@ -135,6 +181,20 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record RecordMessage : Message
     {
+        public RecordMessage() { }
+
+        /// <summary>
+        /// 语音
+        /// </summary>
+        /// <param name="file">文件路径</param>
+        /// <param name="url">文件链接</param>
+        /// <param name="magic">是否为魔法语音</param>
+        public RecordMessage(string file = "", string url = "", bool magic = false)
+        {
+            Data.File = file;
+            Data.Url = url;
+            Data.Magic = magic;
+        }
         [JsonProperty("type")]
         [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.Record;
@@ -142,9 +202,19 @@ namespace ShamrockCore.Reciver.MsgChain
         public record Body
         {
             /// <summary>
-            /// 文件名
+            /// 文件地址
             /// </summary>
             [JsonProperty("file")] public string File { get; set; } = "";
+
+            /// <summary>
+            /// 文件链接
+            /// </summary>
+            [JsonProperty("url")] public string Url { get; set; } = "";
+
+            /// <summary>
+            /// 是否为魔法语音
+            /// </summary>
+            [JsonProperty("magic")] public bool Magic { get; set; }
         }
     }
 
@@ -153,6 +223,13 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record VideoMessage : Message
     {
+        public VideoMessage() { }
+
+        /// <summary>
+        /// 视频
+        /// </summary>
+        /// <param name="file">文件路径</param>
+        public VideoMessage(string file) => Data.File = file;
         [JsonProperty("type")]
         [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.Video;
@@ -171,6 +248,13 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record BallMessage : Message
     {
+        public BallMessage() { }
+
+        /// <summary>
+        /// 5 没中, 4 擦边没中, 3 卡框, 2 擦边中, 1 正中
+        /// </summary>
+        /// <param name="id"></param>
+        public BallMessage(Ball id) => Data.Id = id;
         [JsonProperty("type")]
         [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.Basketball;
@@ -180,7 +264,7 @@ namespace ShamrockCore.Reciver.MsgChain
             /// <summary>
             /// 5 没中, 4 擦边没中, 3 卡框, 2 擦边中, 1 正中
             /// </summary>
-            [JsonProperty("id")] public int Id { get; set; }
+            [JsonProperty("id")] public Ball Id { get; set; }
         }
     }
 
@@ -189,6 +273,13 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record RpsMessage : Message
     {
+        public RpsMessage() { }
+
+        /// <summary>
+        /// 猜拳表情
+        /// </summary>
+        /// <param name="id">锤 3 剪 2 布 1</param>
+        public RpsMessage(Rps id) => Data.Id = id;
         [JsonProperty("type")]
         [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.New_rps;
@@ -198,7 +289,7 @@ namespace ShamrockCore.Reciver.MsgChain
             /// <summary>
             /// 锤 3 剪 2 布 1
             /// </summary>
-            [JsonProperty("id")] public int Id { get; set; }
+            [JsonProperty("id")] public Rps Id { get; set; }
         }
     }
 
@@ -207,6 +298,13 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record DiceMessage : Message
     {
+        public DiceMessage() { }
+
+        /// <summary>
+        /// 骰子表情
+        /// </summary>
+        /// <param name="id">点数(1-6)</param>
+        public DiceMessage(int id) => Data.Id = id;
         [JsonProperty("type")]
         [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.New_dice;
@@ -214,9 +312,9 @@ namespace ShamrockCore.Reciver.MsgChain
         public record Body
         {
             /// <summary>
-            /// 点数 ID
+            /// 点数(1-6)
             /// </summary>
-            [JsonProperty("id")] public int Id { get; set; }
+            [JsonProperty("id")] public long Id { get; set; }
         }
     }
 
@@ -225,6 +323,8 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record PokeMessage : Message
     {
+        public PokeMessage() { }
+        public PokeMessage(Body data) => Data = data;
         [JsonProperty("type")]
         [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.Poke;
@@ -232,19 +332,19 @@ namespace ShamrockCore.Reciver.MsgChain
         public record Body
         {
             /// <summary>
-            /// 戳一戳 ID
+            /// 戳一戳ID
             /// </summary>
-            [JsonProperty("id")] public int Id { get; set; }
+            [JsonProperty("id")] public long Id { get; set; } = 10000;
 
             /// <summary>
             /// 戳一戳类型
             /// </summary>
-            [JsonProperty("type")] public int Type { get; set; }
+            [JsonProperty("type")] public int Type { get; set; } = 1;
 
             /// <summary>
             /// 戳一戳强度(1-5 默认1)
             /// </summary>
-            [JsonProperty("strength")] public int Strength { get; set; }
+            [JsonProperty("strength")] public int Strength { get; set; } = 1;
         }
     }
 
@@ -253,6 +353,13 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record TouchMessage : Message
     {
+        public TouchMessage() { }
+
+        /// <summary>
+        /// 戳一戳(双击头像)
+        /// </summary>
+        /// <param name="id">QQ号</param>
+        public TouchMessage(long id) => Data.Id = id;
         [JsonProperty("type")]
         [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.Touch;
@@ -262,7 +369,7 @@ namespace ShamrockCore.Reciver.MsgChain
             /// <summary>
             /// QQ号
             /// </summary>
-            [JsonProperty("id")] public int Id { get; set; }
+            [JsonProperty("id")] public long Id { get; set; }
         }
     }
 
@@ -271,6 +378,18 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record MusicMessage : Message
     {
+        public MusicMessage() { }
+
+        /// <summary>
+        /// 音乐
+        /// </summary>
+        /// <param name="id">音乐id</param>
+        /// <param name="type">音乐类型(qq/163)</param>
+        public MusicMessage(long id, string type = "qq")
+        {
+            Data.Id = id;
+            Data.Type = type;
+        }
         [JsonProperty("type")]
         [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.Music;
@@ -280,7 +399,7 @@ namespace ShamrockCore.Reciver.MsgChain
             /// <summary>
             /// 音乐 ID
             /// </summary>
-            [JsonProperty("id")] public int Id { get; set; }
+            [JsonProperty("id")] public long Id { get; set; }
 
             /// <summary>
             /// 音乐类型(qq/163)
@@ -294,6 +413,8 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record MusicCustomMessage : Message
     {
+        public MusicCustomMessage() { }
+        public MusicCustomMessage(Body data) => Data = data;
         [JsonProperty("type")]
         [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.Music;
@@ -337,6 +458,8 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record WeatherMessage : Message
     {
+        public WeatherMessage() { }
+        public WeatherMessage(Body data) => Data = data;
         [JsonProperty("type")]
         [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.Weather;
@@ -360,6 +483,8 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record LocationMessage : Message
     {
+        public LocationMessage() { }
+        public LocationMessage(Body data) => Data = data;
         [JsonProperty("type")]
         [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.Location;
@@ -369,12 +494,12 @@ namespace ShamrockCore.Reciver.MsgChain
             /// <summary>
             /// 纬度
             /// </summary>
-            [JsonProperty("lat")] public string Lat { get; set; } = "";
+            [JsonProperty("lat")] public float Lat { get; set; }
 
             /// <summary>
             /// 经度
             /// </summary>
-            [JsonProperty("lon")] public string Lon { get; set; } = "";
+            [JsonProperty("lon")] public float Lon { get; set; }
 
             /// <summary>
             /// 标题
@@ -393,6 +518,8 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record ShareMessage : Message
     {
+        public ShareMessage() { }
+        public ShareMessage(Body data) => Data = data;
         [JsonProperty("type")]
         [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.Share;
@@ -431,6 +558,14 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record GiftMessage : Message
     {
+        public GiftMessage() { }
+
+        /// <summary>
+        /// 礼物消息
+        /// </summary>
+        /// <param name="qq">qq</param>
+        /// <param name="giftId">礼物id</param>
+        public GiftMessage(long qq, int giftId) { Data.QQ = qq; Data.Id = giftId; }
         [JsonProperty("type")]
         [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.Gift;
@@ -445,8 +580,22 @@ namespace ShamrockCore.Reciver.MsgChain
             /// <summary>
             /// 礼物id
             /// </summary>
-            [JsonProperty("id")] public int Id { get; set; }
+            [JsonProperty("id")] public long Id { get; set; }
         }
+    }
+
+    /// <summary>
+    /// 合并转发
+    /// </summary>
+    public record MergeMessage : Message
+    {
+    }
+
+    /// <summary>
+    /// 合并转发节点
+    /// </summary>
+    public record MergeNodeMessage : Message
+    {
     }
 
     /// <summary>
@@ -454,6 +603,8 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record JsonMessage : Message
     {
+        public JsonMessage() { }
+        public JsonMessage(Body data) => Data = data;
         [JsonProperty("type")]
         [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.Json;
