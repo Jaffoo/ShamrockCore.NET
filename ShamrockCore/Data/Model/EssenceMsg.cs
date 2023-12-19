@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using ShamrockCore.Data.HttpAPI;
 
 namespace ShamrockCore.Data.Model
 {
@@ -54,5 +55,13 @@ namespace ShamrockCore.Data.Model
         /// </summary>
         [JsonProperty("message_seq")]
         public long MsgSeq { get; set; }
+
+        #region 扩展属性/方法
+        /// <summary>
+        /// 移除精华消息
+        /// </summary>
+        /// <returns></returns>
+        public async Task<bool> Remove() => await Api.DeleteEssenceMsg(MsgId);
+        #endregion
     }
 }

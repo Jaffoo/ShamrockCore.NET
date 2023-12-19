@@ -1,9 +1,10 @@
 ﻿using Newtonsoft.Json;
+using ShamrockCore.Data.HttpAPI;
 
 namespace ShamrockCore.Data.Model
 {
     /// <summary>
-    /// 根目录文件
+    /// 目录和文件
     /// </summary>
     public record FilesFloders
     {
@@ -17,7 +18,7 @@ namespace ShamrockCore.Data.Model
         /// 文件夹列表
         /// </summary>
         [JsonProperty("floders")]
-        public List<Floder>  Floders { get; set; } = new();
+        public List<Floder> Floders { get; set; } = new();
     }
 
     /// <summary>
@@ -33,7 +34,7 @@ namespace ShamrockCore.Data.Model
         /// <summary>
         /// 文件标识id
         /// </summary>
-        [JsonProperty("file_id")] public long Id { get; set; }
+        [JsonProperty("file_id")] public string Id { get; set; } = "";
 
         /// <summary>
         /// 群号
@@ -94,6 +95,19 @@ namespace ShamrockCore.Data.Model
         /// sha3可能获取不到
         /// </summary>
         [JsonProperty("sha3")] public string Sha3 { get; set; } = "";
+
+        #region 扩展属性/方法
+        /// <summary>
+        /// 文件url
+        /// </summary>
+        public string Url => Api.GetGroupFileUrl(GroupId, Id, Busid).Result?.Url ?? "";
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <returns></returns>
+        public async Task<bool> Delete() => await Api.DeleteGroupFile(GroupId, Id, Busid);
+        #endregion
     }
 
     public record FileBaseInfo
@@ -107,7 +121,7 @@ namespace ShamrockCore.Data.Model
     /// <summary>
     /// 图片
     /// </summary>
-    public record ImageInfo: FileBaseInfo
+    public record ImageInfo : FileBaseInfo
     {
         /// <summary>
         /// 大小
@@ -123,7 +137,7 @@ namespace ShamrockCore.Data.Model
     /// <summary>
     /// 语音信息
     /// </summary>
-    public record RecordInfo: FileBaseInfo
+    public record RecordInfo : FileBaseInfo
     {
         /// <summary>
         /// 文件路径

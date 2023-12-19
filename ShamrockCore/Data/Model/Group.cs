@@ -117,27 +117,39 @@ namespace ShamrockCore.Data.Model
         public bool AllBanCancel => Api.SetGroupWholeBan(Id, false).Result;
 
         /// <summary>
-        /// 获取文件夹下的文件
-        /// </summary>
-        /// <param name="folderId">文件夹id</param>
-        /// <returns></returns>
-        public async Task<FilesFloders?> GetFiles(string folderId) => await Api.GetGroupFiles(Id, folderId);
-
-        /// <summary>
-        /// 获取文件链接
-        /// </summary>
-        /// <param name="fileId">文件id</param>
-        /// <param name="busid">busid</param>
-        /// <returns></returns>
-        public async Task<FileBaseInfo?> GetFiles(string fileId, int busid) => await Api.GetGroupFileUrl(Id, fileId, busid);
-
-        /// <summary>
         /// 获取群历史聊天
         /// </summary>
         /// <param name="count">数量</param>
         /// <param name="start">开始</param>
         /// <returns></returns>
         public async Task<MessageChain?> GetHistoryMsg(int count, int start) => await Api.GetGroupMsgHistory(Id, count, start);
+
+        /// <summary>
+        /// 群打卡
+        /// </summary>
+        /// <returns></returns>
+        public async Task<bool> Sign()=>await Api.SendGroupSign(Id);
+
+        /// <summary>
+        /// 发送群公告
+        /// </summary>
+        /// <param name="content">内容</param>
+        /// <param name="image">图片,支持base64、http(s)和本地路径</param>
+        /// <returns></returns>
+        public async Task<bool> SendNotice(string content, string image = "")=>await Api.SendGroupNotice(Id, content, image);
+
+        /// <summary>
+        /// 退出群聊
+        /// </summary>
+        /// <returns></returns>
+        public async Task<bool> Leave() => await Api.SetGroupLeave(Id);
+
+        /// <summary>
+        /// 设置群名
+        /// </summary>
+        /// <param name="name">群名</param>
+        /// <returns></returns>
+        public async Task<bool> SetName(string name)=>await Api.SetGroupName(Id, name);
         #endregion
     }
 }

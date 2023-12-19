@@ -199,8 +199,8 @@ namespace ShamrockCore.Utils
                          .GetAsync();
                 var re = await result.GetJsonAsync<Result>();
                 if (re.Status != "ok" && re.Retcode != 0)
-                    return true;
-                else return false;
+                    return false;
+                return true;
             }
             catch (Exception e)
             {

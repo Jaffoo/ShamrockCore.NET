@@ -211,13 +211,13 @@ namespace ShamrockCore
         /// 获取好友系统消息(未能正确获取到数据)
         /// </summary>
         /// <returns></returns>
-        public async Task<List<FriendSysMsg>?> GetFriendSysMsg() => await Api.GetFriendSysMsg();
+        public List<FriendSysMsg>? FriendSysMsg => Api.GetFriendSysMsg().Result;
 
         // <summary>
         /// 是否在黑名单中
         /// </summary>
         /// <returns></returns>
-        public async Task<IsInBack?> InBlack() => await Api.IsBlacklistUin();
+        public async Task<IsInBack?> InBlack(long qq) => await Api.IsBlacklistUin(qq);
 
         /// <summary>
         /// 获取图片

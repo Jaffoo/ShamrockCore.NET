@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using ShamrockCore.Data.HttpAPI;
 
 namespace ShamrockCore.Reciver
 {
@@ -33,5 +34,19 @@ namespace ShamrockCore.Reciver
         /// </summary>
         [JsonProperty("user_id")]
         public long UserId { get; set; }
+
+        #region 扩展方法/属性
+        /// <summary>
+        /// 撤回消息
+        /// </summary>
+        /// <returns></returns>
+        public async Task Recall() => await Api.DeleteMsg(MessageId);
+
+        /// <summary>
+        /// 设置精华消息
+        /// </summary>
+        /// <returns></returns>
+        public async Task SetEssenceMsg() => await Api.SetEssenceMsg(MessageId);
+        #endregion
     }
 }

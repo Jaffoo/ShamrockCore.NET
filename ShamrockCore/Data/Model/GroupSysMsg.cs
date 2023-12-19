@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using ShamrockCore.Data.HttpAPI;
 
 namespace ShamrockCore.Data.Model
 {
@@ -77,6 +78,22 @@ namespace ShamrockCore.Data.Model
         /// flag,用于处理请求
         /// </summary>
         public string Flag { get; set; } = "";
+
+        #region 扩展方法/属性
+        /// <summary>
+        /// 同意邀请进群
+        /// </summary>
+        /// <param name="remark">备注</param>
+        /// <returns></returns>
+        public async Task<bool> Agree(string remark = "") => await Api.SetGroupAddRequest(Flag, "invite", true, remark);
+
+        /// <summary>
+        /// 拒绝邀请进群
+        /// </summary>
+        /// <param name="remark">备注</param>
+        /// <returns></returns>
+        public async Task<bool> Reject(string remark = "") => await Api.SetGroupAddRequest(Flag, "invite", false, remark);
+        #endregion
     }
 
     /// <summary>
@@ -135,5 +152,22 @@ namespace ShamrockCore.Data.Model
         /// 验证消息
         /// </summary>
         public string Message { get; set; } = "";
+
+
+        #region 扩展方法/属性
+        /// <summary>
+        /// 同意邀请进群
+        /// </summary>
+        /// <param name="remark">备注</param>
+        /// <returns></returns>
+        public async Task<bool> Agree(string remark = "") => await Api.SetGroupAddRequest(Flag, "add", true, remark);
+
+        /// <summary>
+        /// 拒绝邀请进群
+        /// </summary>
+        /// <param name="remark">备注</param>
+        /// <returns></returns>
+        public async Task<bool> Reject(string remark = "") => await Api.SetGroupAddRequest(Flag, "add", false, remark);
+        #endregion
     }
 }

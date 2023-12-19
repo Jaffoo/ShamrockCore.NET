@@ -100,9 +100,5 @@ namespace ShamrockCore.Utils
             }
             return result;
         }
-
-        #region 机器人扩展方法
-        public static async Task<bool>
-        #endregion
     }
 }

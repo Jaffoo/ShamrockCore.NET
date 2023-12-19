@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using ShamrockCore.Data.HttpAPI;
 
 namespace ShamrockCore.Data.Model
 {
@@ -41,5 +42,17 @@ namespace ShamrockCore.Data.Model
         /// 子文件数量
         /// </summary>
         [JsonProperty("total_file_count")] public int FileCount { get; set; }
+
+        #region 扩展属性/方法
+        /// <summary>
+        /// 获取子文件
+        /// </summary>
+        public FilesFloders? Files => Api.GetGroupFiles(GroupId, FolderId).Result;
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        public async Task<bool> Delete() =>await Api.DeleteGroupFolder(GroupId, FolderId);
+        #endregion
     }
 }

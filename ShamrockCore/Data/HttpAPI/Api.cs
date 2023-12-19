@@ -208,11 +208,11 @@ namespace ShamrockCore.Data.HttpAPI
         /// 是否在黑名单中
         /// </summary>
         /// <returns></returns>
-        public static async Task<IsInBack?> IsBlacklistUin()
+        public static async Task<IsInBack?> IsBlacklistUin(long qq)
         {
             try
             {
-                var res = await HttpEndpoints.IsBlacklistUin.GetAsync<IsInBack>();
+                var res = await HttpEndpoints.IsBlacklistUin.GetAsync<IsInBack>("user_id=" + qq);
                 return res;
             }
             catch (Exception)
@@ -384,6 +384,13 @@ namespace ShamrockCore.Data.HttpAPI
                     group_id = groupId
                 };
                 var res = await HttpEndpoints.GetBanList.PostAsync<List<Ban>>(obj);
+                if (res != null)
+                {
+                    foreach (var item in res)
+                    {
+                        item.GroupId = groupId;
+                    }
+                }
                 return res;
             }
             catch (Exception)
@@ -557,7 +564,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 撤回消息
         /// </summary>
         /// <returns></returns>
-        public static async Task<bool> DeleteMsg(int messageId)
+        public static async Task<bool> DeleteMsg(long messageId)
         {
             try
             {
@@ -804,7 +811,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// </summary>
         /// <param name="messageId">消息ID</param>
         /// <returns></returns>
-        public static async Task<bool> SetEssenceMsg(int messageId)
+        public static async Task<bool> SetEssenceMsg(long messageId)
         {
             try
             {
@@ -822,7 +829,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// </summary>
         /// <param name="messageId">消息ID</param>
         /// <returns></returns>
-        public static async Task<bool> DeleteEssenceMsg(int messageId)
+        public static async Task<bool> DeleteEssenceMsg(long messageId)
         {
             try
             {
@@ -886,7 +893,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// <param name="qq">QQ 号</param>
         /// <param name="rejectAddAgain">是否拒绝再次加群</param>
         /// <returns></returns>
-        public static async Task<bool> SetGroupKick(long groupId, string qq, bool rejectAddAgain = false)
+        public static async Task<bool> SetGroupKick(long groupId, long qq, bool rejectAddAgain = false)
         {
             try
             {
@@ -1013,7 +1020,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// <param name="fileId">文件ID</param>
         /// <param name="busid">文件类型</param>
         /// <returns></returns>
-        public static async Task<UploadInfo?> DeleteGroupFile(long groupId, string fileId, string busid)
+        public static async Task<bool> DeleteGroupFile(long groupId, string fileId, int busid)
         {
             try
             {
@@ -1023,7 +1030,7 @@ namespace ShamrockCore.Data.HttpAPI
                     file_id = fileId,
                     busid
                 };
-                var res = await HttpEndpoints.DeleteGroupFile.PostAsync<UploadInfo>(obj);
+                var res = await HttpEndpoints.DeleteGroupFile.PostAsync(obj);
                 return res;
             }
             catch (Exception)

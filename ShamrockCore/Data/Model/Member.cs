@@ -11,11 +11,6 @@ namespace ShamrockCore.Data.Model
     public record Member
     {
         /// <summary>
-        /// 群员资料
-        /// </summary>
-        //[JsonIgnore] public Profile MemberProfile => this.GetMemberProfileAsync().GetAwaiter().GetResult();
-
-        /// <summary>
         ///     群员的QQ号
         /// </summary>
         [JsonProperty("user_id")]
@@ -137,7 +132,39 @@ namespace ShamrockCore.Data.Model
         /// </summary>
         /// <param name="time">禁言时长（为0时解除禁言）</param>
         /// <returns></returns>
-        public async Task<bool> Ban(long time)=>await Api.SetGroupBan(GroupId,Id,time);
+        public async Task<bool> Ban(long time) => await Api.SetGroupBan(GroupId, Id, time);
+
+        /// <summary>
+        /// 戳一下
+        /// </summary>
+        /// <returns></returns>
+        public async Task<bool> Touch() => await Api.GroupTouch(GroupId, Id);
+
+        /// <summary>
+        /// 踢出群聊
+        /// </summary>
+        /// <param name="rejectAddAgain">拒绝再次加入申请</param>
+        /// <returns></returns>
+        public async Task<bool> Kick(bool rejectAddAgain = false) => await Api.SetGroupKick(GroupId, Id, rejectAddAgain);
+
+        /// <summary>
+        /// 设置头衔
+        /// </summary>
+        /// <param name="title">头衔</param>
+        /// <returns></returns>
+        public async Task<bool> SetSpecialTitle(string title) => await Api.SetGroupSpecialTitle(GroupId, Id, title);
+
+        /// <summary>
+        /// 设置为管理员
+        /// </summary>
+        /// <returns></returns>
+        public async Task<bool> SetAdmin() => await Api.SetGroupAdmin(GroupId, Id);
+
+        /// <summary>
+        /// 移除管理员
+        /// </summary>
+        /// <returns></returns>
+        public async Task<bool> RemoveAdmin() => await Api.SetGroupAdmin(GroupId, Id, false);
         #endregion
     }
 }

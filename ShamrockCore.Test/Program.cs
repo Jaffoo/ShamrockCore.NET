@@ -37,7 +37,7 @@ namespace ShamrockCore.Test
                     var build = new MessageChainBuilder().AtAll().Build();
                     await msg.SendMessageAsync(build);
                 }
-
+                await msg.Recall();
             });
             bot.MessageReceived.OfType<FriendReceiver>().Subscribe(async msg =>
             {
