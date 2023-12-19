@@ -49,6 +49,12 @@ namespace ShamrockCore.Utils
             }
         }
 
+        /// <summary>
+        /// 获取枚举描述
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static string Description<T>(this T value) where T : Enum
         {
             Type type = typeof(T);
@@ -58,6 +64,12 @@ namespace ShamrockCore.Utils
             return attribute != null ? attribute.Description : name;
         }
 
+        /// <summary>
+        /// 消息类型转换
+        /// </summary>
+        /// <typeparam name="T">消息子类</typeparam>
+        /// <param name="message">消息基类</param>
+        /// <returns></returns>
         public static T ConvertTo<T>(this Message message) where T : class
         {
             T result = Activator.CreateInstance<T>();
@@ -88,5 +100,9 @@ namespace ShamrockCore.Utils
             }
             return result;
         }
+
+        #region 机器人扩展方法
+        public static async Task<bool>
+        #endregion
     }
 }

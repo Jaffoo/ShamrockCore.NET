@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using ShamrockCore.Data.HttpAPI;
 using System.Collections.Generic;
 
 namespace ShamrockCore.Data.Model
@@ -125,9 +126,18 @@ namespace ShamrockCore.Data.Model
         public bool CanChangeCard { get; set; }
 
         /// <summary>
-        ///     群荣誉
+        ///     在群荣誉
         /// </summary>
         [JsonProperty("honor")]
         public List<int>? Honor { get; set; } = null;
+
+        #region 扩展方法/属性
+        /// <summary>
+        /// 禁言
+        /// </summary>
+        /// <param name="time">禁言时长（为0时解除禁言）</param>
+        /// <returns></returns>
+        public async Task<bool> Ban(long time)=>await Api.SetGroupBan(GroupId,Id,time);
+        #endregion
     }
 }

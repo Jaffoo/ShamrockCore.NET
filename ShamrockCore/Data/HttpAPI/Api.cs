@@ -754,7 +754,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// </summary>
         /// <param name="groupId">群号</param>
         /// <param name="qq">要禁言的qq</param>
-        /// <param name="duration">头衔</param>
+        /// <param name="duration">禁言时长</param>
         /// <returns></returns>
         public static async Task<bool> SetGroupBan(long groupId, long qq, long duration)
         {
@@ -781,14 +781,13 @@ namespace ShamrockCore.Data.HttpAPI
         /// <param name="groupId">群号</param>
         /// <param name="enable">是否禁言</param>
         /// <returns></returns>
-        public static async Task<bool> SetGroupWholeBan(long groupId, long qq, bool enable = true)
+        public static async Task<bool> SetGroupWholeBan(long groupId, bool enable = true)
         {
             try
             {
                 var obj = new
                 {
                     group_id = groupId,
-                    user_id = qq,
                     enable
                 };
                 var res = await HttpEndpoints.SetGroupWholeBan.PostAsync(obj);
