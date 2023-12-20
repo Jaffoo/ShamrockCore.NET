@@ -50,16 +50,38 @@ namespace ShamrockCore.Reciver.Receivers
         /// 发送人信息
         /// </summary>
         [JsonProperty("sender")]
-        public Sender? Sender { get; set; } = null;
+        public Sender? Sender { get; set; } = new();
 
         /// <summary>
         /// 消息内容
         /// </summary>
         [JsonProperty("message")]
         public MessageChain Message { get; set; } = new();
+
+        #region 扩展方法/属性
+        /// <summary>
+        /// 群信息
+        /// </summary>
+        /// <returns></returns>
+        public Group? Group => Api.GetGroupInfo(GroupId).Result;
+
+        /// <summary>
+        /// 发送者成员信息
+        /// </summary>
+        public Member? Member => Api.GetGroupMemberInfo(GroupId,UserId).Result;
+        #endregion
     }
-    public class Sender
+
+    /// <summary>
+    /// 发送者信息
+    /// </summary>
+    public record Sender
     {
+        /// <summary>
+        /// 群号
+        /// </summary>
+        public long GroupId { get; set; }
+
         /// <summary>
         /// 发送者 QQ 号
         /// </summary>
