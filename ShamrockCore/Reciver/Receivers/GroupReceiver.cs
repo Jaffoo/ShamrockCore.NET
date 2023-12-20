@@ -63,12 +63,12 @@ namespace ShamrockCore.Reciver.Receivers
         /// 群信息
         /// </summary>
         /// <returns></returns>
-        public Group? Group => Api.GetGroupInfo(GroupId).Result;
+        public Group Group => Api.GetGroupInfo(GroupId).Result!;
 
         /// <summary>
         /// 发送者成员信息
         /// </summary>
-        public Member? Member => Api.GetGroupMemberInfo(GroupId,UserId).Result;
+        public Member Member => Api.GetGroupMemberInfo(GroupId,UserId).Result!;
         #endregion
     }
 

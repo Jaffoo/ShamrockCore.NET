@@ -9,7 +9,6 @@ using ShamrockCore.Reciver.Receivers;
 using ShamrockCore.Reciver.Events;
 using ShamrockCore.Data.Model;
 using ShamrockCore.Data.HttpAPI;
-using System.Reflection;
 
 namespace ShamrockCore
 {
@@ -262,6 +261,18 @@ namespace ShamrockCore
         /// </summary>
         /// <returns></returns>
         public async Task<bool> ClearMsgs(MessageType msgType, long qq = 0, long group = 0) => await Api.ClearMsgs(msgType, qq, group);
+
+        /// <summary>
+        /// 获取陌生人资料
+        /// </summary>
+        /// <returns></returns>
+        public async Task<Stranger?> StrangerInfo(long qq = 0) => await Api.GetStrangerInfo(qq);
+
+        /// <summary>
+        /// 日志
+        /// </summary>
+        /// <returns></returns>
+        public async Task<string> GetLog(int start = 0, bool recent = false) => await Api.GetLog(start,recent);
         #endregion
     }
 

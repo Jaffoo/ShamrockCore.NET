@@ -82,6 +82,16 @@ namespace ShamrockCore.Data.Model
         public List<Member>? Members => Api.GetGroupMemberList(Id).Result;
 
         /// <summary>
+        /// 被禁言列表
+        /// </summary>
+        public List<Ban>? BanList => Api.GetBanList(Id).Result;
+
+        /// <summary>
+        /// 群精华消息
+        /// </summary>
+        public List<EssenceMsg>? EssenceMsg => Api.GetEssenceMsgs(Id).Result;
+
+        /// <summary>
         /// 群文件系统信息
         /// </summary>
         public FileSystemInfo? FilesSystemInfo => Api.GetGroupFileSystemInfo(Id).Result;
@@ -128,7 +138,7 @@ namespace ShamrockCore.Data.Model
         /// 群打卡
         /// </summary>
         /// <returns></returns>
-        public async Task<bool> Sign()=>await Api.SendGroupSign(Id);
+        public async Task<bool> Sign() => await Api.SendGroupSign(Id);
 
         /// <summary>
         /// 发送群公告
@@ -136,7 +146,7 @@ namespace ShamrockCore.Data.Model
         /// <param name="content">内容</param>
         /// <param name="image">图片,支持base64、http(s)和本地路径</param>
         /// <returns></returns>
-        public async Task<bool> SendNotice(string content, string image = "")=>await Api.SendGroupNotice(Id, content, image);
+        public async Task<bool> SendNotice(string content, string image = "") => await Api.SendGroupNotice(Id, content, image);
 
         /// <summary>
         /// 退出群聊
@@ -149,7 +159,46 @@ namespace ShamrockCore.Data.Model
         /// </summary>
         /// <param name="name">群名</param>
         /// <returns></returns>
-        public async Task<bool> SetName(string name)=>await Api.SetGroupName(Id, name);
+        public async Task<bool> SetName(string name) => await Api.SetGroupName(Id, name);
+
+        /// <summary>
+        /// 创建文件夹
+        /// </summary>
+        /// <param name="name">文件夹名称</param>
+        /// <returns></returns>
+        public async Task<UploadInfo?> CreateFolder(string name) => await Api.CreateGroupFolder(Id, name);
+
+        /// <summary>
+        /// 上传到群文件
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public async Task<UploadInfo?> UploadFilesByPath(string file, string name) => await Api.UploadGroupFile(Id, file, name);
+
+        /// <summary>
+        /// 上传到群文件
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public async Task<UploadInfo?> UploadFilesByUrl(string url, string name)
+        {
+            var path = await Api.DownloadFile1(url);
+            return path == null ? throw new Exception("数据错误！") : await Api.UploadGroupFile(Id, path.File, name);
+        }
+
+        /// <summary>
+        /// 上传到群文件
+        /// </summary>
+        /// <param name="base64"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public async Task<UploadInfo?> UploadFilesByBase64(string base64, string name)
+        {
+            var path = await Api.DownloadFile1("", base64);
+            return path == null ? throw new Exception("数据错误！") : await Api.UploadGroupFile(Id, path.File, name);
+        }
         #endregion
     }
 }

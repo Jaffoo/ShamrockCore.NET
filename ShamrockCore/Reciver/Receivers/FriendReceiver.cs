@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using ShamrockCore.Data.HttpAPI;
+using ShamrockCore.Data.Model;
 using ShamrockCore.Reciver.MsgChain;
 
 namespace ShamrockCore.Reciver.Receivers
@@ -56,5 +57,12 @@ namespace ShamrockCore.Reciver.Receivers
         /// </summary>
         [JsonProperty("message")]
         public MessageChain? Message { get; set; } = null;
+
+        #region 扩展方法/属性
+        /// <summary>
+        /// 好友信息
+        /// </summary>
+        public Friend Friend => Api.GetFriends().Result!.FirstOrDefault(t => t.Id == UserId)!;
+        #endregion
     }
 }

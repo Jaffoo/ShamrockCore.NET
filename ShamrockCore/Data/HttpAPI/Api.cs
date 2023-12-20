@@ -27,7 +27,7 @@ namespace ShamrockCore.Data.HttpAPI
         }
 
         /// <summary>
-        /// 获取陌生人信息(请求不到)
+        /// 获取陌生人信息
         /// </summary>
         /// <param name="stangerId"></param>
         /// <returns></returns>
@@ -734,32 +734,6 @@ namespace ShamrockCore.Data.HttpAPI
         /// 群单人禁言
         /// </summary>
         /// <param name="groupId">群号</param>
-        /// <param name="qq">要设置的qq</param>
-        /// <param name="title">头衔</param>
-        /// <returns></returns>
-        public static async Task<bool> SetGroupSpecialTitle(long groupId, long qq, long title)
-        {
-            try
-            {
-                var obj = new
-                {
-                    group_id = groupId,
-                    user_id = qq,
-                    special_title = title
-                };
-                var res = await HttpEndpoints.SetGroupSpecialTitle.PostAsync(obj);
-                return res;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// 群单人禁言
-        /// </summary>
-        /// <param name="groupId">群号</param>
         /// <param name="qq">要禁言的qq</param>
         /// <param name="duration">禁言时长</param>
         /// <returns></returns>
@@ -1110,7 +1084,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// <param name="threadCount">下载的线程数量	</param>
         /// <param name="headers">请求头</param>
         /// <returns></returns>
-        public static async Task<bool> DownloadFile(string url, string base64 = "", string name = "", int threadCount = 1, string headers = "")
+        public static async Task<RecordInfo?> DownloadFile1(string url, string base64 = "", string name = "", int threadCount = 1, string headers = "")
         {
             try
             {
@@ -1122,7 +1096,7 @@ namespace ShamrockCore.Data.HttpAPI
                     headers,
                     thread_cnt = threadCount
                 };
-                var res = await HttpEndpoints.DownloadFile.PostAsync(obj);
+                var res = await HttpEndpoints.DownloadFile.PostAsync<RecordInfo>(obj);
                 return res;
             }
             catch (Exception)
@@ -1140,7 +1114,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// <param name="threadCount">下载的线程数量	</param>
         /// <param name="headers">请求头</param>
         /// <returns></returns>
-        public static async Task<bool> DownloadFile(string url, string base64 = "", string name = "", int threadCount = 1, List<string>? headers = null)
+        public static async Task<RecordInfo?> DownloadFile(string url, string base64 = "", string name = "", int threadCount = 1, List<string>? headers = null)
         {
             try
             {
@@ -1152,7 +1126,7 @@ namespace ShamrockCore.Data.HttpAPI
                     headers,
                     thread_cnt = threadCount
                 };
-                var res = await HttpEndpoints.DownloadFile.PostAsync(obj);
+                var res = await HttpEndpoints.DownloadFile.PostAsync<RecordInfo>(obj);
                 return res;
             }
             catch (Exception)

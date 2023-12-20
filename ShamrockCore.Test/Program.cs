@@ -5,6 +5,7 @@ using ShamrockCore.Reciver.MsgChain;
 using ShamrockCore.Reciver.Receivers;
 using ShamrockCore.Utils;
 using System.Reactive.Linq;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ShamrockCore.Test
 {
@@ -29,15 +30,15 @@ namespace ShamrockCore.Test
                     if (item.Type == Data.Model.MessageType.Text)
                     {
                         var text = item.ConvertTo<TextMessage>();
+      
                     }
                 }
                 var msgStr = msg.Message.GetPlainText();
                 if (msgStr == "你好")
                 {
-                    var build = new MessageChainBuilder().AtAll().Build();
-                    await msg.SendMessageAsync(build);
+
                 }
-                await msg.Recall();
+                await msg.Member.Ban(10);
             });
             bot.MessageReceived.OfType<FriendReceiver>().Subscribe(async msg =>
             {

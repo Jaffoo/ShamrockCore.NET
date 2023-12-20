@@ -100,7 +100,7 @@ namespace ShamrockCore.Data.Model
         ///     地区
         /// </summary>
         [JsonProperty("area")]
-        public int Area { get; set; }
+        public string Area { get; set; } = "";
 
         /// <summary>
         ///     等级
