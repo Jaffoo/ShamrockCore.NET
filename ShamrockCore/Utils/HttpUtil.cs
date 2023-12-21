@@ -9,7 +9,7 @@ namespace ShamrockCore.Utils
     /// <summary>
     /// 请求响应
     /// </summary>
-    public record Result
+    internal record Result
     {
         /// <summary>
         /// 状态，ok 为成功|failed 为失败
@@ -46,12 +46,12 @@ namespace ShamrockCore.Utils
     /// 用户自定义错误处理
     /// </summary>
     public delegate void ErrorHandler(Exception ex);
-    public static class HttpUtil
+    internal static class HttpUtil
     {
         /// <summary>
         /// 用户自定义错误处理器
         /// </summary>
-        public static ErrorHandler? HttpErrorHandler { get; set; }
+        internal static ErrorHandler? HttpErrorHandler { get; set; }
 
         /// <summary>
         /// get请求
@@ -59,7 +59,7 @@ namespace ShamrockCore.Utils
         /// <param name="url">url</param>
         /// <param name="url">param</param>
         /// <returns></returns>
-        public static async Task<Result?> GetAsync(string url, params string[] param)
+        internal static async Task<Result?> GetAsync(string url, params string[] param)
         {
             try
             {
@@ -90,7 +90,7 @@ namespace ShamrockCore.Utils
         /// <param name="url">url</param>
         /// <param name="url">param</param>
         /// <returns></returns>
-        public static async Task<string> GetStringAsync(string url, params string[] param)
+        internal static async Task<string> GetStringAsync(string url, params string[] param)
         {
             try
             {
@@ -121,7 +121,7 @@ namespace ShamrockCore.Utils
         /// <param name="url">url</param>
         /// <param name="url">提交内容</param>
         /// <returns></returns>
-        public static async Task<Result?> PostAsync(string url, object? body = null)
+        internal static async Task<Result?> PostAsync(string url, object? body = null)
         {
             try
             {
@@ -151,7 +151,7 @@ namespace ShamrockCore.Utils
         /// <param name="url">url</param>
         /// <param name="param">参数</param>
         /// <returns></returns>
-        public static async Task<T?> GetAsync<T>(this HttpEndpoints endpoints, params string[] param)
+        internal static async Task<T?> GetAsync<T>(this HttpEndpoints endpoints, params string[] param)
         {
             var url = Bot.Instance!.Config.HttpUrl + endpoints.Description();
             try
@@ -188,7 +188,7 @@ namespace ShamrockCore.Utils
         /// <param name="url">url</param>
         /// <param name="param">参数</param>
         /// <returns></returns>
-        public static async Task<bool> GetAsync(this HttpEndpoints endpoints, params string[] param)
+        internal static async Task<bool> GetAsync(this HttpEndpoints endpoints, params string[] param)
         {
             var url = Bot.Instance!.Config.HttpUrl + endpoints.Description();
             try
@@ -222,7 +222,7 @@ namespace ShamrockCore.Utils
         /// <param name="url">url</param>
         /// <param name="url">提交内容</param>
         /// <returns></returns>
-        public static async Task<T?> PostAsync<T>(this HttpEndpoints endpoints, object? body = null)
+        internal static async Task<T?> PostAsync<T>(this HttpEndpoints endpoints, object? body = null)
         {
             var url = Bot.Instance!.Config.HttpUrl + endpoints.Description();
             try
@@ -258,7 +258,7 @@ namespace ShamrockCore.Utils
         /// <param name="url">url</param>
         /// <param name="url">提交内容</param>
         /// <returns></returns>
-        public static async Task<bool> PostAsync(this HttpEndpoints endpoints, object? body = null)
+        internal static async Task<bool> PostAsync(this HttpEndpoints endpoints, object? body = null)
         {
             var url = Bot.Instance!.Config.HttpUrl + endpoints.Description();
             try
@@ -291,7 +291,7 @@ namespace ShamrockCore.Utils
         /// <param name="url">url</param>
         /// <param name="url">提交内容</param>
         /// <returns></returns>
-        public static async Task<string> SendMsgAsync(this HttpEndpoints endpoints, object? body = null)
+        internal static async Task<string> SendMsgAsync(this HttpEndpoints endpoints, object? body = null)
         {
             var url = Bot.Instance!.Config.HttpUrl + endpoints.Description();
             try

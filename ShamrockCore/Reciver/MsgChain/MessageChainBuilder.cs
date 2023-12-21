@@ -16,6 +16,11 @@ namespace ShamrockCore.Reciver.MsgChain
             list = new();
         }
 
+        public MessageChainBuilder(MessageChain chain)
+        {
+            list = chain;
+        }
+
         /// <summary>
         /// 构建消息
         /// </summary>
@@ -308,7 +313,7 @@ namespace ShamrockCore.Reciver.MsgChain
         /// </summary>
         public MessageChainBuilder Merge()
         {
-            list.Add(new MergeMessage());
+            //list.Add(new MergeMessage());
             return this;
         }
 
@@ -317,7 +322,7 @@ namespace ShamrockCore.Reciver.MsgChain
         /// </summary>
         public MessageChainBuilder MergeNode()
         {
-            list.Add(new MergeMessage());
+            //list.Add(new MergeMessage());
             return this;
         }
     }

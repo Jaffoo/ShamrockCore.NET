@@ -20,7 +20,6 @@ namespace ShamrockCore.Test
             {
                 Console.WriteLine("webscoket断开连接：" + e);
             });
-
             #region 消息测试
             bot.MessageReceived.OfType<GroupReceiver>().Subscribe(async msg =>
             {

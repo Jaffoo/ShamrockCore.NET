@@ -8,7 +8,7 @@ namespace ShamrockCore.Reciver.MsgChain
     public class MessageChain : List<Message>
     {
         /// <summary>
-        /// 获取文本
+        /// 获取文本链
         /// </summary>
         /// <returns></returns>
         public List<string>? GetTextChain()

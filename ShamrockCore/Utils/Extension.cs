@@ -55,7 +55,7 @@ namespace ShamrockCore.Utils
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static string Description<T>(this T value) where T : Enum
+        internal static string Description<T>(this T value) where T : Enum
         {
             Type type = typeof(T);
             string name = Enum.GetName(type, value)!;
