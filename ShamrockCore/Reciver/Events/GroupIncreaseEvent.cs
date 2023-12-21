@@ -8,6 +8,12 @@ namespace ShamrockCore.Reciver.Events
     public class GroupIncreaseEvent : EventBase
     {
         /// <summary>
+        /// 新增成员 QQ
+        /// </summary>
+        [JsonProperty("user_id")]
+        public long QQ { get; set; }
+
+        /// <summary>
         /// 子类型(leave/kick/kick_me)
         /// </summary>
         [JsonProperty("sub_type")]
@@ -17,24 +23,24 @@ namespace ShamrockCore.Reciver.Events
         /// 群
         /// </summary>
         [JsonProperty("group_id")]
-        public long GroupId { get; set; }
+        public long GroupQQ { get; set; }
 
         /// <summary>
-        /// 操作目标id
+        /// 操作目标qq
         /// </summary>
         [JsonProperty("target_id")]
-        public long TargetId { get; set; }
+        public long TargetQQ { get; set; }
 
         /// <summary>
         /// 操作人
         /// </summary>
         [JsonProperty("operator_id")]
-        public long OperatorId { get; set; }
+        public long OperatorQQ { get; set; }
 
         /// <summary>
-        /// 发送人id
+        /// 发送人qq
         /// </summary>
         [JsonProperty("sender_id")]
-        public long SenderId { get; set; }
+        public long SenderQQ { get; set; }
     }
 }

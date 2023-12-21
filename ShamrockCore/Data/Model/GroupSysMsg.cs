@@ -36,7 +36,7 @@ namespace ShamrockCore.Data.Model
         /// 群号
         /// </summary>
         [JsonProperty("group_id")]
-        public long GroupId { get; set; }
+        public long GroupQQ { get; set; }
 
         /// <summary>
         /// 群名
@@ -111,7 +111,7 @@ namespace ShamrockCore.Data.Model
         /// 群号
         /// </summary>
         [JsonProperty("group_id")]
-        public long GroupId { get; set; }
+        public long GroupQQ { get; set; }
 
         /// <summary>
         /// 群名

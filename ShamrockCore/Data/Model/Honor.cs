@@ -12,7 +12,7 @@ namespace ShamrockCore.Data.Model
         /// 群号
         /// </summary>
         [JsonProperty("group_id")]
-        public long GroupId { get; set; }
+        public long GroupQQ { get; set; }
 
         /// <summary>
         /// 当前龙王
@@ -67,7 +67,7 @@ namespace ShamrockCore.Data.Model
         /// QQ
         /// </summary>
         [JsonProperty("user_id")]
-        public long Id { get; set; }
+        public long QQ { get; set; }
 
         /// <summary>
         /// 昵称

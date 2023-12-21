@@ -5,7 +5,6 @@ using ShamrockCore.Reciver.MsgChain;
 using ShamrockCore.Reciver.Receivers;
 using ShamrockCore.Utils;
 using System.Reactive.Linq;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace ShamrockCore.Test
 {
@@ -30,15 +29,14 @@ namespace ShamrockCore.Test
                     if (item.Type == Data.Model.MessageType.Text)
                     {
                         var text = item.ConvertTo<TextMessage>();
-      
+                        await Console.Out.WriteLineAsync(text.Data.Text);
                     }
                 }
                 var msgStr = msg.Message.GetPlainText();
                 if (msgStr == "你好")
                 {
-
+                    await msg.SendMessageAsync("你也好");
                 }
-                await msg.Member.Ban(10);
             });
             bot.MessageReceived.OfType<FriendReceiver>().Subscribe(async msg =>
             {
@@ -47,9 +45,10 @@ namespace ShamrockCore.Test
             #endregion
 
             #region 事件测试
-            bot.EventReceived.OfType<FriendAddEvent>().Subscribe(msg =>
+            bot.EventReceived.OfType<FriendAddEvent>().Subscribe(async msg =>
             {
                 Console.WriteLine("好友请求事件：" + msg.ToJsonString());
+                await msg.Agree();
             });
             bot.EventReceived.OfType<GroupIncreaseEvent>().Subscribe(msg =>
             {

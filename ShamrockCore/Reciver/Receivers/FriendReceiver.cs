@@ -11,10 +11,10 @@ namespace ShamrockCore.Reciver.Receivers
     public class FriendReceiver : MessageReceiverBase
     {
         /// <summary>
-        /// 私聊者id
+        /// 私聊者qq
         /// </summary>
         [JsonProperty("target_id")]
-        public long TargetId { get; set; }
+        public long TargetQQ { get; set; }
 
         /// <summary>
         /// 消息类型
@@ -62,7 +62,7 @@ namespace ShamrockCore.Reciver.Receivers
         /// <summary>
         /// 好友信息
         /// </summary>
-        public Friend Friend => Api.GetFriends().Result!.FirstOrDefault(t => t.Id == UserId)!;
+        public Friend Friend => Api.GetFriends().Result!.FirstOrDefault(t => t.QQ == QQ)!;
         #endregion
     }
 }

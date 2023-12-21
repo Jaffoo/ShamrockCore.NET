@@ -11,7 +11,7 @@ namespace ShamrockCore.Data.Model
         ///     QQ号
         /// </summary>
         [JsonProperty("user_id")]
-        public long Id { get; set; }
+        public long QQ { get; set; }
 
         /// <summary>
         ///     昵称

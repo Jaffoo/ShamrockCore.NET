@@ -68,7 +68,7 @@ namespace ShamrockCore.Reciver.Receivers
         /// <summary>
         /// 发送者成员信息
         /// </summary>
-        public Member Member => Api.GetGroupMemberInfo(GroupId,UserId).Result!;
+        public Member Member => Api.GetGroupMemberInfo(GroupId, QQ).Result!;
         #endregion
     }
 

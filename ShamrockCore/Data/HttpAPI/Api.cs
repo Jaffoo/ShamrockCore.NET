@@ -64,13 +64,13 @@ namespace ShamrockCore.Data.HttpAPI
         /// <summary>
         /// 获取群信息
         /// </summary>
-        /// <param name="groupId"></param>
+        /// <param name="groupQQ"></param>
         /// <returns></returns>
-        public static async Task<Group?> GetGroupInfo(long groupId)
+        public static async Task<Group?> GetGroupInfo(long groupQQ)
         {
             try
             {
-                var res = await HttpEndpoints.GetGroupInfo.GetAsync<Group>("group_id=" + groupId);
+                var res = await HttpEndpoints.GetGroupInfo.GetAsync<Group>("group_id=" + groupQQ);
                 return res;
             }
             catch (Exception)
@@ -82,13 +82,13 @@ namespace ShamrockCore.Data.HttpAPI
         /// <summary>
         /// 获取群成员
         /// </summary>
-        /// <param name="groupId"></param>
+        /// <param name="groupQQ"></param>
         /// <returns></returns>
-        public static async Task<List<Member>?> GetGroupMemberList(long groupId)
+        public static async Task<List<Member>?> GetGroupMemberList(long groupQQ)
         {
             try
             {
-                var res = await HttpEndpoints.GetGroupMemberList.GetAsync<List<Member>>("group_id=" + groupId);
+                var res = await HttpEndpoints.GetGroupMemberList.GetAsync<List<Member>>("group_id=" + groupQQ);
                 return res;
             }
             catch (Exception)
@@ -100,14 +100,14 @@ namespace ShamrockCore.Data.HttpAPI
         /// <summary>
         /// 获取群成员信息
         /// </summary>
-        /// <param name="groupId"></param>
-        /// <param name="memberId"></param>
+        /// <param name="groupQQ"></param>
+        /// <param name="qq"></param>
         /// <returns></returns>
-        public static async Task<Member?> GetGroupMemberInfo(long groupId, long memberId)
+        public static async Task<Member?> GetGroupMemberInfo(long groupQQ, long qq)
         {
             try
             {
-                var res = await HttpEndpoints.GetGroupMemberInfo.GetAsync<Member>("group_id=" + groupId, "user_id=" + memberId);
+                var res = await HttpEndpoints.GetGroupMemberInfo.GetAsync<Member>("group_id=" + groupQQ, "user_id=" + qq);
                 return res;
             }
             catch (Exception)
@@ -119,13 +119,13 @@ namespace ShamrockCore.Data.HttpAPI
         /// <summary>
         /// 获取群荣誉信息
         /// </summary>
-        /// <param name="groupId"></param>
+        /// <param name="groupQQ"></param>
         /// <returns></returns>
-        public static async Task<Honor?> GetGroupHonorInfo(long groupId)
+        public static async Task<Honor?> GetGroupHonorInfo(long groupQQ)
         {
             try
             {
-                var res = await HttpEndpoints.GetGroupHonorInfo.GetAsync<Honor>("group_id=" + groupId);
+                var res = await HttpEndpoints.GetGroupHonorInfo.GetAsync<Honor>("group_id=" + groupQQ);
                 return res;
             }
             catch (Exception)
@@ -137,13 +137,13 @@ namespace ShamrockCore.Data.HttpAPI
         /// <summary>
         /// 获取群系统消息
         /// </summary>
-        /// <param name="groupId"></param>
+        /// <param name="groupQQ"></param>
         /// <returns></returns>
-        public static async Task<GroupSysMsg?> GetGroupSystemMsg(long groupId)
+        public static async Task<GroupSysMsg?> GetGroupSystemMsg(long groupQQ)
         {
             try
             {
-                var res = await HttpEndpoints.GetGroupSystemMsg.GetAsync<GroupSysMsg>("group_id=" + groupId);
+                var res = await HttpEndpoints.GetGroupSystemMsg.GetAsync<GroupSysMsg>("group_id=" + groupQQ);
                 return res;
             }
             catch (Exception)
@@ -155,13 +155,13 @@ namespace ShamrockCore.Data.HttpAPI
         /// <summary>
         /// 获取精华消息列表
         /// </summary>
-        /// <param name="groupId"></param>
+        /// <param name="groupQQ"></param>
         /// <returns></returns>
-        public static async Task<List<EssenceMsg>?> GetEssenceMsgs(long groupId)
+        public static async Task<List<EssenceMsg>?> GetEssenceMsgs(long groupQQ)
         {
             try
             {
-                var res = await HttpEndpoints.GetEssenceMsgList.GetAsync<List<EssenceMsg>>("group_id=" + groupId);
+                var res = await HttpEndpoints.GetEssenceMsgList.GetAsync<List<EssenceMsg>>("group_id=" + groupQQ);
                 return res;
             }
             catch (Exception)
@@ -301,11 +301,11 @@ namespace ShamrockCore.Data.HttpAPI
         /// </summary>
         /// <param name="msgType"></param>
         /// <param name="qq"></param>
-        /// <param name="group"></param>
+        /// <param name="groupQQ"></param>
         /// <param name="count"></param>
         /// <param name="start"></param>
         /// <returns></returns>
-        public static async Task<List<MsgInfo>?> GetHistoryMsg(MessageType msgType, long qq = 0, long group = 0, int count = 10, int start = 0)
+        public static async Task<List<MsgInfo>?> GetHistoryMsg(MessageType msgType, long qq = 0, long groupQQ = 0, int count = 10, int start = 0)
         {
             try
             {
@@ -313,7 +313,7 @@ namespace ShamrockCore.Data.HttpAPI
                 {
                     message_type = msgType,
                     user_id = qq,
-                    group_id = group,
+                    group_id = groupQQ,
                     count,
                     message_seq = start
                 };
@@ -355,13 +355,13 @@ namespace ShamrockCore.Data.HttpAPI
         /// <summary>
         /// 获取群公告
         /// </summary>
-        /// <param name="groupId">群号</param>
+        /// <param name="groupQQ">群号</param>
         /// <returns></returns>
-        public static async Task<List<Announcement>?> GetGroupNotice(long groupId)
+        public static async Task<List<Announcement>?> GetGroupNotice(long groupQQ)
         {
             try
             {
-                var res = await HttpEndpoints.GetGroupNotice.GetAsync<List<Announcement>>("group_id=" + groupId);
+                var res = await HttpEndpoints.GetGroupNotice.GetAsync<List<Announcement>>("group_id=" + groupQQ);
                 return res;
             }
             catch (Exception)
@@ -373,22 +373,22 @@ namespace ShamrockCore.Data.HttpAPI
         /// <summary>
         /// 获取被禁言的群成员列表
         /// </summary>
-        /// <param name="groupId">群号</param>
+        /// <param name="groupQQ">群号</param>
         /// <returns></returns>
-        public static async Task<List<Ban>?> GetBanList(long groupId)
+        public static async Task<List<Ban>?> GetBanList(long groupQQ)
         {
             try
             {
                 var obj = new
                 {
-                    group_id = groupId
+                    group_id = groupQQ
                 };
                 var res = await HttpEndpoints.GetBanList.PostAsync<List<Ban>>(obj);
                 if (res != null)
                 {
                     foreach (var item in res)
                     {
-                        item.GroupId = groupId;
+                        item.GroupQQ = groupQQ;
                     }
                 }
                 return res;
@@ -403,13 +403,13 @@ namespace ShamrockCore.Data.HttpAPI
         /// 获取群文件系统信息
         /// </summary>
         /// <returns></returns>
-        public static async Task<FileSystemInfo?> GetGroupFileSystemInfo(long groupId)
+        public static async Task<FileSystemInfo?> GetGroupFileSystemInfo(long groupQQ)
         {
             try
             {
                 var obj = new
                 {
-                    group_id = groupId
+                    group_id = groupQQ
                 };
                 var res = await HttpEndpoints.GetGroupFileSystemInfo.PostAsync<FileSystemInfo>(obj);
                 return res;
@@ -424,13 +424,13 @@ namespace ShamrockCore.Data.HttpAPI
         /// 获取群根目录文件列表
         /// </summary>
         /// <returns></returns>
-        public static async Task<FilesFloders?> GetGroupRootFiles(long groupId)
+        public static async Task<FilesFloders?> GetGroupRootFiles(long groupQQ)
         {
             try
             {
                 var obj = new
                 {
-                    group_id = groupId,
+                    group_id = groupQQ,
                 };
                 var res = await HttpEndpoints.GetGroupRootFiles.PostAsync<FilesFloders>(obj);
                 return res;
@@ -445,13 +445,13 @@ namespace ShamrockCore.Data.HttpAPI
         /// 获取群子目录文件列表
         /// </summary>
         /// <returns></returns>
-        public static async Task<FilesFloders?> GetGroupFiles(long groupId, string folderId)
+        public static async Task<FilesFloders?> GetGroupFiles(long groupQQ, string folderId)
         {
             try
             {
                 var obj = new
                 {
-                    group_id = groupId,
+                    group_id = groupQQ,
                     folder_id = folderId
                 };
                 var res = await HttpEndpoints.GetGroupFiles.PostAsync<FilesFloders>(obj);
@@ -467,13 +467,13 @@ namespace ShamrockCore.Data.HttpAPI
         /// 获取群文件资源链接
         /// </summary>
         /// <returns></returns>
-        public static async Task<FileBaseInfo?> GetGroupFileUrl(long groupId, string fileId, int busid)
+        public static async Task<FileBaseInfo?> GetGroupFileUrl(long groupQQ, string fileId, int busid)
         {
             try
             {
                 var obj = new
                 {
-                    group_id = groupId,
+                    group_id = groupQQ,
                     file_id = fileId,
                     busid
                 };
@@ -544,7 +544,7 @@ namespace ShamrockCore.Data.HttpAPI
 
         #region 设置/发布信息
         // <summary>
-        /// 设置 QQ 个人资料
+        /// 设置 qq 个人资料
         /// </summary>
         /// <returns></returns>
         public static async Task<bool> SetQQProfile(Profile profile)
@@ -657,16 +657,16 @@ namespace ShamrockCore.Data.HttpAPI
         /// <summary>
         /// 设置群名
         /// </summary>
-        /// <param name="groupId">群号</param>
+        /// <param name="groupQQ">群号</param>
         /// <param name="newName">新名称</param>
         /// <returns></returns>
-        public static async Task<bool> SetGroupName(long groupId, string newName)
+        public static async Task<bool> SetGroupName(long groupQQ, string newName)
         {
             try
             {
                 var obj = new
                 {
-                    group_id = groupId,
+                    group_id = groupQQ,
                     group_name = newName
                 };
                 var res = await HttpEndpoints.SetGroupName.PostAsync(obj);
@@ -681,17 +681,17 @@ namespace ShamrockCore.Data.HttpAPI
         /// <summary>
         /// 设置群管理
         /// </summary>
-        /// <param name="groupId">群号</param>
+        /// <param name="groupQQ">群号</param>
         /// <param name="qq">要设置的qq</param>
         /// <param name="enable">是否设置</param>
         /// <returns></returns>
-        public static async Task<bool> SetGroupAdmin(long groupId, long qq, bool enable = true)
+        public static async Task<bool> SetGroupAdmin(long groupQQ, long qq, bool enable = true)
         {
             try
             {
                 var obj = new
                 {
-                    group_id = groupId,
+                    group_id = groupQQ,
                     user_id = qq,
                     enable
                 };
@@ -707,17 +707,17 @@ namespace ShamrockCore.Data.HttpAPI
         /// <summary>
         /// 设置群组专属头衔
         /// </summary>
-        /// <param name="groupId">群号</param>
+        /// <param name="groupQQ">群号</param>
         /// <param name="qq">要设置的qq</param>
         /// <param name="title">头衔</param>
         /// <returns></returns>
-        public static async Task<bool> SetGroupSpecialTitle(long groupId, long qq, string title)
+        public static async Task<bool> SetGroupSpecialTitle(long groupQQ, long qq, string title)
         {
             try
             {
                 var obj = new
                 {
-                    group_id = groupId,
+                    group_id = groupQQ,
                     user_id = qq,
                     special_title = title
                 };
@@ -733,17 +733,17 @@ namespace ShamrockCore.Data.HttpAPI
         /// <summary>
         /// 群单人禁言
         /// </summary>
-        /// <param name="groupId">群号</param>
+        /// <param name="groupQQ">群号</param>
         /// <param name="qq">要禁言的qq</param>
         /// <param name="duration">禁言时长</param>
         /// <returns></returns>
-        public static async Task<bool> SetGroupBan(long groupId, long qq, long duration)
+        public static async Task<bool> SetGroupBan(long groupQQ, long qq, long duration)
         {
             try
             {
                 var obj = new
                 {
-                    group_id = groupId,
+                    group_id = groupQQ,
                     user_id = qq,
                     duration
                 };
@@ -759,16 +759,16 @@ namespace ShamrockCore.Data.HttpAPI
         /// <summary>
         /// 群全体禁言
         /// </summary>
-        /// <param name="groupId">群号</param>
+        /// <param name="groupQQ">群号</param>
         /// <param name="enable">是否禁言</param>
         /// <returns></returns>
-        public static async Task<bool> SetGroupWholeBan(long groupId, bool enable = true)
+        public static async Task<bool> SetGroupWholeBan(long groupQQ, bool enable = true)
         {
             try
             {
                 var obj = new
                 {
-                    group_id = groupId,
+                    group_id = groupQQ,
                     enable
                 };
                 var res = await HttpEndpoints.SetGroupWholeBan.PostAsync(obj);
@@ -819,13 +819,13 @@ namespace ShamrockCore.Data.HttpAPI
         /// <summary>
         /// 群打卡
         /// </summary>
-        /// <param name="groupId">群号</param>
+        /// <param name="groupQQ">群号</param>
         /// <returns></returns>
-        public static async Task<bool> SendGroupSign(long groupId)
+        public static async Task<bool> SendGroupSign(long groupQQ)
         {
             try
             {
-                var res = await HttpEndpoints.SendGroupSign.GetAsync("group_id=" + groupId);
+                var res = await HttpEndpoints.SendGroupSign.GetAsync("group_id=" + groupQQ);
                 return res;
             }
             catch (Exception)
@@ -837,17 +837,17 @@ namespace ShamrockCore.Data.HttpAPI
         /// <summary>
         /// 发送群公告
         /// </summary>
-        /// <param name="groupId">群号</param>
+        /// <param name="groupQQ">群号</param>
         /// <param name="content">内容</param>
         /// <param name="image">图片,支持base64、http(s)和本地路径</param>
         /// <returns></returns>
-        public static async Task<bool> SendGroupNotice(long groupId, string content, string image = "")
+        public static async Task<bool> SendGroupNotice(long groupQQ, string content, string image = "")
         {
             try
             {
                 var obj = new
                 {
-                    group_id = groupId,
+                    group_id = groupQQ,
                     content,
                     image
                 };
@@ -863,17 +863,17 @@ namespace ShamrockCore.Data.HttpAPI
         /// <summary>
         /// 群组踢人
         /// </summary>
-        /// <param name="groupId">群号</param>
-        /// <param name="qq">QQ 号</param>
+        /// <param name="groupQQ">群号</param>
+        /// <param name="qq">qq 号</param>
         /// <param name="rejectAddAgain">是否拒绝再次加群</param>
         /// <returns></returns>
-        public static async Task<bool> SetGroupKick(long groupId, long qq, bool rejectAddAgain = false)
+        public static async Task<bool> SetGroupKick(long groupQQ, long qq, bool rejectAddAgain = false)
         {
             try
             {
                 var obj = new
                 {
-                    group_id = groupId,
+                    group_id = groupQQ,
                     user_id = qq,
                     reject_add_request = rejectAddAgain
                 };
@@ -889,15 +889,15 @@ namespace ShamrockCore.Data.HttpAPI
         /// <summary>
         /// 退出群组
         /// </summary>
-        /// <param name="groupId">群号</param>
+        /// <param name="groupQQ">群号</param>
         /// <returns></returns>
-        public static async Task<bool> SetGroupLeave(long groupId)
+        public static async Task<bool> SetGroupLeave(long groupQQ)
         {
             try
             {
                 var obj = new
                 {
-                    group_id = groupId,
+                    group_id = groupQQ,
                 };
                 var res = await HttpEndpoints.SetGroupLeave.PostAsync(obj);
                 return res;
@@ -911,16 +911,16 @@ namespace ShamrockCore.Data.HttpAPI
         /// <summary>
         /// 群戳一戳
         /// </summary>
-        /// <param name="groupId">群号</param>
-        /// <param name="qq">QQ 号</param>
+        /// <param name="groupQQ">群号</param>
+        /// <param name="qq">qq 号</param>
         /// <returns></returns>
-        public static async Task<bool> GroupTouch(long groupId, long qq)
+        public static async Task<bool> GroupTouch(long groupQQ, long qq)
         {
             try
             {
                 var obj = new
                 {
-                    group_id = groupId,
+                    group_id = groupQQ,
                     user_id = qq,
                 };
                 var res = await HttpEndpoints.GroupTouch.PostAsync(obj);
@@ -936,7 +936,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 上传私聊文件
         /// 只能上传本地文件, 需要上传 http 文件的话请先下载至本地
         /// </summary>
-        /// <param name="qq">QQ 号</param>
+        /// <param name="qq">qq 号</param>
         /// <param name="file">文件路径</param>
         /// <param name="name">文件名</param>
         /// <returns></returns>
@@ -963,17 +963,17 @@ namespace ShamrockCore.Data.HttpAPI
         /// 上传群文件
         /// 只能上传本地文件, 需要上传 http 文件的话请先下载至本地
         /// </summary>
-        /// <param name="groupId">群号</param>
+        /// <param name="groupQQ">群号</param>
         /// <param name="file">文件路径</param>
         /// <param name="name">文件名</param>
         /// <returns></returns>
-        public static async Task<UploadInfo?> UploadGroupFile(long groupId, string file, string name)
+        public static async Task<UploadInfo?> UploadGroupFile(long groupQQ, string file, string name)
         {
             try
             {
                 var obj = new
                 {
-                    group_id = groupId,
+                    group_id = groupQQ,
                     file,
                     name
                 };
@@ -990,17 +990,17 @@ namespace ShamrockCore.Data.HttpAPI
         /// 删除群文件
         /// 只能上传本地文件, 需要上传 http 文件的话请先下载至本地
         /// </summary>
-        /// <param name="groupId">群号</param>
+        /// <param name="groupQQ">群号</param>
         /// <param name="fileId">文件ID</param>
         /// <param name="busid">文件类型</param>
         /// <returns></returns>
-        public static async Task<bool> DeleteGroupFile(long groupId, string fileId, int busid)
+        public static async Task<bool> DeleteGroupFile(long groupQQ, string fileId, int busid)
         {
             try
             {
                 var obj = new
                 {
-                    group_id = groupId,
+                    group_id = groupQQ,
                     file_id = fileId,
                     busid
                 };
@@ -1018,13 +1018,13 @@ namespace ShamrockCore.Data.HttpAPI
         /// 仅能在根目录创建文件夹
         /// </summary>
         /// <returns></returns>
-        public static async Task<UploadInfo?> CreateGroupFolder(long groupId, string name)
+        public static async Task<UploadInfo?> CreateGroupFolder(long groupQQ, string name)
         {
             try
             {
                 var obj = new
                 {
-                    group_id = groupId,
+                    group_id = groupQQ,
                     folder_name = name
                 };
                 var res = await HttpEndpoints.CreateGroupFolder.PostAsync<UploadInfo>(obj);
@@ -1040,13 +1040,13 @@ namespace ShamrockCore.Data.HttpAPI
         /// 删除群文件文件夹
         /// </summary>
         /// <returns></returns>
-        public static async Task<bool> DeleteGroupFolder(long groupId, string folderId)
+        public static async Task<bool> DeleteGroupFolder(long groupQQ, string folderId)
         {
             try
             {
                 var obj = new
                 {
-                    group_id = groupId,
+                    group_id = groupQQ,
                     folder_id = folderId
                 };
                 var res = await HttpEndpoints.DeleteGroupFolder.PostAsync(obj);
@@ -1168,19 +1168,19 @@ namespace ShamrockCore.Data.HttpAPI
         /// <summary>
         /// 发送群聊消息，返回消息id
         /// </summary>
-        /// <param name="groupId"></param>
+        /// <param name="groupQQ"></param>
         /// <param name="message"></param>
         /// <param name="autoEscape"></param>
         /// <returns></returns>
-        public static async Task<string> SendGroupMsgAsync(long groupId, object message, bool autoEscape = false)
+        public static async Task<string> SendGroupMsgAsync(long groupQQ, object message, bool autoEscape = false)
         {
             try
             {
-                if (groupId <= 0) return "";
+                if (groupQQ <= 0) return "";
                 if (message == null) return "";
                 var obj = new
                 {
-                    group_id = groupId,
+                    group_id = groupQQ,
                     message,
                     auto_escape = autoEscape
                 };
@@ -1200,17 +1200,17 @@ namespace ShamrockCore.Data.HttpAPI
         /// <param name="message"></param>
         /// <param name="autoEscape"></param>
         /// <returns></returns>
-        public static async Task<string> SendMsgAsync(MessageType type, long qq, long groupId, long discussId, object message, bool autoEscape = false)
+        public static async Task<string> SendMsgAsync(MessageType type, long qq, long groupQQ, long discussId, object message, bool autoEscape = false)
         {
             try
             {
-                if (qq <= 0 || groupId <= 0) return "";
+                if (qq <= 0 || groupQQ <= 0) return "";
                 if (message == null) return "";
                 var obj = new
                 {
                     message_type = type,
                     user_id = qq,
-                    group_id = groupId,
+                    group_id = groupQQ,
                     discuss_id = discussId,
                     message,
                     auto_escape = autoEscape
@@ -1227,18 +1227,18 @@ namespace ShamrockCore.Data.HttpAPI
         /// <summary>
         /// 发送群聊合并转发
         /// </summary>
-        /// <param name="groupId"></param>
+        /// <param name="groupQQ"></param>
         /// <param name="messages"></param>
         /// <returns></returns>
-        public static async Task<string> SendGroupForwardMsgAsync(long groupId, object messages)
+        public static async Task<string> SendGroupForwardMsgAsync(long groupQQ, object messages)
         {
             try
             {
-                if (groupId <= 0) return "";
+                if (groupQQ <= 0) return "";
                 if (messages == null) return "";
                 var obj = new
                 {
-                    group_id = groupId,
+                    group_id = groupQQ,
                     messages
                 };
                 var res = await HttpEndpoints.SendGroupForwardMsg.SendMsgAsync(obj);

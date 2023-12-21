@@ -11,7 +11,7 @@ namespace ShamrockCore.Data.Model
         /// 公告发表者
         /// </summary>
         [JsonProperty("sender_id")]
-        public long Sender { get; set; }
+        public long QQ { get; set; }
 
         /// <summary>
         /// 公告发布时间
@@ -65,6 +65,6 @@ namespace ShamrockCore.Data.Model
         /// 图片ID，可用https://gdynamic.qpic.cn/gdynamic/{id}/628获取
         /// </summary>
         [JsonProperty("id")]
-        public string Id { get; set; } = "";
+        public string ImgId { get; set; } = "";
     }
 }

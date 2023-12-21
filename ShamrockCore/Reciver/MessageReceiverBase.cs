@@ -33,7 +33,7 @@ namespace ShamrockCore.Reciver
         /// 消息制造者/事件被动者
         /// </summary>
         [JsonProperty("user_id")]
-        public long UserId { get; set; }
+        public long QQ { get; set; }
 
         #region 扩展方法/属性
         /// <summary>

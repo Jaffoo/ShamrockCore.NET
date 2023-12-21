@@ -11,7 +11,7 @@ namespace ShamrockCore.Data.Model
         /// qq
         /// </summary>
         [JsonProperty("user_id")]
-        public long Id { get; set; }
+        public long QQ { get; set; }
 
         /// <summary>
         /// 昵称
@@ -24,6 +24,6 @@ namespace ShamrockCore.Data.Model
         /// <summary>
         /// 是否在黑名单
         /// </summary>
-        public bool Id { get; set; }
+        public bool Is { get; set; }
     }
 }

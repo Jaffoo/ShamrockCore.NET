@@ -39,7 +39,7 @@ namespace ShamrockCore.Data.Model
         /// <summary>
         /// 群号
         /// </summary>
-        [JsonProperty("group_id")] public long GroupId { get; set; }
+        [JsonProperty("group_id")] public long GroupQQ { get; set; }
 
         /// <summary>
         /// 文件类型
@@ -100,13 +100,13 @@ namespace ShamrockCore.Data.Model
         /// <summary>
         /// 文件url
         /// </summary>
-        public string Url => Api.GetGroupFileUrl(GroupId, Id, Busid).Result?.Url ?? "";
+        public string Url => Api.GetGroupFileUrl(GroupQQ, Id, Busid).Result?.Url ?? "";
 
         /// <summary>
         /// 删除
         /// </summary>
         /// <returns></returns>
-        public async Task<bool> Delete() => await Api.DeleteGroupFile(GroupId, Id, Busid);
+        public async Task<bool> Delete() => await Api.DeleteGroupFile(GroupQQ, Id, Busid);
         #endregion
     }
 

@@ -11,7 +11,7 @@ namespace ShamrockCore.Data.Model
         /// <summary>
         /// 群号
         /// </summary>
-        [JsonProperty("group_id")] public long GroupId { get; set; }
+        [JsonProperty("group_id")] public long GroupQQ { get; set; }
 
         /// <summary>
         /// 文件夹ID
@@ -47,12 +47,12 @@ namespace ShamrockCore.Data.Model
         /// <summary>
         /// 获取子文件
         /// </summary>
-        public FilesFloders? Files => Api.GetGroupFiles(GroupId, FolderId).Result;
+        public FilesFloders? Files => Api.GetGroupFiles(GroupQQ, FolderId).Result;
 
         /// <summary>
         /// 删除
         /// </summary>
-        public async Task<bool> Delete() =>await Api.DeleteGroupFolder(GroupId, FolderId);
+        public async Task<bool> Delete() =>await Api.DeleteGroupFolder(GroupQQ, FolderId);
         #endregion
     }
 }

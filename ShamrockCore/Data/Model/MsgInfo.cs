@@ -50,13 +50,13 @@ namespace ShamrockCore.Data.Model
         /// 群id
         /// </summary>
         [JsonProperty("group_id")]
-        public long GroupId { get; set; }
+        public long GroupQQ { get; set; }
 
         /// <summary>
         /// 消息目标（私聊）
         /// </summary>
         [JsonProperty("target_id")]
-        public long TargetId { get; set; }
+        public long TargetQQ { get; set; }
     }
 
     public class SenderInfo
@@ -65,7 +65,7 @@ namespace ShamrockCore.Data.Model
         /// QQ 号
         /// </summary>
         [JsonProperty("user_id")]
-        public long UserId { get; set; }
+        public long QQ { get; set; }
 
         /// <summary>
         /// 年龄

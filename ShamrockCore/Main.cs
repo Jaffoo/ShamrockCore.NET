@@ -110,6 +110,7 @@ namespace ShamrockCore
                     if (!string.IsNullOrWhiteSpace(type1) && type1 == "heartbeat")
                         return;
                 }
+                //消息事件
                 else if (postType == "message")
                 {
                     //群
@@ -121,18 +122,76 @@ namespace ShamrockCore
                         if (data.Fetch("sub_type") == "friend")
                             _messageReceivedSubject.OnNext(data.ToObject<FriendReceiver>());
                 }
-                //事件通知
+                //通知事件
                 else if (postType == "notice")
                 {
+                    switch (type1)
+                    {
+                        //群成员增加事件
+                        case "group_increase":
+                            _eventReceivedSubject.OnNext(data.ToObject<GroupIncreaseEvent>());
+                            break;
+                        //群成员减少事件
+                        case "group_decrease":
+                            _eventReceivedSubject.OnNext(data.ToObject<GroupDecreaseEvent>());
+                            break;
+                        //私聊消息撤回
+                        case "friend_recall":
+                            _eventReceivedSubject.OnNext(data.ToObject<PrivateRecallEvent>());
+                            break;
+                        //群聊消息撤回
+                        case "group_recall":
+                            _eventReceivedSubject.OnNext(data.ToObject<GroupRecallEvent>());
+                            break;
+                        //群管理员变动
+                        case "group_admin":
+                            _eventReceivedSubject.OnNext(data.ToObject<AdminChangeEvent>());
+                            break;
+                        //群文件上传
+                        case "group_upload":
+                            _eventReceivedSubject.OnNext(data.ToObject<GroupFileUploadEvent>());
+                            break;
+                        //私聊文件上传
+                        case "private_upload":
+                            _eventReceivedSubject.OnNext(data.ToObject<PrivateFileUploadEvent>());
+                            break;
+                        //群禁言
+                        case "group_ban":
+                            _eventReceivedSubject.OnNext(data.ToObject<GroupBanEvent>());
+                            break;
+                        //群成员名片变动
+                        case "group_card":
+                            _eventReceivedSubject.OnNext(data.ToObject<MemberCardChangeEvent>());
+                            break;
+                        //精华消息
+                        case "essence":
+                            _eventReceivedSubject.OnNext(data.ToObject<EssenceEvent>());
+                            break;
+                        //系统通知
+                        case "notify":
+                            {
+                                var subType = data.Fetch("sub_type");
+                                //头像戳一戳
+                                if (subType=="poke")
+                                    _eventReceivedSubject.OnNext(data.ToObject<PokeEvent>());
+                                //群头衔变更
+                                if (subType== "title")
+                                    _eventReceivedSubject.OnNext(data.ToObject<TitleChangeEvent>());
+                            }
+                            break;
+
+                        default: break;
+                    }
+                }
+                //请求事件
+                else if (postType == "request")
+                {
                     //添加好友请求
-                    if (type1 == "friend_add")
+                    if (type1 == "friend")
                         _eventReceivedSubject.OnNext(data.ToObject<FriendAddEvent>());
-                    //群成员增加事件
-                    if (type1 == "group_increase")
-                        _eventReceivedSubject.OnNext(data.ToObject<GroupIncreaseEvent>());
-                    //群成员减少事件
-                    if (type1 == "group_decrease")
-                        _eventReceivedSubject.OnNext(data.ToObject<GroupDecreaseEvent>());
+                    //加群请求／邀请
+                    if (type1 == "group")
+                        _eventReceivedSubject.OnNext(data.ToObject<GroupAddEvent>());
                 }
                 else
                     _unknownMessageReceived.OnNext(data);
@@ -272,7 +331,7 @@ namespace ShamrockCore
         /// 日志
         /// </summary>
         /// <returns></returns>
-        public async Task<string> GetLog(int start = 0, bool recent = false) => await Api.GetLog(start,recent);
+        public async Task<string> GetLog(int start = 0, bool recent = false) => await Api.GetLog(start, recent);
         #endregion
     }
 

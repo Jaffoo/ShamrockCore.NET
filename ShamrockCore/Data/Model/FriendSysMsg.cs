@@ -1,10 +1,5 @@
 ﻿using Newtonsoft.Json;
 using ShamrockCore.Data.HttpAPI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShamrockCore.Data.Model
 {
@@ -48,7 +43,7 @@ namespace ShamrockCore.Data.Model
         /// 来源群号，仅当从群添加好友时存在
         /// </summary>
         [JsonProperty("source_group_id")]
-        public long GroupId { get; set; }
+        public long GroupQQ { get; set; }
 
         /// <summary>
         /// 处理结果

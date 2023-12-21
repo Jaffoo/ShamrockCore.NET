@@ -25,7 +25,7 @@ namespace ShamrockCore.Reciver
         /// <param name="qq"></param>
         /// <param name="message"></param>
         /// <returns></returns>
-        public static async Task<string> SendMessageAsync(this Friend friend, MessageChain message) => await Api.SendPrivateMsgAsync(friend.Id, message);
+        public static async Task<string> SendMessageAsync(this Friend friend, MessageChain message) => await Api.SendPrivateMsgAsync(friend.QQ, message);
 
         /// <summary>
         /// 发送私聊，返回消息id
@@ -77,7 +77,7 @@ namespace ShamrockCore.Reciver
         /// <param name="message"></param>
         /// <param name="autoEscape"></param>
         /// <returns></returns>
-        public static async Task<string> SendMessageAsync(this Group group, MessageChain message) => await Api.SendGroupMsgAsync(group.Id, message);
+        public static async Task<string> SendMessageAsync(this Group group, MessageChain message) => await Api.SendGroupMsgAsync(group.GroupQQ, message);
 
         /// <summary>
         /// 发送私聊，返回消息id
@@ -136,7 +136,7 @@ namespace ShamrockCore.Reciver
         /// <param name="groupId"></param>
         /// <param name="messages"></param>
         /// <returns></returns>
-        public static async Task<string> SendForwardMsgAsync(this Group group, MessageChain messages) => await Api.SendGroupForwardMsgAsync(group.Id, messages);
+        public static async Task<string> SendForwardMsgAsync(this Group group, MessageChain messages) => await Api.SendGroupForwardMsgAsync(group.GroupQQ, messages);
 
         /// <summary>
         /// 发送群聊合并转发
@@ -160,7 +160,7 @@ namespace ShamrockCore.Reciver
         /// <param name="qq"></param>
         /// <param name="messages"></param>
         /// <returns></returns>
-        public static async Task<string> SendForwardMsgAsync(this Friend friend, object messages) => await Api.SendPrivateForwardMsgAsync(friend.Id, messages);
+        public static async Task<string> SendForwardMsgAsync(this Friend friend, object messages) => await Api.SendPrivateForwardMsgAsync(friend.QQ, messages);
 
         /// <summary>
         /// 发送私聊合并转发

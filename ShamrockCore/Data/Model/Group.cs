@@ -13,7 +13,7 @@ namespace ShamrockCore.Data.Model
         ///     群号
         /// </summary>
         [JsonProperty("group_id")]
-        public long Id { get; set; }
+        public long GroupQQ { get; set; }
 
         /// <summary>
         ///     群 Uin
@@ -79,52 +79,52 @@ namespace ShamrockCore.Data.Model
         /// <summary>
         /// 群成员
         /// </summary>
-        public List<Member>? Members => Api.GetGroupMemberList(Id).Result;
+        public List<Member>? Members => Api.GetGroupMemberList(GroupQQ).Result;
 
         /// <summary>
         /// 被禁言列表
         /// </summary>
-        public List<Ban>? BanList => Api.GetBanList(Id).Result;
+        public List<Ban>? BanList => Api.GetBanList(GroupQQ).Result;
 
         /// <summary>
         /// 群精华消息
         /// </summary>
-        public List<EssenceMsg>? EssenceMsg => Api.GetEssenceMsgs(Id).Result;
+        public List<EssenceMsg>? EssenceMsg => Api.GetEssenceMsgs(GroupQQ).Result;
 
         /// <summary>
         /// 群文件系统信息
         /// </summary>
-        public FileSystemInfo? FilesSystemInfo => Api.GetGroupFileSystemInfo(Id).Result;
+        public FileSystemInfo? FilesSystemInfo => Api.GetGroupFileSystemInfo(GroupQQ).Result;
 
         /// <summary>
         /// 群根目录
         /// </summary>
-        public FilesFloders? RootFiles => Api.GetGroupRootFiles(Id).Result;
+        public FilesFloders? RootFiles => Api.GetGroupRootFiles(GroupQQ).Result;
 
         /// <summary>
         /// 群荣誉
         /// </summary>
-        public Honor? Honor => Api.GetGroupHonorInfo(Id).Result;
+        public Honor? Honor => Api.GetGroupHonorInfo(GroupQQ).Result;
 
         /// <summary>
         /// 群公告
         /// </summary>
-        public List<Announcement>? Notice => Api.GetGroupNotice(Id).Result;
+        public List<Announcement>? Notice => Api.GetGroupNotice(GroupQQ).Result;
 
         /// <summary>
         /// 群系统消息
         /// </summary>
-        public GroupSysMsg? SystemMsg => Api.GetGroupSystemMsg(Id).Result;
+        public GroupSysMsg? SystemMsg => Api.GetGroupSystemMsg(GroupQQ).Result;
 
         /// <summary>
         /// 全体禁言
         /// </summary>
-        public bool AllBan => Api.SetGroupWholeBan(Id).Result;
+        public bool AllBan => Api.SetGroupWholeBan(GroupQQ).Result;
 
         /// <summary>
         /// 全体取消禁言
         /// </summary>
-        public bool AllBanCancel => Api.SetGroupWholeBan(Id, false).Result;
+        public bool AllBanCancel => Api.SetGroupWholeBan(GroupQQ, false).Result;
 
         /// <summary>
         /// 获取群历史聊天
@@ -132,13 +132,13 @@ namespace ShamrockCore.Data.Model
         /// <param name="count">数量</param>
         /// <param name="start">开始</param>
         /// <returns></returns>
-        public async Task<MessageChain?> GetHistoryMsg(int count, int start) => await Api.GetGroupMsgHistory(Id, count, start);
+        public async Task<MessageChain?> GetHistoryMsg(int count, int start) => await Api.GetGroupMsgHistory(GroupQQ, count, start);
 
         /// <summary>
         /// 群打卡
         /// </summary>
         /// <returns></returns>
-        public async Task<bool> Sign() => await Api.SendGroupSign(Id);
+        public async Task<bool> Sign() => await Api.SendGroupSign(GroupQQ);
 
         /// <summary>
         /// 发送群公告
@@ -146,27 +146,27 @@ namespace ShamrockCore.Data.Model
         /// <param name="content">内容</param>
         /// <param name="image">图片,支持base64、http(s)和本地路径</param>
         /// <returns></returns>
-        public async Task<bool> SendNotice(string content, string image = "") => await Api.SendGroupNotice(Id, content, image);
+        public async Task<bool> SendNotice(string content, string image = "") => await Api.SendGroupNotice(GroupQQ, content, image);
 
         /// <summary>
         /// 退出群聊
         /// </summary>
         /// <returns></returns>
-        public async Task<bool> Leave() => await Api.SetGroupLeave(Id);
+        public async Task<bool> Leave() => await Api.SetGroupLeave(GroupQQ);
 
         /// <summary>
         /// 设置群名
         /// </summary>
         /// <param name="name">群名</param>
         /// <returns></returns>
-        public async Task<bool> SetName(string name) => await Api.SetGroupName(Id, name);
+        public async Task<bool> SetName(string name) => await Api.SetGroupName(GroupQQ, name);
 
         /// <summary>
         /// 创建文件夹
         /// </summary>
         /// <param name="name">文件夹名称</param>
         /// <returns></returns>
-        public async Task<UploadInfo?> CreateFolder(string name) => await Api.CreateGroupFolder(Id, name);
+        public async Task<UploadInfo?> CreateFolder(string name) => await Api.CreateGroupFolder(GroupQQ, name);
 
         /// <summary>
         /// 上传到群文件
@@ -174,7 +174,7 @@ namespace ShamrockCore.Data.Model
         /// <param name="file"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-        public async Task<UploadInfo?> UploadFilesByPath(string file, string name) => await Api.UploadGroupFile(Id, file, name);
+        public async Task<UploadInfo?> UploadFilesByPath(string file, string name) => await Api.UploadGroupFile(GroupQQ, file, name);
 
         /// <summary>
         /// 上传到群文件
@@ -185,7 +185,7 @@ namespace ShamrockCore.Data.Model
         public async Task<UploadInfo?> UploadFilesByUrl(string url, string name)
         {
             var path = await Api.DownloadFile1(url);
-            return path == null ? throw new Exception("数据错误！") : await Api.UploadGroupFile(Id, path.File, name);
+            return path == null ? throw new Exception("数据错误！") : await Api.UploadGroupFile(GroupQQ, path.File, name);
         }
 
         /// <summary>
@@ -197,7 +197,7 @@ namespace ShamrockCore.Data.Model
         public async Task<UploadInfo?> UploadFilesByBase64(string base64, string name)
         {
             var path = await Api.DownloadFile1("", base64);
-            return path == null ? throw new Exception("数据错误！") : await Api.UploadGroupFile(Id, path.File, name);
+            return path == null ? throw new Exception("数据错误！") : await Api.UploadGroupFile(GroupQQ, path.File, name);
         }
         #endregion
     }

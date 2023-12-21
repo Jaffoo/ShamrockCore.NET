@@ -12,7 +12,7 @@ namespace ShamrockCore.Data.Model
         /// 发送者QQ
         /// </summary>
         [JsonProperty("sender_id")]
-        public long Id { get; set; }
+        public long QQ { get; set; }
 
         /// <summary>
         /// 发送者昵称
@@ -30,7 +30,7 @@ namespace ShamrockCore.Data.Model
         /// 操作者QQ
         /// </summary>
         [JsonProperty("operator_id")]
-        public string OperatorId { get; set; } = "";
+        public string OperatorQQ { get; set; } = "";
 
         /// <summary>
         /// 操作者
