@@ -45,7 +45,7 @@ namespace ShamrockCore.Test
             });
             bot.MessageReceived.OfType<FriendReceiver>().Subscribe(async msg =>
             {
-                Console.WriteLine("好友消息：" + msg.ToJsonString());
+                await Console.Out.WriteLineAsync("好友消息：" + msg.ToJsonString());
             });
             #endregion
 
