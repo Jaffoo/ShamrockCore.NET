@@ -37,9 +37,8 @@ namespace ShamrockCore.Reciver.Events
         /// <summary>
         /// 拒绝好友请求
         /// </summary>
-        /// <param name="remark">备注</param>
         /// <returns></returns>
-        public async Task<bool> Reject(string remark = "") => await Api.SetFriendAddRequest(Flag, false, remark);
+        public async Task<bool> Reject() => await Api.SetFriendAddRequest(Flag, false);
         #endregion
     }
 }

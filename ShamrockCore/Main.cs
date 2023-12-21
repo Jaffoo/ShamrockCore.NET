@@ -100,8 +100,8 @@ namespace ShamrockCore
         {
             try
             {
-                var postType = data.Fetch("post_type");
-                var type1 = data.Fetch(postType + "_type");
+                var postType = data.Fetch("post_type")?.Trim();
+                var type1 = data.Fetch(postType + "_type")?.Trim();
 
                 if (string.IsNullOrWhiteSpace(postType))
                     throw new InvalidDataException("Websocket数据响应错误！");

@@ -31,6 +31,11 @@ namespace ShamrockCore.Test
                         var text = item.ConvertTo<TextMessage>();
                         await Console.Out.WriteLineAsync(text.Data.Text);
                     }
+                    if (item.Type == Data.Model.MessageType.Image)
+                    {
+                        var text = item.ConvertTo<ImageMessage>();
+                        await Console.Out.WriteLineAsync(text.Data.Url);
+                    }
                 }
                 var msgStr = msg.Message.GetPlainText();
                 if (msgStr == "你好")
@@ -48,7 +53,7 @@ namespace ShamrockCore.Test
             bot.EventReceived.OfType<FriendAddEvent>().Subscribe(async msg =>
             {
                 Console.WriteLine("好友请求事件：" + msg.ToJsonString());
-                await msg.Agree();
+                await msg.Agree("你是谁？");
             });
             bot.EventReceived.OfType<GroupIncreaseEvent>().Subscribe(msg =>
             {

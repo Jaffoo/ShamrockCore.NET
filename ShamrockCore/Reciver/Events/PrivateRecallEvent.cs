@@ -22,7 +22,7 @@ namespace ShamrockCore.Reciver.Events
         /// <summary>
         /// 消息id
         /// </summary>
-        [JsonProperty("user_id")]
+        [JsonProperty("message_id")]
         public long MessageId { get; set; }
     }
 }
