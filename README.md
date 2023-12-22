@@ -102,15 +102,15 @@ var message = new MessageChain()
     new TextMessage("群消息"),
     new ImageMessage(url:"http://localhost/test.png")
 };
+await MessageManager.SendGroupMsgAsync(111, message);
+var msgBuilder = new MessageChainBuilder().Text("私聊消息").Video("/Download/test.mp4");
+message = msgBuilder.Build();
+await MessageManager.SendPrivateMsgAsync(111, message);
+```
 阻塞线程：
 ```cs
 while (true)
 {
     Thread.Sleep(10);//建议加上，如果单纯死循环的话，最导致cpu占用飙高。
 }
-```
-await MessageManager.SendGroupMsgAsync(111, message);
-var msgBuilder = new MessageChainBuilder().Text("私聊消息").Video("/Download/test.mp4");
-message = msgBuilder.Build();
-await MessageManager.SendPrivateMsgAsync(111, message);
 ```
