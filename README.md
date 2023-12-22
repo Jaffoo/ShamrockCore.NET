@@ -34,7 +34,6 @@ var config = new ConnectConfig("Host", websocket_port, http_port, "token");
 using Bot bot = new(config);
 await bot.Start();
 ```
-Host：IP，websocket_port：websocket端口，http_port：http端口，token（可选）：token
 bot常用接口：
 
 ```cs
