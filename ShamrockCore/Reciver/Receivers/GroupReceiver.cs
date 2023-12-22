@@ -86,7 +86,7 @@ namespace ShamrockCore.Reciver.Receivers
         /// 发送者 QQ 号
         /// </summary>
         [JsonProperty("user_id")]
-        public long UserId { get; set; }
+        public long QQ { get; set; }
 
         /// <summary>
         /// 发送者昵称

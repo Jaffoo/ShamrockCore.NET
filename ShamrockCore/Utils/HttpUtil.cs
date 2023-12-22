@@ -24,7 +24,7 @@ namespace ShamrockCore.Utils
         /// <summary>
         /// 错误信息，仅在 API 调用失败时出现
         /// </summary>
-        public string Msg { get; set; } = "";
+        public string Message { get; set; } = "";
 
         /// <summary>
         ///  对错误信息的描述，仅在 API 调用失败时出现
@@ -161,8 +161,8 @@ namespace ShamrockCore.Utils
                          .WithHeader("Authorization", $"Bearer {Bot.Instance?.Config.Token ?? ""}")
                          .GetAsync();
                 var re = await result.GetJsonAsync<Result>();
-                if (re.Status != "ok") throw new Exception("请求失败：" + re.Msg);
-                if (re.Retcode != 0) throw new Exception("请求失败：" + re.Msg);
+                if (re.Status != "ok") throw new Exception("请求失败：" + re.Message);
+                if (re.Retcode != 0) throw new Exception("请求失败：" + re.Message);
                 if (re.Data == null) throw new InvalidDataException("无数据或数据请求错误");
                 var dataStr = JsonConvert.SerializeObject(re.Data);
                 var res = JsonConvert.DeserializeObject<T>(dataStr);
@@ -231,8 +231,8 @@ namespace ShamrockCore.Utils
                        .WithHeader("Authorization", $"Bearer {Bot.Instance?.Config.Token ?? ""}")
                        .PostJsonAsync(body);
                 var re = await result.GetJsonAsync<Result>();
-                if (re.Status != "ok") throw new Exception("请求失败：" + re.Msg);
-                if (re.Retcode != 0) throw new Exception("请求失败：" + re.Msg);
+                if (re.Status != "ok") throw new Exception("请求失败：" + re.Message);
+                if (re.Retcode != 0) throw new Exception("请求失败：" + re.Message);
                 if (re.Data == null) throw new InvalidDataException("数据请求错误");
                 var dataStr = JsonConvert.SerializeObject(re.Data);
                 var res = JsonConvert.DeserializeObject<T>(dataStr);
@@ -268,8 +268,8 @@ namespace ShamrockCore.Utils
                        .PostJsonAsync(body);
                 var re = await result.GetJsonAsync<Result>();
                 if (re.Status != "ok" && re.Retcode != 0)
-                    return true;
-                else return false;
+                    return false;
+                else return true;
             }
             catch (Exception e)
             {

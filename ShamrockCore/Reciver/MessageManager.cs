@@ -60,7 +60,7 @@ namespace ShamrockCore.Reciver
         /// </summary>
         /// <param name="message"></param>
         /// <returns></returns>
-        public static async Task<string> SendPrivateMsgAsync(this FriendReceiver friend, MessageChain message) => await Api.SendPrivateMsgAsync(friend.Sender!.UserId, message);
+        public static async Task<string> SendPrivateMsgAsync(this FriendReceiver friend, MessageChain message) => await Api.SendPrivateMsgAsync(friend.Sender!.QQ, message);
 
         /// <summary>
         /// 发送私聊，返回消息id
@@ -76,6 +76,25 @@ namespace ShamrockCore.Reciver
         }
 
         /// <summary>
+        /// 发送私聊，返回消息id
+        /// </summary>
+        /// <returns></returns>
+        public static async Task<string> SendPrivateMsgAsync(this Member member, string message)
+        {
+            MessageChain chain = new()
+            {
+                new TextMessage() { Data = new() { Text = message } },
+            };
+            return await SendPrivateMsgAsync(member.QQ, chain);
+        }
+
+        /// <summary>
+        /// 发送私聊，返回消息id
+        /// </summary>
+        /// <returns></returns>
+        public static async Task<string> SendPrivateMsgAsync(this Member member, MessageChain message) => await Api.SendPrivateMsgAsync(member.QQ, message);
+
+        /// <summary>
         /// 发送群聊消息，返回消息id
         /// </summary>
         /// <param name="groupQQ"></param>
@@ -83,7 +102,7 @@ namespace ShamrockCore.Reciver
         /// <param name="autoEscape">是否解析 CQ 码。</param>
         /// <returns></returns>
         public static async Task<string> SendGroupMsgAsync(long groupQQ, MessageChain message, bool autoEscape = false) => await Api.SendGroupMsgAsync(groupQQ, message, autoEscape);
-        
+
         /// <summary>
         /// 发送群聊消息，返回消息id
         /// </summary>
@@ -193,6 +212,6 @@ namespace ShamrockCore.Reciver
         /// </summary>
         /// <param name="messages">消息内容</param>
         /// <returns></returns>
-        public static async Task<string> SendForwardMsgAsync(this FriendReceiver friend, object messages) => await Api.SendPrivateForwardMsgAsync(friend.Sender?.UserId ?? 0, messages);
+        public static async Task<string> SendForwardMsgAsync(this FriendReceiver friend, object messages) => await Api.SendPrivateForwardMsgAsync(friend.Sender?.QQ ?? 0, messages);
     }
 }
