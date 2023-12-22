@@ -1,6 +1,4 @@
-﻿using Manganese.Array;
-using ShamrockCore.Data.Model;
-using System.IO;
+﻿using ShamrockCore.Data.Model;
 using System.Text.RegularExpressions;
 
 namespace ShamrockCore.Reciver.MsgChain
@@ -151,7 +149,7 @@ namespace ShamrockCore.Reciver.MsgChain
         /// </summary>
         /// <param name="path">路径</param>
         /// <returns></returns>
-        public MessageChainBuilder VideoByPath(string path)
+        public MessageChainBuilder Video(string path)
         {
             if (!path.Contains("file://")) path = "file://" + path;
             list.Add(new VideoMessage(path));

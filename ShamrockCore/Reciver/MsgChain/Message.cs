@@ -1,5 +1,8 @@
 ﻿using Newtonsoft.Json;
 using ShamrockCore.Data.Model;
+using System.Collections.Generic;
+using System.IO;
+using System.Text.RegularExpressions;
 
 namespace ShamrockCore.Reciver.MsgChain
 {
@@ -149,14 +152,27 @@ namespace ShamrockCore.Reciver.MsgChain
         public ImageMessage() { }
 
         /// <summary>
-        /// 图片
+        /// 图片(参数三选一，优先本地文件)
         /// </summary>
         /// <param name="file">文件路径</param>
         /// <param name="url">文件链接</param>
-        public ImageMessage(string file = "", string url = "")
+        /// <param name="base64">文件base64</param>
+        public ImageMessage(string file = "", string url = "", string base64 = "")
         {
-            Data.File = file;
-            Data.Url = url;
+            if (!string.IsNullOrWhiteSpace(file))
+            {
+                if (!file.Contains("file://")) file = "file://" + file;
+                Data.File = file;
+            }
+            else if (!string.IsNullOrWhiteSpace(url))
+                Data.Url = url;
+            else if (!string.IsNullOrWhiteSpace(base64))
+            {
+                string pattern = @"data:[a-zA-Z0-9]+/[a-zA-Z0-9]+;base64,";
+                string result = Regex.Replace(base64, pattern, "");
+                if (!result.Contains("base64://")) result = "base64://" + result;
+                Data.File = result;
+            }
         }
         [JsonProperty("type")]
         [JsonConverter(typeof(LowercaseStringEnumConverter))]
@@ -184,15 +200,20 @@ namespace ShamrockCore.Reciver.MsgChain
         public RecordMessage() { }
 
         /// <summary>
-        /// 语音
+        /// 语音(file和url二选一，file优先)
         /// </summary>
         /// <param name="file">文件路径</param>
         /// <param name="url">文件链接</param>
         /// <param name="magic">是否为魔法语音</param>
         public RecordMessage(string file = "", string url = "", bool magic = false)
         {
-            Data.File = file;
-            Data.Url = url;
+            if (string.IsNullOrWhiteSpace(file))
+            {
+                if (!file.Contains("file://")) file = "file://" + file;
+                Data.File = file;
+            }
+            else if (!string.IsNullOrWhiteSpace(url))
+                Data.Url = url;
             Data.Magic = magic;
         }
         [JsonProperty("type")]
@@ -229,7 +250,11 @@ namespace ShamrockCore.Reciver.MsgChain
         /// 视频
         /// </summary>
         /// <param name="file">文件路径</param>
-        public VideoMessage(string file) => Data.File = file;
+        public VideoMessage(string file)
+        {
+            if (!file.Contains("file://")) file = "file://" + file;
+            Data.File = file;
+        }
         [JsonProperty("type")]
         [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.Video;

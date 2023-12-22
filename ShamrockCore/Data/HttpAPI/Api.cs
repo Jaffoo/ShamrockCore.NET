@@ -1140,11 +1140,11 @@ namespace ShamrockCore.Data.HttpAPI
         /// <summary>
         /// 发送私聊，返回消息id
         /// </summary>
-        /// <param name="qq"></param>
-        /// <param name="message"></param>
-        /// <param name="autoEscape"></param>
+        /// <param name="qq">QQ 号</param>
+        /// <param name="message">消息内容</param>
+        /// <param name="autoEscape">是否解析 CQ 码。</param>
         /// <returns></returns>
-        public static async Task<string> SendPrivateMsgAsync(long qq, object message, bool autoEscape = false)
+        public static async Task<string> SendPrivateMsgAsync(long qq, MessageChain message, bool autoEscape = false)
         {
             try
             {
@@ -1169,10 +1169,10 @@ namespace ShamrockCore.Data.HttpAPI
         /// 发送群聊消息，返回消息id
         /// </summary>
         /// <param name="groupQQ"></param>
-        /// <param name="message"></param>
-        /// <param name="autoEscape"></param>
+        /// <param name="message">消息内容</param>
+        /// <param name="autoEscape">是否解析 CQ 码。</param>
         /// <returns></returns>
-        public static async Task<string> SendGroupMsgAsync(long groupQQ, object message, bool autoEscape = false)
+        public static async Task<string> SendGroupMsgAsync(long groupQQ, MessageChain message, bool autoEscape = false)
         {
             try
             {
@@ -1197,8 +1197,8 @@ namespace ShamrockCore.Data.HttpAPI
         /// 发送消息，返回消息id
         /// </summary>
         /// <param name="qq"></param>
-        /// <param name="message"></param>
-        /// <param name="autoEscape"></param>
+        /// <param name="message">消息内容</param>
+        /// <param name="autoEscape">是否解析 CQ 码。</param>
         /// <returns></returns>
         public static async Task<string> SendMsgAsync(MessageType type, long qq, long groupQQ, long discussId, object message, bool autoEscape = false)
         {
