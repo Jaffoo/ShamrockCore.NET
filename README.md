@@ -11,8 +11,7 @@
 （注：由于还是测试版，所以暂不打算发布到nuget）
 
 ### 安装
-- 下载请到[releases](https://github.com/Jaffoo/ShamrockCore.NET/releases)界面下载dll文件。
-- nuget安装下面两个库：Manganese和System.Reactive.Linq
+- nuget安装下面三个库：ShamrockCore、Manganese和System.Reactive.Linq
 ### 开始
 <details>
   <summary>名称空间引用</summary>
