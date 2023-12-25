@@ -8,8 +8,6 @@
   - ShamrockCore.Test-测试程序
 - 如果此项目对你有用，不妨给它点个Star，如果发现问题或者有不够完善的地方，欢迎大家提交PR和Issues。
 ## 快速开始
-（注：由于还是测试版，所以暂不打算发布到nuget）
-
 ### 安装
 - nuget安装下面三个库：ShamrockCore、Manganese和System.Reactive.Linq
 ### 开始
