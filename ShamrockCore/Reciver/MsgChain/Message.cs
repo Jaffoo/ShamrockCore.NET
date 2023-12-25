@@ -129,7 +129,7 @@ namespace ShamrockCore.Reciver.MsgChain
         /// 回复
         /// </summary>
         /// <param name="msgId">消息id</param>
-        public ReplyMessage(int msgId) => Data.Id = msgId;
+        public ReplyMessage(long msgId) => Data.Id = msgId;
         [JsonProperty("type")]
         [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.Reply;
