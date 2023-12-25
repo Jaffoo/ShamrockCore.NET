@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
+using ShamrockCore.Data.HttpAPI;
 using ShamrockCore.Data.Model;
-using System.Collections.Generic;
-using System.IO;
 using System.Text.RegularExpressions;
 
 namespace ShamrockCore.Reciver.MsgChain
@@ -141,6 +140,11 @@ namespace ShamrockCore.Reciver.MsgChain
             /// 回复消息id
             /// </summary>
             [JsonProperty("id")] public long Id { get; set; }
+
+            /// <summary>
+            /// 被回复的消息
+            /// </summary>
+            [JsonIgnore] public MessageChain? Message => Api.GetMsg(Id).Result?.Message;
         }
     }
 

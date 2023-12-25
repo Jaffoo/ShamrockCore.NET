@@ -12,7 +12,7 @@ namespace ShamrockCore.Test
     {
         static async Task Main()
         {
-            var config = new ConnectConfig("154.12.93.103", 7100, 7200, "523366");
+            var config = new ConnectConfig("IP", 1, 2, "token");
             using Bot bot = new(config);
             await bot.Start();
             await Console.Out.WriteLineAsync("Open");
@@ -20,6 +20,7 @@ namespace ShamrockCore.Test
             {
                 Console.WriteLine("webscoket断开连接：" + e);
             });
+
             #region 消息测试
             bot.MessageReceived.OfType<GroupReceiver>().Subscribe(async msg =>
             {
@@ -35,7 +36,12 @@ namespace ShamrockCore.Test
                         var text = item.ConvertTo<ImageMessage>();
                         await Console.Out.WriteLineAsync(text.Data.Url);
                     }
+                    if (item.Type == Data.Model.MessageType.Reply)
+                    {
+                        var b = item.ConvertTo<ReplyMessage>();
+                    }
                 }
+                await msg.Member.Kick();
                 var msgStr = msg.Message.GetPlainText();
                 if (msgStr == "你好")
                 {

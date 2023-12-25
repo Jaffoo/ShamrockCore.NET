@@ -283,7 +283,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 获取消息
         /// </summary>
         /// <returns></returns>
-        public static async Task<MsgInfo?> GetMsg(int messageId)
+        public static async Task<MsgInfo?> GetMsg(long messageId)
         {
             try
             {

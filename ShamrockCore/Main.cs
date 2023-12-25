@@ -296,7 +296,7 @@ namespace ShamrockCore
         /// 获取消息
         /// </summary>
         /// <returns></returns>
-        public async Task<MsgInfo?> GetMsg(int messageId) => await Api.GetMsg(messageId);
+        public async Task<MsgInfo?> GetMsg(long messageId) => await Api.GetMsg(messageId);
 
         /// <summary>
         /// 获取历史消息
