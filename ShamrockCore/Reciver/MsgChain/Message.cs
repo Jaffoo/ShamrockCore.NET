@@ -73,13 +73,11 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record AtMessage : Message
     {
-        public AtMessage() { }
-
         /// <summary>
         /// at
         /// </summary>
         /// <param name="qq">qq号</param>
-        public AtMessage(long qq) => Data.QQ = qq;
+        public AtMessage(long qq = 0) => Data.QQ = qq;
         [JsonProperty("type")]
         [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public new MessageType Type { get; set; } = MessageType.At;
@@ -618,6 +616,17 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record MergeMessage : Message
     {
+        public MergeMessage() { }
+
+        public MergeMessage(long id) => Data.Id = id;
+        [JsonProperty("data")] public new Body Data { get; set; } = new();
+        public record Body
+        {
+            /// <summary>
+            /// 合并转发resid
+            /// </summary>
+            [JsonProperty("id")] public long Id { get; set; }
+        }
     }
 
     /// <summary>
@@ -625,6 +634,17 @@ namespace ShamrockCore.Reciver.MsgChain
     /// </summary>
     public record MergeNodeMessage : Message
     {
+        public MergeNodeMessage() { }
+
+        public MergeNodeMessage(long id) => Data.Id = id;
+        [JsonProperty("data")] public new Body Data { get; set; } = new();
+        public record Body
+        {
+            /// <summary>
+            /// 消息ID
+            /// </summary>
+            [JsonProperty("id")] public long Id { get; set; }
+        }
     }
 
     /// <summary>
