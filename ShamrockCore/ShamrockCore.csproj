@@ -8,11 +8,12 @@
     <Title>ShamrockCore</Title>
     <Authors>Jaffoo</Authors>
     <Company>none</Company>
-    <PackageReleaseNotes>正式发布！</PackageReleaseNotes>
+    <PackageReleaseNotes>修复bug，优化逻辑</PackageReleaseNotes>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/Jaffoo/ShamrockCore.NET</RepositoryUrl>
     <PackageProjectUrl>https://github.com/Jaffoo/ShamrockCore.NET</PackageProjectUrl>
     <Description>OpenShamrock在C#上的实现，你可以用此库，快速链接你OpenShamrock提供的服务。</Description>
+    <Version>$(VersionPrefix)1.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
