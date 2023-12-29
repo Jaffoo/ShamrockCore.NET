@@ -106,8 +106,13 @@ namespace ShamrockCore.Reciver
         essence,
 
         /// <summary>
-        /// 系统通知
+        /// 头像戳一戳
         /// </summary>
-        notify,
+        poke,
+
+        /// <summary>
+        /// 群头衔变更
+        /// </summary>
+        title
     }
 }

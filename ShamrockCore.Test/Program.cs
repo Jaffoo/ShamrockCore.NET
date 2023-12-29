@@ -64,15 +64,11 @@ namespace ShamrockCore.Test
                     var resq = msg as FriendAddEvent;
                     if (resq == null) return;
                     Console.WriteLine("好友请求事件：" + msg.ToJsonString());
-                    await resq.Agree("好友备注");
-                    await resq.Reject();
                 }
             });
             bot.EventReceived.OfType<FriendAddEvent>().Subscribe(async msg =>
             {
                 Console.WriteLine("好友请求事件：" + msg.ToJsonString());
-                await msg.Agree("好友备注");
-                await msg.Reject();
             });
             #endregion
             bot.UnknownMessageReceived.Subscribe(msg =>
