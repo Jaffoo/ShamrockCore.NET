@@ -129,54 +129,82 @@ namespace ShamrockCore
                     {
                         //群成员增加事件
                         case "group_increase":
-                            _eventReceivedSubject.OnNext(data.ToObject<GroupIncreaseEvent>());
+                            var groupIncreaseEvent = data.ToObject<GroupIncreaseEvent>();
+                            groupIncreaseEvent.EventType = EventType.group_increase;
+                            _eventReceivedSubject.OnNext(groupIncreaseEvent);
                             break;
                         //群成员减少事件
                         case "group_decrease":
-                            _eventReceivedSubject.OnNext(data.ToObject<GroupDecreaseEvent>());
+                            var groupDecreaseEvent = data.ToObject<GroupDecreaseEvent>();
+                            groupDecreaseEvent.EventType = EventType.group_increase;
+                            _eventReceivedSubject.OnNext(groupDecreaseEvent);
                             break;
                         //私聊消息撤回
                         case "friend_recall":
-                            _eventReceivedSubject.OnNext(data.ToObject<PrivateRecallEvent>());
+                            var privateRecallEvent = data.ToObject<PrivateRecallEvent>();
+                            privateRecallEvent.EventType = EventType.group_increase;
+                            _eventReceivedSubject.OnNext(privateRecallEvent);
                             break;
                         //群聊消息撤回
                         case "group_recall":
-                            _eventReceivedSubject.OnNext(data.ToObject<GroupRecallEvent>());
+                            var groupRecallEvent = data.ToObject<GroupRecallEvent>();
+                            groupRecallEvent.EventType = EventType.group_increase;
+                            _eventReceivedSubject.OnNext(groupRecallEvent);
                             break;
                         //群管理员变动
                         case "group_admin":
-                            _eventReceivedSubject.OnNext(data.ToObject<AdminChangeEvent>());
+                            var adminChangeEvent = data.ToObject<AdminChangeEvent>();
+                            adminChangeEvent.EventType = EventType.group_increase;
+                            _eventReceivedSubject.OnNext(adminChangeEvent);
                             break;
                         //群文件上传
                         case "group_upload":
-                            _eventReceivedSubject.OnNext(data.ToObject<GroupFileUploadEvent>());
+                            var groupFileUploadEvent = data.ToObject<GroupFileUploadEvent>();
+                            groupFileUploadEvent.EventType = EventType.group_increase;
+                            _eventReceivedSubject.OnNext(groupFileUploadEvent);
                             break;
                         //私聊文件上传
                         case "private_upload":
-                            _eventReceivedSubject.OnNext(data.ToObject<PrivateFileUploadEvent>());
+                            var privateFileUploadEvent = data.ToObject<PrivateFileUploadEvent>();
+                            privateFileUploadEvent.EventType = EventType.group_increase;
+                            _eventReceivedSubject.OnNext(privateFileUploadEvent);
                             break;
                         //群禁言
                         case "group_ban":
-                            _eventReceivedSubject.OnNext(data.ToObject<GroupBanEvent>());
+                            var groupBanEvent = data.ToObject<GroupBanEvent>();
+                            groupBanEvent.EventType = EventType.group_increase;
+                            _eventReceivedSubject.OnNext(groupBanEvent);
                             break;
                         //群成员名片变动
                         case "group_card":
-                            _eventReceivedSubject.OnNext(data.ToObject<MemberCardChangeEvent>());
+                            var memberCardChangeEvent = data.ToObject<MemberCardChangeEvent>();
+                            memberCardChangeEvent.EventType = EventType.group_increase;
+                            _eventReceivedSubject.OnNext(memberCardChangeEvent);
                             break;
                         //精华消息
                         case "essence":
-                            _eventReceivedSubject.OnNext(data.ToObject<EssenceEvent>());
+                            var essenceEvent = data.ToObject<EssenceEvent>();
+                            essenceEvent.EventType = EventType.group_increase;
+                            _eventReceivedSubject.OnNext(essenceEvent);
                             break;
                         //系统通知
                         case "notify":
                             {
                                 var subType = data.Fetch("sub_type");
                                 //头像戳一戳
-                                if (subType=="poke")
-                                    _eventReceivedSubject.OnNext(data.ToObject<PokeEvent>());
+                                if (subType == "poke")
+                                {
+                                    var pokeEvent = data.ToObject<PokeEvent>();
+                                    pokeEvent.EventType = EventType.group_increase;
+                                    _eventReceivedSubject.OnNext(pokeEvent);
+                                }
                                 //群头衔变更
-                                if (subType== "title")
-                                    _eventReceivedSubject.OnNext(data.ToObject<TitleChangeEvent>());
+                                if (subType == "title")
+                                {
+                                    var titleChangeEvent = data.ToObject<TitleChangeEvent>();
+                                    titleChangeEvent.EventType = EventType.group_increase;
+                                    _eventReceivedSubject.OnNext(titleChangeEvent);
+                                }
                             }
                             break;
 
@@ -188,10 +216,18 @@ namespace ShamrockCore
                 {
                     //添加好友请求
                     if (type1 == "friend")
-                        _eventReceivedSubject.OnNext(data.ToObject<FriendAddEvent>());
+                    {
+                        var friendAddEvent = data.ToObject<FriendAddEvent>();
+                        friendAddEvent.EventType = EventType.group_increase;
+                        _eventReceivedSubject.OnNext(friendAddEvent);
+                    }
                     //加群请求／邀请
                     if (type1 == "group")
-                        _eventReceivedSubject.OnNext(data.ToObject<GroupAddEvent>());
+                    {
+                        var groupAddEvent = data.ToObject<GroupAddEvent>();
+                        groupAddEvent.EventType = EventType.group_increase;
+                        _eventReceivedSubject.OnNext(groupAddEvent);
+                    }
                 }
                 else
                     _unknownMessageReceived.OnNext(data);

@@ -56,26 +56,29 @@ namespace ShamrockCore.Test
             #endregion
 
             #region 事件测试
+            //理论上，2个观察事件都会触发，第二个一定会触发，第一个待定，待测试实践。
+            bot.EventReceived.OfType<EventBase>().Subscribe(async msg =>
+            {
+                if (msg.EventType == EventType.friend)
+                {
+                    var resq = msg as FriendAddEvent;
+                    if (resq == null) return;
+                    Console.WriteLine("好友请求事件：" + msg.ToJsonString());
+                    await resq.Agree("好友备注");
+                    await resq.Reject();
+                }
+            });
             bot.EventReceived.OfType<FriendAddEvent>().Subscribe(async msg =>
             {
                 Console.WriteLine("好友请求事件：" + msg.ToJsonString());
                 await msg.Agree("好友备注");
                 await msg.Reject();
             });
-            bot.EventReceived.OfType<GroupIncreaseEvent>().Subscribe(msg =>
-            {
-                Console.WriteLine("群成员增加事件：" + msg.ToJsonString());
-            });
-            bot.EventReceived.OfType<TitleChangeEvent>().Subscribe(msg =>
-            {
-                Console.WriteLine("群成员增加事件：" + msg.ToJsonString());
-            });
+            #endregion
             bot.UnknownMessageReceived.Subscribe(msg =>
             {
                 Console.WriteLine("未知消息：" + msg);
             });
-            #endregion
-
             #region 接口测试
             //System.Console.WriteLine(bot.FriendSysMsg.ToJsonString());
             #endregion

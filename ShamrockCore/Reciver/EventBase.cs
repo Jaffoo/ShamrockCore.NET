@@ -24,6 +24,12 @@ namespace ShamrockCore.Reciver
         /// </summary>
         [JsonProperty("post_type")]
         public PostType PostType { get; set; }
+
+        /// <summary>
+        /// 事件类型
+        /// </summary>
+        [JsonIgnore]
+        public EventType EventType { get; set; }
     }
     public enum PostType
     {
@@ -38,7 +44,7 @@ namespace ShamrockCore.Reciver
         /// </summary>
         request,
     }
-    public enum RequestType
+    public enum EventType
     {
         /// <summary>
         /// 添加好友请求
@@ -49,9 +55,6 @@ namespace ShamrockCore.Reciver
         /// 加群请求／邀请
         /// </summary>
         group,
-    }
-    public enum NoticeType
-    {
         /// <summary>
         /// 群成员增加事件
         /// </summary>
@@ -106,25 +109,5 @@ namespace ShamrockCore.Reciver
         /// 系统通知
         /// </summary>
         notify,
-    }
-
-    public enum NoticeNotifySubType
-    {
-        /// <summary>
-        /// 群荣誉变更(未实现)
-        /// </summary>
-        honor,
-        /// <summary>
-        /// 戳一戳
-        /// </summary>
-        poke,
-        /// <summary>
-        /// 红包运气王(未实现)
-        /// </summary>
-        lucky_king,
-        /// <summary>
-        /// 群头衔变更
-        /// </summary>
-        title
     }
 }
