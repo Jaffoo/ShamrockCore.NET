@@ -23,7 +23,20 @@ namespace ShamrockCore.Reciver
         /// 消息类型
         /// </summary>
         [JsonProperty("post_type")]
-        public string PostType { get; set; } = "";
+        public PostType PostType { get; set; }
+    }
+    public enum PostType
+    {
+        //message,
+        //message_sent,////这两个类型是消息接收发送，此处是事件，所以不需要
+        /// <summary>
+        /// 通知事件
+        /// </summary>
+        notice,
+        /// <summary>
+        /// 请求事件
+        /// </summary>
+        request,
     }
     public enum RequestType
     {
@@ -93,5 +106,25 @@ namespace ShamrockCore.Reciver
         /// 系统通知
         /// </summary>
         notify,
+    }
+
+    public enum NoticeNotifySubType
+    {
+        /// <summary>
+        /// 群荣誉变更(未实现)
+        /// </summary>
+        honor,
+        /// <summary>
+        /// 戳一戳
+        /// </summary>
+        poke,
+        /// <summary>
+        /// 红包运气王(未实现)
+        /// </summary>
+        lucky_king,
+        /// <summary>
+        /// 群头衔变更
+        /// </summary>
+        title
     }
 }
