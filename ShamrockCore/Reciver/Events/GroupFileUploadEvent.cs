@@ -22,7 +22,8 @@ namespace ShamrockCore.Reciver.Events
         /// <summary>
         /// 群文件信息
         /// </summary>
-        public GroupFileUploadEvent File { get; set; } = new();
+        [JsonProperty("flie")]
+        public GroupFileUploadEvent GroupFile { get; set; } =();
     }
 
 

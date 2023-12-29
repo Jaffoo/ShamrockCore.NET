@@ -17,7 +17,7 @@ namespace ShamrockCore.Reciver.Events
         /// 上传者 QQ
         /// </summary>
         [JsonProperty("sender")]
-        public long Sender { get; set; }
+        public long SenderQQ { get; set; }
 
         /// <summary>
         /// 文件信息

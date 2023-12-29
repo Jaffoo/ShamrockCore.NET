@@ -22,6 +22,7 @@ namespace ShamrockCore.Reciver.Events
         /// <summary>
         /// 获得头衔
         /// </summary>
+        [JsonProperty("title")]
         public string Title { get; set; } = "";
     }
 }

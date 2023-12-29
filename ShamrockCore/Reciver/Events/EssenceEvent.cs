@@ -32,6 +32,6 @@ namespace ShamrockCore.Reciver.Events
         /// 子类型(add/delete)
         /// </summary>
         [JsonProperty("sub_type")]
-        public string Subype { get; set; } = "";
+        public string SubType { get; set; } = "";
     }
 }
