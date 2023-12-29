@@ -35,21 +35,33 @@ namespace ShamrockCore.Reciver.Events
         /// 子类型(add/invite)
         /// </summary>
         [JsonProperty("sub_type")]
-        public string SubType { get; set; } = "";
+        public Type SubType { get; set; }
 
         #region 扩展方法/属性
         /// <summary>
         /// 同意加群请求
         /// </summary>
         /// <returns></returns>
-        public async Task<bool> Agree() => await Api.SetGroupAddRequest(Flag, SubType, true);
+        public async Task<bool> Agree() => await Api.SetGroupAddRequest(Flag, SubType.ToString(), true);
 
         /// <summary>
         /// 拒绝加群请求
         /// </summary>
         /// <param name="remark">拒绝理由</param>
         /// <returns></returns>
-        public async Task<bool> Reject(string remark = "") => await Api.SetGroupAddRequest(Flag, SubType, false, remark);
+        public async Task<bool> Reject(string remark = "") => await Api.SetGroupAddRequest(Flag, SubType.ToString(), false, remark);
         #endregion
+
+        public enum Type
+        {
+            /// <summary>
+            /// 申请
+            /// </summary>
+            add,
+            /// <summary>
+            /// 邀请
+            /// </summary>
+            invite
+        }
     }
 }

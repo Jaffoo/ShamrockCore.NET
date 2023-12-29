@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using ShamrockCore.Data.HttpAPI;
+using ShamrockCore.Data.Model;
 
 namespace ShamrockCore.Reciver.Events
 {
@@ -33,6 +35,18 @@ namespace ShamrockCore.Reciver.Events
         /// </summary>
         [JsonProperty("poke_detail")]
         public PokeDetail PokeDetail { get; set; } = new();
+
+        #region 扩展方法/属性
+        /// <summary>
+        /// 被戳者(群)
+        /// </summary>
+        public Member? Member => Api.GetGroupMemberInfo(QQ, GroupQQ).Result;
+
+        /// <summary>
+        /// 被戳者(好友)
+        /// </summary>
+        public Friend? Friend => Api.GetFriends().Result?.FirstOrDefault(t => t.QQ == QQ);
+        #endregion
     }
 
     /// <summary>

@@ -841,17 +841,30 @@ namespace ShamrockCore.Data.HttpAPI
         /// <param name="content">内容</param>
         /// <param name="image">图片,支持base64、http(s)和本地路径</param>
         /// <returns></returns>
-        public static async Task<bool> SendGroupNotice(long groupQQ, string content, string image = "")
+        public static async Task<bool> SendGroupNotice(long groupQQ, string content, string? image = null)
         {
             try
             {
-                var obj = new
+                bool res = false;
+                if (image == null)
                 {
-                    group_id = groupQQ,
-                    content,
-                    image
-                };
-                var res = await HttpEndpoints.SendGroupNotice.PostAsync(obj);
+                    var obj = new
+                    {
+                        group_id = groupQQ,
+                        content
+                    };
+                    res = await HttpEndpoints.SendGroupNotice.PostAsync(obj);
+                }
+                else
+                {
+                    var obj = new
+                    {
+                        group_id = groupQQ,
+                        content,
+                        image
+                    };
+                    res = await HttpEndpoints.SendGroupNotice.PostAsync(obj);
+                }
                 return res;
             }
             catch (Exception)

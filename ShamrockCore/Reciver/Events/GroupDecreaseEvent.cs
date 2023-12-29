@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using ShamrockCore.Data.HttpAPI;
+using ShamrockCore.Data.Model;
 
 namespace ShamrockCore.Reciver.Events
 {
@@ -17,7 +19,7 @@ namespace ShamrockCore.Reciver.Events
         /// 子类型(leave/kick/kick_me)
         /// </summary>
         [JsonProperty("sub_type")]
-        public string SubType { get; set; } = "";
+        public Type SubType { get; set; }
 
         /// <summary>
         /// 群
@@ -42,5 +44,28 @@ namespace ShamrockCore.Reciver.Events
         /// </summary>
         [JsonProperty("sender_id")]
         public long SenderQQ { get; set; }
+
+        #region 扩展方法/属性
+        /// <summary>
+        /// 成员
+        /// </summary>
+        public Member? Member => Api.GetGroupMemberInfo(QQ, GroupQQ).Result;
+        #endregion
+
+        public enum Type
+        {
+            /// <summary>
+            /// 退群
+            /// </summary>
+            leave,
+            /// <summary>
+            /// 踢人
+            /// </summary>
+            kick,
+            /// <summary>
+            /// 自己被踢
+            /// </summary>
+            kick_me,
+        }
     }
 }

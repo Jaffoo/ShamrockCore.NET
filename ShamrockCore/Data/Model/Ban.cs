@@ -35,6 +35,6 @@ namespace ShamrockCore.Data.Model
         /// </summary>
         /// <param name="time">禁言时长</param>
         /// <returns></returns>
-        public async Task<bool> Cancel(long time) => await Api.SetGroupBan(GroupQQ, QQ, time);
+        public async Task<bool> BanLonger(long time) => await Api.SetGroupBan(GroupQQ, QQ, time);
     }
 }

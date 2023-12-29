@@ -105,7 +105,7 @@ namespace ShamrockCore.Data.Model
         ///     等级
         /// </summary>
         [JsonProperty("level")]
-        public int Level { get; set; }
+        public int? Level { get; set; }
 
         /// <summary>
         ///     是否不良记录成员
@@ -132,6 +132,12 @@ namespace ShamrockCore.Data.Model
         /// <param name="time">禁言时长（为0时解除禁言）</param>
         /// <returns></returns>
         public async Task<bool> Ban(long time) => await Api.SetGroupBan(GroupQQ, QQ, time);
+
+        /// <summary>
+        /// 解禁
+        /// </summary>
+        /// <returns></returns>
+        public async Task<bool> CancelBan() => await Api.SetGroupBan(GroupQQ, QQ, 0);
 
         /// <summary>
         /// 戳一下

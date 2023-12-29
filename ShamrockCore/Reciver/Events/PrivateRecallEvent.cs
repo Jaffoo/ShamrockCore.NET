@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using ShamrockCore.Data.HttpAPI;
+using ShamrockCore.Data.Model;
 
 namespace ShamrockCore.Reciver.Events
 {
@@ -24,5 +26,12 @@ namespace ShamrockCore.Reciver.Events
         /// </summary>
         [JsonProperty("message_id")]
         public long MessageId { get; set; }
+
+        #region 扩展方法/属性
+        /// <summary>
+        /// 撤回消息对象
+        /// </summary>
+        [JsonIgnore] public MsgInfo? Message => Api.GetMsg(MessageId).Result;
+        #endregion
     }
 }

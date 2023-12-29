@@ -119,12 +119,12 @@ namespace ShamrockCore.Data.Model
         /// <summary>
         /// 全体禁言
         /// </summary>
-        public bool AllBan => Api.SetGroupWholeBan(GroupQQ).Result;
+        public async Task<bool> AllBan() =>await Api.SetGroupWholeBan(GroupQQ);
 
         /// <summary>
         /// 全体取消禁言
         /// </summary>
-        public bool AllBanCancel => Api.SetGroupWholeBan(GroupQQ, false).Result;
+        public async Task<bool> AllBanCancel() =>await Api.SetGroupWholeBan(GroupQQ, false);
 
         /// <summary>
         /// 获取群历史聊天
@@ -146,7 +146,7 @@ namespace ShamrockCore.Data.Model
         /// <param name="content">内容</param>
         /// <param name="image">图片,支持base64、http(s)和本地路径</param>
         /// <returns></returns>
-        public async Task<bool> SendNotice(string content, string image = "") => await Api.SendGroupNotice(GroupQQ, content, image);
+        public async Task<bool> SendNotice(string content, string? image = null) => await Api.SendGroupNotice(GroupQQ, content, image);
 
         /// <summary>
         /// 退出群聊

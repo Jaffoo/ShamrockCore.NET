@@ -20,6 +20,17 @@ namespace ShamrockCore.Reciver.Events
         /// 子类型(set,任命/unset,卸任)
         /// </summary>
         [JsonProperty("sub_type")]
-        public string SubType { get; set; } = "";
+        public SubType SubType { get; set; }
+    }
+    public enum SubType
+    {
+        /// <summary>
+        /// 任命
+        /// </summary>
+        set,
+        /// <summary>
+        /// 卸任
+        /// </summary>
+        unset,
     }
 }

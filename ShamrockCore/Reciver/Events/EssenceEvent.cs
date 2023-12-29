@@ -1,7 +1,12 @@
 ﻿using Newtonsoft.Json;
+using ShamrockCore.Data.HttpAPI;
+using ShamrockCore.Data.Model;
 
 namespace ShamrockCore.Reciver.Events
 {
+    /// <summary>
+    /// 精华消息
+    /// </summary>
     public class EssenceEvent : EventBase
     {
         /// <summary>
@@ -29,9 +34,28 @@ namespace ShamrockCore.Reciver.Events
         public long MessageId { get; set; }
 
         /// <summary>
-        /// 子类型(add/delete)
+        /// 子类型
         /// </summary>
         [JsonProperty("sub_type")]
-        public string SubType { get; set; } = "";
+        public Type SubType { get; set; }
+
+        #region 扩展方法/属性
+        /// <summary>
+        /// 精华消息对象
+        /// </summary>
+        [JsonIgnore] public MsgInfo? Message => Api.GetMsg(MessageId).Result;
+        #endregion
+
+        public enum Type
+        {
+            /// <summary>
+            /// 添加
+            /// </summary>
+            add,
+            /// <summary>
+            /// 删除
+            /// </summary>
+            delete
+        }
     }
 }

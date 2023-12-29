@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using ShamrockCore.Data.HttpAPI;
+using ShamrockCore.Data.Model;
 
 namespace ShamrockCore.Reciver.Events
 {
@@ -35,6 +37,25 @@ namespace ShamrockCore.Reciver.Events
         /// 子类型(ban/lift_ban)
         /// </summary>
         [JsonProperty("sub_type")]
-        public string SubType { get; set; } = "";
+        public Type SubType { get; set; }
+
+        #region 扩展方法/属性
+        /// <summary>
+        /// 被禁言者
+        /// </summary>
+        public Member? Banner => Api.GetGroupMemberInfo(QQ, GroupQQ).Result;
+        #endregion
+
+        public enum Type
+        {
+            /// <summary>
+            /// 禁言
+            /// </summary>
+            ban,
+            /// <summary>
+            /// 解禁
+            /// </summary>
+            lift_ban
+        }
     }
 }

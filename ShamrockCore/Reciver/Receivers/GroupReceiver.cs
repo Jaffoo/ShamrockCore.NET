@@ -47,12 +47,6 @@ namespace ShamrockCore.Reciver.Receivers
         public int Font { get; set; }
 
         /// <summary>
-        /// 发送人信息
-        /// </summary>
-        [JsonProperty("sender")]
-        public Sender? Sender { get; set; } = new();
-
-        /// <summary>
         /// 消息内容
         /// </summary>
         [JsonProperty("message")]
@@ -68,49 +62,7 @@ namespace ShamrockCore.Reciver.Receivers
         /// <summary>
         /// 发送者成员信息
         /// </summary>
-        public Member Member => Api.GetGroupMemberInfo(GroupId, QQ).Result!;
+        public Member Sender => Api.GetGroupMemberInfo(GroupId, QQ).Result!;
         #endregion
-    }
-
-    /// <summary>
-    /// 发送者信息
-    /// </summary>
-    public record Sender
-    {
-        /// <summary>
-        /// 群号
-        /// </summary>
-        public long GroupId { get; set; }
-
-        /// <summary>
-        /// 发送者 QQ 号
-        /// </summary>
-        [JsonProperty("user_id")]
-        public long QQ { get; set; }
-
-        /// <summary>
-        /// 发送者昵称
-        /// </summary>
-        public string Nickname { get; set; } = "";
-
-        /// <summary>
-        /// 发送者群名片
-        /// </summary>
-        public string Card { get; set; } = "";
-
-        /// <summary>
-        /// 发送者群内权限
-        /// </summary>
-        public Permissions Role { get; set; }
-
-        /// <summary>
-        /// 发送者头衔
-        /// </summary>
-        public string Title { get; set; } = "";
-
-        /// <summary>
-        /// 发送者等级
-        /// </summary>
-        public string Level { get; set; } = "";
     }
 }

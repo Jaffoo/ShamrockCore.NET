@@ -47,12 +47,6 @@ namespace ShamrockCore.Reciver.Receivers
         public int Font { get; set; }
 
         /// <summary>
-        /// 发送人信息
-        /// </summary>
-        [JsonProperty("sender")]
-        public Sender? Sender { get; set; } = null;
-
-        /// <summary>
         /// 消息内容
         /// </summary>
         [JsonProperty("message")]
@@ -62,7 +56,7 @@ namespace ShamrockCore.Reciver.Receivers
         /// <summary>
         /// 好友信息
         /// </summary>
-        public Friend Friend => Api.GetFriends().Result!.FirstOrDefault(t => t.QQ == QQ)!;
+        public Friend Sender => Api.GetFriends().Result!.FirstOrDefault(t => t.QQ == QQ)!;
         #endregion
     }
 }

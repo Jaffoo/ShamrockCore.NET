@@ -24,30 +24,7 @@ namespace ShamrockCore.Test
             #region 消息测试
             bot.MessageReceived.OfType<GroupReceiver>().Subscribe(async msg =>
             {
-                foreach (var item in msg.Message)
-                {
-                    if (item.Type == Data.Model.MessageType.Text)
-                    {
-                        var text = item.ConvertTo<TextMessage>();
-                        await Console.Out.WriteLineAsync(text.Data.Text);
-                    }
-                    if (item.Type == Data.Model.MessageType.Image)
-                    {
-                        var text = item.ConvertTo<ImageMessage>();
-                        await Console.Out.WriteLineAsync(text.Data.Url);
-                    }
-                    if (item.Type == Data.Model.MessageType.Reply)
-                    {
-                        var b = item.ConvertTo<ReplyMessage>();
-                    }
-                }
-                await msg.Member.Kick();
-                var msgStr = msg.Message.GetPlainText();
-                if (msgStr == "你好")
-                {
-                    await msg.Member.SendPrivateMsgAsync("你也好");
-                }
-                await msg.Member.SetSpecialTitle(msgStr);
+                await Console.Out.WriteLineAsync("群消息：" + msg.ToJsonString());
             });
             bot.MessageReceived.OfType<FriendReceiver>().Subscribe(async msg =>
             {

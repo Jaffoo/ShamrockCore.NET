@@ -245,12 +245,12 @@ namespace ShamrockCore.Data.HttpAPI
         /// <summary>
         /// 发送群公告
         /// </summary>
-        [Description("send_group_notice")] SendGroupNotice,
+        [Description("_send_group_notice")] SendGroupNotice,
 
         /// <summary>
         /// 获取群公告
         /// </summary>
-        [Description("get_group_notice")] GetGroupNotice,
+        [Description("_get_group_notice")] GetGroupNotice,
 
         /// <summary>
         /// 群组踢人
