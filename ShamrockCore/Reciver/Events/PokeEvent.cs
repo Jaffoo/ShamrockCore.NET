@@ -40,7 +40,7 @@ namespace ShamrockCore.Reciver.Events
         /// <summary>
         /// 被戳者(群)
         /// </summary>
-        public Member? Member => Api.GetGroupMemberInfo(QQ, GroupQQ).Result;
+        public Member? Member => Api.GetGroupMemberInfo(GroupQQ, QQ).Result;
 
         /// <summary>
         /// 被戳者(好友)
