@@ -37,15 +37,34 @@ namespace ShamrockCore.Reciver.Events
         public PokeDetail PokeDetail { get; set; } = new();
 
         #region 扩展方法/属性
+
+        [JsonIgnore] private Lazy<Member?>? _member;
         /// <summary>
         /// 被戳者(群)
         /// </summary>
-        public Member? Member => Api.GetGroupMemberInfo(GroupQQ, QQ).Result;
+        [JsonIgnore]
+        public Member? Member
+        {
+            get
+            {
+                _member ??= new(() => Api.GetGroupMemberInfo(GroupQQ, QQ).Result);
+                return _member.Value;
+            }
+        }
 
+        [JsonIgnore] private Lazy<Friend?>? _friend;
         /// <summary>
         /// 被戳者(好友)
         /// </summary>
-        public Friend? Friend => Api.GetFriends().Result?.FirstOrDefault(t => t.QQ == QQ);
+        [JsonIgnore]
+        public Friend? Friend
+        {
+            get
+            {
+                _friend ??= new(() => Api.GetFriends().Result?.FirstOrDefault(t => t.QQ == QQ));
+                return _friend.Value;
+            }
+        }
         #endregion
     }
 

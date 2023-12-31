@@ -279,33 +279,81 @@ namespace ShamrockCore
         /// <summary>
         /// 登录用户信息
         /// </summary>
-        public LoginInfo LoginInfo => Api.GetLoginInfo().Result ?? new();
+        public LoginInfo? LoginInfo
+        {
+            get
+            {
+                _loginInfo ??= new(() => Api.GetLoginInfo().Result);
+                return _loginInfo.Value;
+            }
+        }
+        private Lazy<LoginInfo?>? _loginInfo;
 
         /// <summary>
         /// 群列表
         /// </summary>
-        public IEnumerable<Group> Groups => Api.GetGroups().Result ?? Enumerable.Empty<Group>();
+        public IEnumerable<Group>? Groups
+        {
+            get
+            {
+                _groups ??= new(() => Api.GetGroups().Result);
+                return _groups.Value;
+            }
+        }
+        private Lazy<IEnumerable<Group>?>? _groups;
 
         // <summary>
         /// 好友列表
         /// </summary>
-        public IEnumerable<Friend> Friends => Api.GetFriends().Result ?? Enumerable.Empty<Friend>();
+        public IEnumerable<Friend>? Friends
+        {
+            get
+            {
+                _friends ??= new(() => Api.GetFriends().Result);
+                return _friends.Value;
+            }
+        }
+        private Lazy<IEnumerable<Friend>?>? _friends;
 
         /// <summary>
         /// 手机电池信息
         /// </summary>
-        public BatteryInfo Battery => Api.GetDeviceBattery().Result ?? new();
+        public BatteryInfo? Battery
+        {
+            get
+            {
+                _battery ??= new(() => Api.GetDeviceBattery().Result);
+                return _battery.Value;
+            }
+        }
+        private Lazy<BatteryInfo?>? _battery;
 
         /// <summary>
         /// shamrock启动时间
         /// </summary>
-        public long StartTime => Api.GetStartTime().Result;
+        public long StartTime
+        {
+            get
+            {
+                _startTime ??= new(() => Api.GetStartTime().Result);
+                return _startTime.Value;
+            }
+        }
+        private Lazy<long>? _startTime;
 
         /// <summary>
         /// 获取好友系统消息(未能正确获取到数据)
         /// </summary>
         /// <returns></returns>
-        public List<FriendSysMsg>? FriendSysMsg => Api.GetFriendSysMsg().Result;
+        public IEnumerable<FriendSysMsg>? FriendSysMsg
+        {
+            get
+            {
+                _friendSysMsg ??= new(() => Api.GetFriendSysMsg().Result);
+                return _friendSysMsg.Value;
+            }
+        }
+        private Lazy<IEnumerable<FriendSysMsg>?>? _friendSysMsg;
 
         // <summary>
         /// 是否在黑名单中
@@ -343,7 +391,7 @@ namespace ShamrockCore
         /// <param name="count"></param>
         /// <param name="start"></param>
         /// <returns></returns>
-        public async Task<List<MsgInfo>?> GetHistoryMsg(MessageType msgType, long qq = 0, long group = 0, int count = 10, int start = 0) => await Api.GetHistoryMsg(msgType, qq, group, count, start);
+        public async Task<IEnumerable<MsgInfo>?> GetHistoryMsg(MessageType msgType, long qq = 0, long group = 0, int count = 10, int start = 0) => await Api.GetHistoryMsg(msgType, qq, group, count, start);
 
         // <summary>
         /// 设置 QQ 个人资料

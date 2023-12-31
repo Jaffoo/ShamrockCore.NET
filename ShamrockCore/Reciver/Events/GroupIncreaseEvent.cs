@@ -49,7 +49,16 @@ namespace ShamrockCore.Reciver.Events
         /// <summary>
         /// 成员
         /// </summary>
-        public Member? Member => Api.GetGroupMemberInfo(QQ, GroupQQ).Result;
+        [JsonIgnore]
+        public Member? Member
+        {
+            get
+            {
+                _member ??= new(() => Api.GetGroupMemberInfo(QQ, GroupQQ).Result);
+                return _member.Value;
+            }
+        }
+        [JsonIgnore] private Lazy<Member?>? _member;
         #endregion
 
         public enum Type

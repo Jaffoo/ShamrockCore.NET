@@ -43,7 +43,16 @@ namespace ShamrockCore.Reciver.Events
         /// <summary>
         /// 精华消息对象
         /// </summary>
-        [JsonIgnore] public MsgInfo? Message => Api.GetMsg(MessageId).Result;
+        [JsonIgnore]
+        public MsgInfo? Message
+        {
+            get
+            {
+                _message ??= new(() => Api.GetMsg(MessageId).Result);
+                return _message.Value;
+            }
+        }
+        private Lazy<MsgInfo?>? _message;
         #endregion
 
         public enum Type

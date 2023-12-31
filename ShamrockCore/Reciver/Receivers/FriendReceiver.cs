@@ -56,7 +56,16 @@ namespace ShamrockCore.Reciver.Receivers
         /// <summary>
         /// 好友信息
         /// </summary>
-        public Friend Sender => Api.GetFriends().Result!.FirstOrDefault(t => t.QQ == QQ)!;
+        [JsonIgnore]
+        public Friend? Sender
+        {
+            get
+            {
+                _sender ??= new(() => Api.GetFriends().Result?.FirstOrDefault(t => t.QQ == QQ));
+                return _sender.Value;
+            }
+        }
+        [JsonIgnore] private Lazy<Friend?>? _sender;
         #endregion
     }
 }

@@ -29,9 +29,18 @@ namespace ShamrockCore.Reciver.Events
 
         #region 扩展方法/属性
         /// <summary>
-        /// 被戳者(群)
+        /// 成员
         /// </summary>
-        public Member? Member => Api.GetGroupMemberInfo(QQ, GroupQQ).Result;
+        [JsonIgnore]
+        public Member? Member
+        {
+            get
+            {
+                _member ??= new(() => Api.GetGroupMemberInfo(QQ, GroupQQ).Result);
+                return _member.Value;
+            }
+        }
+        private Lazy<Member?>? _member;
         #endregion
     }
 }

@@ -161,9 +161,9 @@ namespace ShamrockCore.Utils
                          .WithHeader("Authorization", $"Bearer {Bot.Instance?.Config.Token ?? ""}")
                          .GetAsync();
                 var re = await result.GetJsonAsync<Result>();
-                if (re.Status != "ok") throw new Exception("请求失败：" + re.Message);
-                if (re.Retcode != 0) throw new Exception("请求失败：" + re.Message);
-                if (re.Data == null) throw new InvalidDataException("无数据或数据请求错误");
+                if (re.Status != "ok") return default;
+                if (re.Retcode != 0) return default;
+                if (re.Data == null) return default;
                 var dataStr = JsonConvert.SerializeObject(re.Data);
                 var res = JsonConvert.DeserializeObject<T>(dataStr);
                 return res;
@@ -231,9 +231,9 @@ namespace ShamrockCore.Utils
                        .WithHeader("Authorization", $"Bearer {Bot.Instance?.Config.Token ?? ""}")
                        .PostJsonAsync(body);
                 var re = await result.GetJsonAsync<Result>();
-                if (re.Status != "ok") throw new Exception("请求失败：" + re.Message);
-                if (re.Retcode != 0) throw new Exception("请求失败：" + re.Message);
-                if (re.Data == null) throw new InvalidDataException("数据请求错误");
+                if (re.Status != "ok") return default;
+                if (re.Retcode != 0) return default;
+                if (re.Data == null) return default;
                 var dataStr = JsonConvert.SerializeObject(re.Data);
                 var res = JsonConvert.DeserializeObject<T>(dataStr);
                 return res;
@@ -300,9 +300,9 @@ namespace ShamrockCore.Utils
                        .WithHeader("Authorization", $"Bearer {Bot.Instance?.Config.Token ?? ""}")
                        .PostJsonAsync(body);
                 var re = await result.GetJsonAsync<Result>();
-                if (re.Status != "ok") throw new Exception("请求失败，url:" + re.Data!.url + "，消息:" + re.Data!.error);
-                if (re.Retcode != 0) throw new Exception("请求失败，url:" + re.Data!.url + "，消息:" + re.Data!.error);
-                if (re.Data == null) throw new InvalidDataException("数据请求错误");
+                if (re.Status != "ok") return "";
+                if (re.Retcode != 0) return "";
+                if (re.Data == null) return "";
                 var dataStr = JsonConvert.SerializeObject(re.Data);
                 var res = JsonConvert.DeserializeObject<MessageReceiverBase>(dataStr);
                 return res?.MessageId.ToString() ?? "";

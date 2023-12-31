@@ -48,11 +48,11 @@ namespace ShamrockCore.Data.HttpAPI
         /// 获取群列表
         /// </summary>
         /// <returns></returns>
-        public static async Task<List<Group>?> GetGroups()
+        public static async Task<IEnumerable<Group>?> GetGroups()
         {
             try
             {
-                var res = await HttpEndpoints.GetGroupList.GetAsync<List<Group>>();
+                var res = await HttpEndpoints.GetGroupList.GetAsync<IEnumerable<Group>>();
                 return res;
             }
             catch (Exception)
@@ -84,11 +84,11 @@ namespace ShamrockCore.Data.HttpAPI
         /// </summary>
         /// <param name="groupQQ"></param>
         /// <returns></returns>
-        public static async Task<List<Member>?> GetGroupMemberList(long groupQQ)
+        public static async Task<IEnumerable<Member>?> GetGroupMemberList(long groupQQ)
         {
             try
             {
-                var res = await HttpEndpoints.GetGroupMemberList.GetAsync<List<Member>>("group_id=" + groupQQ);
+                var res = await HttpEndpoints.GetGroupMemberList.GetAsync<IEnumerable<Member>>("group_id=" + groupQQ);
                 return res;
             }
             catch (Exception)
@@ -157,11 +157,11 @@ namespace ShamrockCore.Data.HttpAPI
         /// </summary>
         /// <param name="groupQQ"></param>
         /// <returns></returns>
-        public static async Task<List<EssenceMsg>?> GetEssenceMsgs(long groupQQ)
+        public static async Task<IEnumerable<EssenceMsg>?> GetEssenceMsgs(long groupQQ)
         {
             try
             {
-                var res = await HttpEndpoints.GetEssenceMsgList.GetAsync<List<EssenceMsg>>("group_id=" + groupQQ);
+                var res = await HttpEndpoints.GetEssenceMsgList.GetAsync<IEnumerable<EssenceMsg>>("group_id=" + groupQQ);
                 return res;
             }
             catch (Exception)
@@ -174,11 +174,11 @@ namespace ShamrockCore.Data.HttpAPI
         /// 获取好友列表
         /// </summary>
         /// <returns></returns>
-        public static async Task<List<Friend>?> GetFriends()
+        public static async Task<IEnumerable<Friend>?> GetFriends()
         {
             try
             {
-                var res = await HttpEndpoints.GetFriendList.GetAsync<List<Friend>>();
+                var res = await HttpEndpoints.GetFriendList.GetAsync<IEnumerable<Friend>>();
                 return res;
             }
             catch (Exception)
@@ -191,11 +191,11 @@ namespace ShamrockCore.Data.HttpAPI
         /// 获取好友系统消息(未能正确获取到数据)
         /// </summary>
         /// <returns></returns>
-        public static async Task<List<FriendSysMsg>?> GetFriendSysMsg()
+        public static async Task<IEnumerable<FriendSysMsg>?> GetFriendSysMsg()
         {
             try
             {
-                var res = await HttpEndpoints.GetFriendSysMsg.GetAsync<List<FriendSysMsg>>();
+                var res = await HttpEndpoints.GetFriendSysMsg.GetAsync<IEnumerable<FriendSysMsg>>();
                 return res;
             }
             catch (Exception)
@@ -305,7 +305,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// <param name="count"></param>
         /// <param name="start"></param>
         /// <returns></returns>
-        public static async Task<List<MsgInfo>?> GetHistoryMsg(MessageType msgType, long qq = 0, long groupQQ = 0, int count = 10, int start = 0)
+        public static async Task<IEnumerable<MsgInfo>?> GetHistoryMsg(MessageType msgType, long qq = 0, long groupQQ = 0, int count = 10, int start = 0)
         {
             try
             {
@@ -317,7 +317,7 @@ namespace ShamrockCore.Data.HttpAPI
                     count,
                     message_seq = start
                 };
-                var res = await HttpEndpoints.GetHistoryMsg.PostAsync<List<MsgInfo>>(obj);
+                var res = await HttpEndpoints.GetHistoryMsg.PostAsync<IEnumerable<MsgInfo>>(obj);
                 return res;
             }
             catch (Exception)
@@ -330,7 +330,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 获取群聊历史消息
         /// </summary>
         /// <param name="group"></param>
-        /// <param name="count"></param>
+        /// <param name="count"></param>    
         /// <param name="start"></param>
         /// <returns></returns>
         public static async Task<MessageChain?> GetGroupMsgHistory(long group, int count = 10, int start = 0)
@@ -357,11 +357,11 @@ namespace ShamrockCore.Data.HttpAPI
         /// </summary>
         /// <param name="groupQQ">群号</param>
         /// <returns></returns>
-        public static async Task<List<Announcement>?> GetGroupNotice(long groupQQ)
+        public static async Task<IEnumerable<Announcement>?> GetGroupNotice(long groupQQ)
         {
             try
             {
-                var res = await HttpEndpoints.GetGroupNotice.GetAsync<List<Announcement>>("group_id=" + groupQQ);
+                var res = await HttpEndpoints.GetGroupNotice.GetAsync<IEnumerable<Announcement>>("group_id=" + groupQQ);
                 return res;
             }
             catch (Exception)
@@ -375,7 +375,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// </summary>
         /// <param name="groupQQ">群号</param>
         /// <returns></returns>
-        public static async Task<List<Ban>?> GetBanList(long groupQQ)
+        public static async Task<IEnumerable<Ban>?> GetBanList(long groupQQ)
         {
             try
             {
@@ -383,7 +383,7 @@ namespace ShamrockCore.Data.HttpAPI
                 {
                     group_id = groupQQ
                 };
-                var res = await HttpEndpoints.GetBanList.PostAsync<List<Ban>>(obj);
+                var res = await HttpEndpoints.GetBanList.PostAsync<IEnumerable<Ban>>(obj);
                 if (res != null)
                 {
                     foreach (var item in res)
@@ -1127,7 +1127,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// <param name="threadCount">下载的线程数量	</param>
         /// <param name="headers">请求头</param>
         /// <returns></returns>
-        public static async Task<RecordInfo?> DownloadFile(string url, string base64 = "", string name = "", int threadCount = 1, List<string>? headers = null)
+        public static async Task<RecordInfo?> DownloadFile(string url, string base64 = "", string name = "", int threadCount = 1, IEnumerable<string>? headers = null)
         {
             try
             {

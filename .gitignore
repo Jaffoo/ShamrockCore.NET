@@ -6,5 +6,5 @@
 /.vs
 /ShamrockCore/bin/**
 /ShamrockCore/obj/**
-/ShamrockCore.Test/bin/**
-/ShamrockCore.Test/obj/**
+/ShamrockCore.Test
+/ShamrockCore.Test/**
