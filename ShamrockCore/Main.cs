@@ -100,6 +100,10 @@ namespace ShamrockCore
         {
             try
             {
+                if (data.Fetch("group_id") == "236638380")
+                {
+                    Console.WriteLine(111);
+                }
                 var postType = data.Fetch("post_type")?.Trim();
                 var type1 = data.Fetch(postType + "_type")?.Trim();
 

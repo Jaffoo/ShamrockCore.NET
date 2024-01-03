@@ -79,17 +79,17 @@ namespace ShamrockCore.Data.Model
         /// <summary>
         /// 群成员
         /// </summary>
-        public List<Member>? Members => Api.GetGroupMemberList(GroupQQ).Result;
+        public IEnumerable<Member>? Members => Api.GetGroupMemberList(GroupQQ).Result;
 
         /// <summary>
         /// 被禁言列表
         /// </summary>
-        public List<Ban>? BanList => Api.GetBanList(GroupQQ).Result;
+        public IEnumerable<Ban>? BanList => Api.GetBanList(GroupQQ).Result;
 
         /// <summary>
         /// 群精华消息
         /// </summary>
-        public List<EssenceMsg>? EssenceMsg => Api.GetEssenceMsgs(GroupQQ).Result;
+        public IEnumerable<EssenceMsg>? EssenceMsg => Api.GetEssenceMsgs(GroupQQ).Result;
 
         /// <summary>
         /// 群文件系统信息
@@ -109,7 +109,7 @@ namespace ShamrockCore.Data.Model
         /// <summary>
         /// 群公告
         /// </summary>
-        public List<Announcement>? Notice => Api.GetGroupNotice(GroupQQ).Result;
+        public IEnumerable<Announcement>? Notice => Api.GetGroupNotice(GroupQQ).Result;
 
         /// <summary>
         /// 群系统消息
