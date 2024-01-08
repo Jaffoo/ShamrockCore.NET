@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using ShamrockCore.Data.Model;
 
 namespace ShamrockCore.Reciver.Events
 {
@@ -23,7 +24,13 @@ namespace ShamrockCore.Reciver.Events
         /// 群文件信息
         /// </summary>
         [JsonProperty("flie")]
-        public GroupFileUploadEvent GroupFile { get; set; } = new();
+        public GroupFileUpload GroupFile { get; set; } = new();
+
+        /// <summary>
+        /// 事件类型
+        /// </summary>
+        [JsonIgnore]
+        public override PostEventType EventType { get; set; } = PostEventType.GroupUpload;
     }
 
 

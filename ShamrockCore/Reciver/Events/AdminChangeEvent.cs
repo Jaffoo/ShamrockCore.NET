@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using ShamrockCore.Data.Model;
 
 namespace ShamrockCore.Reciver.Events
 {
@@ -20,17 +21,12 @@ namespace ShamrockCore.Reciver.Events
         /// 子类型(set,任命/unset,卸任)
         /// </summary>
         [JsonProperty("sub_type")]
-        public SubType SubType { get; set; }
-    }
-    public enum SubType
-    {
+        public AdminType SubType { get; set; }
+
         /// <summary>
-        /// 任命
+        /// 事件类型
         /// </summary>
-        set,
-        /// <summary>
-        /// 卸任
-        /// </summary>
-        unset,
+        [JsonIgnore]
+        public override PostEventType EventType { get; set; } = PostEventType.GroupAdmin;
     }
 }

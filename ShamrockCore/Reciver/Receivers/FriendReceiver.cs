@@ -66,6 +66,12 @@ namespace ShamrockCore.Reciver.Receivers
             }
         }
         [JsonIgnore] private Lazy<Friend?>? _sender;
+
+        /// <summary>
+        /// 消息类型
+        /// </summary>
+        [JsonIgnore]
+        public override PostMessageType Type { get; set; } = PostMessageType.Friend;
         #endregion
     }
 }

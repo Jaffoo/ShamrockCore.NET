@@ -41,6 +41,12 @@ namespace ShamrockCore.Reciver.Events
             }
         }
         private Lazy<Member?>? _member;
+
+        /// <summary>
+        /// 事件类型
+        /// </summary>
+        [JsonIgnore]
+        public override PostEventType EventType { get; set; } = PostEventType.Title;
         #endregion
     }
 }

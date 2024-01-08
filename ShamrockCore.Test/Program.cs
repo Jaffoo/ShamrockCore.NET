@@ -1,4 +1,5 @@
 ﻿using Manganese.Text;
+using ShamrockCore.Data.Model;
 using ShamrockCore.Reciver;
 using ShamrockCore.Reciver.Events;
 using ShamrockCore.Reciver.MsgChain;
@@ -22,6 +23,19 @@ namespace ShamrockCore.Test
             });
 
             #region 消息测试
+            bot.MessageReceived.OfType<MessageReceiverBase>().Subscribe(async msg =>
+            {
+                if (msg.Type == PostMessageType.Group)
+                {
+                    var msg1 = msg as GroupReceiver;
+                    await Console.Out.WriteLineAsync("群消息：" + msg1.ToJsonString());
+                }
+                if (msg.Type == PostMessageType.Friend)
+                {
+                    var msg1 = msg as FriendReceiver;
+                    await Console.Out.WriteLineAsync("好友消息：" + msg1.ToJsonString());
+                }
+            });
             bot.MessageReceived.OfType<GroupReceiver>().Subscribe(async msg =>
             {
                 await Console.Out.WriteLineAsync("群消息：" + msg.ToJsonString());
@@ -33,17 +47,15 @@ namespace ShamrockCore.Test
             #endregion
 
             #region 事件测试
-            //理论上，2个观察事件都会触发，第二个一定会触发，第一个待定，待测试实践。
-            bot.EventReceived.OfType<EventBase>().Subscribe(async msg =>
+            bot.EventReceived.OfType<EventBase>().Subscribe(msg =>
             {
-                if (msg.EventType == EventType.friend)
+                if (msg.EventType == PostEventType.Friend)
                 {
-                    var resq = msg as FriendAddEvent;
-                    if (resq == null) return;
+                    if (msg is not FriendAddEvent resq) return;
                     Console.WriteLine("好友请求事件：" + msg.ToJsonString());
                 }
             });
-            bot.EventReceived.OfType<FriendAddEvent>().Subscribe(async msg =>
+            bot.EventReceived.OfType<FriendAddEvent>().Subscribe(msg =>
             {
                 Console.WriteLine("好友请求事件：" + msg.ToJsonString());
             });

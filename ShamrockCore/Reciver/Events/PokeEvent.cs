@@ -65,6 +65,12 @@ namespace ShamrockCore.Reciver.Events
                 return _friend.Value;
             }
         }
+
+        /// <summary>
+        /// 事件类型
+        /// </summary>
+        [JsonIgnore]
+        public override PostEventType EventType { get; set; } = PostEventType.Poke;
         #endregion
     }
 

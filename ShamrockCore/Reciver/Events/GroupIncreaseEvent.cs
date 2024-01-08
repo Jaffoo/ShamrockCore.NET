@@ -19,7 +19,7 @@ namespace ShamrockCore.Reciver.Events
         /// 子类型
         /// </summary>
         [JsonProperty("sub_type")]
-        public Type SubType { get; set; }
+        public AddType SubType { get; set; }
 
         /// <summary>
         /// 群
@@ -59,18 +59,12 @@ namespace ShamrockCore.Reciver.Events
             }
         }
         [JsonIgnore] private Lazy<Member?>? _member;
-        #endregion
 
-        public enum Type
-        {
-            /// <summary>
-            /// 申请
-            /// </summary>
-            approve,
-            /// <summary>
-            /// 邀请
-            /// </summary>
-            invite,
-        }
+        /// <summary>
+        /// 事件类型
+        /// </summary>
+        [JsonIgnore]
+        public override PostEventType EventType { get; set; } = PostEventType.GroupIncrease;
+        #endregion
     }
 }

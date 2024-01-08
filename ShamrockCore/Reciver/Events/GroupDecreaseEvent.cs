@@ -16,10 +16,10 @@ namespace ShamrockCore.Reciver.Events
         public long QQ { get; set; }
 
         /// <summary>
-        /// 子类型(leave/kick/kick_me)
+        /// 子类型(leave/kick/self)
         /// </summary>
         [JsonProperty("sub_type")]
-        public Type SubType { get; set; }
+        public LeaveType SubType { get; set; }
 
         /// <summary>
         /// 群
@@ -59,22 +59,12 @@ namespace ShamrockCore.Reciver.Events
             }
         }
         [JsonIgnore] private Lazy<Member?>? _member;
-        #endregion
 
-        public enum Type
-        {
-            /// <summary>
-            /// 退群
-            /// </summary>
-            leave,
-            /// <summary>
-            /// 踢人
-            /// </summary>
-            kick,
-            /// <summary>
-            /// 自己被踢
-            /// </summary>
-            kick_me,
-        }
+        /// <summary>
+        /// 事件类型
+        /// </summary>
+        [JsonIgnore]
+        public override PostEventType EventType { get; set; } = PostEventType.GroupDecrease;
+        #endregion
     }
 }

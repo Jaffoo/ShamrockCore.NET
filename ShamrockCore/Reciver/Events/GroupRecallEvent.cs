@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using ShamrockCore.Data.HttpAPI;
 using ShamrockCore.Data.Model;
-using ShamrockCore.Reciver.MsgChain;
 
 namespace ShamrockCore.Reciver.Events
 {
@@ -48,6 +47,12 @@ namespace ShamrockCore.Reciver.Events
             }
         }
         private Lazy<MsgInfo?>? _message;
+
+        /// <summary>
+        /// 事件类型
+        /// </summary>
+        [JsonIgnore]
+        public override PostEventType EventType { get; set; } = PostEventType.GroupRecall;
         #endregion
     }
 }

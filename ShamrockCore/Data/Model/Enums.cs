@@ -126,6 +126,160 @@ namespace ShamrockCore.Data.Model
         ST = 3,
     }
 
+    public enum PostType
+    {
+        /// <summary>
+        /// 消息事件
+        /// </summary>
+        Message,
+        /// <summary>
+        /// 通知事件
+        /// </summary>
+        Notice,
+        /// <summary>
+        /// 请求事件
+        /// </summary>
+        Request,
+    }
+    public enum PostEventType
+    {
+        /// <summary>
+        /// 添加好友请求
+        /// </summary>
+        Friend,
+
+        /// <summary>
+        /// 加群请求／邀请
+        /// </summary>
+        Group,
+        /// <summary>
+        /// 群成员增加事件
+        /// </summary>
+        [JsonProperty("group_increase")]GroupIncrease,
+
+        /// <summary>
+        /// 群成员减少事件
+        /// </summary>
+        [JsonProperty("group_decrease")]GroupDecrease,
+
+        /// <summary>
+        /// 私聊消息撤回
+        /// </summary>
+        [JsonProperty("friend_recall")] FriendRecall,
+
+        /// <summary>
+        /// 群聊消息撤回
+        /// </summary>
+        [JsonProperty("group_recall")] GroupRecall,
+
+        /// <summary>
+        /// 群管理员变动
+        /// </summary>
+        [JsonProperty("group_admin")] GroupAdmin,
+
+        /// <summary>
+        /// 群文件上传
+        /// </summary>
+        [JsonProperty("group_upload")] GroupUpload,
+
+        /// <summary>
+        /// 私聊文件上传
+        /// </summary>
+        [JsonProperty("private_upload")] PrivateUpload,
+
+        /// <summary>
+        /// 群禁言
+        /// </summary>
+        [JsonProperty("group_ban")] GroupBan,
+
+        /// <summary>
+        /// 群成员名片变动
+        /// </summary>
+        [JsonProperty("group_card")] GroupCard,
+
+        /// <summary>
+        /// 精华消息
+        /// </summary>
+        Essence,
+
+        /// <summary>
+        /// 头像戳一戳
+        /// </summary>
+        Poke,
+
+        /// <summary>
+        /// 群头衔变更
+        /// </summary>
+        Title
+    }
+
+    public enum PostMessageType
+    {
+        Group,
+        [JsonProperty("private")]
+        Friend
+    }
+    public enum AddType
+    {
+        /// <summary>
+        /// 申请
+        /// </summary>
+        Approve,
+        /// <summary>
+        /// 邀请
+        /// </summary>
+        Invite,
+    }
+    public enum LeaveType
+    {
+        /// <summary>
+        /// 退群
+        /// </summary>
+        Leave,
+        /// <summary>
+        /// 踢人
+        /// </summary>
+        Kick,
+        /// <summary>
+        /// 自己
+        /// </summary>
+        [JsonProperty("kick_me")]Self,
+    }
+
+    public enum AdminType
+    {
+        /// <summary>
+        /// 任命
+        /// </summary>
+        Set,
+        /// <summary>
+        /// 卸任
+        /// </summary>
+        Unset,
+    }
+    public enum BanType
+    {
+        /// <summary>
+        /// 禁言
+        /// </summary>
+        Ban,
+        /// <summary>
+        /// 解禁
+        /// </summary>
+        [JsonProperty("lift_ban")]
+        LiftBan
+    }
+    public enum EssenceType
+    {
+        /// <summary>
+        /// 添加
+        /// </summary>
+        Add,
+        /// <summary>
+        /// 删除
+        /// </summary>
+        Delete
+    }
     public class LowercaseStringEnumConverter : StringEnumConverter
     {
         public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)

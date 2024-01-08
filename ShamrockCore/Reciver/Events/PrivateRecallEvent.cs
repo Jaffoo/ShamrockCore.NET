@@ -41,6 +41,12 @@ namespace ShamrockCore.Reciver.Events
             }
         }
         [JsonIgnore] private Lazy<MsgInfo?>? _message;
+
+        /// <summary>
+        /// 事件类型
+        /// </summary>
+        [JsonIgnore]
+        public override PostEventType EventType { get; set; } = PostEventType.FriendRecall;
         #endregion
     }
 }

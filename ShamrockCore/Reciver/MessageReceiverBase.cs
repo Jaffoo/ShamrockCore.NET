@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using ShamrockCore.Data.HttpAPI;
+using ShamrockCore.Data.Model;
 
 namespace ShamrockCore.Reciver
 {
@@ -47,6 +48,12 @@ namespace ShamrockCore.Reciver
         /// </summary>
         /// <returns></returns>
         public async Task SetEssenceMsg() => await Api.SetEssenceMsg(MessageId);
+
+        /// <summary>
+        /// 消息类型
+        /// </summary>
+        [JsonIgnore]
+        public virtual PostMessageType Type { get; set; }
         #endregion
     }
 }

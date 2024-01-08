@@ -37,7 +37,7 @@ namespace ShamrockCore.Reciver.Events
         /// 子类型
         /// </summary>
         [JsonProperty("sub_type")]
-        public Type SubType { get; set; }
+        public EssenceType SubType { get; set; }
 
         #region 扩展方法/属性
         /// <summary>
@@ -53,18 +53,12 @@ namespace ShamrockCore.Reciver.Events
             }
         }
         private Lazy<MsgInfo?>? _message;
-        #endregion
 
-        public enum Type
-        {
-            /// <summary>
-            /// 添加
-            /// </summary>
-            add,
-            /// <summary>
-            /// 删除
-            /// </summary>
-            delete
-        }
+        /// <summary>
+        /// 事件类型
+        /// </summary>
+        [JsonIgnore]
+        public override PostEventType EventType { get; set; } = PostEventType.Essence;
+        #endregion
     }
 }

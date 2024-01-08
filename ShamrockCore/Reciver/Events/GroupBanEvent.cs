@@ -37,7 +37,7 @@ namespace ShamrockCore.Reciver.Events
         /// 子类型(ban/lift_ban)
         /// </summary>
         [JsonProperty("sub_type")]
-        public Type SubType { get; set; }
+        public BanType SubType { get; set; }
 
         #region 扩展方法/属性
         /// <summary>
@@ -53,18 +53,12 @@ namespace ShamrockCore.Reciver.Events
             }
         }
         [JsonIgnore] private Lazy<Member?>? _member;
-        #endregion
 
-        public enum Type
-        {
-            /// <summary>
-            /// 禁言
-            /// </summary>
-            ban,
-            /// <summary>
-            /// 解禁
-            /// </summary>
-            lift_ban
-        }
+        /// <summary>
+        /// 事件类型
+        /// </summary>
+        [JsonIgnore]
+        public override PostEventType EventType { get; set; } = PostEventType.GroupBan;
+        #endregion
     }
 }
