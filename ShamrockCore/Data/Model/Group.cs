@@ -79,52 +79,124 @@ namespace ShamrockCore.Data.Model
         /// <summary>
         /// 群成员
         /// </summary>
-        public IEnumerable<Member>? Members => Api.GetGroupMemberList(GroupQQ).Result;
+        [JsonIgnore]
+        public IEnumerable<Member>? Members
+        {
+            get
+            {
+                _members ??= new(() => Api.GetGroupMemberList(GroupQQ).Result);
+                return _members.Value;
+            }
+        }
+        [JsonIgnore] private Lazy<IEnumerable<Member>?>? _members;
 
         /// <summary>
         /// 被禁言列表
         /// </summary>
-        public IEnumerable<Ban>? BanList => Api.GetBanList(GroupQQ).Result;
+        [JsonIgnore]
+        public IEnumerable<Ban>? BanList
+        {
+            get
+            {
+                _banList ??= new(() => Api.GetBanList(GroupQQ).Result);
+                return _banList.Value;
+            }
+        }
+        [JsonIgnore] private Lazy<IEnumerable<Ban>?>? _banList;
 
         /// <summary>
         /// 群精华消息
         /// </summary>
-        public IEnumerable<EssenceMsg>? EssenceMsg => Api.GetEssenceMsgs(GroupQQ).Result;
+        [JsonIgnore]
+        public IEnumerable<EssenceMsg>? EssenceMsg
+        {
+            get
+            {
+                _essenceMsg ??= new(() => Api.GetEssenceMsgs(GroupQQ).Result);
+                return _essenceMsg.Value;
+            }
+        }
+        [JsonIgnore] private Lazy<IEnumerable<EssenceMsg>?>? _essenceMsg;
 
         /// <summary>
         /// 群文件系统信息
         /// </summary>
-        public FileSystemInfo? FilesSystemInfo => Api.GetGroupFileSystemInfo(GroupQQ).Result;
+        [JsonIgnore]
+        public FileSystemInfo? FilesSystemInfo
+        {
+            get
+            {
+                _filesSystemInfo ??= new(() => Api.GetGroupFileSystemInfo(GroupQQ).Result);
+                return _filesSystemInfo.Value;
+            }
+        }
+        [JsonIgnore] private Lazy<FileSystemInfo?>? _filesSystemInfo;
 
         /// <summary>
         /// 群根目录
         /// </summary>
-        public FilesFloders? RootFiles => Api.GetGroupRootFiles(GroupQQ).Result;
+        [JsonIgnore]
+        public FilesFloders? RootFiles
+        {
+            get
+            {
+                _rootFiles ??= new(() => Api.GetGroupRootFiles(GroupQQ).Result);
+                return _rootFiles.Value
+            }
+        }
+        [JsonIgnore] private Lazy<FilesFloders?>? _rootFiles;
 
         /// <summary>
         /// 群荣誉
         /// </summary>
-        public Honor? Honor => Api.GetGroupHonorInfo(GroupQQ).Result;
+        [JsonIgnore]
+        public Honor? Honor
+        {
+            get
+            {
+                _honor ??= new(() => Api.GetGroupHonorInfo(GroupQQ).Result);
+                return _honor.Value;
+            }
+        }
+        [JsonIgnore] private Lazy<Honor?>? _honor;
 
         /// <summary>
         /// 群公告
         /// </summary>
-        public IEnumerable<Announcement>? Notice => Api.GetGroupNotice(GroupQQ).Result;
+        [JsonIgnore]
+        public IEnumerable<Announcement>? Notice
+        {
+            get
+            {
+                _notice ??= new(() => Api.GetGroupNotice(GroupQQ).Result);
+                return _notice.Value;
+            }
+        }
+        [JsonIgnore] private Lazy<IEnumerable<Announcement>?>? _notice;
 
         /// <summary>
         /// 群系统消息
         /// </summary>
-        public GroupSysMsg? SystemMsg => Api.GetGroupSystemMsg(GroupQQ).Result;
+        [JsonIgnore]
+        public GroupSysMsg? SystemMsg
+        {
+            get
+            {
+                _systemMsg ??= new(() => Api.GetGroupSystemMsg(GroupQQ).Result);
+                return _systemMsg.Value;
+            }
+        }
+        [JsonIgnore] private Lazy<GroupSysMsg?>? _systemMsg;
 
         /// <summary>
         /// 全体禁言
         /// </summary>
-        public async Task<bool> AllBan() =>await Api.SetGroupWholeBan(GroupQQ);
+        public async Task<bool> AllBan() => await Api.SetGroupWholeBan(GroupQQ);
 
         /// <summary>
         /// 全体取消禁言
         /// </summary>
-        public async Task<bool> AllBanCancel() =>await Api.SetGroupWholeBan(GroupQQ, false);
+        public async Task<bool> AllBanCancel() => await Api.SetGroupWholeBan(GroupQQ, false);
 
         /// <summary>
         /// 获取群历史聊天
