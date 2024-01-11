@@ -141,7 +141,7 @@ namespace ShamrockCore.Data.Model
             get
             {
                 _rootFiles ??= new(() => Api.GetGroupRootFiles(GroupQQ).Result);
-                return _rootFiles.Value
+                return _rootFiles.Value;
             }
         }
         [JsonIgnore] private Lazy<FilesFloders?>? _rootFiles;

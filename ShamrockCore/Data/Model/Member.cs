@@ -163,13 +163,21 @@ namespace ShamrockCore.Data.Model
         /// 设置为管理员
         /// </summary>
         /// <returns></returns>
-        public async Task<bool> SetAdmin() => await Api.SetGroupAdmin(GroupQQ, QQ);
+        public async Task<bool> SetAdmin()
+        {
+            if (Role == Permissions.Administrator || Role == Permissions.Owner) return true;
+            return await Api.SetGroupAdmin(GroupQQ, QQ);
+        }
 
         /// <summary>
         /// 移除管理员
         /// </summary>
         /// <returns></returns>
-        public async Task<bool> RemoveAdmin() => await Api.SetGroupAdmin(GroupQQ, QQ, false);
+        public async Task<bool> RemoveAdmin()
+        {
+            if (Role == Permissions.Member) return true;
+            return await Api.SetGroupAdmin(GroupQQ, QQ, false);
+        }
         #endregion
     }
 }
