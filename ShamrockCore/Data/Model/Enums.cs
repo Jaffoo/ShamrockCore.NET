@@ -58,28 +58,105 @@ namespace ShamrockCore.Data.Model
         Member
     }
 
+    /// <summary>
+    /// 发送消息类型
+    /// </summary>
     public enum MessageType
     {
+        /// <summary>
+        /// at
+        /// </summary>
         At,
+
+        /// <summary>
+        /// 文本
+        /// </summary>
         Text,
+
+        /// <summary>
+        /// 表情
+        /// </summary>
         Face,
+
+        /// <summary>
+        /// 图片
+        /// </summary>
         Image,
+
+        /// <summary>
+        /// json数据
+        /// </summary>
         Json,
+
+        /// <summary>
+        /// 回复
+        /// </summary>
         Reply,
+
+        /// <summary>
+        /// 语言
+        /// </summary>
         Record,
+
+        /// <summary>
+        /// 视频
+        /// </summary>
         Video,
+
+        /// <summary>
+        /// 篮球表情
+        /// </summary>
         Basketball,
+
+        /// <summary>
+        /// 新猜拳
+        /// </summary>
         New_rps,
+
+        /// <summary>
+        /// 新骰子
+        /// </summary>
         New_dice,
+
+        /// <summary>
+        /// 戳一戳
+        /// </summary>
         Poke,
+
+        /// <summary>
+        /// 戳一戳（双击头像）
+        /// </summary>
         Touch,
+
+        /// <summary>
+        /// 音乐
+        /// </summary>
         Music,
+
+        /// <summary>
+        /// 天气
+        /// </summary>
         Weather,
+
+        /// <summary>
+        /// 位置
+        /// </summary>
         Location,
+
+        /// <summary>
+        /// 连接分享
+        /// </summary>
         Share,
+
+        /// <summary>
+        /// 礼物
+        /// </summary>
         Gift
     }
 
+    /// <summary>
+    /// 篮球类型
+    /// </summary>
     public enum Ball
     {
         /// <summary>
@@ -108,6 +185,9 @@ namespace ShamrockCore.Data.Model
         MZ = 5
     }
 
+    /// <summary>
+    /// 猜拳类型
+    /// </summary>
     public enum Rps
     {
         /// <summary>
@@ -126,6 +206,9 @@ namespace ShamrockCore.Data.Model
         ST = 3,
     }
 
+    /// <summary>
+    /// 主事件类型
+    /// </summary>
     public enum PostType
     {
         /// <summary>
@@ -141,6 +224,10 @@ namespace ShamrockCore.Data.Model
         /// </summary>
         Request,
     }
+
+    /// <summary>
+    /// 事件类型
+    /// </summary>
     public enum PostEventType
     {
         /// <summary>
@@ -213,12 +300,26 @@ namespace ShamrockCore.Data.Model
         Title
     }
 
+    /// <summary>
+    /// 接收消息类型
+    /// </summary>
     public enum PostMessageType
     {
+        /// <summary>
+        /// 群
+        /// </summary>
         Group,
+
+        /// <summary>
+        /// 好友
+        /// </summary>
         [JsonProperty("private")]
         Friend
     }
+
+    /// <summary>
+    /// 加群类型
+    /// </summary>
     public enum AddType
     {
         /// <summary>
@@ -230,6 +331,10 @@ namespace ShamrockCore.Data.Model
         /// </summary>
         Invite,
     }
+
+    /// <summary>
+    /// 退群类型
+    /// </summary>
     public enum LeaveType
     {
         /// <summary>
@@ -246,6 +351,9 @@ namespace ShamrockCore.Data.Model
         [JsonProperty("kick_me")]Self,
     }
 
+    /// <summary>
+    /// 管理员操作类型
+    /// </summary>
     public enum AdminType
     {
         /// <summary>
@@ -257,6 +365,10 @@ namespace ShamrockCore.Data.Model
         /// </summary>
         Unset,
     }
+
+    /// <summary>
+    /// 禁言类型
+    /// </summary>
     public enum BanType
     {
         /// <summary>
@@ -269,6 +381,10 @@ namespace ShamrockCore.Data.Model
         [JsonProperty("lift_ban")]
         LiftBan
     }
+
+    /// <summary>
+    /// 精华消息类型
+    /// </summary>
     public enum EssenceType
     {
         /// <summary>

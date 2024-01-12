@@ -234,7 +234,7 @@ namespace ShamrockCore.Data.Model
         public async Task<bool> SetName(string name) => await Api.SetGroupName(GroupQQ, name);
 
         /// <summary>
-        /// 创建文件夹
+        /// 创建根目录文件夹
         /// </summary>
         /// <param name="name">文件夹名称</param>
         /// <returns></returns>

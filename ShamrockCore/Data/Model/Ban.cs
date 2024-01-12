@@ -28,7 +28,7 @@ namespace ShamrockCore.Data.Model
         /// 取消禁言
         /// </summary>
         /// <returns></returns>
-        public async Task<bool> Cancel() => await Api.SetGroupBan(GroupQQ, QQ,0);
+        public async Task<bool> Cancel() => await Api.SetGroupBan(GroupQQ, QQ, 0);
 
         /// <summary>
         /// 再次禁言

@@ -50,5 +50,11 @@ namespace ShamrockCore.Reciver.MsgChain
             chain1.AddRange(chain2);
             return chain1;
         }
+
+        public static MessageChain operator +(MessageChain chain, Message message)
+        {
+            chain.Add(message);
+            return chain;
+        }
     }
 }
