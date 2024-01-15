@@ -1,4 +1,5 @@
 ﻿using Flurl;
+using Manganese.Text;
 using ShamrockCore.Data.Model;
 using ShamrockCore.Reciver.MsgChain;
 using ShamrockCore.Utils;
@@ -534,6 +535,28 @@ namespace ShamrockCore.Data.HttpAPI
                 if (start > 0) url = url.SetQueryParam("start", start);
                 var res = await HttpUtil.GetStringAsync(url.SetQueryParam("recent", recent));
                 return res;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 获取机器人可在群@全体成员的剩余次数
+        /// </summary>
+        /// <param name="groupQQ"></param>
+        /// <returns></returns>
+        public static async Task<int> GetAtAllCount(long groupQQ)
+        {
+            try
+            {
+                var url = Bot.Instance!.Config.HttpUrl + HttpEndpoints.GetAtAllCount.Description();
+                var res = await HttpUtil.GetStringAsync(url.SetQueryParam("group_id", groupQQ));
+                var canAtAll = (res.Fetch("can_at_all") ?? "false").ToBool();
+                if (!canAtAll) return 0;
+                var count = res.Fetch("remain_at_all_count_for_uin") ?? "0";
+                return count.ToInt();
             }
             catch (Exception)
             {

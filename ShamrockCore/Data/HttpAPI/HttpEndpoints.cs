@@ -346,5 +346,10 @@ namespace ShamrockCore.Data.HttpAPI
         /// 获取Shamerock启动时间
         /// </summary>
         [Description("get_start_time")] GetStartTime,
+
+        /// <summary>
+        /// 获取群 @全体成员 剩余次数
+        /// </summary>
+        [Description("get_group_at_all_remain")]GetAtAllCount
     }
 }

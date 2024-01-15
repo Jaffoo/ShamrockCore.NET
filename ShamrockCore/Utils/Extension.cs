@@ -152,5 +152,31 @@ namespace ShamrockCore.Utils
                 throw;
             }
         }
+
+        /// <summary>
+        /// 转int
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="defaultVal"></param>
+        /// <returns></returns>
+        public static int ToInt(this string? str, int defaultVal = 0)
+        {
+            if (string.IsNullOrWhiteSpace(str)) return defaultVal;
+            if (int.TryParse(str, out defaultVal)) return defaultVal;
+            return defaultVal;
+        }
+
+        /// <summary>
+        /// 转bool
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="defaultVal"></param>
+        /// <returns></returns>
+        public static bool ToBool(this string? str, bool defaultVal = false)
+        {
+            if (string.IsNullOrWhiteSpace(str)) return defaultVal;
+            if (bool.TryParse(str, out defaultVal)) return defaultVal;
+            return defaultVal;
+        }
     }
 }

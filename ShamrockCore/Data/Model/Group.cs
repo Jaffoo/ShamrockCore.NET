@@ -189,6 +189,20 @@ namespace ShamrockCore.Data.Model
         [JsonIgnore] private Lazy<GroupSysMsg?>? _systemMsg;
 
         /// <summary>
+        /// 机器人可@全体成员的剩余次数
+        /// </summary>
+        [JsonIgnore]
+        public int AtAllCount
+        {
+            get
+            {
+                _atAllCount ??= new(() => Api.GetAtAllCount(GroupQQ).Result);
+                return _atAllCount.Value;
+            }
+        }
+        [JsonIgnore] private Lazy<int>? _atAllCount;
+
+        /// <summary>
         /// 全体禁言
         /// </summary>
         public async Task<bool> AllBan() => await Api.SetGroupWholeBan(GroupQQ);
