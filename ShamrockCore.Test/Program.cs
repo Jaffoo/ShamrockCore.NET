@@ -1,9 +1,9 @@
 ﻿using Manganese.Text;
 using ShamrockCore.Data.Model;
-using ShamrockCore.Reciver;
-using ShamrockCore.Reciver.Events;
-using ShamrockCore.Reciver.MsgChain;
-using ShamrockCore.Reciver.Receivers;
+using ShamrockCore.Receiver;
+using ShamrockCore.Receiver.Events;
+using ShamrockCore.Receiver.MsgChain;
+using ShamrockCore.Receiver.Receivers;
 using ShamrockCore.Utils;
 using System.Reactive.Linq;
 
@@ -19,7 +19,7 @@ namespace ShamrockCore.Test
             await Console.Out.WriteLineAsync("Open");
             bot.DisconnectionHappened.Subscribe(e =>
             {
-                Console.WriteLine("webscoket断开连接：" + e);
+                Console.WriteLine("websocket断开连接：" + e);
             });
 
             #region 消息测试
@@ -51,7 +51,7 @@ namespace ShamrockCore.Test
             {
                 if (msg.EventType == PostEventType.Friend)
                 {
-                    if (msg is not FriendAddEvent resq) return;
+                    if (msg is not FriendAddEvent req) return;
                     Console.WriteLine("好友请求事件：" + msg.ToJsonString());
                 }
             });

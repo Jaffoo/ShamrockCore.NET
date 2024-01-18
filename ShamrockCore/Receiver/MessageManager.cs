@@ -1,9 +1,9 @@
 ﻿using ShamrockCore.Data.HttpAPI;
 using ShamrockCore.Data.Model;
-using ShamrockCore.Reciver.MsgChain;
-using ShamrockCore.Reciver.Receivers;
+using ShamrockCore.Receiver.MsgChain;
+using ShamrockCore.Receiver.Receivers;
 
-namespace ShamrockCore.Reciver
+namespace ShamrockCore.Receiver
 {
     /// <summary>
     /// 消息管理器

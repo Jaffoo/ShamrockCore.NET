@@ -1,7 +1,7 @@
-﻿using ShamrockCore.Data.Model;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
+using ShamrockCore.Data.Model;
 
-namespace ShamrockCore.Reciver.MsgChain
+namespace ShamrockCore.Receiver.MsgChain
 {
     /// <summary>
     /// 消息构建类

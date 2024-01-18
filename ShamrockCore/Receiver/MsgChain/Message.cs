@@ -1,9 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.RegularExpressions;
+using Newtonsoft.Json;
 using ShamrockCore.Data.HttpAPI;
 using ShamrockCore.Data.Model;
-using System.Text.RegularExpressions;
 
-namespace ShamrockCore.Reciver.MsgChain
+namespace ShamrockCore.Receiver.MsgChain
 {
     public record Message
     {
@@ -697,7 +697,7 @@ namespace ShamrockCore.Reciver.MsgChain
     public class Mannounce
     {
         [JsonProperty("cr")] public int Cr { get; set; }
-        [JsonProperty("enocde")] public int Encode { get; set; }
+        [JsonProperty("encode")] public int Encode { get; set; }
         [JsonProperty("tw")] public int Tw { get; set; }
         [JsonProperty("fid")] public string Fid { get; set; } = "";
         [JsonProperty("gc")] public string Gc { get; set; } = "";

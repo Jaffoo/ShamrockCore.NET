@@ -2,24 +2,24 @@
 using ShamrockCore.Data.HttpAPI;
 using ShamrockCore.Data.Model;
 
-namespace ShamrockCore.Reciver.Events
+namespace ShamrockCore.Receiver.Events
 {
     /// <summary>
-    /// 群组成员减少事件
+    /// 群组成员增加事件
     /// </summary>
-    public class GroupDecreaseEvent : EventBase
+    public class GroupIncreaseEvent : EventBase
     {
         /// <summary>
-        /// 减少成员 QQ
+        /// 新增成员 QQ
         /// </summary>
         [JsonProperty("user_id")]
         public long QQ { get; set; }
 
         /// <summary>
-        /// 子类型(leave/kick/self)
+        /// 子类型
         /// </summary>
         [JsonProperty("sub_type")]
-        public LeaveType SubType { get; set; }
+        public AddType SubType { get; set; }
 
         /// <summary>
         /// 群
@@ -28,7 +28,7 @@ namespace ShamrockCore.Reciver.Events
         public long GroupQQ { get; set; }
 
         /// <summary>
-        /// 操作者qq
+        /// 操作目标qq
         /// </summary>
         [JsonProperty("target_id")]
         public long TargetQQ { get; set; }
@@ -64,7 +64,7 @@ namespace ShamrockCore.Reciver.Events
         /// 事件类型
         /// </summary>
         [JsonIgnore]
-        public override PostEventType EventType { get; set; } = PostEventType.GroupDecrease;
+        public override PostEventType EventType { get; set; } = PostEventType.GroupIncrease;
         #endregion
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using ShamrockCore.Data.Model;
 
-namespace ShamrockCore.Reciver
+namespace ShamrockCore.Receiver
 {
     /// <summary>
     /// 事件基类

@@ -1,6 +1,6 @@
 ﻿using ShamrockCore.Data.Model;
 
-namespace ShamrockCore.Reciver.MsgChain
+namespace ShamrockCore.Receiver.MsgChain
 {
     /// <summary>
     /// 消息链

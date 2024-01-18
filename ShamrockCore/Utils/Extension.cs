@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using ShamrockCore.Reciver.MsgChain;
+using ShamrockCore.Receiver.MsgChain;
 
 namespace ShamrockCore.Utils
 {

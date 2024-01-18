@@ -1,7 +1,7 @@
 ﻿using Flurl;
 using Manganese.Text;
 using ShamrockCore.Data.Model;
-using ShamrockCore.Reciver.MsgChain;
+using ShamrockCore.Receiver.MsgChain;
 using ShamrockCore.Utils;
 
 namespace ShamrockCore.Data.HttpAPI
@@ -30,7 +30,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// <summary>
         /// 获取陌生人信息
         /// </summary>
-        /// <param name="stangerId"></param>
+        /// <param name="strangerId"></param>
         /// <returns></returns>
         public static async Task<Stranger?> GetStrangerInfo(long qq)
         {
@@ -171,7 +171,7 @@ namespace ShamrockCore.Data.HttpAPI
             }
         }
 
-        // <summary>
+        /// <summary>
         /// 获取好友列表
         /// </summary>
         /// <returns></returns>
@@ -188,7 +188,7 @@ namespace ShamrockCore.Data.HttpAPI
             }
         }
 
-        // <summary>
+        /// <summary>
         /// 获取好友系统消息(未能正确获取到数据)
         /// </summary>
         /// <returns></returns>
@@ -205,7 +205,7 @@ namespace ShamrockCore.Data.HttpAPI
             }
         }
 
-        // <summary>
+        /// <summary>
         /// 是否在黑名单中
         /// </summary>
         /// <returns></returns>
@@ -280,7 +280,7 @@ namespace ShamrockCore.Data.HttpAPI
             }
         }
 
-        // <summary>
+        /// <summary>
         /// 获取消息
         /// </summary>
         /// <returns></returns>
@@ -505,7 +505,7 @@ namespace ShamrockCore.Data.HttpAPI
         }
 
         /// <summary>
-        /// 获取Shamerock启动时间
+        /// 获取Shamrock启动时间
         /// </summary>
         /// <returns></returns>
         public static async Task<long> GetStartTime()
@@ -566,7 +566,7 @@ namespace ShamrockCore.Data.HttpAPI
         #endregion
 
         #region 设置/发布信息
-        // <summary>
+        /// <summary>
         /// 设置 qq 个人资料
         /// </summary>
         /// <returns></returns>
@@ -583,7 +583,7 @@ namespace ShamrockCore.Data.HttpAPI
             }
         }
 
-        // <summary>
+        /// <summary>
         /// 撤回消息
         /// </summary>
         /// <returns></returns>
@@ -900,7 +900,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 群组踢人
         /// </summary>
         /// <param name="groupQQ">群号</param>
-        /// <param name="qq">qq 号</param>
+        /// <param name="qq">qq号</param>
         /// <param name="rejectAddAgain">是否拒绝再次加群</param>
         /// <returns></returns>
         public static async Task<bool> SetGroupKick(long groupQQ, long qq, bool rejectAddAgain = false)
@@ -1115,7 +1115,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 让Shamrock下载文件到缓存目录
         /// </summary>
         /// <param name="url">url和base64二选一，两个均传优选url</param>
-        /// <param name="base64"></param>
+        /// <param name="base64">base64</param>
         /// <param name="name">文件名称,默认：文件md5</param>
         /// <param name="threadCount">下载的线程数量	</param>
         /// <param name="headers">请求头</param>
@@ -1145,9 +1145,9 @@ namespace ShamrockCore.Data.HttpAPI
         /// 让Shamrock下载文件到缓存目录
         /// </summary>
         /// <param name="url">url和base64二选一，两个均传优选url</param>
-        /// <param name="base64"></param>
+        /// <param name="base64">base64</param>
         /// <param name="name">文件名称,默认：文件md5</param>
-        /// <param name="threadCount">下载的线程数量	</param>
+        /// <param name="threadCount">下载的线程数量</param>
         /// <param name="headers">请求头</param>
         /// <returns></returns>
         public static async Task<RecordInfo?> DownloadFile(string url, string base64 = "", string name = "", int threadCount = 1, IEnumerable<string>? headers = null)

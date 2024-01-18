@@ -2,7 +2,7 @@
 using ShamrockCore.Data.HttpAPI;
 using ShamrockCore.Data.Model;
 
-namespace ShamrockCore.Reciver.Events
+namespace ShamrockCore.Receiver.Events
 {
     public class PokeEvent : EventBase
     {

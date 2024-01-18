@@ -4,6 +4,7 @@
 
 /.vs/ShamrockCore/v17
 /.vs
+/.idea
 /ShamrockCore/bin/**
 /ShamrockCore/obj/**
 /ShamrockCore.Test

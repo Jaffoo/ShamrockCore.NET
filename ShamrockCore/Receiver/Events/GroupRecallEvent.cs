@@ -2,7 +2,7 @@
 using ShamrockCore.Data.HttpAPI;
 using ShamrockCore.Data.Model;
 
-namespace ShamrockCore.Reciver.Events
+namespace ShamrockCore.Receiver.Events
 {
     /// <summary>
     /// 群聊撤回

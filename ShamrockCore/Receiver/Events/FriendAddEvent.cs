@@ -2,7 +2,7 @@
 using ShamrockCore.Data.HttpAPI;
 using ShamrockCore.Data.Model;
 
-namespace ShamrockCore.Reciver.Events
+namespace ShamrockCore.Receiver.Events
 {
     /// <summary>
     /// 好友添加申请事件
