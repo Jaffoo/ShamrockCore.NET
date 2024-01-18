@@ -2,37 +2,49 @@
 using ShamrockCore.Data.HttpAPI;
 using ShamrockCore.Data.Model;
 
-namespace ShamrockCore.Reciver.Events
+namespace ShamrockCore.Receiver.Events
 {
     /// <summary>
-    /// 群头衔变更
+    /// 群禁言
     /// </summary>
-    public class TitleChangeEvent : EventBase
+    public class GroupBanEvent : EventBase
     {
         /// <summary>
-        /// 操作者QQ
+        /// 被禁言成员 QQ
         /// </summary>
         [JsonProperty("user_id")]
         public long QQ { get; set; }
 
         /// <summary>
-        /// 群号(仅群聊)
+        /// 群qq
         /// </summary>
         [JsonProperty("group_id")]
         public long GroupQQ { get; set; }
 
         /// <summary>
-        /// 获得头衔
+        /// 操作者 QQ
         /// </summary>
-        [JsonProperty("title")]
-        public string Title { get; set; } = "";
+        [JsonProperty("operator_id")]
+        public long OperatorQQ { get; set; }
+
+        /// <summary>
+        /// 禁言时长(秒)
+        /// </summary>
+        [JsonProperty("duration")]
+        public long BanTime { get; set; }
+
+        /// <summary>
+        /// 子类型(ban/lift_ban)
+        /// </summary>
+        [JsonProperty("sub_type")]
+        public BanType SubType { get; set; }
 
         #region 扩展方法/属性
         /// <summary>
-        /// 成员
+        /// 被禁言者
         /// </summary>
         [JsonIgnore]
-        public Member? Member
+        public Member? Banner
         {
             get
             {
@@ -40,13 +52,13 @@ namespace ShamrockCore.Reciver.Events
                 return _member.Value;
             }
         }
-        private Lazy<Member?>? _member;
+        [JsonIgnore] private Lazy<Member?>? _member;
 
         /// <summary>
         /// 事件类型
         /// </summary>
         [JsonIgnore]
-        public override PostEventType EventType { get; set; } = PostEventType.Title;
+        public override PostEventType EventType { get; set; } = PostEventType.GroupBan;
         #endregion
     }
 }

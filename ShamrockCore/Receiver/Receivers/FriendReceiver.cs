@@ -1,20 +1,20 @@
 ﻿using Newtonsoft.Json;
 using ShamrockCore.Data.HttpAPI;
 using ShamrockCore.Data.Model;
-using ShamrockCore.Reciver.MsgChain;
+using ShamrockCore.Receiver.MsgChain;
 
-namespace ShamrockCore.Reciver.Receivers
+namespace ShamrockCore.Receiver.Receivers
 {
     /// <summary>
-    /// 群接收器
+    /// 好友接收器
     /// </summary>
-    public class GroupReceiver : MessageReceiverBase
+    public class FriendReceiver : MessageReceiverBase
     {
         /// <summary>
-        /// 群id
+        /// 私聊者qq
         /// </summary>
-        [JsonProperty("group_id")]
-        public long GroupId { get; set; }
+        [JsonProperty("target_id")]
+        public long TargetQQ { get; set; }
 
         /// <summary>
         /// 消息类型
@@ -50,43 +50,28 @@ namespace ShamrockCore.Reciver.Receivers
         /// 消息内容
         /// </summary>
         [JsonProperty("message")]
-        public MessageChain Message { get; set; } = new();
+        public MessageChain? Message { get; set; } = null;
 
         #region 扩展方法/属性
         /// <summary>
-        /// 群信息
+        /// 好友信息
         /// </summary>
-        /// <returns></returns>
         [JsonIgnore]
-        public Group? Group
+        public Friend? Sender
         {
             get
             {
-                _group ??= new(() => Api.GetGroupInfo(GroupId).Result);
-                return _group.Value;
-            }
-        }
-
-        [JsonIgnore] private Lazy<Group?>? _group;
-        /// <summary>
-        /// 发送者成员信息
-        /// </summary>
-        [JsonIgnore]
-        public Member? Sender
-        {
-            get
-            {
-                _sender ??= new(() => Api.GetGroupMemberInfo(GroupId, QQ).Result);
+                _sender ??= new(() => Api.GetFriends().Result?.FirstOrDefault(t => t.QQ == QQ));
                 return _sender.Value;
             }
         }
-        [JsonIgnore] private Lazy<Member?>? _sender;
+        [JsonIgnore] private Lazy<Friend?>? _sender;
 
         /// <summary>
         /// 消息类型
         /// </summary>
         [JsonIgnore]
-        public override PostMessageType Type { get; set; } = PostMessageType.Group;
+        public override PostMessageType Type { get; set; } = PostMessageType.Friend;
         #endregion
     }
 }

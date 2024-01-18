@@ -3,12 +3,12 @@ using System.Reactive.Subjects;
 using Websocket.Client;
 using Manganese.Text;
 using System.Net.WebSockets;
-using ShamrockCore.Reciver;
+using ShamrockCore.Receiver;
 using ShamrockCore.Utils;
-using ShamrockCore.Reciver.Receivers;
-using ShamrockCore.Reciver.Events;
 using ShamrockCore.Data.Model;
 using ShamrockCore.Data.HttpAPI;
+using ShamrockCore.Receiver.Events;
+using ShamrockCore.Receiver.Receivers;
 
 namespace ShamrockCore
 {

@@ -343,7 +343,7 @@ namespace ShamrockCore.Data.HttpAPI
         [Description("log")] Log,
 
         /// <summary>
-        /// 获取Shamerock启动时间
+        /// 获取Shamrock启动时间
         /// </summary>
         [Description("get_start_time")] GetStartTime,
 

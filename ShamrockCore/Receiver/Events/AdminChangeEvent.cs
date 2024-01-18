@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using ShamrockCore.Data.Model;
 
-namespace ShamrockCore.Reciver.Events
+namespace ShamrockCore.Receiver.Events
 {
     public class AdminChangeEvent : EventBase
     {

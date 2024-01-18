@@ -2,7 +2,7 @@
 using ShamrockCore.Data.HttpAPI;
 using ShamrockCore.Data.Model;
 
-namespace ShamrockCore.Reciver
+namespace ShamrockCore.Receiver
 {
     public class MessageReceiverBase
     {

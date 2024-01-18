@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using ShamrockCore.Data.HttpAPI;
-using ShamrockCore.Reciver.MsgChain;
+using ShamrockCore.Receiver.MsgChain;
 
 namespace ShamrockCore.Data.Model
 {
@@ -16,55 +16,55 @@ namespace ShamrockCore.Data.Model
         public long GroupQQ { get; set; }
 
         /// <summary>
-        ///     群 Uin
+        /// 群 Uin
         /// </summary>
         [JsonProperty("group_uin")]
         public long UinId { get; set; }
 
         /// <summary>
-        ///     群名称
+        /// 群名称
         /// </summary>
         [JsonProperty("group_name")]
         public string Name { get; set; } = "";
 
         /// <summary>
-        ///     群备注
+        /// 群备注
         /// </summary>
         [JsonProperty("group_remark")]
         public string Remark { get; set; } = "";
 
         /// <summary>
-        ///     群分类
+        /// 群分类
         /// </summary>
         [JsonProperty("class_text")]
         public string Text { get; set; } = "";
 
         /// <summary>
-        ///     是否冻结
+        /// 是否冻结
         /// </summary>
         [JsonProperty("is_frozen")]
         public bool Frozen { get; set; }
 
         /// <summary>
-        ///     最大成员数
+        /// 最大成员数
         /// </summary>
         [JsonProperty("max_member_count")]
         public int MaxCount { get; set; }
 
         /// <summary>
-        ///     最大成员数
+        /// 最大成员数
         /// </summary>
         [JsonProperty("max_member")]
         public int Max { get; set; }
 
         /// <summary>
-        ///     成员数量
+        /// 成员数量
         /// </summary>
         [JsonProperty("member_num")]
         public int MemberNum { get; set; }
 
         /// <summary>
-        ///     成员数量
+        /// 成员数量
         /// </summary>
         [JsonProperty("member_count")]
         public int MemberCount { get; set; }
@@ -257,16 +257,16 @@ namespace ShamrockCore.Data.Model
         /// <summary>
         /// 上传到群文件
         /// </summary>
-        /// <param name="file"></param>
-        /// <param name="name"></param>
+        /// <param name="file">文件路径</param>
+        /// <param name="name">文件名</param>
         /// <returns></returns>
         public async Task<UploadInfo?> UploadFilesByPath(string file, string name) => await Api.UploadGroupFile(GroupQQ, file, name);
 
         /// <summary>
         /// 上传到群文件
         /// </summary>
-        /// <param name="url"></param>
-        /// <param name="name"></param>
+        /// <param name="url">url</param>
+        /// <param name="name">文件名</param>
         /// <returns></returns>
         public async Task<UploadInfo?> UploadFilesByUrl(string url, string name)
         {
@@ -277,8 +277,8 @@ namespace ShamrockCore.Data.Model
         /// <summary>
         /// 上传到群文件
         /// </summary>
-        /// <param name="base64"></param>
-        /// <param name="name"></param>
+        /// <param name="base64">base64</param>
+        /// <param name="name">文件名</param>
         /// <returns></returns>
         public async Task<UploadInfo?> UploadFilesByBase64(string base64, string name)
         {
