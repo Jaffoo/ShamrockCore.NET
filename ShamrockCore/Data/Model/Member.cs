@@ -129,7 +129,7 @@ namespace ShamrockCore.Data.Model
         /// <summary>
         /// 禁言
         /// </summary>
-        /// <param name="time">禁言时长（为0时解除禁言）</param>
+        /// <param name="time">禁言时长</param>
         /// <returns></returns>
         public async Task<bool> Ban(long time) => await Api.SetGroupBan(GroupQQ, QQ, time);
 
@@ -137,7 +137,7 @@ namespace ShamrockCore.Data.Model
         /// 解禁
         /// </summary>
         /// <returns></returns>
-        public async Task<bool> CancelBan() => await Api.SetGroupBan(GroupQQ, QQ, 0);
+        public async Task<bool> NoBan() => await Api.SetGroupBan(GroupQQ, QQ, 0);
 
         /// <summary>
         /// 戳一下

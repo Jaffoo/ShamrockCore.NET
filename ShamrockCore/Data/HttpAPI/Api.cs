@@ -376,7 +376,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// </summary>
         /// <param name="groupQQ">群号</param>
         /// <returns></returns>
-        public static async Task<IEnumerable<Ban>?> GetBanList(long groupQQ)
+        public static async Task<IEnumerable<Banner>?> GetBanList(long groupQQ)
         {
             try
             {
@@ -384,7 +384,7 @@ namespace ShamrockCore.Data.HttpAPI
                 {
                     group_id = groupQQ
                 };
-                var res = await HttpEndpoints.GetBanList.PostAsync<IEnumerable<Ban>>(obj);
+                var res = await HttpEndpoints.GetBanList.PostAsync<IEnumerable<Banner>>(obj);
                 if (res != null)
                 {
                     foreach (var item in res)

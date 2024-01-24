@@ -94,7 +94,7 @@ namespace ShamrockCore.Data.Model
         /// 被禁言列表
         /// </summary>
         [JsonIgnore]
-        public IEnumerable<Ban>? BanList
+        public IEnumerable<Banner>? BanList
         {
             get
             {
@@ -102,7 +102,7 @@ namespace ShamrockCore.Data.Model
                 return _banList.Value;
             }
         }
-        [JsonIgnore] private Lazy<IEnumerable<Ban>?>? _banList;
+        [JsonIgnore] private Lazy<IEnumerable<Banner>?>? _banList;
 
         /// <summary>
         /// 群精华消息
@@ -196,6 +196,8 @@ namespace ShamrockCore.Data.Model
         {
             get
             {
+                if (Admins == null) return 0;
+                if (!Admins.Contains(Bot.Instance?.LoginInfo?.QQ ?? 0)) return 0;
                 _atAllCount ??= new(() => Api.GetAtAllCount(GroupQQ).Result);
                 return _atAllCount.Value;
             }
@@ -203,14 +205,10 @@ namespace ShamrockCore.Data.Model
         [JsonIgnore] private Lazy<int>? _atAllCount;
 
         /// <summary>
-        /// 全体禁言
+        /// 全体禁言/取消禁言
+        /// <param name="ban">true:禁言，false:解禁</param>
         /// </summary>
-        public async Task<bool> AllBan() => await Api.SetGroupWholeBan(GroupQQ);
-
-        /// <summary>
-        /// 全体取消禁言
-        /// </summary>
-        public async Task<bool> AllBanCancel() => await Api.SetGroupWholeBan(GroupQQ, false);
+        public async Task<bool> AllBan(bool ban = true) => await Api.SetGroupWholeBan(GroupQQ, ban);
 
         /// <summary>
         /// 获取群历史聊天
