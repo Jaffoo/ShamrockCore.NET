@@ -350,6 +350,12 @@ namespace ShamrockCore.Data.HttpAPI
         /// <summary>
         /// 获取群 @全体成员 剩余次数
         /// </summary>
-        [Description("get_group_at_all_remain")]GetAtAllCount
+        [Description("get_group_at_all_remain")]GetAtAllCount,
+
+        /// <summary>
+        /// 设置消息底部评论小表情
+        /// 目前版本（9.0.15）只在部分群聊进行灰度测试
+        /// </summary>
+        [Description("set_group_comment_face")] SetGroupCommentFace,
     }
 }

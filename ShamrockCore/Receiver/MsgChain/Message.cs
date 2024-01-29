@@ -667,6 +667,33 @@ namespace ShamrockCore.Receiver.MsgChain
         }
     }
 
+    /// <summary>
+    /// 弹射表情
+    /// </summary>
+    public record BubbleFaceMessage : Message
+    {
+        public BubbleFaceMessage() { }
+
+        public BubbleFaceMessage(int id, int count)
+        {
+            Data.Id = id;
+            Data.Count = count;
+        }
+        [JsonProperty("data")] public new Body Data { get; set; } = new();
+        public record Body
+        {
+            /// <summary>
+            /// 表情ID
+            /// </summary>
+            [JsonProperty("id")] public int Id { get; set; }
+
+            /// <summary>
+            /// 数量
+            /// </summary>
+            [JsonProperty("id")] public int Count { get; set; }
+        }
+    }
+
     public record JsonData
     {
         [JsonProperty("app")] public string App { get; set; } = "";

@@ -36,6 +36,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (qq <= 0) throw new ArgumentException("qq号不存在");
                 var res = await HttpEndpoints.GetStrangerInfo.GetAsync<Stranger>("user_id=" + qq);
                 return res;
             }
@@ -71,6 +72,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
                 var res = await HttpEndpoints.GetGroupInfo.GetAsync<Group>("group_id=" + groupQQ);
                 return res;
             }
@@ -89,6 +91,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
                 var res = await HttpEndpoints.GetGroupMemberList.GetAsync<IEnumerable<Member>>("group_id=" + groupQQ);
                 return res;
             }
@@ -108,6 +111,8 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                if (qq <= 0) throw new ArgumentException("成员不存在");
                 var res = await HttpEndpoints.GetGroupMemberInfo.GetAsync<Member>("group_id=" + groupQQ, "user_id=" + qq);
                 return res;
             }
@@ -126,6 +131,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
                 var res = await HttpEndpoints.GetGroupHonorInfo.GetAsync<Honor>("group_id=" + groupQQ);
                 return res;
             }
@@ -144,6 +150,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
                 var res = await HttpEndpoints.GetGroupSystemMsg.GetAsync<GroupSysMsg>("group_id=" + groupQQ);
                 return res;
             }
@@ -162,6 +169,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
                 var res = await HttpEndpoints.GetEssenceMsgList.GetAsync<IEnumerable<EssenceMsg>>("group_id=" + groupQQ);
                 return res;
             }
@@ -213,6 +221,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (qq <= 0) throw new ArgumentException("qq号不存在");
                 var res = await HttpEndpoints.IsBlacklistUin.GetAsync<IsInBack>("user_id=" + qq);
                 return res;
             }
@@ -252,6 +261,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (string.IsNullOrWhiteSpace(fileMd5)) throw new ArgumentException("文件不存在");
                 var res = await HttpEndpoints.GetImage.GetAsync<Model.FileInfo>("file=" + fileMd5);
                 return res;
             }
@@ -271,6 +281,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (string.IsNullOrWhiteSpace(fileMd5)) throw new ArgumentException("文件不存在");
                 var res = await HttpEndpoints.GetRecord.GetAsync<RecordInfo>("file=" + fileMd5, "out_format=" + OutFormat);
                 return res;
             }
@@ -288,6 +299,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (messageId <= 0) throw new ArgumentException("消息不存在");
                 var res = await HttpEndpoints.GetMsg.GetAsync<MsgInfo>("message_id=" + messageId);
                 return res;
             }
@@ -330,17 +342,18 @@ namespace ShamrockCore.Data.HttpAPI
         /// <summary>
         /// 获取群聊历史消息
         /// </summary>
-        /// <param name="group"></param>
+        /// <param name="groupQQ"></param>
         /// <param name="count"></param>    
         /// <param name="start"></param>
         /// <returns></returns>
-        public static async Task<MessageChain?> GetGroupMsgHistory(long group, int count = 10, int start = 0)
+        public static async Task<MessageChain?> GetGroupMsgHistory(long groupQQ, int count = 10, int start = 0)
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
                 var obj = new
                 {
-                    group_id = group,
+                    group_id = groupQQ,
                     count,
                     message_seq = start
                 };
@@ -362,6 +375,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
                 var res = await HttpEndpoints.GetGroupNotice.GetAsync<IEnumerable<Announcement>>("group_id=" + groupQQ);
                 return res;
             }
@@ -380,6 +394,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
                 var obj = new
                 {
                     group_id = groupQQ
@@ -408,6 +423,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
                 var obj = new
                 {
                     group_id = groupQQ
@@ -429,6 +445,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
                 var obj = new
                 {
                     group_id = groupQQ,
@@ -450,6 +467,8 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                if (string.IsNullOrWhiteSpace(folderId)) throw new ArgumentException("群文件夹不存在");
                 var obj = new
                 {
                     group_id = groupQQ,
@@ -472,6 +491,9 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                if (string.IsNullOrWhiteSpace(fileId)) throw new ArgumentException("群文件不存在");
+                if (busid <= 0) throw new ArgumentException("文件类型不存在");
                 var obj = new
                 {
                     group_id = groupQQ,
@@ -551,6 +573,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
                 var url = Bot.Instance!.Config.HttpUrl + HttpEndpoints.GetAtAllCount.Description();
                 var res = await HttpUtil.GetStringAsync(url.SetQueryParam("group_id", groupQQ));
                 var canAtAll = (res.Fetch("can_at_all") ?? "false").ToBool();
@@ -591,6 +614,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (messageId <= 0) throw new ArgumentException("消息不存在");
                 var res = await HttpEndpoints.DeleteMsg.GetAsync("message_id=" + messageId);
                 return res;
             }
@@ -634,6 +658,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (string.IsNullOrWhiteSpace(flag)) throw new ArgumentException("请求不存在");
                 var obj = new
                 {
                     flag,
@@ -661,6 +686,8 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (string.IsNullOrWhiteSpace(flag)) throw new ArgumentException("请求不存在");
+                if (string.IsNullOrWhiteSpace(type)) throw new ArgumentException("请求类型不可为空");
                 var obj = new
                 {
                     flag,
@@ -687,6 +714,8 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                if (string.IsNullOrWhiteSpace(newName)) throw new ArgumentException("新群名为空");
                 var obj = new
                 {
                     group_id = groupQQ,
@@ -712,6 +741,8 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                if (qq <= 0) throw new ArgumentException("成员不存在");
                 var obj = new
                 {
                     group_id = groupQQ,
@@ -738,6 +769,9 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                if (qq <= 0) throw new ArgumentException("成员不存在");
+                if (string.IsNullOrWhiteSpace(title)) throw new ArgumentException("头衔不可为空");
                 var obj = new
                 {
                     group_id = groupQQ,
@@ -764,6 +798,8 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                if (qq <= 0) throw new ArgumentException("成员不存在");
                 var obj = new
                 {
                     group_id = groupQQ,
@@ -789,6 +825,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
                 var obj = new
                 {
                     group_id = groupQQ,
@@ -812,6 +849,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (messageId <= 0) throw new ArgumentException("精华消息不存在");
                 var res = await HttpEndpoints.SetEssenceMsg.GetAsync("message_id=" + messageId);
                 return res;
             }
@@ -830,6 +868,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (messageId <= 0) throw new ArgumentException("精华消息不存在");
                 var res = await HttpEndpoints.DeleteEssenceMsg.GetAsync("message_id=" + messageId);
                 return res;
             }
@@ -848,6 +887,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
                 var res = await HttpEndpoints.SendGroupSign.GetAsync("group_id=" + groupQQ);
                 return res;
             }
@@ -868,6 +908,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
                 bool res = false;
                 if (image == null)
                 {
@@ -907,6 +948,8 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                if (qq <= 0) throw new ArgumentException("成员不存在");
                 var obj = new
                 {
                     group_id = groupQQ,
@@ -931,6 +974,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
                 var obj = new
                 {
                     group_id = groupQQ,
@@ -954,6 +998,8 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                if (qq <= 0) throw new ArgumentException("成员不存在");
                 var obj = new
                 {
                     group_id = groupQQ,
@@ -980,6 +1026,9 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (qq <= 0) throw new ArgumentException("好友不存在");
+                if (string.IsNullOrWhiteSpace(file)) throw new ArgumentException("文件不存在");
+                if (string.IsNullOrWhiteSpace(name)) throw new ArgumentException("文件名为空");
                 var obj = new
                 {
                     user_id = qq,
@@ -1007,6 +1056,9 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                if (string.IsNullOrWhiteSpace(file)) throw new ArgumentException("文件不存在");
+                if (string.IsNullOrWhiteSpace(name)) throw new ArgumentException("文件名为空");
                 var obj = new
                 {
                     group_id = groupQQ,
@@ -1024,7 +1076,6 @@ namespace ShamrockCore.Data.HttpAPI
 
         /// <summary>
         /// 删除群文件
-        /// 只能上传本地文件, 需要上传 http 文件的话请先下载至本地
         /// </summary>
         /// <param name="groupQQ">群号</param>
         /// <param name="fileId">文件ID</param>
@@ -1034,6 +1085,10 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                if (string.IsNullOrWhiteSpace(fileId)) throw new ArgumentException("文件不存在");
+                if (busid <= 0) throw new ArgumentException("文件类型不存在");
+
                 var obj = new
                 {
                     group_id = groupQQ,
@@ -1058,6 +1113,8 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                if (string.IsNullOrWhiteSpace(name)) throw new ArgumentException("文件夹名称为空");
                 var obj = new
                 {
                     group_id = groupQQ,
@@ -1080,6 +1137,8 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                if (string.IsNullOrWhiteSpace(folderId)) throw new ArgumentException("群文件夹不存在");
                 var obj = new
                 {
                     group_id = groupQQ,
@@ -1184,8 +1243,8 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
-                if (qq <= 0) return "";
-                if (message == null) return "";
+                if (qq <= 0) throw new ArgumentException("好友不存在");
+                if (message == null) throw new ArgumentException("发送的消息为空");
                 var obj = new
                 {
                     user_id = qq,
@@ -1212,8 +1271,8 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
-                if (groupQQ <= 0) return "";
-                if (message == null) return "";
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                if (message == null) throw new ArgumentException("发送的消息为空");
                 var obj = new
                 {
                     group_id = groupQQ,
@@ -1240,8 +1299,9 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
-                if (qq <= 0 || groupQQ <= 0) return "";
-                if (message == null) return "";
+                if (qq <= 0) throw new ArgumentException("好友不存在");
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                if (message == null) throw new ArgumentException("发送的消息为空");
                 var obj = new
                 {
                     message_type = type,
@@ -1270,8 +1330,8 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
-                if (groupQQ <= 0) return "";
-                if (messages == null) return "";
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                if (messages == null) throw new ArgumentException("发送的消息为空");
                 var obj = new
                 {
                     group_id = groupQQ,
@@ -1296,8 +1356,8 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
-                if (qq <= 0) return "";
-                if (messages == null) return "";
+                if (qq <= 0) throw new ArgumentException("好友不存在");
+                if (messages == null) throw new ArgumentException("发送的消息为空");
                 var obj = new
                 {
                     user_id = qq,
@@ -1308,6 +1368,29 @@ namespace ShamrockCore.Data.HttpAPI
             }
             catch (Exception)
             {
+                throw;
+            }
+        }
+
+        public static async Task<bool> SetGroupCommentFace(long groupQQ, int msgId, int faceId, bool isSet)
+        {
+            try
+            {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                if (msgId <= 0) throw new ArgumentException("消息不存在");
+                if (faceId <= 0) throw new ArgumentException("表情无效");
+                var obj = new
+                {
+                    group_id = groupQQ,
+                    msg_id = msgId,
+                    face_id = faceId,
+                    is_set = isSet
+                };
+                return await HttpEndpoints.SetGroupCommentFace.PostAsync(obj);
+            }
+            catch (Exception)
+            {
+
                 throw;
             }
         }

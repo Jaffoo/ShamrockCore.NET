@@ -69,9 +69,9 @@ namespace ShamrockCore.Utils
                     .WithHeader("Authorization", $"Bearer {Bot.Instance?.Config.Token ?? ""}")
                     .GetAsync();
                 var re = await result.GetJsonAsync<Result>();
-                if (re.Status != "ok") return default;
-                if (re.Retcode != 0) return default;
-                if (re.Data == null) return default;
+                if (re.Status != "ok") throw new InvalidOperationException("请求失败：" + re.Message);
+                if (re.Retcode != 0) throw new InvalidOperationException("请求失败：" + re.Message);
+                if (re.Data == null) throw new InvalidOperationException("请求数据失败：" + re.Message);
                 var dataStr = JsonConvert.SerializeObject(re.Data);
                 var res = JsonConvert.DeserializeObject<T>(dataStr);
                 return res;
@@ -89,7 +89,7 @@ namespace ShamrockCore.Utils
                 return default;
             }
         }
-        
+
         /// <summary>
         /// get请求
         /// </summary>
@@ -105,6 +105,8 @@ namespace ShamrockCore.Utils
                         .WithHeader("Authorization", $"Bearer {Bot.Instance?.Config.Token ?? ""}")
                         .GetAsync();
                 var re = await result.GetJsonAsync<Result>();
+                if (re.Status != "ok") throw new InvalidOperationException("请求失败：" + re.Message);
+                if (re.Retcode != 0) throw new InvalidOperationException("请求失败：" + re.Message);
                 return re;
             }
             catch (Exception e)
@@ -120,7 +122,7 @@ namespace ShamrockCore.Utils
                 return null;
             }
         }
-        
+
         /// <summary>
         /// get请求
         /// </summary>
@@ -137,8 +139,8 @@ namespace ShamrockCore.Utils
                     .WithHeader("Authorization", $"Bearer {Bot.Instance?.Config.Token ?? ""}")
                     .GetAsync();
                 var re = await result.GetJsonAsync<Result>();
-                if (re.Status != "ok" && re.Retcode != 0)
-                    return false;
+                if (re.Status != "ok") throw new InvalidOperationException("请求失败：" + re.Message);
+                if (re.Retcode != 0) throw new InvalidOperationException("请求失败：" + re.Message);
                 return true;
             }
             catch (Exception e)
@@ -201,9 +203,9 @@ namespace ShamrockCore.Utils
                     .WithHeader("Authorization", $"Bearer {Bot.Instance?.Config.Token ?? ""}")
                     .PostJsonAsync(body);
                 var re = await result.GetJsonAsync<Result>();
-                if (re.Status != "ok") return default;
-                if (re.Retcode != 0) return default;
-                if (re.Data == null) return default;
+                if (re.Status != "ok") throw new InvalidOperationException("请求失败：" + re.Message);
+                if (re.Retcode != 0) throw new InvalidOperationException("请求失败：" + re.Message);
+                if (re.Data == null) throw new InvalidOperationException("请求数据失败：" + re.Message);
                 var dataStr = JsonConvert.SerializeObject(re.Data);
                 var res = JsonConvert.DeserializeObject<T>(dataStr);
                 return res;
@@ -221,7 +223,7 @@ namespace ShamrockCore.Utils
                 return default;
             }
         }
-        
+
         /// <summary>
         /// post请求
         /// </summary>
@@ -236,6 +238,8 @@ namespace ShamrockCore.Utils
                         .WithHeader("Authorization", $"Bearer {Bot.Instance?.Config.Token ?? ""}")
                         .PostJsonAsync(body);
                 var re = await result.GetJsonAsync<Result>();
+                if (re.Status != "ok") throw new InvalidOperationException("请求失败：" + re.Message);
+                if (re.Retcode != 0) throw new InvalidOperationException("请求失败：" + re.Message);
                 return re;
             }
             catch (Exception e)
@@ -267,7 +271,9 @@ namespace ShamrockCore.Utils
                        .WithHeader("Authorization", $"Bearer {Bot.Instance?.Config.Token ?? ""}")
                        .PostJsonAsync(body);
                 var re = await result.GetJsonAsync<Result>();
-                return re.Status == "ok" || re.Retcode == 0;
+                if (re.Status != "ok") throw new InvalidOperationException("请求失败：" + re.Message);
+                if (re.Retcode != 0) throw new InvalidOperationException("请求失败：" + re.Message);
+                return true;
             }
             catch (Exception e)
             {
@@ -284,7 +290,7 @@ namespace ShamrockCore.Utils
         }
 
         /// <summary>
-        /// post请求
+        /// post请求(发送消息用，返回消息id)
         /// </summary>
         /// <param name="endpoints">url</param>
         /// <param name="body">提交内容</param>
@@ -298,9 +304,9 @@ namespace ShamrockCore.Utils
                        .WithHeader("Authorization", $"Bearer {Bot.Instance?.Config.Token ?? ""}")
                        .PostJsonAsync(body);
                 var re = await result.GetJsonAsync<Result>();
-                if (re.Status != "ok") return "";
-                if (re.Retcode != 0) return "";
-                if (re.Data == null) return "";
+                if (re.Status != "ok") throw new InvalidOperationException("请求失败：" + re.Message);
+                if (re.Retcode != 0) throw new InvalidOperationException("请求失败：" + re.Message);
+                if (re.Data == null) throw new InvalidOperationException("请求数据失败：" + re.Message);
                 var dataStr = JsonConvert.SerializeObject(re.Data);
                 var res = JsonConvert.DeserializeObject<MessageReceiverBase>(dataStr);
                 return res?.MessageId.ToString() ?? "";
