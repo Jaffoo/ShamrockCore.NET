@@ -208,7 +208,7 @@ namespace ShamrockCore.Data.HttpAPI
         [Description("set_group_admin")] SetGroupAdmin,
 
         /// <summary>
-        /// 设置群备注
+        /// 设置群成员名片
         /// </summary>
         [Description("set_group_card")] SetGroupCard,
 
@@ -357,5 +357,10 @@ namespace ShamrockCore.Data.HttpAPI
         /// 目前版本（9.0.15）只在部分群聊进行灰度测试
         /// </summary>
         [Description("set_group_comment_face")] SetGroupCommentFace,
+
+        /// <summary>
+        /// 设置群聊备注
+        /// </summary>
+        [Description("set_group_remark")] SetGroupRemark,
     }
 }

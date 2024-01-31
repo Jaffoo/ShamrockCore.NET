@@ -283,6 +283,13 @@ namespace ShamrockCore.Data.Model
             var path = await Api.DownloadFile1("", base64);
             return path == null ? throw new Exception("数据错误！") : await Api.UploadGroupFile(GroupQQ, path.File, name);
         }
+
+        /// <summary>
+        /// 设置群备注
+        /// </summary>
+        /// <param name="remark">备注</param>
+        /// <returns></returns>
+        public async Task<bool> SetGroupRemark(string remark) => await Api.SetGroupRemark(GroupQQ, remark);
         #endregion
     }
 }

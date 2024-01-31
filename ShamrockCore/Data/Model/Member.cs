@@ -178,6 +178,13 @@ namespace ShamrockCore.Data.Model
             if (Role == Permissions.Member) return true;
             return await Api.SetGroupAdmin(GroupQQ, QQ, false);
         }
+
+        /// <summary>
+        /// 设置成员群名片
+        /// </summary>
+        /// <param name="card">群名片内容, 不填或空字符串表示删除群名片</param>
+        /// <returns></returns>
+        public async Task<bool> SetCard(string card = "") => await Api.SetGroupCard(GroupQQ, QQ, card);
         #endregion
     }
 }

@@ -759,6 +759,60 @@ namespace ShamrockCore.Data.HttpAPI
         }
 
         /// <summary>
+        /// 设置群成员名片
+        /// </summary>
+        /// <param name="groupQQ">群号</param>
+        /// <param name="qq">要设置的qq</param>
+        /// <param name="card">名片</param>
+        /// <returns></returns>
+        public static async Task<bool> SetGroupCard(long groupQQ, long qq, string card)
+        {
+            try
+            {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                if (qq <= 0) throw new ArgumentException("成员不存在");
+                var obj = new
+                {
+                    group_id = groupQQ,
+                    user_id = qq,
+                    card
+                };
+                var res = await HttpEndpoints.SetGroupCard.PostAsync(obj);
+                return res;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 设置群备注
+        /// </summary>
+        /// <param name="groupQQ">群号</param>
+        /// <param name="remark">备注</param>
+        /// <returns></returns>
+        public static async Task<bool> SetGroupRemark(long groupQQ,string remark)
+        {
+            try
+            {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                if (string.IsNullOrWhiteSpace(remark)) throw new ArgumentException("群备注不可为空");
+                var obj = new
+                {
+                    group_id = groupQQ,
+                    remark
+                };
+                var res = await HttpEndpoints.SetGroupCard.PostAsync(obj);
+                return res;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
         /// 设置群组专属头衔
         /// </summary>
         /// <param name="groupQQ">群号</param>
