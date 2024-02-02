@@ -86,11 +86,13 @@ namespace ShamrockCore.Receiver.MsgChain
         /// 图片
         /// </summary>
         /// <param name="path">路径</param>
+        /// <param name="imgType">图片类型</param>
+        /// <param name="imgSubType">图片子类型</param>
         /// <returns></returns>
-        public MessageChainBuilder ImageByPath(string path)
+        public MessageChainBuilder ImageByPath(string path, ImgType? imgType = null, ImgSubType? imgSubType = null)
         {
             if (!path.Contains("file://")) path = "file://" + path;
-            list.Add(new ImageMessage(path));
+            list.Add(new ImageMessage(file: path, imgType: imgType, imgSubType: imgSubType));
             return this;
         }
 
@@ -98,10 +100,12 @@ namespace ShamrockCore.Receiver.MsgChain
         /// 图片
         /// </summary>
         /// <param name="url">url</param>
+        /// <param name="imgType">图片类型</param>
+        /// <param name="imgSubType">图片子类型</param>
         /// <returns></returns>
-        public MessageChainBuilder ImageByUrl(string url)
+        public MessageChainBuilder ImageByUrl(string url, ImgType? imgType = null, ImgSubType? imgSubType = null)
         {
-            list.Add(new ImageMessage(url: url));
+            list.Add(new ImageMessage(url: url, imgType: imgType, imgSubType: imgSubType));
             return this;
         }
 
@@ -109,13 +113,15 @@ namespace ShamrockCore.Receiver.MsgChain
         /// 图片
         /// </summary>
         /// <param name="base64">base64编码</param>
+        /// <param name="imgType">图片类型</param>
+        /// <param name="imgSubType">图片子类型</param>
         /// <returns></returns>
-        public MessageChainBuilder ImageByBase64(string base64)
+        public MessageChainBuilder ImageByBase64(string base64, ImgType? imgType = null, ImgSubType? imgSubType = null)
         {
             string pattern = @"data:[a-zA-Z0-9]+/[a-zA-Z0-9]+;base64,";
             string result = Regex.Replace(base64, pattern, "");
             if (!result.Contains("base64://")) result = "base64://" + result;
-            list.Add(new ImageMessage(result));
+            list.Add(new ImageMessage(base64: result, imgType: imgType, imgSubType: imgSubType));
             return this;
         }
 
@@ -321,6 +327,18 @@ namespace ShamrockCore.Receiver.MsgChain
         public MessageChainBuilder MergeNode()
         {
             //list.Add(new MergeMessage());
+            return this;
+        }
+
+        /// <summary>
+        /// 弹射表情
+        /// </summary>
+        /// <param name="id">表情id</param>
+        /// <param name="count">数量</param>
+        /// <returns></returns>
+        public MessageChainBuilder BubbleFace(int id, int count)
+        {
+            list.Add(new BubbleFaceMessage(id, count));
             return this;
         }
     }
