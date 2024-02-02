@@ -13,7 +13,7 @@ namespace ShamrockCore.Test
     {
         static async Task Main()
         {
-            var config = new ConnectConfig("139.9.34.201", 7100, 7200, "523366");
+            var config = new ConnectConfig("IP", 7100, 7200, "token");
             using Bot bot = new(config);
             await bot.Start();
             await Console.Out.WriteLineAsync("Open");
