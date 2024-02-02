@@ -8,7 +8,7 @@
     <Title>ShamrockCore</Title>
     <Authors>Jaffoo</Authors>
     <Company>none</Company>
-    <PackageReleaseNotes>字符串换枚举，提高可读性，稳定性，更易维护</PackageReleaseNotes>
+    <PackageReleaseNotes>修复通过url发送图片，语音失败的问题</PackageReleaseNotes>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/Jaffoo/ShamrockCore.NET</RepositoryUrl>
     <PackageProjectUrl>https://github.com/Jaffoo/ShamrockCore.NET</PackageProjectUrl>
