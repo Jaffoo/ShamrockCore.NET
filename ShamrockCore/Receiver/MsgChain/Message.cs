@@ -159,7 +159,9 @@ namespace ShamrockCore.Receiver.MsgChain
         /// <param name="file">文件路径</param>
         /// <param name="url">文件链接</param>
         /// <param name="base64">文件base64</param>
-        public ImageMessage(string file = "", string url = "", string base64 = "")
+        /// <param name="imgType">消息类型</param>
+        /// <param name="imgSubType">消息子类型</param>
+        public ImageMessage(string file = "", string url = "", string base64 = "", ImgType? imgType = null, ImgSubType? imgSubType = null)
         {
             if (!string.IsNullOrWhiteSpace(file))
             {
@@ -175,6 +177,8 @@ namespace ShamrockCore.Receiver.MsgChain
                 if (!result.Contains("base64://")) result = "base64://" + result;
                 Data.File = result;
             }
+            if (imgType != null) Data.Type = imgType.Value;
+            if (imgSubType != null) Data.SubType = imgSubType.Value;
         }
         [JsonProperty("type")]
         [JsonConverter(typeof(LowercaseStringEnumConverter))]
