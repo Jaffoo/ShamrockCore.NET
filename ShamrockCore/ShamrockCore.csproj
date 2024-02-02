@@ -8,12 +8,12 @@
     <Title>ShamrockCore</Title>
     <Authors>Jaffoo</Authors>
     <Company>none</Company>
-    <PackageReleaseNotes>修复通过url发送图片，语音失败的问题；发送图片可以选择发送的类型，具体看参数描述</PackageReleaseNotes>
+    <PackageReleaseNotes>通过url发送图片还存在bug，此版本已修复，消息连支持弹射表情（此功能仅支持最新qq，且处于灰度测试）</PackageReleaseNotes>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/Jaffoo/ShamrockCore.NET</RepositoryUrl>
     <PackageProjectUrl>https://github.com/Jaffoo/ShamrockCore.NET</PackageProjectUrl>
     <Description>OpenShamrock在C#上的实现，你可以用此库，快速链接到你OpenShamrock提供的服务。</Description>
-    <Version>$(VersionPrefix)1.1.5</Version>
+    <Version>$(VersionPrefix)1.1.6</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
