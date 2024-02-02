@@ -167,7 +167,7 @@ namespace ShamrockCore.Receiver.MsgChain
                 Data.File = file;
             }
             else if (!string.IsNullOrWhiteSpace(url))
-                Data.Url = url;
+                Data.File = url;
             else if (!string.IsNullOrWhiteSpace(base64))
             {
                 string pattern = @"data:[a-zA-Z0-9]+/[a-zA-Z0-9]+;base64,";
@@ -191,6 +191,16 @@ namespace ShamrockCore.Receiver.MsgChain
             /// 链接
             /// </summary>
             [JsonProperty("url")] public string Url { get; set; } = "";
+
+            /// <summary>
+            /// 图片类型
+            /// </summary>
+            [JsonProperty("type")] public ImgType Type { get; set; }
+
+            /// <summary>
+            /// 图片子类型
+            /// </summary>
+            [JsonProperty("subType")] public ImgSubType SubType { get; set; }
         }
     }
 
@@ -215,7 +225,7 @@ namespace ShamrockCore.Receiver.MsgChain
                 Data.File = file;
             }
             else if (!string.IsNullOrWhiteSpace(url))
-                Data.Url = url;
+                Data.File = url;
             Data.Magic = magic;
         }
         [JsonProperty("type")]

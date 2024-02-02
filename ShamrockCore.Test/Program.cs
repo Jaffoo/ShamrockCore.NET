@@ -13,7 +13,7 @@ namespace ShamrockCore.Test
     {
         static async Task Main()
         {
-            var config = new ConnectConfig("IP", 1, 2, "token");
+            var config = new ConnectConfig("139.9.34.201", 7100, 7200, "523366");
             using Bot bot = new(config);
             await bot.Start();
             await Console.Out.WriteLineAsync("Open");
@@ -39,6 +39,11 @@ namespace ShamrockCore.Test
             bot.MessageReceived.OfType<GroupReceiver>().Subscribe(async msg =>
             {
                 await Console.Out.WriteLineAsync("群消息：" + msg.ToJsonString());
+                if (msg.Message.GetPlainText() == "发送图片")
+                {
+                    var msbc = new MessageChainBuilder().ImageByUrl("https://gitee.com/jaffoo/ParkerBot/raw/master/images/star.png").Build();
+                    await msg.SendGroupMsgAsync(msbc);
+                }
             });
             bot.MessageReceived.OfType<FriendReceiver>().Subscribe(async msg =>
             {

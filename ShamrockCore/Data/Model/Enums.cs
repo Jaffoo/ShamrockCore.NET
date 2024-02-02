@@ -242,12 +242,12 @@ namespace ShamrockCore.Data.Model
         /// <summary>
         /// 群成员增加事件
         /// </summary>
-        [JsonProperty("group_increase")]GroupIncrease,
+        [JsonProperty("group_increase")] GroupIncrease,
 
         /// <summary>
         /// 群成员减少事件
         /// </summary>
-        [JsonProperty("group_decrease")]GroupDecrease,
+        [JsonProperty("group_decrease")] GroupDecrease,
 
         /// <summary>
         /// 私聊消息撤回
@@ -348,7 +348,7 @@ namespace ShamrockCore.Data.Model
         /// <summary>
         /// 自己
         /// </summary>
-        [JsonProperty("kick_me")]Self,
+        [JsonProperty("kick_me")] Self,
     }
 
     /// <summary>
@@ -396,6 +396,73 @@ namespace ShamrockCore.Data.Model
         /// </summary>
         Delete
     }
+
+    /// <summary>
+    /// 发送图片的类型
+    /// </summary>
+    public enum ImgType
+    {
+        /// <summary>
+        /// 不知道是啥
+        /// </summary>
+        Show,
+        /// <summary>
+        /// 应该是闪照
+        /// </summary>
+        Flash,
+        /// <summary>
+        /// 原图
+        /// </summary>
+        Original
+    }
+
+    /// <summary>
+    /// 发送图片的子类型
+    /// </summary>
+    public enum ImgSubType
+    {
+        /// <summary>
+        /// 正常图片
+        /// </summary>
+        Normal,
+        /// <summary>
+        /// 表情包, 在客户端会被分类到表情包图片并缩放显示
+        /// </summary>
+        Face,
+        /// <summary>
+        /// 热图
+        /// </summary>
+        Hot,
+        /// <summary>
+        /// 斗图
+        /// </summary>
+        Fight,
+        /// <summary>
+        /// 智图?
+        /// </summary>
+        Smart,
+        /// <summary>
+        /// 贴图
+        /// </summary>
+        Map = 7,
+        /// <summary>
+        /// 自拍
+        /// </summary>
+        Self,
+        /// <summary>
+        /// 贴图广告?
+        /// </summary>
+        Adv,
+        /// <summary>
+        /// 有待测试
+        /// </summary>
+        Unkonw,
+        /// <summary>
+        /// 热搜图
+        /// </summary>
+        HotSearch = 13
+    }
+
     public class LowercaseStringEnumConverter : StringEnumConverter
     {
         public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
