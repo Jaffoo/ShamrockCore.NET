@@ -463,6 +463,29 @@ namespace ShamrockCore.Data.Model
         HotSearch = 13
     }
 
+    /// <summary>
+    /// 子频道类型
+    /// </summary>
+    public enum ChannelType
+    {
+        /// <summary>
+        /// 文字频道
+        /// </summary>
+        Text=1,
+        /// <summary>
+        /// 语言频道
+        /// </summary>
+        Record,
+        /// <summary>
+        /// 直播频道
+        /// </summary>
+        Live,
+        /// <summary>
+        /// 主题频道
+        /// </summary>
+        Theme
+    }
+
     public class LowercaseStringEnumConverter : StringEnumConverter
     {
         public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)

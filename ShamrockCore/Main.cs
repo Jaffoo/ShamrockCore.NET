@@ -121,6 +121,12 @@ namespace ShamrockCore
                         //好友
                         if (data.Fetch("sub_type") == "friend")
                             _messageReceivedSubject.OnNext(data.ToObject<FriendReceiver>());
+                    //暂不知道是什么事件
+                    if (type1 == "less")
+                        _messageReceivedSubject.OnNext(data.ToObject<LessReceiver>());
+                    //频道
+                    if (type1 == "guild")
+                        _messageReceivedSubject.OnNext(data.ToObject<GuildReceiver>());
                 }
                 //通知事件
                 else if (postType == "notice")
@@ -380,6 +386,36 @@ namespace ShamrockCore
         /// </summary>
         /// <returns></returns>
         public async Task<string> GetLog(int start = 0, bool recent = false) => await Api.GetLog(start, recent);
+        #endregion
+
+        #region 频道
+        /// <summary>
+        /// 频道系统内BOT的资料
+        /// </summary>
+        /// <returns></returns>
+        public GuildBotProfile? GuildBotInfo
+        {
+            get
+            {
+                _guildBotInfo ??= new(() => Api.GetGuildBotInfo().Result);
+                return _guildBotInfo.Value;
+            }
+        }
+        private Lazy<GuildBotProfile?>? _guildBotInfo;
+
+        /// <summary>
+        /// 获取频道列表
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<GuildProfile>? GuildList
+        {
+            get
+            {
+                _guildList ??= new(() => Api.GetGuildList().Result);
+                return _guildList.Value;
+            }
+        }
+        private Lazy<IEnumerable<GuildProfile>?>? _guildList;
         #endregion
     }
 

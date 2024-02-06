@@ -792,7 +792,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// <param name="groupQQ">群号</param>
         /// <param name="remark">备注</param>
         /// <returns></returns>
-        public static async Task<bool> SetGroupRemark(long groupQQ,string remark)
+        public static async Task<bool> SetGroupRemark(long groupQQ, string remark)
         {
             try
             {
@@ -1444,11 +1444,342 @@ namespace ShamrockCore.Data.HttpAPI
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
         #endregion
+        #endregion
+
+        #region 频道接口
+        /// <summary>
+        /// 获取频道系统内BOT的资料
+        /// </summary>
+        /// <returns></returns>
+        public static async Task<GuildBotProfile?> GetGuildBotInfo()
+        {
+            try
+            {
+                return await HttpEndpoints.GetGuildBotInfo.GetAsync<GuildBotProfile>();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 获取频道列表
+        /// </summary>
+        /// <returns></returns>
+        public static async Task<IEnumerable<GuildProfile>?> GetGuildList()
+        {
+            try
+            {
+                return await HttpEndpoints.GetGuildList.GetAsync<IEnumerable<GuildProfile>>();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 通过id获取频道元数据
+        /// </summary>
+        /// <param name="guildId">频道id</param>
+        /// <returns></returns>
+        public static async Task<GuildMeta?> GetGuildMetaById(long guildId)
+        {
+            try
+            {
+                return await HttpEndpoints.GetGuildMetaById.GetAsync<GuildMeta>("guild_id=" + guildId);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 获取频道成员列表
+        /// </summary>
+        /// <param name="guildId">频道id</param>
+        /// <param name="nextToken">下一页token,不提供则从首页开始获取</param>
+        /// <param name="all">是否一次性获取完所有成员</param>
+        /// <param name="refresh">是否刷新数据，默认false</param>
+        /// <returns></returns>
+        public static async Task<GuildMember?> GetGuildMemberList(long guildId, string nextToken, bool all = false, bool refresh = false)
+        {
+            try
+            {
+                if (guildId <= 0) throw new ArgumentException("频道不存在");
+                var obj = new
+                {
+                    guild_id = guildId,
+                    refresh,
+                    all,
+                    next_token = nextToken,
+                };
+                return await HttpEndpoints.GetGuildMemberList.PostAsync<GuildMember>(obj);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 获取子频道列表
+        /// </summary>
+        /// <param name="guildId">频道id</param>
+        /// <param name="refresh">是否刷新数据，默认false</param>
+        /// <returns></returns>
+        public static async Task<IEnumerable<ChannelProfile>?> GetGuildChannelList(long guildId, bool refresh = false)
+        {
+            try
+            {
+                if (guildId <= 0) throw new ArgumentException("频道不存在");
+                var obj = new
+                {
+                    guild_id = guildId,
+                    refresh
+                };
+                return await HttpEndpoints.GetGuildChannelList.PostAsync<IEnumerable<ChannelProfile>>(obj);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 单独获取频道成员资料
+        /// </summary>
+        /// <param name="guildId">频道id</param>
+        /// <param name="userId">成员id</param>
+        /// <returns></returns>
+        public static async Task<GuildMemeberProfile?> GetGuildMemberProfile(long guildId, long userId)
+        {
+            try
+            {
+                if (guildId <= 0) throw new ArgumentException("频道不存在");
+                if (userId <= 0) throw new ArgumentException("用户不存在");
+                var obj = new
+                {
+                    guild_id = guildId,
+                    user_id = userId
+                };
+                return await HttpEndpoints.GetGuildMemberProfile.PostAsync<GuildMemeberProfile>(obj);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 发送信息到子频道
+        /// </summary>
+        /// <param name="guildId">频道ID</param>
+        /// <param name="channelId">子频道ID</param>
+        /// <param name="msg">消息体</param>
+        /// <param name="autoEscape">是否解析CQ码，true为不解析，默认false</param>
+        /// <param name="retryCnt">消息发送失败，最大重试次数，默认3</param>
+        /// <param name="recallDuration">自动撤回间隔(毫秒)，默认不撤回</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public static async Task<GuildMsg?> SendGuildChannelMsg(long guildId, long channelId, MessageChain msg, bool autoEscape = false, int retryCnt = 3, long recallDuration = 0)
+        {
+            try
+            {
+                if (guildId <= 0) throw new ArgumentException("频道不存在");
+                if (channelId <= 0) throw new ArgumentException("子频道不存在");
+                if (msg == null) throw new ArgumentException("发送的消息为空");
+                var obj = new
+                {
+                    guild_id = guildId,
+                    channel_id = channelId,
+                    message = msg,
+                    auto_escape = autoEscape,
+                    retry_cnt = retryCnt,
+                    recall_duration = recallDuration
+                };
+                return await HttpEndpoints.SendGuildChannelMsg.PostAsync<GuildMsg>(obj);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 发送信息到子频道
+        /// </summary>
+        /// <param name="guildId">频道ID</param>
+        /// <param name="channelId">子频道ID</param>
+        /// <param name="msg">消息体</param>
+        /// <param name="autoEscape">是否解析CQ码，true为不解析，默认false</param>
+        /// <param name="retryCnt">消息发送失败，最大重试次数，默认3</param>
+        /// <param name="recallDuration">自动撤回间隔(毫秒)，默认不撤回</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public static async Task<GuildMsg?> SendGuildChannelMsg(long guildId, long channelId, string msg, bool autoEscape = false, int retryCnt = 3, long recallDuration = 0)
+        {
+            try
+            {
+                if (guildId <= 0) throw new ArgumentException("频道不存在");
+                if (channelId <= 0) throw new ArgumentException("子频道不存在");
+                if (string.IsNullOrWhiteSpace(msg)) throw new ArgumentException("发送的消息为空");
+                var obj = new
+                {
+                    guild_id = guildId,
+                    channel_id = channelId,
+                    message = msg,
+                    auto_escape = autoEscape,
+                    retry_cnt = retryCnt,
+                    recall_duration = recallDuration
+                };
+                return await HttpEndpoints.SendGuildChannelMsg.PostAsync<GuildMsg>(obj);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 获取频道帖子广场帖子
+        /// </summary>
+        /// <param name="guildId">频道ID</param>
+        /// <param name="from">开始获取的位置</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public static async Task<object?> GetGuildFeeds(long guildId, int from)
+        {
+            try
+            {
+                if (guildId <= 0) throw new ArgumentException("频道不存在");
+                var obj = new
+                {
+                    guild_id = guildId,
+                    from
+                };
+                return await HttpEndpoints.GetGuildFeeds.PostAsync<object>(obj);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 获取频道角色列表
+        /// </summary>
+        /// <param name="guildId">频道ID</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public static async Task<IEnumerable<GuildRole>?> GetGuildRoles(long guildId)
+        {
+            try
+            {
+                if (guildId <= 0) throw new ArgumentException("频道不存在");
+                var obj = new
+                {
+                    guild_id = guildId
+                };
+                return await HttpEndpoints.GetGuildRoles.PostAsync<IEnumerable<GuildRole>>(obj);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 删除角色
+        /// </summary>
+        /// <param name="guildId">频道ID</param>
+        /// <param name="roleId">角色ID</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public static async Task<bool> DeleteGuildRole(long guildId, long roleId)
+        {
+            try
+            {
+                if (guildId <= 0) throw new ArgumentException("频道不存在");
+                if (roleId <= 0) throw new ArgumentException("角色不存在");
+                var obj = new
+                {
+                    guild_id = guildId,
+                    role_id = roleId
+                };
+                return await HttpEndpoints.DeleteGuildRole.PostAsync(obj);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 设置用户在频道中的角色
+        /// </summary>
+        /// <param name="guildId">频道ID</param>
+        /// <param name="roleId">角色ID</param>
+        /// <param name="set">设置还是移除，默认false</param>
+        /// <param name="users">批量设置用户</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public static async Task<bool> SetGuildMemberRole(long guildId, long roleId, bool set, IEnumerable<long> users)
+        {
+            try
+            {
+                if (guildId <= 0) throw new ArgumentException("频道不存在");
+                if (roleId <= 0) throw new ArgumentException("角色不存在");
+                var obj = new
+                {
+                    guild_id = guildId,
+                    role_id = roleId,
+                    set,
+                    users
+                };
+                return await HttpEndpoints.SetGuildMemberRole.PostAsync(obj);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 设置用户在频道中的角色
+        /// </summary>
+        /// <param name="guildId">频道ID</param>
+        /// <param name="roleId">角色ID</param>
+        /// <param name="set">设置还是移除，默认false</param>
+        /// <param name="users">批量设置用户</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public static async Task<bool> SetGuildMemberRole(long guildId, long roleId, bool set, string users)
+        {
+            try
+            {
+                if (guildId <= 0) throw new ArgumentException("频道不存在");
+                if (roleId <= 0) throw new ArgumentException("角色不存在");
+                var obj = new
+                {
+                    guild_id = guildId,
+                    role_id = roleId,
+                    set,
+                    users
+                };
+                return await HttpEndpoints.SetGuildMemberRole.PostAsync(obj);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         #endregion
     }
 }
