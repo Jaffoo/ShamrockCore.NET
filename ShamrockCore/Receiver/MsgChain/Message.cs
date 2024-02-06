@@ -1,5 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using ShamrockCore.Data.HttpAPI;
 using ShamrockCore.Data.Model;
 
@@ -199,7 +200,8 @@ namespace ShamrockCore.Receiver.MsgChain
             /// <summary>
             /// 图片类型
             /// </summary>
-            [JsonProperty("type")] public ImgType Type { get; set; }
+            [JsonConverter(typeof(StringEnumConverter))]
+            public ImgType Type { get; set; }
 
             /// <summary>
             /// 图片子类型

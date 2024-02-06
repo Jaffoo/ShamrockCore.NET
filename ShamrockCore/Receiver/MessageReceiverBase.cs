@@ -41,13 +41,13 @@ namespace ShamrockCore.Receiver
         /// 撤回消息
         /// </summary>
         /// <returns></returns>
-        public async Task Recall() => await Api.DeleteMsg(MessageId);
+        public async Task<bool> Recall() => await Api.DeleteMsg(MessageId);
 
         /// <summary>
         /// 设置精华消息
         /// </summary>
         /// <returns></returns>
-        public async Task SetEssenceMsg() => await Api.SetEssenceMsg(MessageId);
+        public async Task<bool> SetEssenceMsg() => await Api.SetEssenceMsg(MessageId);
 
         /// <summary>
         /// 消息类型
