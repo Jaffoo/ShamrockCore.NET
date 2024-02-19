@@ -404,7 +404,7 @@ namespace ShamrockCore
         private Lazy<GuildBotProfile?>? _guildBotInfo;
 
         /// <summary>
-        /// 获取频道列表
+        /// 频道列表
         /// </summary>
         /// <returns></returns>
         public IEnumerable<GuildProfile>? GuildList

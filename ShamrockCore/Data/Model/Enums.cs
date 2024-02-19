@@ -314,7 +314,17 @@ namespace ShamrockCore.Data.Model
         /// 好友
         /// </summary>
         [JsonProperty("private")]
-        Friend
+        Friend,
+
+        /// <summary>
+        /// 群私聊
+        /// </summary>
+        Less,
+
+        /// <summary>
+        /// 频道
+        /// </summary>
+        Guild,
     }
 
     /// <summary>

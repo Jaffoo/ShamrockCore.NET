@@ -94,13 +94,13 @@ namespace ShamrockCore.Data.Model
         /// 跳转开关
         /// </summary>
         [JsonProperty("jump_switch")]
-        public int JumpSwitch {  get; set; }
+        public int JumpSwitch { get; set; }
 
         /// <summary>
         /// 跳转类型
         /// </summary>
         [JsonProperty("jump_type")]
-        public int JumpType {  get; set; }
+        public int JumpType { get; set; }
 
         /// <summary>
         /// 跳转URL
@@ -119,6 +119,9 @@ namespace ShamrockCore.Data.Model
         /// </summary>
         [JsonProperty("my_talk_permission")]
         public int MyTalkPermisson { get; set; }
+
+        #region 扩展方法/属性
+        #endregion
     }
 
     /// <summary>
@@ -136,7 +139,7 @@ namespace ShamrockCore.Data.Model
         /// 慢速模式文本描述
         /// </summary>
         [JsonProperty("slow_mode_text")]
-        public string SlowModeText { get; set; }= string.Empty;
+        public string SlowModeText { get; set; } = string.Empty;
 
         /// <summary>
         /// 语速
