@@ -14,7 +14,7 @@ namespace ShamrockCore.Reciver.Receivers
         /// 群id
         /// </summary>
         [JsonProperty("group_id")]
-        public long GroupId { get; set; }
+        public long GroupQQ { get; set; }
 
         /// <summary>
         /// 消息类型
