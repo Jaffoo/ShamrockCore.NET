@@ -208,7 +208,7 @@ namespace ShamrockCore.Data.HttpAPI
         [Description("set_group_admin")] SetGroupAdmin,
 
         /// <summary>
-        /// 设置群备注
+        /// 设置群成员名片
         /// </summary>
         [Description("set_group_card")] SetGroupCard,
 
@@ -343,8 +343,81 @@ namespace ShamrockCore.Data.HttpAPI
         [Description("log")] Log,
 
         /// <summary>
-        /// 获取Shamerock启动时间
+        /// 获取Shamrock启动时间
         /// </summary>
         [Description("get_start_time")] GetStartTime,
+
+        /// <summary>
+        /// 获取群 @全体成员 剩余次数
+        /// </summary>
+        [Description("get_group_at_all_remain")]GetAtAllCount,
+
+        /// <summary>
+        /// 设置消息底部评论小表情
+        /// 目前版本（9.0.15）只在部分群聊进行灰度测试
+        /// </summary>
+        [Description("set_group_comment_face")] SetGroupCommentFace,
+
+        /// <summary>
+        /// 设置群聊备注
+        /// </summary>
+        [Description("set_group_remark")] SetGroupRemark,
+
+        #region 频道接口
+        /// <summary>
+        /// 获取频道系统内BOT的资料
+        /// </summary>
+        [Description("get_guild_service_profile")] GetGuildBotInfo,
+
+        /// <summary>
+        /// 获取频道列表
+        /// </summary>
+        [Description("get_guild_list")] GetGuildList,
+
+        /// <summary>
+        /// 通过访客获取频道元数据
+        /// </summary>
+        [Description("get_guild_meta_by_guest")] GetGuildMetaById,
+
+        /// <summary>
+        /// 获取子频道列表
+        /// </summary>
+        [Description("get_guild_channel_list")] GetGuildChannelList,
+
+        /// <summary>
+        /// 获取频道成员列表
+        /// </summary>
+        [Description("get_guild_member_list")] GetGuildMemberList,
+
+        /// <summary>
+        /// 单独获取频道成员资料
+        /// </summary>
+        [Description("get_guild_member_profile")] GetGuildMemberProfile,
+
+        /// <summary>
+        /// 发送信息到子频道
+        /// </summary>
+        [Description("send_guild_channel_msg")] SendGuildChannelMsg,
+
+        /// <summary>
+        /// 获取频道帖子广场帖子
+        /// </summary>
+        [Description("get_guild_feeds")] GetGuildFeeds,
+
+        /// <summary>
+        /// 获取频道角色列表
+        /// </summary>
+        [Description("get_guild_roles")] GetGuildRoles,
+
+        /// <summary>
+        /// 删除频道角色
+        /// </summary>
+        [Description("delete_guild_role")] DeleteGuildRole,
+
+        /// <summary>
+        /// 设置用户在频道中的角色
+        /// </summary>
+        [Description("set_guild_member_role")] SetGuildMemberRole,
+        #endregion
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using ShamrockCore.Data.HttpAPI;
-using ShamrockCore.Reciver.MsgChain;
+using ShamrockCore.Receiver.MsgChain;
 
 namespace ShamrockCore.Data.Model
 {
@@ -16,55 +16,55 @@ namespace ShamrockCore.Data.Model
         public long GroupQQ { get; set; }
 
         /// <summary>
-        ///     群 Uin
+        /// 群 Uin
         /// </summary>
         [JsonProperty("group_uin")]
         public long UinId { get; set; }
 
         /// <summary>
-        ///     群名称
+        /// 群名称
         /// </summary>
         [JsonProperty("group_name")]
         public string Name { get; set; } = "";
 
         /// <summary>
-        ///     群备注
+        /// 群备注
         /// </summary>
         [JsonProperty("group_remark")]
         public string Remark { get; set; } = "";
 
         /// <summary>
-        ///     群分类
+        /// 群分类
         /// </summary>
         [JsonProperty("class_text")]
         public string Text { get; set; } = "";
 
         /// <summary>
-        ///     是否冻结
+        /// 是否冻结
         /// </summary>
         [JsonProperty("is_frozen")]
         public bool Frozen { get; set; }
 
         /// <summary>
-        ///     最大成员数
+        /// 最大成员数
         /// </summary>
         [JsonProperty("max_member_count")]
         public int MaxCount { get; set; }
 
         /// <summary>
-        ///     最大成员数
+        /// 最大成员数
         /// </summary>
         [JsonProperty("max_member")]
         public int Max { get; set; }
 
         /// <summary>
-        ///     成员数量
+        /// 成员数量
         /// </summary>
         [JsonProperty("member_num")]
         public int MemberNum { get; set; }
 
         /// <summary>
-        ///     成员数量
+        /// 成员数量
         /// </summary>
         [JsonProperty("member_count")]
         public int MemberCount { get; set; }
@@ -79,52 +79,136 @@ namespace ShamrockCore.Data.Model
         /// <summary>
         /// 群成员
         /// </summary>
-        public List<Member>? Members => Api.GetGroupMemberList(GroupQQ).Result;
+        [JsonIgnore]
+        public IEnumerable<Member>? Members
+        {
+            get
+            {
+                _members ??= new(() => Api.GetGroupMemberList(GroupQQ).Result);
+                return _members.Value;
+            }
+        }
+        [JsonIgnore] private Lazy<IEnumerable<Member>?>? _members;
 
         /// <summary>
         /// 被禁言列表
         /// </summary>
-        public List<Ban>? BanList => Api.GetBanList(GroupQQ).Result;
+        [JsonIgnore]
+        public IEnumerable<Banner>? BanList
+        {
+            get
+            {
+                _banList ??= new(() => Api.GetBanList(GroupQQ).Result);
+                return _banList.Value;
+            }
+        }
+        [JsonIgnore] private Lazy<IEnumerable<Banner>?>? _banList;
 
         /// <summary>
         /// 群精华消息
         /// </summary>
-        public List<EssenceMsg>? EssenceMsg => Api.GetEssenceMsgs(GroupQQ).Result;
+        [JsonIgnore]
+        public IEnumerable<EssenceMsg>? EssenceMsg
+        {
+            get
+            {
+                _essenceMsg ??= new(() => Api.GetEssenceMsgs(GroupQQ).Result);
+                return _essenceMsg.Value;
+            }
+        }
+        [JsonIgnore] private Lazy<IEnumerable<EssenceMsg>?>? _essenceMsg;
 
         /// <summary>
         /// 群文件系统信息
         /// </summary>
-        public FileSystemInfo? FilesSystemInfo => Api.GetGroupFileSystemInfo(GroupQQ).Result;
+        [JsonIgnore]
+        public FileSystemInfo? FilesSystemInfo
+        {
+            get
+            {
+                _filesSystemInfo ??= new(() => Api.GetGroupFileSystemInfo(GroupQQ).Result);
+                return _filesSystemInfo.Value;
+            }
+        }
+        [JsonIgnore] private Lazy<FileSystemInfo?>? _filesSystemInfo;
 
         /// <summary>
         /// 群根目录
         /// </summary>
-        public FilesFloders? RootFiles => Api.GetGroupRootFiles(GroupQQ).Result;
+        [JsonIgnore]
+        public FilesFloders? RootFiles
+        {
+            get
+            {
+                _rootFiles ??= new(() => Api.GetGroupRootFiles(GroupQQ).Result);
+                return _rootFiles.Value;
+            }
+        }
+        [JsonIgnore] private Lazy<FilesFloders?>? _rootFiles;
 
         /// <summary>
         /// 群荣誉
         /// </summary>
-        public Honor? Honor => Api.GetGroupHonorInfo(GroupQQ).Result;
+        [JsonIgnore]
+        public Honor? Honor
+        {
+            get
+            {
+                _honor ??= new(() => Api.GetGroupHonorInfo(GroupQQ).Result);
+                return _honor.Value;
+            }
+        }
+        [JsonIgnore] private Lazy<Honor?>? _honor;
 
         /// <summary>
         /// 群公告
         /// </summary>
-        public List<Announcement>? Notice => Api.GetGroupNotice(GroupQQ).Result;
+        [JsonIgnore]
+        public IEnumerable<Announcement>? Notice
+        {
+            get
+            {
+                _notice ??= new(() => Api.GetGroupNotice(GroupQQ).Result);
+                return _notice.Value;
+            }
+        }
+        [JsonIgnore] private Lazy<IEnumerable<Announcement>?>? _notice;
 
         /// <summary>
         /// 群系统消息
         /// </summary>
-        public GroupSysMsg? SystemMsg => Api.GetGroupSystemMsg(GroupQQ).Result;
+        [JsonIgnore]
+        public GroupSysMsg? SystemMsg
+        {
+            get
+            {
+                _systemMsg ??= new(() => Api.GetGroupSystemMsg(GroupQQ).Result);
+                return _systemMsg.Value;
+            }
+        }
+        [JsonIgnore] private Lazy<GroupSysMsg?>? _systemMsg;
 
         /// <summary>
-        /// 全体禁言
+        /// 机器人可@全体成员的剩余次数
         /// </summary>
-        public async Task<bool> AllBan() =>await Api.SetGroupWholeBan(GroupQQ);
+        [JsonIgnore]
+        public int AtAllCount
+        {
+            get
+            {
+                if (Admins == null) return 0;
+                if (!Admins.Contains(Bot.Instance?.LoginInfo?.QQ ?? 0)) return 0;
+                _atAllCount ??= new(() => Api.GetAtAllCount(GroupQQ).Result);
+                return _atAllCount.Value;
+            }
+        }
+        [JsonIgnore] private Lazy<int>? _atAllCount;
 
         /// <summary>
-        /// 全体取消禁言
+        /// 全体禁言/取消禁言
+        /// <param name="ban">true:禁言，false:解禁</param>
         /// </summary>
-        public async Task<bool> AllBanCancel() =>await Api.SetGroupWholeBan(GroupQQ, false);
+        public async Task<bool> AllBan(bool ban = true) => await Api.SetGroupWholeBan(GroupQQ, ban);
 
         /// <summary>
         /// 获取群历史聊天
@@ -162,7 +246,7 @@ namespace ShamrockCore.Data.Model
         public async Task<bool> SetName(string name) => await Api.SetGroupName(GroupQQ, name);
 
         /// <summary>
-        /// 创建文件夹
+        /// 创建根目录文件夹
         /// </summary>
         /// <param name="name">文件夹名称</param>
         /// <returns></returns>
@@ -171,16 +255,16 @@ namespace ShamrockCore.Data.Model
         /// <summary>
         /// 上传到群文件
         /// </summary>
-        /// <param name="file"></param>
-        /// <param name="name"></param>
+        /// <param name="file">文件路径</param>
+        /// <param name="name">文件名</param>
         /// <returns></returns>
         public async Task<UploadInfo?> UploadFilesByPath(string file, string name) => await Api.UploadGroupFile(GroupQQ, file, name);
 
         /// <summary>
         /// 上传到群文件
         /// </summary>
-        /// <param name="url"></param>
-        /// <param name="name"></param>
+        /// <param name="url">url</param>
+        /// <param name="name">文件名</param>
         /// <returns></returns>
         public async Task<UploadInfo?> UploadFilesByUrl(string url, string name)
         {
@@ -191,14 +275,21 @@ namespace ShamrockCore.Data.Model
         /// <summary>
         /// 上传到群文件
         /// </summary>
-        /// <param name="base64"></param>
-        /// <param name="name"></param>
+        /// <param name="base64">base64</param>
+        /// <param name="name">文件名</param>
         /// <returns></returns>
         public async Task<UploadInfo?> UploadFilesByBase64(string base64, string name)
         {
             var path = await Api.DownloadFile1("", base64);
             return path == null ? throw new Exception("数据错误！") : await Api.UploadGroupFile(GroupQQ, path.File, name);
         }
+
+        /// <summary>
+        /// 设置群备注
+        /// </summary>
+        /// <param name="remark">备注</param>
+        /// <returns></returns>
+        public async Task<bool> SetGroupRemark(string remark) => await Api.SetGroupRemark(GroupQQ, remark);
         #endregion
     }
 }

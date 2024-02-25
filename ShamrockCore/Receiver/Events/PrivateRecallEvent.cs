@@ -2,7 +2,7 @@
 using ShamrockCore.Data.HttpAPI;
 using ShamrockCore.Data.Model;
 
-namespace ShamrockCore.Reciver.Events
+namespace ShamrockCore.Receiver.Events
 {
     /// <summary>
     /// 私聊撤回
@@ -31,7 +31,22 @@ namespace ShamrockCore.Reciver.Events
         /// <summary>
         /// 撤回消息对象
         /// </summary>
-        [JsonIgnore] public MsgInfo? Message => Api.GetMsg(MessageId).Result;
+        [JsonIgnore]
+        public MsgInfo? Message
+        {
+            get
+            {
+                _message ??= new(() => Api.GetMsg(MessageId).Result);
+                return _message.Value;
+            }
+        }
+        [JsonIgnore] private Lazy<MsgInfo?>? _message;
+
+        /// <summary>
+        /// 事件类型
+        /// </summary>
+        [JsonIgnore]
+        public override PostEventType EventType { get; set; } = PostEventType.FriendRecall;
         #endregion
     }
 }

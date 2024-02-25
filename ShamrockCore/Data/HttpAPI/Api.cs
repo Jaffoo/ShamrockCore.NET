@@ -1,6 +1,7 @@
 ﻿using Flurl;
+using Manganese.Text;
 using ShamrockCore.Data.Model;
-using ShamrockCore.Reciver.MsgChain;
+using ShamrockCore.Receiver.MsgChain;
 using ShamrockCore.Utils;
 
 namespace ShamrockCore.Data.HttpAPI
@@ -29,12 +30,13 @@ namespace ShamrockCore.Data.HttpAPI
         /// <summary>
         /// 获取陌生人信息
         /// </summary>
-        /// <param name="stangerId"></param>
+        /// <param name="strangerId"></param>
         /// <returns></returns>
         public static async Task<Stranger?> GetStrangerInfo(long qq)
         {
             try
             {
+                if (qq <= 0) throw new ArgumentException("qq号不存在");
                 var res = await HttpEndpoints.GetStrangerInfo.GetAsync<Stranger>("user_id=" + qq);
                 return res;
             }
@@ -48,11 +50,11 @@ namespace ShamrockCore.Data.HttpAPI
         /// 获取群列表
         /// </summary>
         /// <returns></returns>
-        public static async Task<List<Group>?> GetGroups()
+        public static async Task<IEnumerable<Group>?> GetGroups()
         {
             try
             {
-                var res = await HttpEndpoints.GetGroupList.GetAsync<List<Group>>();
+                var res = await HttpEndpoints.GetGroupList.GetAsync<IEnumerable<Group>>();
                 return res;
             }
             catch (Exception)
@@ -70,6 +72,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
                 var res = await HttpEndpoints.GetGroupInfo.GetAsync<Group>("group_id=" + groupQQ);
                 return res;
             }
@@ -84,11 +87,12 @@ namespace ShamrockCore.Data.HttpAPI
         /// </summary>
         /// <param name="groupQQ"></param>
         /// <returns></returns>
-        public static async Task<List<Member>?> GetGroupMemberList(long groupQQ)
+        public static async Task<IEnumerable<Member>?> GetGroupMemberList(long groupQQ)
         {
             try
             {
-                var res = await HttpEndpoints.GetGroupMemberList.GetAsync<List<Member>>("group_id=" + groupQQ);
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                var res = await HttpEndpoints.GetGroupMemberList.GetAsync<IEnumerable<Member>>("group_id=" + groupQQ);
                 return res;
             }
             catch (Exception)
@@ -107,6 +111,8 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                if (qq <= 0) throw new ArgumentException("成员不存在");
                 var res = await HttpEndpoints.GetGroupMemberInfo.GetAsync<Member>("group_id=" + groupQQ, "user_id=" + qq);
                 return res;
             }
@@ -125,6 +131,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
                 var res = await HttpEndpoints.GetGroupHonorInfo.GetAsync<Honor>("group_id=" + groupQQ);
                 return res;
             }
@@ -143,6 +150,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
                 var res = await HttpEndpoints.GetGroupSystemMsg.GetAsync<GroupSysMsg>("group_id=" + groupQQ);
                 return res;
             }
@@ -157,11 +165,12 @@ namespace ShamrockCore.Data.HttpAPI
         /// </summary>
         /// <param name="groupQQ"></param>
         /// <returns></returns>
-        public static async Task<List<EssenceMsg>?> GetEssenceMsgs(long groupQQ)
+        public static async Task<IEnumerable<EssenceMsg>?> GetEssenceMsgs(long groupQQ)
         {
             try
             {
-                var res = await HttpEndpoints.GetEssenceMsgList.GetAsync<List<EssenceMsg>>("group_id=" + groupQQ);
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                var res = await HttpEndpoints.GetEssenceMsgList.GetAsync<IEnumerable<EssenceMsg>>("group_id=" + groupQQ);
                 return res;
             }
             catch (Exception)
@@ -170,15 +179,15 @@ namespace ShamrockCore.Data.HttpAPI
             }
         }
 
-        // <summary>
+        /// <summary>
         /// 获取好友列表
         /// </summary>
         /// <returns></returns>
-        public static async Task<List<Friend>?> GetFriends()
+        public static async Task<IEnumerable<Friend>?> GetFriends()
         {
             try
             {
-                var res = await HttpEndpoints.GetFriendList.GetAsync<List<Friend>>();
+                var res = await HttpEndpoints.GetFriendList.GetAsync<IEnumerable<Friend>>();
                 return res;
             }
             catch (Exception)
@@ -187,15 +196,15 @@ namespace ShamrockCore.Data.HttpAPI
             }
         }
 
-        // <summary>
+        /// <summary>
         /// 获取好友系统消息(未能正确获取到数据)
         /// </summary>
         /// <returns></returns>
-        public static async Task<List<FriendSysMsg>?> GetFriendSysMsg()
+        public static async Task<IEnumerable<FriendSysMsg>?> GetFriendSysMsg()
         {
             try
             {
-                var res = await HttpEndpoints.GetFriendSysMsg.GetAsync<List<FriendSysMsg>>();
+                var res = await HttpEndpoints.GetFriendSysMsg.GetAsync<IEnumerable<FriendSysMsg>>();
                 return res;
             }
             catch (Exception)
@@ -204,7 +213,7 @@ namespace ShamrockCore.Data.HttpAPI
             }
         }
 
-        // <summary>
+        /// <summary>
         /// 是否在黑名单中
         /// </summary>
         /// <returns></returns>
@@ -212,6 +221,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (qq <= 0) throw new ArgumentException("qq号不存在");
                 var res = await HttpEndpoints.IsBlacklistUin.GetAsync<IsInBack>("user_id=" + qq);
                 return res;
             }
@@ -251,6 +261,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (string.IsNullOrWhiteSpace(fileMd5)) throw new ArgumentException("文件不存在");
                 var res = await HttpEndpoints.GetImage.GetAsync<Model.FileInfo>("file=" + fileMd5);
                 return res;
             }
@@ -270,6 +281,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (string.IsNullOrWhiteSpace(fileMd5)) throw new ArgumentException("文件不存在");
                 var res = await HttpEndpoints.GetRecord.GetAsync<RecordInfo>("file=" + fileMd5, "out_format=" + OutFormat);
                 return res;
             }
@@ -279,7 +291,7 @@ namespace ShamrockCore.Data.HttpAPI
             }
         }
 
-        // <summary>
+        /// <summary>
         /// 获取消息
         /// </summary>
         /// <returns></returns>
@@ -287,6 +299,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (messageId <= 0) throw new ArgumentException("消息不存在");
                 var res = await HttpEndpoints.GetMsg.GetAsync<MsgInfo>("message_id=" + messageId);
                 return res;
             }
@@ -305,7 +318,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// <param name="count"></param>
         /// <param name="start"></param>
         /// <returns></returns>
-        public static async Task<List<MsgInfo>?> GetHistoryMsg(MessageType msgType, long qq = 0, long groupQQ = 0, int count = 10, int start = 0)
+        public static async Task<IEnumerable<MsgInfo>?> GetHistoryMsg(MessageType msgType, long qq = 0, long groupQQ = 0, int count = 10, int start = 0)
         {
             try
             {
@@ -317,7 +330,7 @@ namespace ShamrockCore.Data.HttpAPI
                     count,
                     message_seq = start
                 };
-                var res = await HttpEndpoints.GetHistoryMsg.PostAsync<List<MsgInfo>>(obj);
+                var res = await HttpEndpoints.GetHistoryMsg.PostAsync<IEnumerable<MsgInfo>>(obj);
                 return res;
             }
             catch (Exception)
@@ -329,17 +342,18 @@ namespace ShamrockCore.Data.HttpAPI
         /// <summary>
         /// 获取群聊历史消息
         /// </summary>
-        /// <param name="group"></param>
-        /// <param name="count"></param>
+        /// <param name="groupQQ"></param>
+        /// <param name="count"></param>    
         /// <param name="start"></param>
         /// <returns></returns>
-        public static async Task<MessageChain?> GetGroupMsgHistory(long group, int count = 10, int start = 0)
+        public static async Task<MessageChain?> GetGroupMsgHistory(long groupQQ, int count = 10, int start = 0)
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
                 var obj = new
                 {
-                    group_id = group,
+                    group_id = groupQQ,
                     count,
                     message_seq = start
                 };
@@ -357,11 +371,12 @@ namespace ShamrockCore.Data.HttpAPI
         /// </summary>
         /// <param name="groupQQ">群号</param>
         /// <returns></returns>
-        public static async Task<List<Announcement>?> GetGroupNotice(long groupQQ)
+        public static async Task<IEnumerable<Announcement>?> GetGroupNotice(long groupQQ)
         {
             try
             {
-                var res = await HttpEndpoints.GetGroupNotice.GetAsync<List<Announcement>>("group_id=" + groupQQ);
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                var res = await HttpEndpoints.GetGroupNotice.GetAsync<IEnumerable<Announcement>>("group_id=" + groupQQ);
                 return res;
             }
             catch (Exception)
@@ -375,15 +390,16 @@ namespace ShamrockCore.Data.HttpAPI
         /// </summary>
         /// <param name="groupQQ">群号</param>
         /// <returns></returns>
-        public static async Task<List<Ban>?> GetBanList(long groupQQ)
+        public static async Task<IEnumerable<Banner>?> GetBanList(long groupQQ)
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
                 var obj = new
                 {
                     group_id = groupQQ
                 };
-                var res = await HttpEndpoints.GetBanList.PostAsync<List<Ban>>(obj);
+                var res = await HttpEndpoints.GetBanList.PostAsync<IEnumerable<Banner>>(obj);
                 if (res != null)
                 {
                     foreach (var item in res)
@@ -407,6 +423,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
                 var obj = new
                 {
                     group_id = groupQQ
@@ -428,6 +445,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
                 var obj = new
                 {
                     group_id = groupQQ,
@@ -449,6 +467,8 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                if (string.IsNullOrWhiteSpace(folderId)) throw new ArgumentException("群文件夹不存在");
                 var obj = new
                 {
                     group_id = groupQQ,
@@ -471,6 +491,9 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                if (string.IsNullOrWhiteSpace(fileId)) throw new ArgumentException("群文件不存在");
+                if (busid <= 0) throw new ArgumentException("文件类型不存在");
                 var obj = new
                 {
                     group_id = groupQQ,
@@ -504,7 +527,7 @@ namespace ShamrockCore.Data.HttpAPI
         }
 
         /// <summary>
-        /// 获取Shamerock启动时间
+        /// 获取Shamrock启动时间
         /// </summary>
         /// <returns></returns>
         public static async Task<long> GetStartTime()
@@ -540,10 +563,33 @@ namespace ShamrockCore.Data.HttpAPI
                 throw;
             }
         }
+
+        /// <summary>
+        /// 获取机器人可在群@全体成员的剩余次数
+        /// </summary>
+        /// <param name="groupQQ"></param>
+        /// <returns></returns>
+        public static async Task<int> GetAtAllCount(long groupQQ)
+        {
+            try
+            {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                var url = Bot.Instance!.Config.HttpUrl + HttpEndpoints.GetAtAllCount.Description();
+                var res = await HttpUtil.GetStringAsync(url.SetQueryParam("group_id", groupQQ));
+                var canAtAll = (res.Fetch("can_at_all") ?? "false").ToBool();
+                if (!canAtAll) return 0;
+                var count = res.Fetch("remain_at_all_count_for_uin") ?? "0";
+                return count.ToInt();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         #endregion
 
         #region 设置/发布信息
-        // <summary>
+        /// <summary>
         /// 设置 qq 个人资料
         /// </summary>
         /// <returns></returns>
@@ -560,7 +606,7 @@ namespace ShamrockCore.Data.HttpAPI
             }
         }
 
-        // <summary>
+        /// <summary>
         /// 撤回消息
         /// </summary>
         /// <returns></returns>
@@ -568,6 +614,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (messageId <= 0) throw new ArgumentException("消息不存在");
                 var res = await HttpEndpoints.DeleteMsg.GetAsync("message_id=" + messageId);
                 return res;
             }
@@ -611,6 +658,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (string.IsNullOrWhiteSpace(flag)) throw new ArgumentException("请求不存在");
                 var obj = new
                 {
                     flag,
@@ -638,6 +686,8 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (string.IsNullOrWhiteSpace(flag)) throw new ArgumentException("请求不存在");
+                if (string.IsNullOrWhiteSpace(type)) throw new ArgumentException("请求类型不可为空");
                 var obj = new
                 {
                     flag,
@@ -664,6 +714,8 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                if (string.IsNullOrWhiteSpace(newName)) throw new ArgumentException("新群名为空");
                 var obj = new
                 {
                     group_id = groupQQ,
@@ -689,6 +741,8 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                if (qq <= 0) throw new ArgumentException("成员不存在");
                 var obj = new
                 {
                     group_id = groupQQ,
@@ -696,6 +750,60 @@ namespace ShamrockCore.Data.HttpAPI
                     enable
                 };
                 var res = await HttpEndpoints.SetGroupAdmin.PostAsync(obj);
+                return res;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 设置群成员名片
+        /// </summary>
+        /// <param name="groupQQ">群号</param>
+        /// <param name="qq">要设置的qq</param>
+        /// <param name="card">名片</param>
+        /// <returns></returns>
+        public static async Task<bool> SetGroupCard(long groupQQ, long qq, string card)
+        {
+            try
+            {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                if (qq <= 0) throw new ArgumentException("成员不存在");
+                var obj = new
+                {
+                    group_id = groupQQ,
+                    user_id = qq,
+                    card
+                };
+                var res = await HttpEndpoints.SetGroupCard.PostAsync(obj);
+                return res;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 设置群备注
+        /// </summary>
+        /// <param name="groupQQ">群号</param>
+        /// <param name="remark">备注</param>
+        /// <returns></returns>
+        public static async Task<bool> SetGroupRemark(long groupQQ, string remark)
+        {
+            try
+            {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                if (string.IsNullOrWhiteSpace(remark)) throw new ArgumentException("群备注不可为空");
+                var obj = new
+                {
+                    group_id = groupQQ,
+                    remark
+                };
+                var res = await HttpEndpoints.SetGroupCard.PostAsync(obj);
                 return res;
             }
             catch (Exception)
@@ -715,6 +823,9 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                if (qq <= 0) throw new ArgumentException("成员不存在");
+                if (string.IsNullOrWhiteSpace(title)) throw new ArgumentException("头衔不可为空");
                 var obj = new
                 {
                     group_id = groupQQ,
@@ -741,6 +852,8 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                if (qq <= 0) throw new ArgumentException("成员不存在");
                 var obj = new
                 {
                     group_id = groupQQ,
@@ -766,6 +879,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
                 var obj = new
                 {
                     group_id = groupQQ,
@@ -789,6 +903,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (messageId <= 0) throw new ArgumentException("精华消息不存在");
                 var res = await HttpEndpoints.SetEssenceMsg.GetAsync("message_id=" + messageId);
                 return res;
             }
@@ -807,6 +922,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (messageId <= 0) throw new ArgumentException("精华消息不存在");
                 var res = await HttpEndpoints.DeleteEssenceMsg.GetAsync("message_id=" + messageId);
                 return res;
             }
@@ -825,6 +941,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
                 var res = await HttpEndpoints.SendGroupSign.GetAsync("group_id=" + groupQQ);
                 return res;
             }
@@ -845,6 +962,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
                 bool res = false;
                 if (image == null)
                 {
@@ -877,13 +995,15 @@ namespace ShamrockCore.Data.HttpAPI
         /// 群组踢人
         /// </summary>
         /// <param name="groupQQ">群号</param>
-        /// <param name="qq">qq 号</param>
+        /// <param name="qq">qq号</param>
         /// <param name="rejectAddAgain">是否拒绝再次加群</param>
         /// <returns></returns>
         public static async Task<bool> SetGroupKick(long groupQQ, long qq, bool rejectAddAgain = false)
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                if (qq <= 0) throw new ArgumentException("成员不存在");
                 var obj = new
                 {
                     group_id = groupQQ,
@@ -908,6 +1028,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
                 var obj = new
                 {
                     group_id = groupQQ,
@@ -931,6 +1052,8 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                if (qq <= 0) throw new ArgumentException("成员不存在");
                 var obj = new
                 {
                     group_id = groupQQ,
@@ -957,6 +1080,9 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (qq <= 0) throw new ArgumentException("好友不存在");
+                if (string.IsNullOrWhiteSpace(file)) throw new ArgumentException("文件不存在");
+                if (string.IsNullOrWhiteSpace(name)) throw new ArgumentException("文件名为空");
                 var obj = new
                 {
                     user_id = qq,
@@ -984,6 +1110,9 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                if (string.IsNullOrWhiteSpace(file)) throw new ArgumentException("文件不存在");
+                if (string.IsNullOrWhiteSpace(name)) throw new ArgumentException("文件名为空");
                 var obj = new
                 {
                     group_id = groupQQ,
@@ -1001,7 +1130,6 @@ namespace ShamrockCore.Data.HttpAPI
 
         /// <summary>
         /// 删除群文件
-        /// 只能上传本地文件, 需要上传 http 文件的话请先下载至本地
         /// </summary>
         /// <param name="groupQQ">群号</param>
         /// <param name="fileId">文件ID</param>
@@ -1011,6 +1139,10 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                if (string.IsNullOrWhiteSpace(fileId)) throw new ArgumentException("文件不存在");
+                if (busid <= 0) throw new ArgumentException("文件类型不存在");
+
                 var obj = new
                 {
                     group_id = groupQQ,
@@ -1035,6 +1167,8 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                if (string.IsNullOrWhiteSpace(name)) throw new ArgumentException("文件夹名称为空");
                 var obj = new
                 {
                     group_id = groupQQ,
@@ -1057,6 +1191,8 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                if (string.IsNullOrWhiteSpace(folderId)) throw new ArgumentException("群文件夹不存在");
                 var obj = new
                 {
                     group_id = groupQQ,
@@ -1092,7 +1228,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 让Shamrock下载文件到缓存目录
         /// </summary>
         /// <param name="url">url和base64二选一，两个均传优选url</param>
-        /// <param name="base64"></param>
+        /// <param name="base64">base64</param>
         /// <param name="name">文件名称,默认：文件md5</param>
         /// <param name="threadCount">下载的线程数量	</param>
         /// <param name="headers">请求头</param>
@@ -1122,12 +1258,12 @@ namespace ShamrockCore.Data.HttpAPI
         /// 让Shamrock下载文件到缓存目录
         /// </summary>
         /// <param name="url">url和base64二选一，两个均传优选url</param>
-        /// <param name="base64"></param>
+        /// <param name="base64">base64</param>
         /// <param name="name">文件名称,默认：文件md5</param>
-        /// <param name="threadCount">下载的线程数量	</param>
+        /// <param name="threadCount">下载的线程数量</param>
         /// <param name="headers">请求头</param>
         /// <returns></returns>
-        public static async Task<RecordInfo?> DownloadFile(string url, string base64 = "", string name = "", int threadCount = 1, List<string>? headers = null)
+        public static async Task<RecordInfo?> DownloadFile(string url, string base64 = "", string name = "", int threadCount = 1, IEnumerable<string>? headers = null)
         {
             try
             {
@@ -1161,8 +1297,8 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
-                if (qq <= 0) return "";
-                if (message == null) return "";
+                if (qq <= 0) throw new ArgumentException("好友不存在");
+                if (message == null) throw new ArgumentException("发送的消息为空");
                 var obj = new
                 {
                     user_id = qq,
@@ -1189,8 +1325,8 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
-                if (groupQQ <= 0) return "";
-                if (message == null) return "";
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                if (message == null) throw new ArgumentException("发送的消息为空");
                 var obj = new
                 {
                     group_id = groupQQ,
@@ -1217,8 +1353,9 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
-                if (qq <= 0 || groupQQ <= 0) return "";
-                if (message == null) return "";
+                if (qq <= 0) throw new ArgumentException("好友不存在");
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                if (message == null) throw new ArgumentException("发送的消息为空");
                 var obj = new
                 {
                     message_type = type,
@@ -1247,8 +1384,8 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
-                if (groupQQ <= 0) return "";
-                if (messages == null) return "";
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                if (messages == null) throw new ArgumentException("发送的消息为空");
                 var obj = new
                 {
                     group_id = groupQQ,
@@ -1273,8 +1410,8 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
-                if (qq <= 0) return "";
-                if (messages == null) return "";
+                if (qq <= 0) throw new ArgumentException("好友不存在");
+                if (messages == null) throw new ArgumentException("发送的消息为空");
                 var obj = new
                 {
                     user_id = qq,
@@ -1288,7 +1425,361 @@ namespace ShamrockCore.Data.HttpAPI
                 throw;
             }
         }
+
+        public static async Task<bool> SetGroupCommentFace(long groupQQ, int msgId, int faceId, bool isSet)
+        {
+            try
+            {
+                if (groupQQ <= 0) throw new ArgumentException("群不存在");
+                if (msgId <= 0) throw new ArgumentException("消息不存在");
+                if (faceId <= 0) throw new ArgumentException("表情无效");
+                var obj = new
+                {
+                    group_id = groupQQ,
+                    msg_id = msgId,
+                    face_id = faceId,
+                    is_set = isSet
+                };
+                return await HttpEndpoints.SetGroupCommentFace.PostAsync(obj);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         #endregion
+        #endregion
+
+        #region 频道接口
+        /// <summary>
+        /// 获取频道系统内BOT的资料
+        /// </summary>
+        /// <returns></returns>
+        public static async Task<GuildBotProfile?> GetGuildBotInfo()
+        {
+            try
+            {
+                return await HttpEndpoints.GetGuildBotInfo.GetAsync<GuildBotProfile>();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 获取频道列表
+        /// </summary>
+        /// <returns></returns>
+        public static async Task<IEnumerable<GuildProfile>?> GetGuildList()
+        {
+            try
+            {
+                return await HttpEndpoints.GetGuildList.GetAsync<IEnumerable<GuildProfile>>();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 通过id获取频道元数据
+        /// </summary>
+        /// <param name="guildId">频道id</param>
+        /// <returns></returns>
+        public static async Task<GuildMeta?> GetGuildMetaById(long guildId)
+        {
+            try
+            {
+                return await HttpEndpoints.GetGuildMetaById.GetAsync<GuildMeta>("guild_id=" + guildId);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 获取频道成员列表
+        /// </summary>
+        /// <param name="guildId">频道id</param>
+        /// <param name="nextToken">下一页token,不提供则从首页开始获取</param>
+        /// <param name="all">是否一次性获取完所有成员</param>
+        /// <param name="refresh">是否刷新数据，默认false</param>
+        /// <returns></returns>
+        public static async Task<GuildMember?> GetGuildMemberList(long guildId, string nextToken, bool all = false, bool refresh = false)
+        {
+            try
+            {
+                if (guildId <= 0) throw new ArgumentException("频道不存在");
+                var obj = new
+                {
+                    guild_id = guildId,
+                    refresh,
+                    all,
+                    next_token = nextToken,
+                };
+                return await HttpEndpoints.GetGuildMemberList.PostAsync<GuildMember>(obj);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 获取子频道列表
+        /// </summary>
+        /// <param name="guildId">频道id</param>
+        /// <param name="refresh">是否刷新数据，默认false</param>
+        /// <returns></returns>
+        public static async Task<IEnumerable<ChannelProfile>?> GetGuildChannelList(long guildId, bool refresh = false)
+        {
+            try
+            {
+                if (guildId <= 0) throw new ArgumentException("频道不存在");
+                var obj = new
+                {
+                    guild_id = guildId,
+                    refresh
+                };
+                return await HttpEndpoints.GetGuildChannelList.PostAsync<IEnumerable<ChannelProfile>>(obj);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 单独获取频道成员资料
+        /// </summary>
+        /// <param name="guildId">频道id</param>
+        /// <param name="userId">成员id</param>
+        /// <returns></returns>
+        public static async Task<GuildMemeberProfile?> GetGuildMemberProfile(long guildId, long userId)
+        {
+            try
+            {
+                if (guildId <= 0) throw new ArgumentException("频道不存在");
+                if (userId <= 0) throw new ArgumentException("用户不存在");
+                var obj = new
+                {
+                    guild_id = guildId,
+                    user_id = userId
+                };
+                return await HttpEndpoints.GetGuildMemberProfile.PostAsync<GuildMemeberProfile>(obj);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 发送信息到子频道
+        /// </summary>
+        /// <param name="guildId">频道ID</param>
+        /// <param name="channelId">子频道ID</param>
+        /// <param name="msg">消息体</param>
+        /// <param name="autoEscape">是否解析CQ码，true为不解析，默认false</param>
+        /// <param name="retryCnt">消息发送失败，最大重试次数，默认3</param>
+        /// <param name="recallDuration">自动撤回间隔(毫秒)，默认不撤回</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public static async Task<GuildMsg?> SendGuildChannelMsg(long guildId, long channelId, MessageChain msg, bool autoEscape = false, int retryCnt = 3, long recallDuration = 0)
+        {
+            try
+            {
+                if (guildId <= 0) throw new ArgumentException("频道不存在");
+                if (channelId <= 0) throw new ArgumentException("子频道不存在");
+                if (msg == null) throw new ArgumentException("发送的消息为空");
+                var obj = new
+                {
+                    guild_id = guildId,
+                    channel_id = channelId,
+                    message = msg,
+                    auto_escape = autoEscape,
+                    retry_cnt = retryCnt,
+                    recall_duration = recallDuration
+                };
+                return await HttpEndpoints.SendGuildChannelMsg.PostAsync<GuildMsg>(obj);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 发送信息到子频道
+        /// </summary>
+        /// <param name="guildId">频道ID</param>
+        /// <param name="channelId">子频道ID</param>
+        /// <param name="msg">消息体</param>
+        /// <param name="autoEscape">是否解析CQ码，true为不解析，默认false</param>
+        /// <param name="retryCnt">消息发送失败，最大重试次数，默认3</param>
+        /// <param name="recallDuration">自动撤回间隔(毫秒)，默认不撤回</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public static async Task<GuildMsg?> SendGuildChannelMsg(long guildId, long channelId, string msg, bool autoEscape = false, int retryCnt = 3, long recallDuration = 0)
+        {
+            try
+            {
+                if (guildId <= 0) throw new ArgumentException("频道不存在");
+                if (channelId <= 0) throw new ArgumentException("子频道不存在");
+                if (string.IsNullOrWhiteSpace(msg)) throw new ArgumentException("发送的消息为空");
+                var obj = new
+                {
+                    guild_id = guildId,
+                    channel_id = channelId,
+                    message = msg,
+                    auto_escape = autoEscape,
+                    retry_cnt = retryCnt,
+                    recall_duration = recallDuration
+                };
+                return await HttpEndpoints.SendGuildChannelMsg.PostAsync<GuildMsg>(obj);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 获取频道帖子广场帖子
+        /// </summary>
+        /// <param name="guildId">频道ID</param>
+        /// <param name="from">开始获取的位置</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public static async Task<object?> GetGuildFeeds(long guildId, int from)
+        {
+            try
+            {
+                if (guildId <= 0) throw new ArgumentException("频道不存在");
+                var obj = new
+                {
+                    guild_id = guildId,
+                    from
+                };
+                return await HttpEndpoints.GetGuildFeeds.PostAsync<object>(obj);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 获取频道角色列表
+        /// </summary>
+        /// <param name="guildId">频道ID</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public static async Task<IEnumerable<GuildRole>?> GetGuildRoles(long guildId)
+        {
+            try
+            {
+                if (guildId <= 0) throw new ArgumentException("频道不存在");
+                var obj = new
+                {
+                    guild_id = guildId
+                };
+                return await HttpEndpoints.GetGuildRoles.PostAsync<IEnumerable<GuildRole>>(obj);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 删除角色
+        /// </summary>
+        /// <param name="guildId">频道ID</param>
+        /// <param name="roleId">角色ID</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public static async Task<bool> DeleteGuildRole(long guildId, long roleId)
+        {
+            try
+            {
+                if (guildId <= 0) throw new ArgumentException("频道不存在");
+                if (roleId <= 0) throw new ArgumentException("角色不存在");
+                var obj = new
+                {
+                    guild_id = guildId,
+                    role_id = roleId
+                };
+                return await HttpEndpoints.DeleteGuildRole.PostAsync(obj);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 设置用户在频道中的角色
+        /// </summary>
+        /// <param name="guildId">频道ID</param>
+        /// <param name="roleId">角色ID</param>
+        /// <param name="set">设置还是移除，默认false</param>
+        /// <param name="users">批量设置用户</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public static async Task<bool> SetGuildMemberRole(long guildId, long roleId, bool set, IEnumerable<long> users)
+        {
+            try
+            {
+                if (guildId <= 0) throw new ArgumentException("频道不存在");
+                if (roleId <= 0) throw new ArgumentException("角色不存在");
+                var obj = new
+                {
+                    guild_id = guildId,
+                    role_id = roleId,
+                    set,
+                    users
+                };
+                return await HttpEndpoints.SetGuildMemberRole.PostAsync(obj);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 设置用户在频道中的角色
+        /// </summary>
+        /// <param name="guildId">频道ID</param>
+        /// <param name="roleId">角色ID</param>
+        /// <param name="set">设置还是移除，默认false</param>
+        /// <param name="users">批量设置用户</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public static async Task<bool> SetGuildMemberRole(long guildId, long roleId, bool set, string users)
+        {
+            try
+            {
+                if (guildId <= 0) throw new ArgumentException("频道不存在");
+                if (roleId <= 0) throw new ArgumentException("角色不存在");
+                var obj = new
+                {
+                    guild_id = guildId,
+                    role_id = roleId,
+                    set,
+                    users
+                };
+                return await HttpEndpoints.SetGuildMemberRole.PostAsync(obj);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         #endregion
     }
 }

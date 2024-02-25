@@ -129,7 +129,7 @@ namespace ShamrockCore.Data.Model
         /// <summary>
         /// 禁言
         /// </summary>
-        /// <param name="time">禁言时长（为0时解除禁言）</param>
+        /// <param name="time">禁言时长</param>
         /// <returns></returns>
         public async Task<bool> Ban(long time) => await Api.SetGroupBan(GroupQQ, QQ, time);
 
@@ -137,7 +137,7 @@ namespace ShamrockCore.Data.Model
         /// 解禁
         /// </summary>
         /// <returns></returns>
-        public async Task<bool> CancelBan() => await Api.SetGroupBan(GroupQQ, QQ, 0);
+        public async Task<bool> NoBan() => await Api.SetGroupBan(GroupQQ, QQ, 0);
 
         /// <summary>
         /// 戳一下
@@ -163,13 +163,28 @@ namespace ShamrockCore.Data.Model
         /// 设置为管理员
         /// </summary>
         /// <returns></returns>
-        public async Task<bool> SetAdmin() => await Api.SetGroupAdmin(GroupQQ, QQ);
+        public async Task<bool> SetAdmin()
+        {
+            if (Role == Permissions.Administrator || Role == Permissions.Owner) return true;
+            return await Api.SetGroupAdmin(GroupQQ, QQ);
+        }
 
         /// <summary>
         /// 移除管理员
         /// </summary>
         /// <returns></returns>
-        public async Task<bool> RemoveAdmin() => await Api.SetGroupAdmin(GroupQQ, QQ, false);
+        public async Task<bool> RemoveAdmin()
+        {
+            if (Role == Permissions.Member) return true;
+            return await Api.SetGroupAdmin(GroupQQ, QQ, false);
+        }
+
+        /// <summary>
+        /// 设置成员群名片
+        /// </summary>
+        /// <param name="card">群名片内容, 不填或空字符串表示删除群名片</param>
+        /// <returns></returns>
+        public async Task<bool> SetCard(string card = "") => await Api.SetGroupCard(GroupQQ, QQ, card);
         #endregion
     }
 }

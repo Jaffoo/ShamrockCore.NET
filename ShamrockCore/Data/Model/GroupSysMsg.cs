@@ -153,14 +153,13 @@ namespace ShamrockCore.Data.Model
         /// </summary>
         public string Message { get; set; } = "";
 
-
         #region 扩展方法/属性
         /// <summary>
         /// 同意邀请进群
         /// </summary>
         /// <param name="remark">备注</param>
         /// <returns></returns>
-        public async Task<bool> Agree(string remark = "") => await Api.SetGroupAddRequest(Flag, "add", true, remark);
+        public async Task<bool> Agree() => await Api.SetGroupAddRequest(Flag, "add", true);
 
         /// <summary>
         /// 拒绝邀请进群

@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using ShamrockCore.Reciver.MsgChain;
+using ShamrockCore.Receiver.MsgChain;
 
 namespace ShamrockCore.Data.Model
 {

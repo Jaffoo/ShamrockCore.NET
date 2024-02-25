@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
+using ShamrockCore.Data.Model;
 
-namespace ShamrockCore.Reciver.Events
+namespace ShamrockCore.Receiver.Events
 {
     public class MemberCardChangeEvent : EventBase
     {
@@ -27,5 +28,11 @@ namespace ShamrockCore.Reciver.Events
         /// </summary>
         [JsonProperty("card_old")]
         public string CardOld { get; set; } = "";
+
+        /// <summary>
+        /// 事件类型
+        /// </summary>
+        [JsonIgnore]
+        public override PostEventType EventType { get; set; } = PostEventType.GroupCard;
     }
 }

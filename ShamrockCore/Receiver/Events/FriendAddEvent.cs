@@ -1,7 +1,8 @@
 ﻿using Newtonsoft.Json;
 using ShamrockCore.Data.HttpAPI;
+using ShamrockCore.Data.Model;
 
-namespace ShamrockCore.Reciver.Events
+namespace ShamrockCore.Receiver.Events
 {
     /// <summary>
     /// 好友添加申请事件
@@ -39,6 +40,12 @@ namespace ShamrockCore.Reciver.Events
         /// </summary>
         /// <returns></returns>
         public async Task<bool> Reject() => await Api.SetFriendAddRequest(Flag, false);
+
+        /// <summary>
+        /// 事件类型
+        /// </summary>
+        [JsonIgnore]
+        public override PostEventType EventType { get; set; } = PostEventType.Friend;
         #endregion
     }
 }

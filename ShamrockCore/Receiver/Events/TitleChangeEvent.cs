@@ -2,7 +2,7 @@
 using ShamrockCore.Data.HttpAPI;
 using ShamrockCore.Data.Model;
 
-namespace ShamrockCore.Reciver.Events
+namespace ShamrockCore.Receiver.Events
 {
     /// <summary>
     /// 群头衔变更
@@ -29,9 +29,24 @@ namespace ShamrockCore.Reciver.Events
 
         #region 扩展方法/属性
         /// <summary>
-        /// 被戳者(群)
+        /// 成员
         /// </summary>
-        public Member? Member => Api.GetGroupMemberInfo(QQ, GroupQQ).Result;
+        [JsonIgnore]
+        public Member? Member
+        {
+            get
+            {
+                _member ??= new(() => Api.GetGroupMemberInfo(QQ, GroupQQ).Result);
+                return _member.Value;
+            }
+        }
+        private Lazy<Member?>? _member;
+
+        /// <summary>
+        /// 事件类型
+        /// </summary>
+        [JsonIgnore]
+        public override PostEventType EventType { get; set; } = PostEventType.Title;
         #endregion
     }
 }

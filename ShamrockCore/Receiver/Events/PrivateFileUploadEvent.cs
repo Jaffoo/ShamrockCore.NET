@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
+using ShamrockCore.Data.Model;
 
-namespace ShamrockCore.Reciver.Events
+namespace ShamrockCore.Receiver.Events
 {
     /// <summary>
     /// 私聊文件上传
@@ -24,6 +25,12 @@ namespace ShamrockCore.Reciver.Events
         /// </summary>
         [JsonProperty("private_file")]
         public PrivateFileUpload File { get; set; } = new();
+
+        /// <summary>
+        /// 事件类型
+        /// </summary>
+        [JsonIgnore]
+        public override PostEventType EventType { get; set; } = PostEventType.PrivateUpload;
     }
 
     /// <summary>

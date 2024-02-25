@@ -3,12 +3,12 @@ using System.Reactive.Subjects;
 using Websocket.Client;
 using Manganese.Text;
 using System.Net.WebSockets;
-using ShamrockCore.Reciver;
+using ShamrockCore.Receiver;
 using ShamrockCore.Utils;
-using ShamrockCore.Reciver.Receivers;
-using ShamrockCore.Reciver.Events;
 using ShamrockCore.Data.Model;
 using ShamrockCore.Data.HttpAPI;
+using ShamrockCore.Receiver.Events;
+using ShamrockCore.Receiver.Receivers;
 
 namespace ShamrockCore
 {
@@ -121,6 +121,12 @@ namespace ShamrockCore
                         //好友
                         if (data.Fetch("sub_type") == "friend")
                             _messageReceivedSubject.OnNext(data.ToObject<FriendReceiver>());
+                    //暂不知道是什么事件
+                    if (type1 == "less")
+                        _messageReceivedSubject.OnNext(data.ToObject<LessReceiver>());
+                    //频道
+                    if (type1 == "guild")
+                        _messageReceivedSubject.OnNext(data.ToObject<GuildReceiver>());
                 }
                 //通知事件
                 else if (postType == "notice")
@@ -129,63 +135,43 @@ namespace ShamrockCore
                     {
                         //群成员增加事件
                         case "group_increase":
-                            var groupIncreaseEvent = data.ToObject<GroupIncreaseEvent>();
-                            groupIncreaseEvent.EventType = EventType.group_increase;
-                            _eventReceivedSubject.OnNext(groupIncreaseEvent);
+                            _eventReceivedSubject.OnNext(data.ToObject<GroupIncreaseEvent>());
                             break;
                         //群成员减少事件
                         case "group_decrease":
-                            var groupDecreaseEvent = data.ToObject<GroupDecreaseEvent>();
-                            groupDecreaseEvent.EventType = EventType.group_decrease;
-                            _eventReceivedSubject.OnNext(groupDecreaseEvent);
+                            _eventReceivedSubject.OnNext(data.ToObject<GroupDecreaseEvent>());
                             break;
                         //私聊消息撤回
                         case "friend_recall":
-                            var privateRecallEvent = data.ToObject<PrivateRecallEvent>();
-                            privateRecallEvent.EventType = EventType.friend_recall;
-                            _eventReceivedSubject.OnNext(privateRecallEvent);
+                            _eventReceivedSubject.OnNext(data.ToObject<PrivateRecallEvent>());
                             break;
                         //群聊消息撤回
                         case "group_recall":
-                            var groupRecallEvent = data.ToObject<GroupRecallEvent>();
-                            groupRecallEvent.EventType = EventType.group_recall;
-                            _eventReceivedSubject.OnNext(groupRecallEvent);
+                            _eventReceivedSubject.OnNext(data.ToObject<GroupRecallEvent>());
                             break;
                         //群管理员变动
                         case "group_admin":
-                            var adminChangeEvent = data.ToObject<AdminChangeEvent>();
-                            adminChangeEvent.EventType = EventType.group_admin;
-                            _eventReceivedSubject.OnNext(adminChangeEvent);
+                            _eventReceivedSubject.OnNext(data.ToObject<AdminChangeEvent>());
                             break;
                         //群文件上传
                         case "group_upload":
-                            var groupFileUploadEvent = data.ToObject<GroupFileUploadEvent>();
-                            groupFileUploadEvent.EventType = EventType.group_upload;
-                            _eventReceivedSubject.OnNext(groupFileUploadEvent);
+                            _eventReceivedSubject.OnNext(data.ToObject<GroupFileUploadEvent>());
                             break;
                         //私聊文件上传
                         case "private_upload":
-                            var privateFileUploadEvent = data.ToObject<PrivateFileUploadEvent>();
-                            privateFileUploadEvent.EventType = EventType.private_upload;
-                            _eventReceivedSubject.OnNext(privateFileUploadEvent);
+                            _eventReceivedSubject.OnNext(data.ToObject<PrivateFileUploadEvent>());
                             break;
                         //群禁言
                         case "group_ban":
-                            var groupBanEvent = data.ToObject<GroupBanEvent>();
-                            groupBanEvent.EventType = EventType.group_ban;
-                            _eventReceivedSubject.OnNext(groupBanEvent);
+                            _eventReceivedSubject.OnNext(data.ToObject<GroupBanEvent>());
                             break;
                         //群成员名片变动
                         case "group_card":
-                            var memberCardChangeEvent = data.ToObject<MemberCardChangeEvent>();
-                            memberCardChangeEvent.EventType = EventType.group_card;
-                            _eventReceivedSubject.OnNext(memberCardChangeEvent);
+                            _eventReceivedSubject.OnNext(data.ToObject<MemberCardChangeEvent>());
                             break;
                         //精华消息
                         case "essence":
-                            var essenceEvent = data.ToObject<EssenceEvent>();
-                            essenceEvent.EventType = EventType.essence;
-                            _eventReceivedSubject.OnNext(essenceEvent);
+                            _eventReceivedSubject.OnNext(data.ToObject<EssenceEvent>());
                             break;
                         //系统通知
                         case "notify":
@@ -193,18 +179,10 @@ namespace ShamrockCore
                                 var subType = data.Fetch("sub_type");
                                 //头像戳一戳
                                 if (subType == "poke")
-                                {
-                                    var pokeEvent = data.ToObject<PokeEvent>();
-                                    pokeEvent.EventType = EventType.poke;
-                                    _eventReceivedSubject.OnNext(pokeEvent);
-                                }
+                                    _eventReceivedSubject.OnNext(data.ToObject<PokeEvent>());
                                 //群头衔变更
                                 if (subType == "title")
-                                {
-                                    var titleChangeEvent = data.ToObject<TitleChangeEvent>();
-                                    titleChangeEvent.EventType = EventType.title;
-                                    _eventReceivedSubject.OnNext(titleChangeEvent);
-                                }
+                                    _eventReceivedSubject.OnNext(data.ToObject<TitleChangeEvent>());
                             }
                             break;
 
@@ -216,18 +194,10 @@ namespace ShamrockCore
                 {
                     //添加好友请求
                     if (type1 == "friend")
-                    {
-                        var friendAddEvent = data.ToObject<FriendAddEvent>();
-                        friendAddEvent.EventType = EventType.friend;
-                        _eventReceivedSubject.OnNext(friendAddEvent);
-                    }
+                        _eventReceivedSubject.OnNext(data.ToObject<FriendAddEvent>());
                     //加群请求／邀请
                     if (type1 == "group")
-                    {
-                        var groupAddEvent = data.ToObject<GroupAddEvent>();
-                        groupAddEvent.EventType = EventType.group;
-                        _eventReceivedSubject.OnNext(groupAddEvent);
-                    }
+                        _eventReceivedSubject.OnNext(data.ToObject<GroupAddEvent>());
                 }
                 else
                     _unknownMessageReceived.OnNext(data);
@@ -279,33 +249,81 @@ namespace ShamrockCore
         /// <summary>
         /// 登录用户信息
         /// </summary>
-        public LoginInfo LoginInfo => Api.GetLoginInfo().Result ?? new();
+        public LoginInfo? LoginInfo
+        {
+            get
+            {
+                _loginInfo ??= new(() => Api.GetLoginInfo().Result);
+                return _loginInfo.Value;
+            }
+        }
+        private Lazy<LoginInfo?>? _loginInfo;
 
         /// <summary>
         /// 群列表
         /// </summary>
-        public IEnumerable<Group> Groups => Api.GetGroups().Result ?? Enumerable.Empty<Group>();
+        public IEnumerable<Group>? Groups
+        {
+            get
+            {
+                _groups ??= new(() => Api.GetGroups().Result);
+                return _groups.Value;
+            }
+        }
+        private Lazy<IEnumerable<Group>?>? _groups;
 
         // <summary>
         /// 好友列表
         /// </summary>
-        public IEnumerable<Friend> Friends => Api.GetFriends().Result ?? Enumerable.Empty<Friend>();
+        public IEnumerable<Friend>? Friends
+        {
+            get
+            {
+                _friends ??= new(() => Api.GetFriends().Result);
+                return _friends.Value;
+            }
+        }
+        private Lazy<IEnumerable<Friend>?>? _friends;
 
         /// <summary>
         /// 手机电池信息
         /// </summary>
-        public BatteryInfo Battery => Api.GetDeviceBattery().Result ?? new();
+        public BatteryInfo? Battery
+        {
+            get
+            {
+                _battery ??= new(() => Api.GetDeviceBattery().Result);
+                return _battery.Value;
+            }
+        }
+        private Lazy<BatteryInfo?>? _battery;
 
         /// <summary>
         /// shamrock启动时间
         /// </summary>
-        public long StartTime => Api.GetStartTime().Result;
+        public long StartTime
+        {
+            get
+            {
+                _startTime ??= new(() => Api.GetStartTime().Result);
+                return _startTime.Value;
+            }
+        }
+        private Lazy<long>? _startTime;
 
         /// <summary>
         /// 获取好友系统消息(未能正确获取到数据)
         /// </summary>
         /// <returns></returns>
-        public List<FriendSysMsg>? FriendSysMsg => Api.GetFriendSysMsg().Result;
+        public IEnumerable<FriendSysMsg>? FriendSysMsg
+        {
+            get
+            {
+                _friendSysMsg ??= new(() => Api.GetFriendSysMsg().Result);
+                return _friendSysMsg.Value;
+            }
+        }
+        private Lazy<IEnumerable<FriendSysMsg>?>? _friendSysMsg;
 
         // <summary>
         /// 是否在黑名单中
@@ -343,7 +361,7 @@ namespace ShamrockCore
         /// <param name="count"></param>
         /// <param name="start"></param>
         /// <returns></returns>
-        public async Task<List<MsgInfo>?> GetHistoryMsg(MessageType msgType, long qq = 0, long group = 0, int count = 10, int start = 0) => await Api.GetHistoryMsg(msgType, qq, group, count, start);
+        public async Task<IEnumerable<MsgInfo>?> GetHistoryMsg(MessageType msgType, long qq = 0, long group = 0, int count = 10, int start = 0) => await Api.GetHistoryMsg(msgType, qq, group, count, start);
 
         // <summary>
         /// 设置 QQ 个人资料
@@ -368,6 +386,36 @@ namespace ShamrockCore
         /// </summary>
         /// <returns></returns>
         public async Task<string> GetLog(int start = 0, bool recent = false) => await Api.GetLog(start, recent);
+        #endregion
+
+        #region 频道
+        /// <summary>
+        /// 频道系统内BOT的资料
+        /// </summary>
+        /// <returns></returns>
+        public GuildBotProfile? GuildBotInfo
+        {
+            get
+            {
+                _guildBotInfo ??= new(() => Api.GetGuildBotInfo().Result);
+                return _guildBotInfo.Value;
+            }
+        }
+        private Lazy<GuildBotProfile?>? _guildBotInfo;
+
+        /// <summary>
+        /// 频道列表
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<GuildProfile>? GuildList
+        {
+            get
+            {
+                _guildList ??= new(() => Api.GetGuildList().Result);
+                return _guildList.Value;
+            }
+        }
+        private Lazy<IEnumerable<GuildProfile>?>? _guildList;
         #endregion
     }
 

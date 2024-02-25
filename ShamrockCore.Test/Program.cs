@@ -1,8 +1,9 @@
 ﻿using Manganese.Text;
-using ShamrockCore.Reciver;
-using ShamrockCore.Reciver.Events;
-using ShamrockCore.Reciver.MsgChain;
-using ShamrockCore.Reciver.Receivers;
+using ShamrockCore.Data.Model;
+using ShamrockCore.Receiver;
+using ShamrockCore.Receiver.Events;
+using ShamrockCore.Receiver.MsgChain;
+using ShamrockCore.Receiver.Receivers;
 using ShamrockCore.Utils;
 using System.Reactive.Linq;
 
@@ -12,19 +13,37 @@ namespace ShamrockCore.Test
     {
         static async Task Main()
         {
-            var config = new ConnectConfig("IP", 1, 2, "token");
+            var config = new ConnectConfig("IP", 7100, 7200, "token");
             using Bot bot = new(config);
             await bot.Start();
             await Console.Out.WriteLineAsync("Open");
             bot.DisconnectionHappened.Subscribe(e =>
             {
-                Console.WriteLine("webscoket断开连接：" + e);
+                Console.WriteLine("websocket断开连接：" + e);
             });
 
             #region 消息测试
+            bot.MessageReceived.OfType<MessageReceiverBase>().Subscribe(async msg =>
+            {
+                if (msg.Type == PostMessageType.Group)
+                {
+                    var msg1 = msg as GroupReceiver;
+                    await Console.Out.WriteLineAsync("群消息：" + msg1.ToJsonString());
+                }
+                if (msg.Type == PostMessageType.Friend)
+                {
+                    var msg1 = msg as FriendReceiver;
+                    await Console.Out.WriteLineAsync("好友消息：" + msg1.ToJsonString());
+                }
+            });
             bot.MessageReceived.OfType<GroupReceiver>().Subscribe(async msg =>
             {
                 await Console.Out.WriteLineAsync("群消息：" + msg.ToJsonString());
+                if (msg.Message.GetPlainText() == "发送图片")
+                {
+                    var msbc = new MessageChainBuilder().ImageByUrl("https://gitee.com/jaffoo/ParkerBot/raw/master/images/star.png").Build();
+                    await msg.SendGroupMsgAsync(msbc);
+                }
             });
             bot.MessageReceived.OfType<FriendReceiver>().Subscribe(async msg =>
             {
@@ -33,17 +52,15 @@ namespace ShamrockCore.Test
             #endregion
 
             #region 事件测试
-            //理论上，2个观察事件都会触发，第二个一定会触发，第一个待定，待测试实践。
-            bot.EventReceived.OfType<EventBase>().Subscribe(async msg =>
+            bot.EventReceived.OfType<EventBase>().Subscribe(msg =>
             {
-                if (msg.EventType == EventType.friend)
+                if (msg.EventType == PostEventType.Friend)
                 {
-                    var resq = msg as FriendAddEvent;
-                    if (resq == null) return;
+                    if (msg is not FriendAddEvent req) return;
                     Console.WriteLine("好友请求事件：" + msg.ToJsonString());
                 }
             });
-            bot.EventReceived.OfType<FriendAddEvent>().Subscribe(async msg =>
+            bot.EventReceived.OfType<FriendAddEvent>().Subscribe(msg =>
             {
                 Console.WriteLine("好友请求事件：" + msg.ToJsonString());
             });

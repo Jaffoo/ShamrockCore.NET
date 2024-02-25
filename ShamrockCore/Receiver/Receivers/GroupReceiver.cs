@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using ShamrockCore.Data.HttpAPI;
 using ShamrockCore.Data.Model;
-using ShamrockCore.Reciver.MsgChain;
+using ShamrockCore.Receiver.MsgChain;
 
-namespace ShamrockCore.Reciver.Receivers
+namespace ShamrockCore.Receiver.Receivers
 {
     /// <summary>
     /// 群接收器
@@ -57,12 +57,36 @@ namespace ShamrockCore.Reciver.Receivers
         /// 群信息
         /// </summary>
         /// <returns></returns>
-        public Group Group => Api.GetGroupInfo(GroupId).Result!;
+        [JsonIgnore]
+        public Group? Group
+        {
+            get
+            {
+                _group ??= new(() => Api.GetGroupInfo(GroupId).Result);
+                return _group.Value;
+            }
+        }
 
+        [JsonIgnore] private Lazy<Group?>? _group;
         /// <summary>
         /// 发送者成员信息
         /// </summary>
-        public Member Sender => Api.GetGroupMemberInfo(GroupId, QQ).Result!;
+        [JsonIgnore]
+        public Member? Sender
+        {
+            get
+            {
+                _sender ??= new(() => Api.GetGroupMemberInfo(GroupId, QQ).Result);
+                return _sender.Value;
+            }
+        }
+        [JsonIgnore] private Lazy<Member?>? _sender;
+
+        /// <summary>
+        /// 消息类型
+        /// </summary>
+        [JsonIgnore]
+        public override PostMessageType Type { get; set; } = PostMessageType.Group;
         #endregion
     }
 }

@@ -1,9 +1,8 @@
 ﻿using Newtonsoft.Json;
 using ShamrockCore.Data.HttpAPI;
 using ShamrockCore.Data.Model;
-using ShamrockCore.Reciver.MsgChain;
 
-namespace ShamrockCore.Reciver.Events
+namespace ShamrockCore.Receiver.Events
 {
     /// <summary>
     /// 群聊撤回
@@ -25,7 +24,7 @@ namespace ShamrockCore.Reciver.Events
         /// <summary>
         /// 消息id
         /// </summary>
-        [JsonProperty("user_id")]
+        [JsonProperty("message_id")]
         public long MessageId { get; set; }
 
         /// <summary>
@@ -38,7 +37,22 @@ namespace ShamrockCore.Reciver.Events
         /// <summary>
         /// 撤回消息对象
         /// </summary>
-        [JsonIgnore] public MsgInfo? Message => Api.GetMsg(MessageId).Result;
+        [JsonIgnore]
+        public MsgInfo? Message
+        {
+            get
+            {
+                _message ??= new(() => Api.GetMsg(MessageId).Result);
+                return _message.Value;
+            }
+        }
+        private Lazy<MsgInfo?>? _message;
+
+        /// <summary>
+        /// 事件类型
+        /// </summary>
+        [JsonIgnore]
+        public override PostEventType EventType { get; set; } = PostEventType.GroupRecall;
         #endregion
     }
 }

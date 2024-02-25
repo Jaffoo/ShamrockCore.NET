@@ -2,7 +2,7 @@
 using ShamrockCore.Data.HttpAPI;
 using ShamrockCore.Data.Model;
 
-namespace ShamrockCore.Reciver.Events
+namespace ShamrockCore.Receiver.Events
 {
     /// <summary>
     /// 精华消息
@@ -37,25 +37,28 @@ namespace ShamrockCore.Reciver.Events
         /// 子类型
         /// </summary>
         [JsonProperty("sub_type")]
-        public Type SubType { get; set; }
+        public EssenceType SubType { get; set; }
 
         #region 扩展方法/属性
         /// <summary>
         /// 精华消息对象
         /// </summary>
-        [JsonIgnore] public MsgInfo? Message => Api.GetMsg(MessageId).Result;
-        #endregion
-
-        public enum Type
+        [JsonIgnore]
+        public MsgInfo? Message
         {
-            /// <summary>
-            /// 添加
-            /// </summary>
-            add,
-            /// <summary>
-            /// 删除
-            /// </summary>
-            delete
+            get
+            {
+                _message ??= new(() => Api.GetMsg(MessageId).Result);
+                return _message.Value;
+            }
         }
+        private Lazy<MsgInfo?>? _message;
+
+        /// <summary>
+        /// 事件类型
+        /// </summary>
+        [JsonIgnore]
+        public override PostEventType EventType { get; set; } = PostEventType.Essence;
+        #endregion
     }
 }

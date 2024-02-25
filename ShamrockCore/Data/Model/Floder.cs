@@ -47,12 +47,21 @@ namespace ShamrockCore.Data.Model
         /// <summary>
         /// 获取子文件
         /// </summary>
-        public FilesFloders? Files => Api.GetGroupFiles(GroupQQ, FolderId).Result;
+        [JsonIgnore]
+        public FilesFloders? Files
+        {
+            get
+            {
+                _files ??= new(() => Api.GetGroupFiles(GroupQQ, FolderId).Result);
+                return _files.Value;
+            }
+        }
+        [JsonIgnore] public Lazy<FilesFloders?>? _files;
 
         /// <summary>
         /// 删除
         /// </summary>
-        public async Task<bool> Delete() =>await Api.DeleteGroupFolder(GroupQQ, FolderId);
+        public async Task<bool> Delete() => await Api.DeleteGroupFolder(GroupQQ, FolderId);
         #endregion
     }
 }

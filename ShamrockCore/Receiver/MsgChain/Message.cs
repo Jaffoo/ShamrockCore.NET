@@ -1,9 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.RegularExpressions;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using ShamrockCore.Data.HttpAPI;
 using ShamrockCore.Data.Model;
-using System.Text.RegularExpressions;
 
-namespace ShamrockCore.Reciver.MsgChain
+namespace ShamrockCore.Receiver.MsgChain
 {
     public record Message
     {
@@ -159,7 +160,9 @@ namespace ShamrockCore.Reciver.MsgChain
         /// <param name="file">文件路径</param>
         /// <param name="url">文件链接</param>
         /// <param name="base64">文件base64</param>
-        public ImageMessage(string file = "", string url = "", string base64 = "")
+        /// <param name="imgType">消息类型</param>
+        /// <param name="imgSubType">消息子类型</param>
+        public ImageMessage(string file = "", string url = "", string base64 = "", ImgType? imgType = null, ImgSubType? imgSubType = null)
         {
             if (!string.IsNullOrWhiteSpace(file))
             {
@@ -167,7 +170,7 @@ namespace ShamrockCore.Reciver.MsgChain
                 Data.File = file;
             }
             else if (!string.IsNullOrWhiteSpace(url))
-                Data.Url = url;
+                Data.File = url;
             else if (!string.IsNullOrWhiteSpace(base64))
             {
                 string pattern = @"data:[a-zA-Z0-9]+/[a-zA-Z0-9]+;base64,";
@@ -175,6 +178,8 @@ namespace ShamrockCore.Reciver.MsgChain
                 if (!result.Contains("base64://")) result = "base64://" + result;
                 Data.File = result;
             }
+            if (imgType != null) Data.Type = imgType.Value;
+            if (imgSubType != null) Data.SubType = imgSubType.Value;
         }
         [JsonProperty("type")]
         [JsonConverter(typeof(LowercaseStringEnumConverter))]
@@ -191,6 +196,17 @@ namespace ShamrockCore.Reciver.MsgChain
             /// 链接
             /// </summary>
             [JsonProperty("url")] public string Url { get; set; } = "";
+
+            /// <summary>
+            /// 图片类型
+            /// </summary>
+            [JsonConverter(typeof(StringEnumConverter))]
+            public ImgType Type { get; set; }
+
+            /// <summary>
+            /// 图片子类型
+            /// </summary>
+            [JsonProperty("subType")] public ImgSubType SubType { get; set; }
         }
     }
 
@@ -215,7 +231,7 @@ namespace ShamrockCore.Reciver.MsgChain
                 Data.File = file;
             }
             else if (!string.IsNullOrWhiteSpace(url))
-                Data.Url = url;
+                Data.File = url;
             Data.Magic = magic;
         }
         [JsonProperty("type")]
@@ -667,6 +683,33 @@ namespace ShamrockCore.Reciver.MsgChain
         }
     }
 
+    /// <summary>
+    /// 弹射表情
+    /// </summary>
+    public record BubbleFaceMessage : Message
+    {
+        public BubbleFaceMessage() { }
+
+        public BubbleFaceMessage(int id, int count)
+        {
+            Data.Id = id;
+            Data.Count = count;
+        }
+        [JsonProperty("data")] public new Body Data { get; set; } = new();
+        public record Body
+        {
+            /// <summary>
+            /// 表情ID
+            /// </summary>
+            [JsonProperty("id")] public int Id { get; set; }
+
+            /// <summary>
+            /// 数量
+            /// </summary>
+            [JsonProperty("id")] public int Count { get; set; }
+        }
+    }
+
     public record JsonData
     {
         [JsonProperty("app")] public string App { get; set; } = "";
@@ -697,7 +740,7 @@ namespace ShamrockCore.Reciver.MsgChain
     public class Mannounce
     {
         [JsonProperty("cr")] public int Cr { get; set; }
-        [JsonProperty("enocde")] public int Encode { get; set; }
+        [JsonProperty("encode")] public int Encode { get; set; }
         [JsonProperty("tw")] public int Tw { get; set; }
         [JsonProperty("fid")] public string Fid { get; set; } = "";
         [JsonProperty("gc")] public string Gc { get; set; } = "";

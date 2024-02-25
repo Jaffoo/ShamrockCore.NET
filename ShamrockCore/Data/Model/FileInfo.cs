@@ -100,7 +100,16 @@ namespace ShamrockCore.Data.Model
         /// <summary>
         /// 文件url
         /// </summary>
-        public string Url => Api.GetGroupFileUrl(GroupQQ, Id, Busid).Result?.Url ?? "";
+        [JsonIgnore]
+        public string Url
+        {
+            get
+            {
+                _url ??= new(() => Api.GetGroupFileUrl(GroupQQ, Id, Busid).Result?.Url ?? "");
+                return _url.Value;
+            }
+        }
+        [JsonIgnore] public Lazy<string>? _url;
 
         /// <summary>
         /// 删除

@@ -1,9 +1,9 @@
 ﻿using ShamrockCore.Data.HttpAPI;
 using ShamrockCore.Data.Model;
-using ShamrockCore.Reciver.MsgChain;
-using ShamrockCore.Reciver.Receivers;
+using ShamrockCore.Receiver.MsgChain;
+using ShamrockCore.Receiver.Receivers;
 
-namespace ShamrockCore.Reciver
+namespace ShamrockCore.Receiver
 {
     /// <summary>
     /// 消息管理器
@@ -162,13 +162,13 @@ namespace ShamrockCore.Reciver
         }
 
         /// <summary>
-        /// 发送消息，返回消息id
+        /// 发送消息，返回消息id(不建议使用，我也没使用成功)
         /// </summary>
         /// <param name="qq"></param>
         /// <param name="message">消息内容</param>
         /// <param name="autoEscape">是否解析 CQ 码。</param>
         /// <returns></returns>
-        public static async Task<string> SendMsgAsync(MessageType type, long qq, long groupId, long discussId, object message, bool autoEscape = false) => await Api.SendMsgAsync(type, qq, groupId, discussId, message, autoEscape);
+        public static async Task<string> SendMsgAsync(MessageType type, long qq, long groupId, long discussId, MessageChain message, bool autoEscape = false) => await Api.SendMsgAsync(type, qq, groupId, discussId, message, autoEscape);
 
         /// <summary>
         /// 发送群聊合并转发
@@ -176,7 +176,7 @@ namespace ShamrockCore.Reciver
         /// <param name="groupId"></param>
         /// <param name="messages">消息内容</param>
         /// <returns></returns>
-        public static async Task<string> SendGroupForwardMsgAsync(long groupId, object messages) => await Api.SendGroupForwardMsgAsync(groupId, messages);
+        public static async Task<string> SendGroupForwardMsgAsync(long groupId, MessageChain messages) => await Api.SendGroupForwardMsgAsync(groupId, messages);
 
         /// <summary>
         /// 发送群聊合并转发
@@ -198,20 +198,75 @@ namespace ShamrockCore.Reciver
         /// <param name="qq"></param>
         /// <param name="messages">消息内容</param>
         /// <returns></returns>
-        public static async Task<string> SendPrivateForwardMsgAsync(long qq, object messages) => await Api.SendPrivateForwardMsgAsync(qq, messages);
+        public static async Task<string> SendPrivateForwardMsgAsync(long qq, MessageChain messages) => await Api.SendPrivateForwardMsgAsync(qq, messages);
 
         /// <summary>
         /// 发送私聊合并转发
         /// </summary>
         /// <param name="messages">消息内容</param>
         /// <returns></returns>
-        public static async Task<string> SendForwardMsgAsync(this Friend friend, object messages) => await Api.SendPrivateForwardMsgAsync(friend.QQ, messages);
+        public static async Task<string> SendForwardMsgAsync(this Friend friend, MessageChain messages) => await Api.SendPrivateForwardMsgAsync(friend.QQ, messages);
 
         /// <summary>
         /// 发送私聊合并转发
         /// </summary>
         /// <param name="messages">消息内容</param>
         /// <returns></returns>
-        public static async Task<string> SendForwardMsgAsync(this FriendReceiver friend, object messages) => await Api.SendPrivateForwardMsgAsync(friend.Sender?.QQ ?? 0, messages);
+        public static async Task<string> SendForwardMsgAsync(this FriendReceiver friend, MessageChain messages) => await Api.SendPrivateForwardMsgAsync(friend.Sender?.QQ ?? 0, messages);
+
+        #region 频道接口
+        /// <summary>
+        /// 发送频道消息
+        /// </summary>
+        /// <param name="channelProfile">子频道信息</param>
+        /// <param name="messages">消息</param>
+        /// <param name="autoEscape">是否解析CQ码，true为不解析，默认false</param>
+        /// <param name="retryCnt">消息发送失败，最大重试次数，默认3</param>
+        /// <param name="recallDuration">自动撤回间隔(毫秒)，默认不撤回</param>
+        /// <returns></returns>
+        public static async Task<GuildMsg?> SendChannelMsg(this ChannelProfile channelProfile, string messages, bool autoEscape = false, int retryCnt = 3, long recallDuration = 0)
+        {
+            return await Api.SendGuildChannelMsg(channelProfile.GuildId, channelProfile.ChannelId, messages, autoEscape, retryCnt, recallDuration);
+        }
+
+        /// <summary>
+        /// 发送频道消息
+        /// </summary>
+        /// <param name="channelProfile">子频道信息</param>
+        /// <param name="messages">消息</param>
+        /// <param name="autoEscape">是否解析CQ码，true为不解析，默认false</param>
+        /// <param name="retryCnt">消息发送失败，最大重试次数，默认3</param>
+        /// <param name="recallDuration">自动撤回间隔(毫秒)，默认不撤回</param>
+        public static async Task<GuildMsg?> SendChannelMsg(this ChannelProfile channelProfile, MessageChain messages, bool autoEscape = false, int retryCnt = 3, long recallDuration = 0)
+        {
+            return await Api.SendGuildChannelMsg(channelProfile.GuildId, channelProfile.ChannelId, messages, autoEscape, retryCnt, recallDuration);
+        }
+
+        /// <summary>
+        /// 发频道消息
+        /// </summary>
+        /// <param name="guildReceiver">频道消息接收器</param>
+        /// <param name="messages">消息</param>
+        /// <param name="autoEscape">是否解析CQ码，true为不解析，默认false</param>
+        /// <param name="retryCnt">消息发送失败，最大重试次数，默认3</param>
+        /// <param name="recallDuration">自动撤回间隔(毫秒)，默认不撤回</param>
+        public static async Task<GuildMsg?> SendChannelMsg(this GuildReceiver guildReceiver, string messages, bool autoEscape = false, int retryCnt = 3, long recallDuration = 0)
+        {
+            return await Api.SendGuildChannelMsg(guildReceiver.GuildId, guildReceiver.ChannelId, messages, autoEscape, retryCnt, recallDuration);
+        }
+
+        /// <summary>
+        /// 发频道消息
+        /// </summary>
+        /// <param name="guildReceiver">频道消息接收器</param>
+        /// <param name="messages">消息</param>
+        /// <param name="autoEscape">是否解析CQ码，true为不解析，默认false</param>
+        /// <param name="retryCnt">消息发送失败，最大重试次数，默认3</param>
+        /// <param name="recallDuration">自动撤回间隔(毫秒)，默认不撤回</param>
+        public static async Task<GuildMsg?> SendChannelMsg(this GuildReceiver guildReceiver, MessageChain messages, bool autoEscape = false, int retryCnt = 3, long recallDuration = 0)
+        {
+            return await Api.SendGuildChannelMsg(guildReceiver.GuildId, guildReceiver.ChannelId, messages, autoEscape, retryCnt, recallDuration);
+        }
+        #endregion
     }
 }

@@ -1,6 +1,6 @@
 ﻿using ShamrockCore.Data.Model;
 
-namespace ShamrockCore.Reciver.MsgChain
+namespace ShamrockCore.Receiver.MsgChain
 {
     /// <summary>
     /// 消息链
@@ -37,6 +37,24 @@ namespace ShamrockCore.Reciver.MsgChain
             {
                 throw;
             }
+        }
+
+        /// <summary>
+        /// 两个消息链合并
+        /// </summary>
+        /// <param name="chain1"></param>
+        /// <param name="chain2"></param>
+        /// <returns></returns>
+        public static MessageChain operator +(MessageChain chain1, MessageChain chain2)
+        {
+            chain1.AddRange(chain2);
+            return chain1;
+        }
+
+        public static MessageChain operator +(MessageChain chain, Message message)
+        {
+            chain.Add(message);
+            return chain;
         }
     }
 }

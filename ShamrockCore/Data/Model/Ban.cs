@@ -6,7 +6,7 @@ namespace ShamrockCore.Data.Model
     /// <summary>
     /// 群禁言人
     /// </summary>
-    public record Ban
+    public record Banner
     {
         /// <summary>
         /// 被禁言的人
@@ -25,16 +25,17 @@ namespace ShamrockCore.Data.Model
         public long GroupQQ { get; set; }
 
         /// <summary>
-        /// 取消禁言
-        /// </summary>
-        /// <returns></returns>
-        public async Task<bool> Cancel() => await Api.SetGroupBan(GroupQQ, QQ,0);
-
-        /// <summary>
-        /// 再次禁言
+        /// 禁言
         /// </summary>
         /// <param name="time">禁言时长</param>
         /// <returns></returns>
-        public async Task<bool> BanLonger(long time) => await Api.SetGroupBan(GroupQQ, QQ, time);
+        public async Task<bool> Ban(long time) => await Api.SetGroupBan(GroupQQ, QQ, time);
+
+        /// <summary>
+        /// 解除禁言
+        /// </summary>
+        /// <param name="time">禁言时长</param>
+        /// <returns></returns>
+        public async Task<bool> NoBan() => await Api.SetGroupBan(GroupQQ, QQ, 0);
     }
 }

@@ -1,7 +1,8 @@
 ﻿using Newtonsoft.Json;
 using ShamrockCore.Data.HttpAPI;
+using ShamrockCore.Data.Model;
 
-namespace ShamrockCore.Reciver.Events
+namespace ShamrockCore.Receiver.Events
 {
     /// <summary>
     /// 加群请求／邀请事件
@@ -35,7 +36,7 @@ namespace ShamrockCore.Reciver.Events
         /// 子类型(add/invite)
         /// </summary>
         [JsonProperty("sub_type")]
-        public Type SubType { get; set; }
+        public AddType SubType { get; set; }
 
         #region 扩展方法/属性
         /// <summary>
@@ -52,16 +53,10 @@ namespace ShamrockCore.Reciver.Events
         public async Task<bool> Reject(string remark = "") => await Api.SetGroupAddRequest(Flag, SubType.ToString(), false, remark);
         #endregion
 
-        public enum Type
-        {
-            /// <summary>
-            /// 申请
-            /// </summary>
-            add,
-            /// <summary>
-            /// 邀请
-            /// </summary>
-            invite
-        }
+        /// <summary>
+        /// 事件类型
+        /// </summary>
+        [JsonIgnore]
+        public override PostEventType EventType { get; set; } = PostEventType.Group;
     }
 }
