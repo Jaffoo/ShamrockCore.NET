@@ -145,7 +145,7 @@ namespace ShamrockCore.Receiver
         /// </summary>
         /// <param name="message">消息内容</param>
         /// <returns></returns>
-        public static async Task<string> SendGroupMsgAsync(this GroupReceiver group, MessageChain message) => await Api.SendGroupMsgAsync(group.GroupId, message);
+        public static async Task<string> SendGroupMsgAsync(this GroupReceiver group, MessageChain message) => await Api.SendGroupMsgAsync(group.GroupQQ, message);
 
         /// <summary>
         /// 发送群聊，返回消息id
@@ -190,7 +190,7 @@ namespace ShamrockCore.Receiver
         /// </summary>
         /// <param name="messages">消息内容</param>
         /// <returns></returns>
-        public static async Task<string> SendForwardMsgAsync(this GroupReceiver group, MessageChain messages) => await Api.SendGroupForwardMsgAsync(group.GroupId, messages);
+        public static async Task<string> SendForwardMsgAsync(this GroupReceiver group, MessageChain messages) => await Api.SendGroupForwardMsgAsync(group.GroupQQ, messages);
 
         /// <summary>
         /// 发送私聊合并转发

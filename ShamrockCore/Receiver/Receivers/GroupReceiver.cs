@@ -62,7 +62,7 @@ namespace ShamrockCore.Receiver.Receivers
         {
             get
             {
-                _group ??= new(() => Api.GetGroupInfo(GroupId).Result);
+                _group ??= new(() => Api.GetGroupInfo(GroupQQ).Result);
                 return _group.Value;
             }
         }
@@ -76,7 +76,7 @@ namespace ShamrockCore.Receiver.Receivers
         {
             get
             {
-                _sender ??= new(() => Api.GetGroupMemberInfo(GroupId, QQ).Result);
+                _sender ??= new(() => Api.GetGroupMemberInfo(GroupQQ, QQ).Result);
                 return _sender.Value;
             }
         }
