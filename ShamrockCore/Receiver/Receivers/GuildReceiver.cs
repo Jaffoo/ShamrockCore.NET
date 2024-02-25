@@ -21,6 +21,11 @@ namespace ShamrockCore.Receiver.Receivers
         [JsonProperty("channel_id")]
         public long ChannelId { get; set; }
 
+        /// <summary>
+        /// 所有数据json字符串
+        /// </summary>
+        public string Data { get; set; } = "";
+
         #region 扩展方法/属性
         private Lazy<GuildProfile?>? _guild;
         /// <summary>

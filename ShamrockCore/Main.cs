@@ -126,7 +126,11 @@ namespace ShamrockCore
                         _messageReceivedSubject.OnNext(data.ToObject<LessReceiver>());
                     //频道
                     if (type1 == "guild")
-                        _messageReceivedSubject.OnNext(data.ToObject<GuildReceiver>());
+                    {
+                        var res = data.ToObject<GuildReceiver>();
+                        res.Data = data;
+                        _messageReceivedSubject.OnNext(res);
+                    }
                 }
                 //通知事件
                 else if (postType == "notice")

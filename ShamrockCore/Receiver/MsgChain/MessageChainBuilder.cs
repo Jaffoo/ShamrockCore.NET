@@ -1,4 +1,6 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Data;
+using System.Text.RegularExpressions;
+using ShamrockCore.Data.HttpAPI;
 using ShamrockCore.Data.Model;
 
 namespace ShamrockCore.Receiver.MsgChain
@@ -155,10 +157,20 @@ namespace ShamrockCore.Receiver.MsgChain
         /// </summary>
         /// <param name="path">路径</param>
         /// <returns></returns>
-        public MessageChainBuilder Video(string path)
+        public MessageChainBuilder VideoByPath(string path)
         {
-            if (!path.Contains("file://")) path = "file://" + path;
             list.Add(new VideoMessage(path));
+            return this;
+        }
+
+        /// <summary>
+        /// 视频
+        /// </summary>
+        /// <param name="path">路径</param>
+        /// <returns></returns>
+        public MessageChainBuilder VideoByUrl(string url)
+        {
+            list.Add(new VideoMessage(url: url));
             return this;
         }
 

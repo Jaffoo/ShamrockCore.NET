@@ -268,10 +268,22 @@ namespace ShamrockCore.Receiver.MsgChain
         /// 视频
         /// </summary>
         /// <param name="file">文件路径</param>
-        public VideoMessage(string file)
+        public VideoMessage(string file = "", string url = "")
         {
-            if (!file.Contains("file://")) file = "file://" + file;
-            Data.File = file;
+            if (!string.IsNullOrWhiteSpace(file))
+            {
+                if (!file.Contains("file://")) file = "file://" + file;
+                Data.File = file;
+            }
+            else if (!string.IsNullOrWhiteSpace(url))
+            {
+                var filePath = Api.DownloadFile(url).Result?.File;
+                if (!string.IsNullOrWhiteSpace(filePath))
+                {
+                    if (!filePath.Contains("file://")) filePath = "file://" + filePath;
+                    Data.File = filePath;
+                }
+            }
         }
         [JsonProperty("type")]
         [JsonConverter(typeof(LowercaseStringEnumConverter))]
