@@ -46,6 +46,20 @@ namespace ShamrockCore.Receiver.Events
         /// </summary>
         [JsonIgnore]
         public override PostEventType EventType { get; set; } = PostEventType.Friend;
+
+        private Lazy<Stranger?>? _userInfo;
+
+        /// <summary>
+        /// 申请人信息
+        /// </summary>
+        public Stranger? RequestUser
+        {
+            get
+            {
+                _userInfo ??= new(() => Api.GetStrangerInfo(QQ).Result);
+                return _userInfo.Value;
+            }
+        }
         #endregion
     }
 }
