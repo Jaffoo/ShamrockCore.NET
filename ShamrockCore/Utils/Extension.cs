@@ -44,9 +44,9 @@ namespace ShamrockCore.Utils
                 var res = JsonConvert.DeserializeObject<T>(str);
                 return res == null ? throw new Exception("反序列化失败！") : res;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                throw new Exception(e.Message);
             }
         }
 

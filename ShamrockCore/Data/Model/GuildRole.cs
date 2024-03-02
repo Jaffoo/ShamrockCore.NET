@@ -3,6 +3,11 @@ using ShamrockCore.Data.HttpAPI;
 
 namespace ShamrockCore.Data.Model
 {
+    internal record GuildRoles
+    {
+        [JsonProperty("roles")]
+        public List<GuildRole> Roles { get; set; } = new();
+    }
     public record GuildRole
     {
         /// <summary>
@@ -53,7 +58,7 @@ namespace ShamrockCore.Data.Model
         /// <summary>
         /// 权限
         /// </summary>
-        public Permission Permission = new();
+        public List<Permission> Permission = new();
 
         #region 扩展属性/方法
         /// <summary>

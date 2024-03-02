@@ -151,7 +151,17 @@ namespace ShamrockCore.Data.Model
         /// <summary>
         /// 礼物
         /// </summary>
-        Gift
+        Gift,
+
+        /// <summary>
+        /// 事件
+        /// </summary>
+        Button,
+
+        /// <summary>
+        /// Markdown文本
+        /// </summary>
+        Markdown,
     }
 
     /// <summary>

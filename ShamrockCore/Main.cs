@@ -128,7 +128,6 @@ namespace ShamrockCore
                     if (type1 == "guild")
                     {
                         var res = data.ToObject<GuildReceiver>();
-                        res.Data = data;
                         _messageReceivedSubject.OnNext(res);
                     }
                 }
@@ -266,7 +265,7 @@ namespace ShamrockCore
         /// <summary>
         /// 群列表
         /// </summary>
-        public IEnumerable<Group>? Groups
+        public List<Group>? Groups
         {
             get
             {
@@ -274,12 +273,12 @@ namespace ShamrockCore
                 return _groups.Value;
             }
         }
-        private Lazy<IEnumerable<Group>?>? _groups;
+        private Lazy<List<Group>?>? _groups;
 
         // <summary>
         /// 好友列表
         /// </summary>
-        public IEnumerable<Friend>? Friends
+        public List<Friend>? Friends
         {
             get
             {
@@ -287,7 +286,7 @@ namespace ShamrockCore
                 return _friends.Value;
             }
         }
-        private Lazy<IEnumerable<Friend>?>? _friends;
+        private Lazy<List<Friend>?>? _friends;
 
         /// <summary>
         /// 手机电池信息
@@ -319,7 +318,7 @@ namespace ShamrockCore
         /// 获取好友系统消息(未能正确获取到数据)
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<FriendSysMsg>? FriendSysMsg
+        public List<FriendSysMsg>? FriendSysMsg
         {
             get
             {
@@ -327,7 +326,7 @@ namespace ShamrockCore
                 return _friendSysMsg.Value;
             }
         }
-        private Lazy<IEnumerable<FriendSysMsg>?>? _friendSysMsg;
+        private Lazy<List<FriendSysMsg>?>? _friendSysMsg;
 
         // <summary>
         /// 是否在黑名单中
@@ -365,7 +364,7 @@ namespace ShamrockCore
         /// <param name="count"></param>
         /// <param name="start"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<MsgInfo>?> GetHistoryMsg(MessageType msgType, long qq = 0, long group = 0, int count = 10, int start = 0) => await Api.GetHistoryMsg(msgType, qq, group, count, start);
+        public async Task<List<MsgInfo>?> GetHistoryMsg(MessageType msgType, long qq = 0, long group = 0, int count = 10, int start = 0) => await Api.GetHistoryMsg(msgType, qq, group, count, start);
 
         // <summary>
         /// 设置 QQ 个人资料
@@ -411,7 +410,7 @@ namespace ShamrockCore
         /// 频道列表
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<GuildProfile>? GuildList
+        public List<GuildProfile>? GuildList
         {
             get
             {
@@ -419,7 +418,7 @@ namespace ShamrockCore
                 return _guildList.Value;
             }
         }
-        private Lazy<IEnumerable<GuildProfile>?>? _guildList;
+        private Lazy<List<GuildProfile>?>? _guildList;
         #endregion
     }
 

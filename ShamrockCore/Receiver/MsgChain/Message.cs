@@ -722,6 +722,47 @@ namespace ShamrockCore.Receiver.MsgChain
         }
     }
 
+    /// <summary>
+    /// 频道事件
+    /// 1:频道专属，勿用于qq发送消息
+    /// 2:不知是否可用与频道发送消息
+    /// 3:且字段过多，需要自行解析
+    /// </summary>
+    public record ButtonMessage : Message
+    {
+        [JsonProperty("data")] public new Body Data { get; set; } = new();
+        public record Body
+        {
+            /// <summary>
+            /// 表情ID
+            /// </summary>
+            [JsonProperty("appid")] public long AppId { get; set; }
+
+            /// <summary>
+            /// 数量
+            /// </summary>
+            [JsonProperty("rows")] public List<object> Rows { get; set; } = new();
+        }
+    }
+
+    /// <summary>
+    /// 频道markdwon文本
+    /// 1:频道专属，勿用于qq发送消息
+    /// 2:不知是否可用与频道发送消息
+    /// 3:且字段过多，需要自行解析
+    /// </summary>
+    public record MarkdownMessage : Message
+    {
+        [JsonProperty("data")] public new Body Data { get; set; } = new();
+        public record Body
+        {
+            /// <summary>
+            /// 数量
+            /// </summary>
+            [JsonProperty("content")] public string Content { get; set; } = "";
+        }
+    }
+
     public record JsonData
     {
         [JsonProperty("app")] public string App { get; set; } = "";

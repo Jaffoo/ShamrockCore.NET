@@ -50,11 +50,11 @@ namespace ShamrockCore.Data.HttpAPI
         /// 获取群列表
         /// </summary>
         /// <returns></returns>
-        public static async Task<IEnumerable<Group>?> GetGroups()
+        public static async Task<List<Group>?> GetGroups()
         {
             try
             {
-                var res = await HttpEndpoints.GetGroupList.GetAsync<IEnumerable<Group>>();
+                var res = await HttpEndpoints.GetGroupList.GetAsync<List<Group>>();
                 return res;
             }
             catch (Exception)
@@ -87,12 +87,12 @@ namespace ShamrockCore.Data.HttpAPI
         /// </summary>
         /// <param name="groupQQ"></param>
         /// <returns></returns>
-        public static async Task<IEnumerable<Member>?> GetGroupMemberList(long groupQQ)
+        public static async Task<List<Member>?> GetGroupMemberList(long groupQQ)
         {
             try
             {
                 if (groupQQ <= 0) throw new ArgumentException("群不存在");
-                var res = await HttpEndpoints.GetGroupMemberList.GetAsync<IEnumerable<Member>>("group_id=" + groupQQ);
+                var res = await HttpEndpoints.GetGroupMemberList.GetAsync<List<Member>>("group_id=" + groupQQ);
                 return res;
             }
             catch (Exception)
@@ -165,12 +165,12 @@ namespace ShamrockCore.Data.HttpAPI
         /// </summary>
         /// <param name="groupQQ"></param>
         /// <returns></returns>
-        public static async Task<IEnumerable<EssenceMsg>?> GetEssenceMsgs(long groupQQ)
+        public static async Task<List<EssenceMsg>?> GetEssenceMsgs(long groupQQ)
         {
             try
             {
                 if (groupQQ <= 0) throw new ArgumentException("群不存在");
-                var res = await HttpEndpoints.GetEssenceMsgList.GetAsync<IEnumerable<EssenceMsg>>("group_id=" + groupQQ);
+                var res = await HttpEndpoints.GetEssenceMsgList.GetAsync<List<EssenceMsg>>("group_id=" + groupQQ);
                 return res;
             }
             catch (Exception)
@@ -183,11 +183,11 @@ namespace ShamrockCore.Data.HttpAPI
         /// 获取好友列表
         /// </summary>
         /// <returns></returns>
-        public static async Task<IEnumerable<Friend>?> GetFriends()
+        public static async Task<List<Friend>?> GetFriends()
         {
             try
             {
-                var res = await HttpEndpoints.GetFriendList.GetAsync<IEnumerable<Friend>>();
+                var res = await HttpEndpoints.GetFriendList.GetAsync<List<Friend>>();
                 return res;
             }
             catch (Exception)
@@ -200,11 +200,11 @@ namespace ShamrockCore.Data.HttpAPI
         /// 获取好友系统消息(未能正确获取到数据)
         /// </summary>
         /// <returns></returns>
-        public static async Task<IEnumerable<FriendSysMsg>?> GetFriendSysMsg()
+        public static async Task<List<FriendSysMsg>?> GetFriendSysMsg()
         {
             try
             {
-                var res = await HttpEndpoints.GetFriendSysMsg.GetAsync<IEnumerable<FriendSysMsg>>();
+                var res = await HttpEndpoints.GetFriendSysMsg.GetAsync<List<FriendSysMsg>>();
                 return res;
             }
             catch (Exception)
@@ -318,7 +318,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// <param name="count"></param>
         /// <param name="start"></param>
         /// <returns></returns>
-        public static async Task<IEnumerable<MsgInfo>?> GetHistoryMsg(MessageType msgType, long qq = 0, long groupQQ = 0, int count = 10, int start = 0)
+        public static async Task<List<MsgInfo>?> GetHistoryMsg(MessageType msgType, long qq = 0, long groupQQ = 0, int count = 10, int start = 0)
         {
             try
             {
@@ -330,7 +330,7 @@ namespace ShamrockCore.Data.HttpAPI
                     count,
                     message_seq = start
                 };
-                var res = await HttpEndpoints.GetHistoryMsg.PostAsync<IEnumerable<MsgInfo>>(obj);
+                var res = await HttpEndpoints.GetHistoryMsg.PostAsync<List<MsgInfo>>(obj);
                 return res;
             }
             catch (Exception)
@@ -371,12 +371,12 @@ namespace ShamrockCore.Data.HttpAPI
         /// </summary>
         /// <param name="groupQQ">群号</param>
         /// <returns></returns>
-        public static async Task<IEnumerable<Announcement>?> GetGroupNotice(long groupQQ)
+        public static async Task<List<Announcement>?> GetGroupNotice(long groupQQ)
         {
             try
             {
                 if (groupQQ <= 0) throw new ArgumentException("群不存在");
-                var res = await HttpEndpoints.GetGroupNotice.GetAsync<IEnumerable<Announcement>>("group_id=" + groupQQ);
+                var res = await HttpEndpoints.GetGroupNotice.GetAsync<List<Announcement>>("group_id=" + groupQQ);
                 return res;
             }
             catch (Exception)
@@ -390,7 +390,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// </summary>
         /// <param name="groupQQ">群号</param>
         /// <returns></returns>
-        public static async Task<IEnumerable<Banner>?> GetBanList(long groupQQ)
+        public static async Task<List<Banner>?> GetBanList(long groupQQ)
         {
             try
             {
@@ -399,7 +399,7 @@ namespace ShamrockCore.Data.HttpAPI
                 {
                     group_id = groupQQ
                 };
-                var res = await HttpEndpoints.GetBanList.PostAsync<IEnumerable<Banner>>(obj);
+                var res = await HttpEndpoints.GetBanList.PostAsync<List<Banner>>(obj);
                 if (res != null)
                 {
                     foreach (var item in res)
@@ -1263,7 +1263,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// <param name="threadCount">下载的线程数量</param>
         /// <param name="headers">请求头</param>
         /// <returns></returns>
-        public static async Task<RecordInfo?> DownloadFile(string url, string base64 = "", string name = "", int threadCount = 1, IEnumerable<string>? headers = null)
+        public static async Task<RecordInfo?> DownloadFile(string url, string base64 = "", string name = "", int threadCount = 1, List<string>? headers = null)
         {
             try
             {
@@ -1471,11 +1471,11 @@ namespace ShamrockCore.Data.HttpAPI
         /// 获取频道列表
         /// </summary>
         /// <returns></returns>
-        public static async Task<IEnumerable<GuildProfile>?> GetGuildList()
+        public static async Task<List<GuildProfile>?> GetGuildList()
         {
             try
             {
-                return await HttpEndpoints.GetGuildList.GetAsync<IEnumerable<GuildProfile>>();
+                return (await HttpEndpoints.GetGuildList.GetAsync<GuildListModel>())?.GuildList;
             }
             catch (Exception)
             {
@@ -1534,7 +1534,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// <param name="guildId">频道id</param>
         /// <param name="refresh">是否刷新数据，默认false</param>
         /// <returns></returns>
-        public static async Task<IEnumerable<ChannelProfile>?> GetGuildChannelList(long guildId, bool refresh = false)
+        public static async Task<List<ChannelProfile>?> GetGuildChannelList(long guildId, bool refresh = false)
         {
             try
             {
@@ -1544,7 +1544,7 @@ namespace ShamrockCore.Data.HttpAPI
                     guild_id = guildId,
                     refresh
                 };
-                return await HttpEndpoints.GetGuildChannelList.PostAsync<IEnumerable<ChannelProfile>>(obj);
+                return (await HttpEndpoints.GetGuildChannelList.PostAsync<ChannelListModel>(obj))?.ChannelList;
             }
             catch (Exception)
             {
@@ -1678,7 +1678,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// <param name="guildId">频道ID</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public static async Task<IEnumerable<GuildRole>?> GetGuildRoles(long guildId)
+        public static async Task<List<GuildRole>?> GetGuildRoles(long guildId)
         {
             try
             {
@@ -1687,7 +1687,7 @@ namespace ShamrockCore.Data.HttpAPI
                 {
                     guild_id = guildId
                 };
-                return await HttpEndpoints.GetGuildRoles.PostAsync<IEnumerable<GuildRole>>(obj);
+                return (await HttpEndpoints.GetGuildRoles.PostAsync<GuildRoles>(obj))?.Roles;
             }
             catch (Exception)
             {
@@ -1730,7 +1730,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// <param name="users">批量设置用户</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public static async Task<bool> SetGuildMemberRole(long guildId, long roleId, bool set, IEnumerable<long> users)
+        public static async Task<bool> SetGuildMemberRole(long guildId, long roleId, bool set, List<long> users)
         {
             try
             {

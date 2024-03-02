@@ -8,12 +8,12 @@
     <Title>ShamrockCore</Title>
     <Authors>Jaffoo</Authors>
     <Company>none</Company>
-    <PackageReleaseNotes>支持频道（测试阶段，不排除频道所有功能可能无法使用），接收到的数据量大，所以放入GuildReceiver的Data字段中，请自行处理。发送图片支持使用url发送（测试）</PackageReleaseNotes>
+    <PackageReleaseNotes>完善频道功能，经过初略测试可以使用，任然不排除有bug的可能</PackageReleaseNotes>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/Jaffoo/ShamrockCore.NET</RepositoryUrl>
     <PackageProjectUrl>https://github.com/Jaffoo/ShamrockCore.NET</PackageProjectUrl>
     <Description>OpenShamrock在C#上的实现，你可以用此库，快速链接到你OpenShamrock提供的服务。</Description>
-    <Version>$(VersionPrefix)1.2.1-alpha</Version>
+    <Version>$(VersionPrefix)1.2.2-alpha</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 

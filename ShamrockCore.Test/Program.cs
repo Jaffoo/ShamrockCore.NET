@@ -13,7 +13,7 @@ namespace ShamrockCore.Test
     {
         static async Task Main()
         {
-            var config = new ConnectConfig("IP", 7100, 7200, "token");
+            var config = new ConnectConfig("192.168.2.10", 5800, 5700);
             using Bot bot = new(config);
             await bot.Start();
             await Console.Out.WriteLineAsync("Open");
@@ -48,6 +48,11 @@ namespace ShamrockCore.Test
             bot.MessageReceived.OfType<FriendReceiver>().Subscribe(async msg =>
             {
                 await Console.Out.WriteLineAsync("好友消息：" + msg.ToJsonString());
+            });
+            bot.MessageReceived.OfType<GuildReceiver>().Subscribe(async msg =>
+            {
+                await Console.Out.WriteLineAsync("频道消息：" + msg.ToJsonString());
+                
             });
             #endregion
 

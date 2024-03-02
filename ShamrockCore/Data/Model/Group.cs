@@ -80,7 +80,7 @@ namespace ShamrockCore.Data.Model
         /// 群成员
         /// </summary>
         [JsonIgnore]
-        public IEnumerable<Member>? Members
+        public List<Member>? Members
         {
             get
             {
@@ -88,13 +88,13 @@ namespace ShamrockCore.Data.Model
                 return _members.Value;
             }
         }
-        [JsonIgnore] private Lazy<IEnumerable<Member>?>? _members;
+        [JsonIgnore] private Lazy<List<Member>?>? _members;
 
         /// <summary>
         /// 被禁言列表
         /// </summary>
         [JsonIgnore]
-        public IEnumerable<Banner>? BanList
+        public List<Banner>? BanList
         {
             get
             {
@@ -102,13 +102,13 @@ namespace ShamrockCore.Data.Model
                 return _banList.Value;
             }
         }
-        [JsonIgnore] private Lazy<IEnumerable<Banner>?>? _banList;
+        [JsonIgnore] private Lazy<List<Banner>?>? _banList;
 
         /// <summary>
         /// 群精华消息
         /// </summary>
         [JsonIgnore]
-        public IEnumerable<EssenceMsg>? EssenceMsg
+        public List<EssenceMsg>? EssenceMsg
         {
             get
             {
@@ -116,7 +116,7 @@ namespace ShamrockCore.Data.Model
                 return _essenceMsg.Value;
             }
         }
-        [JsonIgnore] private Lazy<IEnumerable<EssenceMsg>?>? _essenceMsg;
+        [JsonIgnore] private Lazy<List<EssenceMsg>?>? _essenceMsg;
 
         /// <summary>
         /// 群文件系统信息
@@ -164,7 +164,7 @@ namespace ShamrockCore.Data.Model
         /// 群公告
         /// </summary>
         [JsonIgnore]
-        public IEnumerable<Announcement>? Notice
+        public List<Announcement>? Notice
         {
             get
             {
@@ -172,7 +172,7 @@ namespace ShamrockCore.Data.Model
                 return _notice.Value;
             }
         }
-        [JsonIgnore] private Lazy<IEnumerable<Announcement>?>? _notice;
+        [JsonIgnore] private Lazy<List<Announcement>?>? _notice;
 
         /// <summary>
         /// 群系统消息

@@ -3,6 +3,11 @@ using ShamrockCore.Data.HttpAPI;
 
 namespace ShamrockCore.Data.Model
 {
+    internal record GuildListModel
+    {
+        [JsonProperty("guild_list")]
+        internal List<GuildProfile> GuildList { get; set; } = new();
+    }
     /// <summary>
     /// 频道信息
     /// </summary>
@@ -69,11 +74,11 @@ namespace ShamrockCore.Data.Model
             }
         }
 
-        private Lazy<IEnumerable<GuildRole>?>? _roles;
+        private Lazy<List<GuildRole>?>? _roles;
         /// <summary>
         /// 角色列表
         /// </summary>
-        public IEnumerable<GuildRole>? Roles
+        public List<GuildRole>? Roles
         {
             get
             {
@@ -102,7 +107,7 @@ namespace ShamrockCore.Data.Model
         /// </summary>
         /// <param name="refresh">是否刷新数据，默认false</param>
         /// <returns></returns>
-        public async Task<IEnumerable<ChannelProfile>?> Channels(bool refresh = false)
+        public async Task<List<ChannelProfile>?> Channels(bool refresh = false)
         {
             var res = await Api.GetGuildChannelList(GuildId, refresh);
             return res;

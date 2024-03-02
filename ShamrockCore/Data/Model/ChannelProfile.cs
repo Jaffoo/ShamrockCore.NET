@@ -2,6 +2,15 @@
 
 namespace ShamrockCore.Data.Model
 {
+    internal record ChannelListModel
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("channel_list")]
+        internal List<ChannelProfile> ChannelList { get; set; } = new List<ChannelProfile>();
+    }
+
     /// <summary>
     /// 子频道信息
     /// </summary>

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using ShamrockCore.Data.HttpAPI;
 using ShamrockCore.Data.Model;
+using ShamrockCore.Receiver.MsgChain;
 
 namespace ShamrockCore.Receiver.Receivers
 {
@@ -22,9 +23,19 @@ namespace ShamrockCore.Receiver.Receivers
         public long ChannelId { get; set; }
 
         /// <summary>
-        /// 所有数据json字符串
+        /// 字体
         /// </summary>
-        public string Data { get; set; } = "";
+        public int Font { get; set; }
+
+        /// <summary>
+        /// 消息
+        /// </summary>
+        public MessageChain Message { get; set; } = new();
+
+        /// <summary>
+        /// 发送人
+        /// </summary>
+        public GuildSender Sender { get; set; } = new();
 
         #region 扩展方法/属性
         private Lazy<GuildProfile?>? _guild;
