@@ -22,6 +22,10 @@ namespace ShamrockCore
         public static Bot? Instance { get; set; }
         private WebsocketClient? _client;
 
+        /// <summary>
+        /// 正向ws
+        /// </summary>
+        /// <param name="config"></param>
         public Bot(ConnectConfig config)
         {
             Instance?.Dispose();
@@ -32,6 +36,10 @@ namespace ShamrockCore
             DisconnectionHappened = _disconnectionHappened.AsObservable();
         }
 
+        /// <summary>
+        /// 反向ws
+        /// </summary>
+        /// <param name="config"></param>
         public Bot(ReverseConnectConfig config)
         {
             Instance?.Dispose();
@@ -118,9 +126,6 @@ namespace ShamrockCore
                                 socket.Send("Token验证失败！");
                                 socket.Close();
                             }
-                        };
-                        socket.OnClose = () =>
-                        {
                         };
                         socket.OnMessage = message =>
                         {
