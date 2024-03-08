@@ -9,6 +9,8 @@ using ShamrockCore.Data.Model;
 using ShamrockCore.Data.HttpAPI;
 using ShamrockCore.Receiver.Events;
 using ShamrockCore.Receiver.Receivers;
+using Fleck;
+using System.Net.Sockets;
 
 namespace ShamrockCore
 {
@@ -30,11 +32,27 @@ namespace ShamrockCore
             DisconnectionHappened = _disconnectionHappened.AsObservable();
         }
 
+        public Bot(ReverseConnectConfig config)
+        {
+            Instance?.Dispose();
+            ReverseConfig = config;
+            EventReceived = _eventReceivedSubject.AsObservable();
+            MessageReceived = _messageReceivedSubject.AsObservable();
+            UnknownMessageReceived = _unknownMessageReceived.AsObservable();
+            DisconnectionHappened = _disconnectionHappened.AsObservable();
+        }
+
         /// <summary>
-        /// 获取配置信息
+        /// 获取正向ws配置信息
         /// </summary>
         /// <returns></returns>
-        public ConnectConfig Config { get; }
+        public ConnectConfig? Config { get; }
+
+        /// <summary>
+        /// 获取反向ws配置信息
+        /// </summary>
+        /// <returns></returns>
+        public ReverseConnectConfig? ReverseConfig { get; }
 
         /// <summary>
         /// 启动机器人
@@ -55,35 +73,62 @@ namespace ShamrockCore
         {
             try
             {
-                var clientFactory = new Func<Uri, CancellationToken, Task<WebSocket>>(async (uri, cancellationToken) =>
+                if (Config != null)
                 {
-                    var client = new ClientWebSocket();
-                    if (!string.IsNullOrWhiteSpace(Config.Token))
-                        client.Options.SetRequestHeader("authorization", "Bearer " + Config.Token);
-                    await client.ConnectAsync(uri, cancellationToken).ConfigureAwait(false);
-                    return client;
-                });
-                var url = new Uri($"ws://{Config.Host}:{Config.WsPort}");
-                _client = new WebsocketClient(url, null, clientFactory)
-                {
-                    IsReconnectionEnabled = false,
-                };
-                await _client.StartOrFail();
-                _client.DisconnectionHappened
-                    .Subscribe(x =>
+                    var clientFactory = new Func<Uri, CancellationToken, Task<WebSocket>>(async (uri, cancellationToken) =>
                     {
-                        _disconnectionHappened.OnNext(x.CloseStatus ?? WebSocketCloseStatus.Empty);
+                        var client = new ClientWebSocket();
+                        if (!string.IsNullOrWhiteSpace(Config.Token))
+                            client.Options.SetRequestHeader("authorization", "Bearer " + Config.Token);
+                        await client.ConnectAsync(uri, cancellationToken).ConfigureAwait(false);
+                        return client;
                     });
+                    var url = new Uri($"ws://{Config.Host}:{Config.WsPort}");
+                    _client = new WebsocketClient(url, null, clientFactory)
+                    {
+                        IsReconnectionEnabled = false,
+                    };
+                    await _client.StartOrFail();
+                    _client.DisconnectionHappened
+                        .Subscribe(x =>
+                        {
+                            _disconnectionHappened.OnNext(x.CloseStatus ?? WebSocketCloseStatus.Empty);
+                        });
 
-                _client.MessageReceived
-                    .Where(message => message.MessageType == WebSocketMessageType.Text)
-                    .Subscribe(message =>
+                    _client.MessageReceived
+                        .Where(message => message.MessageType == WebSocketMessageType.Text)
+                        .Subscribe(message =>
+                        {
+                            var data = message?.Text;
+                            if (string.IsNullOrWhiteSpace(data))
+                                throw new InvalidDataException("Websocket数据响应错误！");
+                            ProcessWebSocketData(data);
+                        });
+                }
+                if (ReverseConfig != null)
+                {
+                    var server = new WebSocketServer(ReverseConfig.WsUrl);
+                    server.Start(socket =>
                     {
-                        var data = message?.Text;
-                        if (string.IsNullOrWhiteSpace(data))
-                            throw new InvalidDataException("Websocket数据响应错误！");
-                        ProcessWebSocketData(data);
+                        socket.OnOpen = () =>
+                        {
+                            var token = socket.ConnectionInfo.Origin.Split('?')[1].Split('=')[1]; // 获取连接中的 token
+                            if (token != ReverseConfig.Token)
+                            {
+                                socket.Send("Token验证失败！");
+                                socket.Close();
+                            }
+                        };
+                        socket.OnClose = () =>
+                        {
+                        };
+                        socket.OnMessage = message =>
+                        {
+                            Console.WriteLine("Received: " + message);
+                            ProcessWebSocketData(message);
+                        };
                     });
+                }
             }
             catch (Exception)
             {
@@ -423,7 +468,7 @@ namespace ShamrockCore
     }
 
     /// <summary>
-    /// 连接类
+    /// 正向websocket连接类
     /// </summary>
     /// <param name="Host">主机地址</param>
     /// <param name="WsPort">websocket端口</param>
@@ -460,5 +505,29 @@ namespace ShamrockCore
         /// wsUrl
         /// </summary>
         public string WsUrl => "ws://" + Host + ":" + WsPort + "/";
+    }
+
+    /// <summary>
+    /// 反向websocket连接类
+    /// </summary>
+    /// <param name="HttpUrl">http地址</param>
+    /// <param name="WsPort">ws服务端口</param>
+    /// <param name="Token">token</param>
+    public record ReverseConnectConfig(string HttpUrl, int WsPort = 5061, string? Token = null)
+    {
+        /// <summary>
+        /// http地址
+        /// </summary>
+        public string HttpUrl { get; set; } = HttpUrl;
+
+        /// <summary>
+        /// token
+        /// </summary>
+        public string? Token { get; set; } = Token;
+
+        /// <summary>
+        /// ws服务地址
+        /// </summary>
+        public string WsUrl => "ws://0.0.0.:" + WsPort + "/";
     }
 }
