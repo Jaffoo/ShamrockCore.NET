@@ -118,18 +118,9 @@ namespace ShamrockCore
                     var server = new WebSocketServer(ReverseConfig.WsUrl);
                     server.Start(socket =>
                     {
-                        socket.OnOpen = () =>
-                        {
-                            var token = socket.ConnectionInfo.Origin.Split('?')[1].Split('=')[1]; // 获取连接中的 token
-                            if (token != ReverseConfig.Token)
-                            {
-                                socket.Send("Token验证失败！");
-                                socket.Close();
-                            }
-                        };
                         socket.OnMessage = message =>
                         {
-                            Console.WriteLine("Received: " + message);
+                            var token = socket.ConnectionInfo;
                             ProcessWebSocketData(message);
                         };
                     });
@@ -533,6 +524,6 @@ namespace ShamrockCore
         /// <summary>
         /// ws服务地址
         /// </summary>
-        public string WsUrl => "ws://0.0.0.:" + WsPort + "/";
+        public string WsUrl => "ws://0.0.0.0:" + WsPort + "/";
     }
 }

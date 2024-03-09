@@ -13,8 +13,13 @@ namespace ShamrockCore.Test
     {
         static async Task Main()
         {
+            #region 主动ws
             var config = new ConnectConfig("192.168.2.10", 5800, 5700);
-            using Bot bot = new(config);
+            #endregion
+            #region 被动ws
+            var reverseConfig = new ReverseConnectConfig("192.168.2.7:5800",5700);
+            #endregion
+            using Bot bot = new(reverseConfig);
             await bot.Start();
             await Console.Out.WriteLineAsync("Open");
             bot.DisconnectionHappened.Subscribe(e =>
@@ -77,6 +82,8 @@ namespace ShamrockCore.Test
             #region 接口测试
             //System.Console.WriteLine(bot.FriendSysMsg.ToJsonString());
             #endregion
+
+
             while (true)
             {
                 Thread.Sleep(10);
