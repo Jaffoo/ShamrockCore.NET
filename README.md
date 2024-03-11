@@ -9,4 +9,7 @@
 
 如果发现问题请提交issue或者[加群](https://qm.qq.com/q/4QholhWSyA)。当然欢迎你提交PR帮助项目的完善。
 
-![QRCode](https://s3.bmp.ovh/imgs/2024/01/17/c06d70cdff29d9c6.png)
+## 最新重大更新：
+【2024-03-02】支持频道功能（请使用最新开发版openshamrock）
+【2024-03-09】添加反向websocket支持
+具体请看文档。
