@@ -10,7 +10,7 @@ using ShamrockCore.Data.HttpAPI;
 using ShamrockCore.Receiver.Events;
 using ShamrockCore.Receiver.Receivers;
 using Fleck;
-using System.Net.Sockets;
+using ShamrockCore.Receiver.MsgChain;
 
 namespace ShamrockCore
 {
@@ -21,7 +21,6 @@ namespace ShamrockCore
     {
         public static Bot? Instance { get; set; }
         private WebsocketClient? _client;
-
         /// <summary>
         /// 正向ws
         /// </summary>
@@ -37,30 +36,11 @@ namespace ShamrockCore
         }
 
         /// <summary>
-        /// 反向ws
-        /// </summary>
-        /// <param name="config"></param>
-        public Bot(ReverseConnectConfig config)
-        {
-            Instance?.Dispose();
-            ReverseConfig = config;
-            EventReceived = _eventReceivedSubject.AsObservable();
-            MessageReceived = _messageReceivedSubject.AsObservable();
-            UnknownMessageReceived = _unknownMessageReceived.AsObservable();
-            DisconnectionHappened = _disconnectionHappened.AsObservable();
-        }
-
-        /// <summary>
-        /// 获取正向ws配置信息
+        /// 配置信息
         /// </summary>
         /// <returns></returns>
-        public ConnectConfig? Config { get; }
+        public ConnectConfig Config { get; }
 
-        /// <summary>
-        /// 获取反向ws配置信息
-        /// </summary>
-        /// <returns></returns>
-        public ReverseConnectConfig? ReverseConfig { get; }
 
         /// <summary>
         /// 启动机器人
@@ -81,7 +61,7 @@ namespace ShamrockCore
         {
             try
             {
-                if (Config != null)
+                if (!Config.Reverse)
                 {
                     var clientFactory = new Func<Uri, CancellationToken, Task<WebSocket>>(async (uri, cancellationToken) =>
                     {
@@ -91,7 +71,7 @@ namespace ShamrockCore
                         await client.ConnectAsync(uri, cancellationToken).ConfigureAwait(false);
                         return client;
                     });
-                    var url = new Uri($"ws://{Config.Host}:{Config.WsPort}");
+                    var url = new Uri(Config.WsUrl);
                     _client = new WebsocketClient(url, null, clientFactory)
                     {
                         IsReconnectionEnabled = false,
@@ -113,9 +93,9 @@ namespace ShamrockCore
                             ProcessWebSocketData(data);
                         });
                 }
-                if (ReverseConfig != null)
+                if (Config.Reverse)
                 {
-                    var server = new WebSocketServer(ReverseConfig.WsUrl);
+                    var server = new WebSocketServer(Config.ReverseWsUrl);
                     server.Start(socket =>
                     {
                         socket.OnMessage = message =>
@@ -470,7 +450,8 @@ namespace ShamrockCore
     /// <param name="WsPort">websocket端口</param>
     /// <param name="HttpPort">http端口</param>
     /// <param name="Token">token</param>
-    public record ConnectConfig(string Host, int WsPort, int HttpPort, string? Token = null)
+    /// <param name="Reverse">启用反向ws</param>
+    public record ConnectConfig(string Host, int WsPort, int HttpPort, string? Token = null, bool Reverse = false)
     {
         /// <summary>
         /// 主机地址
@@ -488,6 +469,11 @@ namespace ShamrockCore
         public int HttpPort { get; set; } = HttpPort;
 
         /// <summary>
+        /// 启用反向ws
+        /// </summary>
+        internal bool Reverse { get; set; } = Reverse;
+
+        /// <summary>
         /// token
         /// </summary>
         public string? Token { get; set; } = Token;
@@ -501,29 +487,10 @@ namespace ShamrockCore
         /// wsUrl
         /// </summary>
         public string WsUrl => "ws://" + Host + ":" + WsPort + "/";
-    }
-
-    /// <summary>
-    /// 反向websocket连接类
-    /// </summary>
-    /// <param name="HttpUrl">http地址</param>
-    /// <param name="WsPort">ws服务端口</param>
-    /// <param name="Token">token</param>
-    public record ReverseConnectConfig(string HttpUrl, int WsPort = 5061, string? Token = null)
-    {
-        /// <summary>
-        /// http地址
-        /// </summary>
-        public string HttpUrl { get; set; } = HttpUrl;
 
         /// <summary>
-        /// token
+        /// 反向ws
         /// </summary>
-        public string? Token { get; set; } = Token;
-
-        /// <summary>
-        /// ws服务地址
-        /// </summary>
-        public string WsUrl => "ws://0.0.0.0:" + WsPort + "/";
+        public string ReverseWsUrl => "ws://0.0.0.0:" + WsPort + "/";
     }
 }

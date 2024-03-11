@@ -553,7 +553,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
-                var url = Bot.Instance!.Config.HttpUrl + HttpEndpoints.Log.Description();
+                var url = Bot.Instance?.Config.HttpUrl + HttpEndpoints.Log.Description();
                 if (start > 0) url = url.SetQueryParam("start", start);
                 var res = await HttpUtil.GetStringAsync(url.SetQueryParam("recent", recent));
                 return res;
@@ -574,7 +574,7 @@ namespace ShamrockCore.Data.HttpAPI
             try
             {
                 if (groupQQ <= 0) throw new ArgumentException("群不存在");
-                var url = Bot.Instance!.Config.HttpUrl + HttpEndpoints.GetAtAllCount.Description();
+                var url = Bot.Instance?.Config.HttpUrl + HttpEndpoints.GetAtAllCount.Description();
                 var res = await HttpUtil.GetStringAsync(url.SetQueryParam("group_id", groupQQ));
                 var canAtAll = (res.Fetch("can_at_all") ?? "false").ToBool();
                 if (!canAtAll) return 0;
@@ -1255,6 +1255,30 @@ namespace ShamrockCore.Data.HttpAPI
         }
 
         /// <summary>
+        /// 点赞资料卡
+        /// </summary>
+        /// <param name="qq">qq</param>
+        /// <param name="times">点赞次数</param>
+        /// <returns></returns>
+        public static async Task<bool?> SendLike(long qq, int times)
+        {
+            try
+            {
+                var obj = new
+                {
+                    times,
+                    user_id = qq
+                };
+                var res = await HttpEndpoints.SendLike.PostAsync(obj);
+                return res;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
         /// 让Shamrock下载文件到缓存目录
         /// </summary>
         /// <param name="url">url和base64二选一，两个均传优选url</param>
@@ -1426,7 +1450,17 @@ namespace ShamrockCore.Data.HttpAPI
             }
         }
 
-        public static async Task<bool> SetGroupCommentFace(long groupQQ, int msgId, int faceId, bool isSet)
+        /// <summary>
+        /// 设置消息底部评论小表情
+        /// 目前版本（9.0.15）只在部分群聊进行灰度测试！
+        /// </summary>
+        /// <param name="groupQQ"></param>
+        /// <param name="msgId"></param>
+        /// <param name="faceId"></param>
+        /// <param name="isSet"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public static async Task<bool> SetGroupCommentFace(long groupQQ, long msgId, int faceId, bool isSet)
         {
             try
             {

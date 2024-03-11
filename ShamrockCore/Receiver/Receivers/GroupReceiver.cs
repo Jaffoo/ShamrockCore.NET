@@ -87,6 +87,16 @@ namespace ShamrockCore.Receiver.Receivers
         /// </summary>
         [JsonIgnore]
         public override PostMessageType Type { get; set; } = PostMessageType.Group;
+
+        /// <summary>
+        /// 设置消息底部评论小表情
+        /// 目前版本（9.0.15）只在部分群聊进行灰度测试
+        /// </summary>
+        /// <returns></returns>
+        public async Task<bool> SetGroupCommentFace(int faceId, bool isSet = true)
+        {
+            return await Api.SetGroupCommentFace(GroupQQ, MessageId, faceId, isSet);
+        }
         #endregion
     }
 }

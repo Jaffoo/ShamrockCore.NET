@@ -363,6 +363,11 @@ namespace ShamrockCore.Data.HttpAPI
         /// </summary>
         [Description("set_group_remark")] SetGroupRemark,
 
+        /// <summary>
+        /// 点赞资料卡
+        /// </summary>
+        [Description("send_like")] SendLike,
+
         #region 频道接口
         /// <summary>
         /// 获取频道系统内BOT的资料

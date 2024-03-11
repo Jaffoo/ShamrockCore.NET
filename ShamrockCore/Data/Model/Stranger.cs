@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using ShamrockCore.Data.HttpAPI;
 
 namespace ShamrockCore.Data.Model
 {
@@ -38,5 +39,18 @@ namespace ShamrockCore.Data.Model
         /// </summary>
         [JsonProperty("login_days")]
         public int LoginDays { get; set; }
+
+        #region 扩展方法/属性
+        /// <summary>
+        /// 资料卡点赞
+        /// </summary>
+        /// <param name="times">次数</param>
+        /// <returns></returns>
+        public async Task<bool?> Like(int times = 20)
+        {
+            var b = await Api.SendLike(QQ, times);
+            return b;
+        }
+        #endregion
     }
 }

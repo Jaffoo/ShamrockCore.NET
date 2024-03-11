@@ -88,6 +88,17 @@ namespace ShamrockCore.Data.Model
             var path = await Api.DownloadFile1("", base64);
             return path == null ? throw new Exception("数据错误！") : await Api.UploadPrivateFile(QQ, path.File, name);
         }
+
+        /// <summary>
+        /// 资料卡点赞
+        /// </summary>
+        /// <param name="times">次数</param>
+        /// <returns></returns>
+        public async Task<bool?> Like(int times = 20)
+        {
+            var b = await Api.SendLike(QQ, times);
+            return b;
+        }
         #endregion
     }
 }

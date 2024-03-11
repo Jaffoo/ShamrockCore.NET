@@ -185,6 +185,17 @@ namespace ShamrockCore.Data.Model
         /// <param name="card">群名片内容, 不填或空字符串表示删除群名片</param>
         /// <returns></returns>
         public async Task<bool> SetCard(string card = "") => await Api.SetGroupCard(GroupQQ, QQ, card);
+
+        /// <summary>
+        /// 资料卡点赞
+        /// </summary>
+        /// <param name="times">次数</param>
+        /// <returns></returns>
+        public async Task<bool?> Like(int times = 20)
+        {
+            var b = await Api.SendLike(QQ, times);
+            return b;
+        }
         #endregion
     }
 }

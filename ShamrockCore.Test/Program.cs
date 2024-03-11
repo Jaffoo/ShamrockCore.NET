@@ -14,12 +14,22 @@ namespace ShamrockCore.Test
         static async Task Main()
         {
             #region 主动ws
-            var config = new ConnectConfig("192.168.2.10", 5800, 5700);
+            var config = new ConnectConfig("192.168.2.10", 5800, 5700, "token");
+            using Bot bot = new(config);
+            Console.WriteLine(config.HttpUrl);
+            Console.WriteLine(config.WsUrl);
+            Console.WriteLine(config.Token);
             #endregion
             #region 被动ws
-            var reverseConfig = new ReverseConnectConfig("192.168.2.7:5800",5700);
+            var reverseConfig = new ConnectConfig("192.168.2.10", 5800, 5700, "123", true);
+            using Bot bot1 = new(reverseConfig);
+            Console.WriteLine(reverseConfig.HttpUrl);
+            Console.WriteLine(reverseConfig.ReverseWsUrl);
+            Console.WriteLine(reverseConfig.Token);
             #endregion
-            using Bot bot = new(reverseConfig);
+            Console.ReadKey();
+            Console.ReadKey();
+            Console.ReadKey();
             await bot.Start();
             await Console.Out.WriteLineAsync("Open");
             bot.DisconnectionHappened.Subscribe(e =>
@@ -57,7 +67,7 @@ namespace ShamrockCore.Test
             bot.MessageReceived.OfType<GuildReceiver>().Subscribe(async msg =>
             {
                 await Console.Out.WriteLineAsync("频道消息：" + msg.ToJsonString());
-                
+
             });
             #endregion
 
