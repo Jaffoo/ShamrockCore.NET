@@ -29,7 +29,7 @@ namespace ShamrockCore.Receiver.MsgChain
         [JsonProperty("id")] public long Id { get; set; }
         [JsonProperty("file")] public string File { get; set; } = "";
         [JsonProperty("magic")] public bool Magic { get; set; }
-        [JsonProperty("type")] public int Type { get; set; }
+        [JsonProperty("type")] public string Type { get; set; } = "";
         [JsonProperty("strength")] public int Strength { get; set; }
         [JsonProperty("url")] public string Url { get; set; } = "";
         [JsonProperty("audio")] public string Audio { get; set; } = "";
@@ -200,7 +200,8 @@ namespace ShamrockCore.Receiver.MsgChain
             /// <summary>
             /// 图片类型
             /// </summary>
-            [JsonConverter(typeof(StringEnumConverter))]
+            [JsonProperty("type")]
+            [JsonConverter(typeof(LowercaseStringEnumConverter))]
             public ImgType Type { get; set; }
 
             /// <summary>
