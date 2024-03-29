@@ -50,7 +50,7 @@ namespace ShamrockCore.Receiver.Receivers
         /// 消息内容
         /// </summary>
         [JsonProperty("message")]
-        public MessageChain? Message { get; set; } = null;
+        public MessageChain Message { get; set; } = new();
 
         #region 扩展方法/属性
         /// <summary>
