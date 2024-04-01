@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using ShamrockCore.Data.HttpAPI;
+using ShamrockCore.Utils;
 
 namespace ShamrockCore.Data.Model
 {
@@ -17,13 +19,13 @@ namespace ShamrockCore.Data.Model
         /// <summary>
         ///     好友的备注
         /// </summary>
-        [JsonProperty("user_remark")]
+        [CustomJsonProperty("user_remark","remark")]
         public string RemarkName { get; set; } = "";
 
         /// <summary>
         ///     好友的昵称
         /// </summary>
-        [JsonProperty("user_displayname")]
+        [CustomJsonProperty("nickname", "user_displayname")]
         public string NickName { get; set; } = "";
 
         /// <summary>
@@ -35,8 +37,9 @@ namespace ShamrockCore.Data.Model
         /// <summary>
         ///     好友的性别
         /// </summary>
-        [JsonProperty("gender")]
-        public int Gender { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        [CustomJsonProperty("sex", "gender")]
+        public Genders Sex { get; set; }
 
         /// <summary>
         ///     分组ID(不是群)
