@@ -1,5 +1,6 @@
-﻿using Flurl;
-using Manganese.Text;
+﻿using System.Net;
+using TBC.CommonLib;
+using UniBot.Message;
 using UniBot.Model;
 
 namespace ShamrockCore.Data.HttpAPI
@@ -10,6 +11,28 @@ namespace ShamrockCore.Data.HttpAPI
         public Api(ConnectConf conf)
         {
             _conf = conf;
+        }
+
+        public async Task<long> SendPrivateMsg(long qq, MessageChain msg)
+        {
+            try
+            {
+                var url = _conf.HttpUrl + HttpEndpoints.SendPrivateMsg.GetDescription();
+                var data = new
+                {
+                    user_id = qq,
+                    message = msg
+                };
+                var res = await Tools.PostAsync<ApiResult>(url, data.ToJsonStr(), _conf.Headers);
+                if (res == null) return 0;
+                if (res.Status == "failed") throw new Exception(res.Message);
+                var resulst = res.Data;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
         /// <summary>
         /// 发送私聊消息

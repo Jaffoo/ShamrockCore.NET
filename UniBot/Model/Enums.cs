@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using System.ComponentModel;
+using System.Runtime.Serialization;
 
 namespace UniBot.Model
 {
@@ -130,5 +132,105 @@ namespace UniBot.Model
         /// JSON
         /// </summary>
         Json,
+    }
+
+    public enum MessageType
+    {
+        /// <summary>
+        /// 私聊消息
+        /// </summary>
+        Private,
+
+        /// <summary>
+        /// 群聊消息
+        /// </summary>
+        Group
+    }
+
+    public enum MessageSubType
+    {
+        /// <summary>
+        /// 好友消息
+        /// </summary>
+        Friend,
+
+        /// <summary>
+        /// 群消息
+        /// </summary>
+        Group,
+
+        /// <summary>
+        /// 其他消息
+        /// </summary>
+        Other,
+
+        /// <summary>
+        /// 群正常消息
+        /// </summary>
+        Normal,
+
+        /// <summary>
+        /// 群匿名消息
+        /// </summary>
+        Anonymous,
+
+        /// <summary>
+        /// 群系统提示
+        /// </summary>
+        Notice
+    }
+
+    /// <summary>
+    /// 性别
+    /// </summary>
+    public enum Genders
+    {
+        /// <summary>
+        /// 男性
+        /// </summary>
+        [EnumMember(Value = "MALE")]
+        [Description("MALE")]
+        Male,
+
+        /// <summary>
+        /// 女性
+        /// </summary>
+        [EnumMember(Value = "FEMALE")]
+        [Description("FEMALE")]
+        Female,
+
+        /// <summary>
+        /// 未知
+        /// </summary>
+        [EnumMember(Value = "UNKNOWN")]
+        [Description("UNKNOWN")]
+        Unknown
+    }
+
+    /// <summary>
+    /// 群内权限
+    /// </summary>
+    public enum Permissions
+    {
+        /// <summary>
+        /// 群主
+        /// </summary>
+        [EnumMember(Value = "OWNER")]
+        [Description("OWNER")]
+        Owner,
+
+        /// <summary>
+        /// 管理员
+        /// </summary>
+        [EnumMember(Value = "ADMINISTRATOR")]
+        [Description("ADMINISTRATOR")]
+        Administrator,
+
+        /// <summary>
+        /// 群员
+        /// </summary>
+        [EnumMember(Value = "MEMBER")]
+        [Description("MEMBER")]
+        Member
     }
 }

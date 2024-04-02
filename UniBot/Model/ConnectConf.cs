@@ -21,9 +21,9 @@
         public int HttpPort { get; set; }
 
         /// <summary>
-        /// ws鉴权token（正向可用）
+        /// 鉴权token
         /// </summary>
-        public string WsToken { get; set; } = "";
+        public string Token { get; set; } = "";
 
         /// <summary>
         /// 启用反向Ws，（此程序作为服务端）
@@ -44,5 +44,17 @@
         /// 反向ws
         /// </summary>
         public string ReverseWsUrl => "ws://0.0.0.0:" + WsPort + "/";
+
+        public Dictionary<string, string> Headers
+        {
+            get
+            {
+                var header = new Dictionary<string, string>
+                {
+                    { "Authorization", "Bearer " + Token }
+                };
+                return header;
+            }
+        }
     }
 }
