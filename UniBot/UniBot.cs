@@ -7,12 +7,12 @@ namespace UniBot
     /// <summary>
     /// 主函数
     /// </summary>
-    public class UniBot
+    public class Bot
     {
         #region 全局变量/构造函数
         private readonly WebsocketClient? _client;
         public ConnectConf Conn;
-        public UniBot(ConnectConf conf)
+        public Bot(ConnectConf conf)
         {
             Conn = conf;
         }
