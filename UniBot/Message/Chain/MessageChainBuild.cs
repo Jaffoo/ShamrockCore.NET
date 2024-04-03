@@ -1,24 +1,4 @@
-﻿using UniBot.Anonymous;
-using UniBot.At;
-using UniBot.Dict;
-using UniBot.Face;
-using UniBot.Forward;
-using UniBot.Image;
-using UniBot.Json;
-using UniBot.Location;
-using UniBot.Music;
-using UniBot.Node;
-using UniBot.Poke;
-using UniBot.Record;
-using UniBot.Reply;
-using UniBot.Rps;
-using UniBot.Shake;
-using UniBot.Share;
-using UniBot.Text;
-using UniBot.Video;
-using UniBot.Xml;
-
-namespace UniBot.Message
+﻿namespace UniBot.Message.Chain
 {
     /// <summary>
     /// 构建消息连
@@ -203,7 +183,7 @@ namespace UniBot.Message
         /// <returns></returns>
         public MessageChain Poke()
         {
-            list.Add(new Poke.Poke());
+            list.Add(new Poke());
             return list;
         }
 

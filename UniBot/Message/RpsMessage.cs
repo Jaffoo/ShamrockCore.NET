@@ -1,7 +1,6 @@
-﻿using UniBot.Message;
-using UniBot.Model;
+﻿using UniBot.Model;
 
-namespace UniBot.Rps
+namespace UniBot.Message
 {
     /// <summary>
     /// 猜拳魔法表情
@@ -9,12 +8,12 @@ namespace UniBot.Rps
     public class RpsMessage : MessageBase
     {
         public override Messages Type => Messages.Rps;
-    }
 
-    /// <summary>
-    /// 消息体
-    /// </summary>
-    public class Body
-    {
+        /// <summary>
+        /// 消息体
+        /// </summary>
+        public class Body
+        {
+        }
     }
 }

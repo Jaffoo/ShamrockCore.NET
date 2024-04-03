@@ -1,7 +1,6 @@
-﻿using UniBot.Message;
-using UniBot.Model;
+﻿using UniBot.Model;
 
-namespace UniBot.Xml
+namespace UniBot.Message
 {
     /// <summary>
     /// Xml
@@ -16,16 +15,16 @@ namespace UniBot.Xml
                 Data = xml
             };
         }
-    }
 
-    /// <summary>
-    /// 消息体
-    /// </summary>
-    public class Body
-    {
         /// <summary>
-        /// XML 内容
+        /// 消息体
         /// </summary>
-        public string Data { get; set; } = "";
+        public class Body
+        {
+            /// <summary>
+            /// XML 内容
+            /// </summary>
+            public string Data { get; set; } = "";
+        }
     }
 }

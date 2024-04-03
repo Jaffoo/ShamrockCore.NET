@@ -1,7 +1,6 @@
-﻿using UniBot.Message;
-using UniBot.Model;
+﻿using UniBot.Model;
 
-namespace UniBot.Reply
+namespace UniBot.Message
 {
     /// <summary>
     /// 回复消息
@@ -13,16 +12,16 @@ namespace UniBot.Reply
         {
             Data = new Body() { Id = msgId };
         }
-    }
 
-    /// <summary>
-    /// 消息体
-    /// </summary>
-    public class Body
-    {
         /// <summary>
-        /// 消息id
+        /// 消息体
         /// </summary>
-        public long Id { get; set; }
+        public class Body
+        {
+            /// <summary>
+            /// 消息id
+            /// </summary>
+            public long Id { get; set; }
+        }
     }
 }

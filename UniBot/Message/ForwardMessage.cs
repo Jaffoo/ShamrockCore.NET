@@ -1,7 +1,6 @@
-﻿using UniBot.Message;
-using UniBot.Model;
+﻿using UniBot.Model;
 
-namespace UniBot.Forward
+namespace UniBot.Message
 {
     /// <summary>
     /// 合并转发
@@ -13,16 +12,16 @@ namespace UniBot.Forward
         {
             Data = new Body() { Id = forwardMsgId };
         }
-    }
 
-    /// <summary>
-    /// 消息体
-    /// </summary>
-    public class Body
-    {
         /// <summary>
-        /// 合并转发 ID，需通过 get_forward_msg API 获取具体内容
+        /// 消息体
         /// </summary>
-        public long Id { get; set; }
+        public class Body
+        {
+            /// <summary>
+            /// 合并转发 ID，需通过 get_forward_msg API 获取具体内容
+            /// </summary>
+            public long Id { get; set; }
+        }
     }
 }

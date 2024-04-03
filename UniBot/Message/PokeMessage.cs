@@ -1,7 +1,6 @@
-﻿using UniBot.Message;
-using UniBot.Model;
+﻿using UniBot.Model;
 
-namespace UniBot.Poke
+namespace UniBot.Message
 {
     /// <summary>
     /// 戳一戳
@@ -19,27 +18,27 @@ namespace UniBot.Poke
                 Type = type,
             };
         }
-    }
-
-    /// <summary>
-    /// 消息体
-    /// </summary>
-    public class Body
-    {
-        /// <summary>
-        /// 类型
-        /// </summary>
-        public int Type { get; set; }
 
         /// <summary>
-        /// id
+        /// 消息体
         /// </summary>
-        public int Id { get; set; }
+        public class Body
+        {
+            /// <summary>
+            /// 类型
+            /// </summary>
+            public int Type { get; set; }
 
-        /// <summary>
-        /// 表情名
-        /// </summary>
-        public string Name { get; set; } = "";
+            /// <summary>
+            /// id
+            /// </summary>
+            public int Id { get; set; }
+
+            /// <summary>
+            /// 表情名
+            /// </summary>
+            public string Name { get; set; } = "";
+        }
     }
 
     /// <summary>

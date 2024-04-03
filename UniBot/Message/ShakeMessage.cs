@@ -1,7 +1,6 @@
-﻿using UniBot.Message;
-using UniBot.Model;
+﻿using UniBot.Model;
 
-namespace UniBot.Shake
+namespace UniBot.Message
 {
     /// <summary>
     /// 窗口抖动（戳一戳）
@@ -9,12 +8,12 @@ namespace UniBot.Shake
     public class ShakeMessage : MessageBase
     {
         public override Messages Type => Messages.Shake;
-    }
 
-    /// <summary>
-    /// 消息体
-    /// </summary>
-    public class Body
-    {
+        /// <summary>
+        /// 消息体
+        /// </summary>
+        public class Body
+        {
+        }
     }
 }

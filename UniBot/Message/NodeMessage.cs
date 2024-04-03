@@ -1,8 +1,7 @@
-﻿using UniBot.Message;
+﻿using UniBot.Message.Chain;
 using UniBot.Model;
-using UniBot.Text;
 
-namespace UniBot.Node
+namespace UniBot.Message
 {
     /// <summary>
     /// 合并转发
@@ -10,7 +9,6 @@ namespace UniBot.Node
     public class NodeMessage : MessageBase
     {
         public override Messages Type => Messages.Node;
-
 
         /// <summary>
         /// 合并转发
@@ -46,31 +44,31 @@ namespace UniBot.Node
         {
             Data = new Body() { QQ = qq, Nickname = nickname, Content = msg };
         }
-    }
-
-    /// <summary>
-    /// 消息体
-    /// </summary>
-    public class Body
-    {
-        /// <summary>
-        /// 转发的消息 ID
-        /// </summary>
-        public long Id { get; set; }
 
         /// <summary>
-        /// 发送者 QQ 号
+        /// 消息体
         /// </summary>
-        public long QQ { get; set; }
+        public class Body
+        {
+            /// <summary>
+            /// 转发的消息 ID
+            /// </summary>
+            public long Id { get; set; }
 
-        /// <summary>
-        /// 发送者昵称
-        /// </summary>
-        public string Nickname { get; set; } = "";
+            /// <summary>
+            /// 发送者 QQ 号
+            /// </summary>
+            public long QQ { get; set; }
 
-        /// <summary>
-        /// 消息内容
-        /// </summary>
-        public MessageChain? Content { get; set; }
+            /// <summary>
+            /// 发送者昵称
+            /// </summary>
+            public string Nickname { get; set; } = "";
+
+            /// <summary>
+            /// 消息内容
+            /// </summary>
+            public MessageChain? Content { get; set; }
+        }
     }
 }

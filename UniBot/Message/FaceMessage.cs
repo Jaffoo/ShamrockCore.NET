@@ -1,7 +1,6 @@
-﻿using UniBot.Message;
-using UniBot.Model;
+﻿using UniBot.Model;
 
-namespace UniBot.Face
+namespace UniBot.Message
 {
     /// <summary>
     /// 表情消息
@@ -17,16 +16,16 @@ namespace UniBot.Face
                 Id = id
             };
         }
-    }
 
-    /// <summary>
-    /// 消息体
-    /// </summary>
-    public class Body
-    {
         /// <summary>
-        /// 表情id
+        /// 消息体
         /// </summary>
-        public int Id { get; set; }
+        public class Body
+        {
+            /// <summary>
+            /// 表情id
+            /// </summary>
+            public int Id { get; set; }
+        }
     }
 }

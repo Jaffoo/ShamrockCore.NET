@@ -1,7 +1,6 @@
-﻿using UniBot.Message;
-using UniBot.Model;
+﻿using UniBot.Model;
 
-namespace UniBot.Share
+namespace UniBot.Message
 {
     /// <summary>
     /// 掷骰子魔法表情
@@ -20,31 +19,31 @@ namespace UniBot.Share
                 Image = image
             };
         }
-    }
-
-    /// <summary>
-    /// 消息体
-    /// </summary>
-    public class Body
-    {
-        /// <summary>
-        /// URL
-        /// </summary>
-        public string Url { get; set; } = "";
 
         /// <summary>
-        /// 标题
+        /// 消息体
         /// </summary>
-        public string Title { get; set; } = "";
+        public class Body
+        {
+            /// <summary>
+            /// URL
+            /// </summary>
+            public string Url { get; set; } = "";
 
-        /// <summary>
-        /// 发送时可选，内容描述
-        /// </summary>
-        public string Content { get; set; } = "";
+            /// <summary>
+            /// 标题
+            /// </summary>
+            public string Title { get; set; } = "";
 
-        /// <summary>
-        /// 发送时可选，图片 URL
-        /// </summary>
-        public string Image { get; set; } = "";
+            /// <summary>
+            /// 发送时可选，内容描述
+            /// </summary>
+            public string Content { get; set; } = "";
+
+            /// <summary>
+            /// 发送时可选，图片 URL
+            /// </summary>
+            public string Image { get; set; } = "";
+        }
     }
 }

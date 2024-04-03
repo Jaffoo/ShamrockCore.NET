@@ -1,7 +1,6 @@
-﻿using UniBot.Message;
-using UniBot.Model;
+﻿using UniBot.Model;
 
-namespace UniBot.Anonymous
+namespace UniBot.Message
 {
     /// <summary>
     /// 掷骰子魔法表情
@@ -9,12 +8,12 @@ namespace UniBot.Anonymous
     public class AnonymousMessage : MessageBase
     {
         public override Messages Type => Messages.Anonymous;
-    }
 
-    /// <summary>
-    /// 消息体
-    /// </summary>
-    public class Body
-    {
+        /// <summary>
+        /// 消息体
+        /// </summary>
+        public class Body
+        {
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using UniBot.Model;
 
-namespace UniBot.Message
+namespace UniBot.Message.Chain
 {
     public class MessageChain : List<MessageBase>
     {

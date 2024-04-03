@@ -1,7 +1,6 @@
-﻿using UniBot.Message;
-using UniBot.Model;
+﻿using UniBot.Model;
 
-namespace UniBot.At
+namespace UniBot.Message
 {
     /// <summary>
     /// @消息
@@ -21,16 +20,16 @@ namespace UniBot.At
                 QQ = qq
             };
         }
-    }
 
-    /// <summary>
-    /// 消息体
-    /// </summary>
-    public class Body
-    {
         /// <summary>
-        /// qq
+        /// 消息体
         /// </summary>
-        public string QQ { get; set; } = "";
+        public class Body
+        {
+            /// <summary>
+            /// qq
+            /// </summary>
+            public string QQ { get; set; } = "";
+        }
     }
 }

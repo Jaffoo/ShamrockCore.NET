@@ -1,7 +1,6 @@
-﻿using UniBot.Message;
-using UniBot.Model;
+﻿using UniBot.Model;
 
-namespace UniBot.Video
+namespace UniBot.Message
 {
     /// <summary>
     /// 语音消息
@@ -35,40 +34,40 @@ namespace UniBot.Video
             else if (!string.IsNullOrWhiteSpace(url))
                 Data.File = url;
         }
-    }
-
-    /// <summary>
-    /// 消息体
-    /// </summary>
-    public class Body
-    {
-        /// <summary>
-        /// 图片路径
-        /// 绝对路径，例如 file:///C:\\Users\Richard\Pictures\1.mp3
-        /// 网络 URL，例如 http://i1.piimg.com/567571/fdd6e7b6d93f1ef0.mp3
-        /// Base64 编码，例如 base64://xxxxxx=
-        /// </summary>
-        public string File { get; set; } = "";
 
         /// <summary>
-        /// 图片 URL
+        /// 消息体
         /// </summary>
-        public string Url { get; set; } = "";
+        public class Body
+        {
+            /// <summary>
+            /// 图片路径
+            /// 绝对路径，例如 file:///C:\\Users\Richard\Pictures\1.mp3
+            /// 网络 URL，例如 http://i1.piimg.com/567571/fdd6e7b6d93f1ef0.mp3
+            /// Base64 编码，例如 base64://xxxxxx=
+            /// </summary>
+            public string File { get; set; } = "";
 
-        /// <summary>
-        /// 只在通过网络 URL 发送时有效，表示是否使用已缓存的文件，默认true
-        /// </summary>
-        public bool Cache { get; set; } = true;
+            /// <summary>
+            /// 图片 URL
+            /// </summary>
+            public string Url { get; set; } = "";
 
-        /// <summary>
-        /// 只在通过网络 URL 发送时有效，表示是否通过代理下载文件（需通过环境变量或配置文件配置代理），默认 1
-        /// </summary>
-        public bool Proxy { get; set; } = true;
+            /// <summary>
+            /// 只在通过网络 URL 发送时有效，表示是否使用已缓存的文件，默认true
+            /// </summary>
+            public bool Cache { get; set; } = true;
 
-        /// <summary>
-        /// 只在通过网络 URL 发送时有效，单位秒，表示下载网络文件的超时时间，默认不超时
-        /// </summary>
-        public int Timeout { get; set; }
+            /// <summary>
+            /// 只在通过网络 URL 发送时有效，表示是否通过代理下载文件（需通过环境变量或配置文件配置代理），默认 1
+            /// </summary>
+            public bool Proxy { get; set; } = true;
+
+            /// <summary>
+            /// 只在通过网络 URL 发送时有效，单位秒，表示下载网络文件的超时时间，默认不超时
+            /// </summary>
+            public int Timeout { get; set; }
+        }
     }
 
     // <summary>

@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
-using UniBot.Message;
+using UniBot.Message.Chain;
 using UniBot.Model;
-using static UniBot.Tools.JsonConvert;
+using static UniBot.Tools.JsonConvertTool;
 
 namespace UniBot.Receiver
 {

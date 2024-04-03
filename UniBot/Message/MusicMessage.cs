@@ -1,7 +1,6 @@
-﻿using UniBot.Message;
-using UniBot.Model;
+﻿using UniBot.Model;
 
-namespace UniBot.Music
+namespace UniBot.Message
 {
     /// <summary>
     /// 音乐分享
@@ -37,46 +36,46 @@ namespace UniBot.Music
                 Image = image
             };
         }
-    }
-
-    /// <summary>
-    /// 消息体
-    /// </summary>
-    public class Body
-    {
-        /// <summary>
-        /// 分别表示使用QQ音乐(qq)、网易云音乐(163)、虾米音乐(xm)，自定义(custom)
-        /// </summary>
-        public string Type { get; set; } = "qq";
 
         /// <summary>
-        /// 歌曲 ID
+        /// 消息体
         /// </summary>
-        public string Id { get; set; } = "";
+        public class Body
+        {
+            /// <summary>
+            /// 分别表示使用QQ音乐(qq)、网易云音乐(163)、虾米音乐(xm)，自定义(custom)
+            /// </summary>
+            public string Type { get; set; } = "qq";
 
-        /// <summary>
-        /// 点击后跳转目标 URL
-        /// </summary>
-        public string Url { get; set; } = "";
+            /// <summary>
+            /// 歌曲 ID
+            /// </summary>
+            public string Id { get; set; } = "";
 
-        /// <summary>
-        /// 音乐 URL
-        /// </summary>
-        public string Audio { get; set; } = "";
+            /// <summary>
+            /// 点击后跳转目标 URL
+            /// </summary>
+            public string Url { get; set; } = "";
 
-        /// <summary>
-        /// 标题
-        /// </summary>
-        public string Title { get; set; } = "";
+            /// <summary>
+            /// 音乐 URL
+            /// </summary>
+            public string Audio { get; set; } = "";
 
-        /// <summary>
-        /// 发送时可选，内容描述
-        /// </summary>
-        public string Content { get; set; } = "";
+            /// <summary>
+            /// 标题
+            /// </summary>
+            public string Title { get; set; } = "";
 
-        /// <summary>
-        /// 发送时可选，图片 URL
-        /// </summary>
-        public string Image { get; set; } = "";
+            /// <summary>
+            /// 发送时可选，内容描述
+            /// </summary>
+            public string Content { get; set; } = "";
+
+            /// <summary>
+            /// 发送时可选，图片 URL
+            /// </summary>
+            public string Image { get; set; } = "";
+        }
     }
 }

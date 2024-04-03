@@ -1,7 +1,6 @@
-﻿using UniBot.Message;
-using UniBot.Model;
+﻿using UniBot.Model;
 
-namespace UniBot.Text
+namespace UniBot.Message
 {
     /// <summary>
     /// 文本消息
@@ -17,16 +16,16 @@ namespace UniBot.Text
                 Text = content
             };
         }
-    }
 
-    /// <summary>
-    /// 消息体
-    /// </summary>
-    public class Body
-    {
         /// <summary>
-        /// 消息文本内容
+        /// 消息体
         /// </summary>
-        public string Text { get; set; } = "";
+        public class Body
+        {
+            /// <summary>
+            /// 消息文本内容
+            /// </summary>
+            public string Text { get; set; } = "";
+        }
     }
 }

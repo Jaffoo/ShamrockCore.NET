@@ -1,7 +1,6 @@
-﻿using UniBot.Message;
-using UniBot.Model;
+﻿using UniBot.Model;
 
-namespace UniBot.Contact
+namespace UniBot.Message
 {
     /// <summary>
     /// 掷骰子魔法表情
@@ -18,22 +17,22 @@ namespace UniBot.Contact
                 Id = qq
             };
         }
-    }
-
-    /// <summary>
-    /// 消息体
-    /// </summary>
-    public class Body
-    {
-        /// <summary>
-        /// 推荐类型只能填入qq/group
-        /// </summary>
-        public string Type { get; set; } = "";
 
         /// <summary>
-        /// 被推荐人/群的 QQ 号
+        /// 消息体
         /// </summary>
-        public string Id { get; set; } = "";
+        public class Body
+        {
+            /// <summary>
+            /// 推荐类型只能填入qq/group
+            /// </summary>
+            public string Type { get; set; } = "";
+
+            /// <summary>
+            /// 被推荐人/群的 QQ 号
+            /// </summary>
+            public string Id { get; set; } = "";
+        }
     }
 
     /// <summary>
