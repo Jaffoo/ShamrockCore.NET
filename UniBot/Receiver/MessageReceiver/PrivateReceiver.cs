@@ -3,7 +3,7 @@ using UniBot.Message.Chain;
 using UniBot.Model;
 using static UniBot.Tools.JsonConvertTool;
 
-namespace UniBot.Receiver
+namespace UniBot.Receiver.MessageReceiver
 {
     public class PrivateReceiver : MsgReceiverBase
     {
@@ -47,7 +47,7 @@ namespace UniBot.Receiver
         /// <summary>
         /// 字体
         /// </summary>
-        public int Font {  get; set; }
+        public int Font { get; set; }
 
         /// <summary>
         /// 发送人

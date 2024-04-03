@@ -106,7 +106,6 @@ namespace UniBot.Tools
                 if (raw == null) return null;
                 raw!.OriginalData = JObject.Parse(data);
                 Type type = raw.GetType();
-                // 因为有异常捕获来处理转换失败的情况, 如果获取不到类型那一定得抛出异常, 所以此处直接用索引获取.
                 foreach (var msgReceiver in msgReceiverBases)
                 {
                     if (msgReceiver == null) continue;

@@ -29,7 +29,7 @@ namespace UniBot.Model
     }
 
     /// <summary>
-    /// 消息类型
+    /// 发送/接收的消息内容的具体类型
     /// </summary>
     public enum Messages
     {
@@ -134,6 +134,9 @@ namespace UniBot.Model
         Json,
     }
 
+    /// <summary>
+    /// 收到的消息类型
+    /// </summary>
     public enum MessageType
     {
         /// <summary>
@@ -147,6 +150,9 @@ namespace UniBot.Model
         Group
     }
 
+    /// <summary>
+    /// 收到的消息类型的子类型
+    /// </summary>
     public enum MessageSubType
     {
         /// <summary>
@@ -232,5 +238,206 @@ namespace UniBot.Model
         [EnumMember(Value = "MEMBER")]
         [Description("MEMBER")]
         Member
+    }
+
+    /// <summary>
+    /// 请求类型
+    /// </summary>
+    public enum RequestType
+    {
+        /// <summary>
+        /// 好友
+        /// </summary>
+        Friend,
+
+        /// <summary>
+        /// 群
+        /// </summary>
+        Group,
+    }
+
+    /// <summary>
+    /// 请求子类型
+    /// </summary>
+    public enum RequestSubType
+    {
+        /// <summary>
+        /// 主动请求
+        /// </summary>
+        Add,
+
+        /// <summary>
+        /// 邀请（被动）
+        /// </summary>
+        Invite,
+    }
+
+    /// <summary>
+    /// 通知类型
+    /// </summary>
+    public enum NoticeType
+    {
+        /// <summary>
+        /// 群文件上传
+        /// </summary>
+        [JsonProperty("group_upload")]
+        GroupUpload,
+
+        /// <summary>
+        /// 群管变动
+        /// </summary>
+        [JsonProperty("group_admin")]
+        GroupAdmin,
+
+        /// <summary>
+        /// 群成员减少
+        /// </summary>
+        [JsonProperty("group_decrease")]
+        GroupDecrease,
+
+        /// <summary>
+        /// 群成员增加
+        /// </summary>
+        [JsonProperty("group_increase")]
+        GroupIncrease,
+
+        /// <summary>
+        /// 群禁言
+        /// </summary>
+        [JsonProperty("group_ban")]
+        GroupBan,
+
+        /// <summary>
+        /// 好友添加
+        /// </summary>
+        [JsonProperty("friend_add")]
+        FriendAdd,
+
+        /// <summary>
+        /// 群消息撤回
+        /// </summary>
+        [JsonProperty("group_recall")]
+        GroupRecall,
+
+        /// <summary>
+        /// 好友消息撤回
+        /// </summary>
+        [JsonProperty("friend_recall")]
+        FriendRecall,
+
+        /// <summary>
+        /// 群内戳一戳/群红包运气王/群成员荣誉变更
+        /// </summary>
+        [JsonProperty("notify")]
+        Notify,
+    }
+
+    /// <summary>
+    /// 通知子类型
+    /// </summary>
+    public enum NoticeSubType
+    {
+        /// <summary>
+        /// 群成员荣誉变更
+        /// </summary>
+        [JsonProperty("honor")]
+        Honor,
+
+        /// <summary>
+        /// 群红包运气王
+        /// </summary>
+        [JsonProperty("lucky_king")]
+        LuckyKing,
+
+        /// <summary>
+        /// 群内戳一戳
+        /// </summary>
+        [JsonProperty("poke")]
+        Poke,
+
+        /// <summary>
+        /// 任命管理
+        /// </summary>
+        Set,
+
+        /// <summary>
+        /// 卸任管理
+        /// </summary>
+        Unset,
+
+        /// <summary>
+        /// 禁言
+        /// </summary>
+        Ban,
+
+        /// <summary>
+        /// 解除禁言
+        /// </summary>
+        LeftBan,
+
+        /// <summary>
+        /// 未知
+        /// </summary>
+        Unknow = 99,
+    }
+
+    /// <summary>
+    /// 荣誉类型
+    /// </summary>
+    public enum HonorType
+    {
+        /// <summary>
+        /// 龙王
+        /// </summary>
+        Talkative,
+
+        /// <summary>
+        /// 群聊之火
+        /// </summary>
+        Performer,
+
+        /// <summary>
+        /// 快乐源泉
+        /// </summary>
+        Emotion
+    }
+
+    /// <summary>
+    /// 元事件类型
+    /// </summary>
+    public enum MetaType
+    {
+        /// <summary>
+        /// 生命周期
+        /// </summary>
+        [JsonProperty("lifecycle")]
+        LifeCycle,
+
+        /// <summary>
+        /// 心跳
+        /// </summary>
+        [JsonProperty("heartbeat")]
+        HeartBeat
+    }
+
+    /// <summary>
+    /// 事件子类型
+    /// </summary>
+    public enum MetaSubType
+    {
+        /// <summary>
+        /// 启用
+        /// </summary>
+        Enable,
+
+        /// <summary>
+        /// 停用
+        /// </summary>
+        Disable,
+
+        /// <summary>
+        /// 连接成功
+        /// </summary>
+        Connect
     }
 }

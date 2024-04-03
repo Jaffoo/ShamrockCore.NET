@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace UniBot.Receiver
+namespace UniBot.Receiver.MessageReceiver
 {
     public class GroupReceiver : PrivateReceiver
     {
