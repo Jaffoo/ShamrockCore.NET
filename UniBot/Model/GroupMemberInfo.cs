@@ -4,12 +4,18 @@ using static UniBot.Tools.JsonConvertTool;
 namespace UniBot.Model
 {
     /// <summary>
-    /// 信息发送人
+    /// 群成员信息
     /// </summary>
-    public class Sender
+    public class GroupMemberInfo
     {
         /// <summary>
-        /// 发送者qq
+        /// 群号
+        /// </summary>
+        [JsonProperty("group_id")]
+        public long GroupQQ { get; set; }
+
+        /// <summary>
+        /// qq
         /// </summary>
         [JsonProperty("user_id")]
         public long QQ { get; set; }
@@ -17,6 +23,7 @@ namespace UniBot.Model
         /// <summary>
         /// 昵称
         /// </summary>
+        [JsonProperty("nickname")]
         public string Nickname { get; set; } = "";
 
         /// <summary>
@@ -55,5 +62,29 @@ namespace UniBot.Model
         /// </summary>
         [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public Permissions Role { get; set; }
+
+        /// <summary>
+        /// 加入时间
+        /// </summary>
+        [JsonProperty("join_tile")]
+        public long JoinTime { get; set; }
+
+        /// <summary>
+        /// 最后发言时间
+        /// </summary>
+        [JsonProperty("last_send_time")]
+        public long LastActive { get; set; }
+
+        /// <summary>
+        /// 头衔过期时间
+        /// </summary>
+        [JsonProperty("title_expire_time")]
+        public long TitleExpire {  get; set; }
+
+        /// <summary>
+        /// 是否允许修改群名片
+        /// </summary>
+        [JsonProperty("card_changeable")]
+        public bool CardChangeable { get; set; }
     }
 }
