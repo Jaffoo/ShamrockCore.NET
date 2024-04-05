@@ -2,12 +2,12 @@
 using UniBot.Model;
 using static UniBot.Tools.JsonConvertTool;
 
-namespace UniBot.Receiver.Event.Notice
+namespace UniBot.Receiver.Event
 {
     /// <summary>
     /// 群成员荣誉变更
     /// </summary>
-    public class GroupHonor : MsgReceiverBase
+    public class GroupHonor : MessageReceiverBase
     {
         /// <summary>
         /// 通知类型

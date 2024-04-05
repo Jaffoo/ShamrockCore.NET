@@ -7,9 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Fleck" Version="1.2.0" />
     <PackageReference Include="Flurl" Version="4.0.0" />
     <PackageReference Include="Flurl.Http" Version="4.0.2" />
-    <PackageReference Include="Manganese" Version="1.2.9" />
     <PackageReference Include="TBC.CommonLib" Version="1.0.7" />
     <PackageReference Include="Websocket.Client" Version="5.1.1" />
   </ItemGroup>

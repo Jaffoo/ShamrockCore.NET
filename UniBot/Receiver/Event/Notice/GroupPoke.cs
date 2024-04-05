@@ -2,12 +2,12 @@
 using UniBot.Model;
 using static UniBot.Tools.JsonConvertTool;
 
-namespace UniBot.Receiver.Event.Notice
+namespace UniBot.Receiver.Event
 {
     /// <summary>
     /// 群戳一戳
     /// </summary>
-    public class GroupPoke : MsgReceiverBase
+    public class GroupPoke : MessageReceiverBase
     {
         /// <summary>
         /// 通知类型

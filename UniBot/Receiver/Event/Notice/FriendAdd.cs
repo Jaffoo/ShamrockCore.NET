@@ -2,9 +2,9 @@
 using UniBot.Model;
 using static UniBot.Tools.JsonConvertTool;
 
-namespace UniBot.Receiver.Event.Notice
+namespace UniBot.Receiver.Event
 {
-    public class FriendAdd : MsgReceiverBase
+    public class FriendAdd : MessageReceiverBase
     {
         /// <summary>
         /// 通知类型

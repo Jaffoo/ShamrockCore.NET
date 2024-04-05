@@ -2,12 +2,12 @@
 using UniBot.Model;
 using static UniBot.Tools.JsonConvertTool;
 
-namespace UniBot.Receiver.Event.Notice
+namespace UniBot.Receiver.Event
 {
     /// <summary>
     /// 群禁言
     /// </summary>
-    public class GroupBan : MsgReceiverBase
+    public class GroupBan : MessageReceiverBase
     {
         /// <summary>
         /// 通知类型

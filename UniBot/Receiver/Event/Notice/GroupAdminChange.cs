@@ -2,12 +2,12 @@
 using UniBot.Model;
 using static UniBot.Tools.JsonConvertTool;
 
-namespace UniBot.Receiver.Event.Notice
+namespace UniBot.Receiver.Event
 {
     /// <summary>
     /// 群管理员变动
     /// </summary>
-    public class GroupAdminChange : MsgReceiverBase
+    public class GroupAdminChange : MessageReceiverBase
     {
         /// <summary>
         /// 群号

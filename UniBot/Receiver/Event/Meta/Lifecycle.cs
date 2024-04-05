@@ -2,12 +2,12 @@
 using UniBot.Model;
 using static UniBot.Tools.JsonConvertTool;
 
-namespace UniBot.Receiver.Event.Meta
+namespace UniBot.Receiver.Event
 {
     /// <summary>
     /// 生命周期
     /// </summary>
-    public class Lifecycle : MsgReceiverBase
+    public class Lifecycle : MessageReceiverBase
     {
         /// <summary>
         /// 元事件类型

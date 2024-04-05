@@ -21,9 +21,9 @@ namespace UniBot.Message
         public virtual dynamic? Data { get; set; }
 
         /// <summary>
-        /// 原始数据
+        /// 配置信息
         /// </summary>
         [JsonIgnore]
-        public JObject? OriginalData { get; set; }
+        public ConnectConf ConnectConf { get; set; } = new();
     }
 }

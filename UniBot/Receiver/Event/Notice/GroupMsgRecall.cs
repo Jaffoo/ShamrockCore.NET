@@ -2,12 +2,12 @@
 using UniBot.Model;
 using static UniBot.Tools.JsonConvertTool;
 
-namespace UniBot.Receiver.Event.Notice
+namespace UniBot.Receiver.Event
 {
     /// <summary>
     /// 群消息撤回
     /// </summary>
-    public class GroupMsgRecall : MsgReceiverBase
+    public class GroupMsgRecall : MessageReceiverBase
     {
         /// <summary>
         /// 通知类型

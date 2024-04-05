@@ -2,12 +2,12 @@
 using UniBot.Model;
 using static UniBot.Tools.JsonConvertTool;
 
-namespace UniBot.Receiver.Event.Notice
+namespace UniBot.Receiver.Event
 {
     /// <summary>
     /// 群文件上传
     /// </summary>
-    public class GroupFileUpload : MsgReceiverBase
+    public class GroupFileUpload : MessageReceiverBase
     {
         /// <summary>
         /// 通知类型

@@ -1,32 +1,36 @@
-﻿using System.Net;
-using TBC.CommonLib;
+﻿using TBC.CommonLib;
+using UniBot;
 using UniBot.Message;
+using UniBot.Message.Chain;
 using UniBot.Model;
+using UniBot.Receiver;
 
 namespace ShamrockCore.Data.HttpAPI
 {
-    public class Api
+    public static class Api
     {
-        private readonly ConnectConf _conf;
-        public Api(ConnectConf conf)
-        {
-            _conf = conf;
-        }
-
-        public async Task<long> SendPrivateMsg(long qq, MessageChain msg)
+        /// <summary>
+        /// 发送私聊消息
+        /// </summary>
+        /// <param name="conf"></param>
+        /// <param name="qq"></param>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public static async Task<long> SendPrivateMsg(this ConnectConf conf, long qq, MessageChain msg)
         {
             try
             {
-                var url = _conf.HttpUrl + HttpEndpoints.SendPrivateMsg.GetDescription();
+                var url = conf.HttpUrl + HttpEndpoints.SendPrivateMsg.GetDescription();
                 var data = new
                 {
                     user_id = qq,
                     message = msg
                 };
-                var res = await Tools.PostAsync<ApiResult>(url, data.ToJsonStr(), _conf.Headers);
+                var res = await Tools.PostAsync<ApiResult>(url, data.ToJsonStr(), conf.Headers);
                 if (res == null) return 0;
                 if (res.Status == "failed") throw new Exception(res.Message);
                 var resulst = res.Data;
+                return 0;
             }
             catch (Exception)
             {
@@ -34,20 +38,308 @@ namespace ShamrockCore.Data.HttpAPI
                 throw;
             }
         }
-        ///// <summary>
-        ///// 发送私聊消息
-        ///// </summary>
-        //[Description("send_private_msg")] SendPrivateMsg,
 
-        ///// <summary>
-        ///// 发送群消息
-        ///// </summary>
-        //[Description("send_group_msg")] SendGroupMsg,
+        /// <summary>
+        /// 发送私聊消息
+        /// </summary>
+        /// <param name="conf"></param>
+        /// <param name="qq"></param>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public static async Task<long> SendPrivateMsg(this Bot bot, long qq, MessageChain msg)
+        {
+            try
+            {
+                var conf = bot.Conn;
+                var url = conf.HttpUrl + HttpEndpoints.SendPrivateMsg.GetDescription();
+                var data = new
+                {
+                    user_id = qq,
+                    message = msg
+                };
+                var res = await Tools.PostAsync<ApiResult>(url, data.ToJsonStr(), conf.Headers);
+                if (res == null) return 0;
+                if (res.Status == "failed") throw new Exception(res.Message);
+                var result = res.Data;
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
-        ///// <summary>
-        ///// 发送消息
-        ///// </summary>
-        //[Description("send_msg")] SendMsg,
+        /// <summary>
+        /// 发送私聊消息
+        /// </summary>
+        /// <param name="conf"></param>
+        /// <param name="qq"></param>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public static async Task<long> SendPrivateMsg(this ConnectConf conf, long qq, string msg)
+        {
+            try
+            {
+                var url = conf.HttpUrl + HttpEndpoints.SendPrivateMsg.GetDescription();
+                var data = new
+                {
+                    user_id = qq,
+                    message = new MessageChain() { new TextMessage(msg) }
+                };
+                var res = await Tools.PostAsync<ApiResult>(url, data.ToJsonStr(), conf.Headers);
+                if (res == null) return 0;
+                if (res.Status == "failed") throw new Exception(res.Message);
+                var result = res.Data;
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 发送私聊消息
+        /// </summary>
+        /// <param name="conf"></param>
+        /// <param name="qq"></param>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public static async Task<long> SendPrivateMsg(this Bot bot, long qq, string msg)
+        {
+            try
+            {
+                var conf = bot.Conn;
+                var url = conf.HttpUrl + HttpEndpoints.SendPrivateMsg.GetDescription();
+                var data = new
+                {
+                    user_id = qq,
+                    message = new MessageChain() { new TextMessage(msg) }
+                };
+                var res = await Tools.PostAsync<ApiResult>(url, data.ToJsonStr(), conf.Headers);
+                if (res == null) return 0;
+                if (res.Status == "failed") throw new Exception(res.Message);
+                var result = res.Data;
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 发送群聊消息
+        /// </summary>
+        /// <param name="conf"></param>
+        /// <param name="qq"></param>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public static async Task<long> SendGroupMsg(this ConnectConf conf, long qq, MessageChain msg)
+        {
+            try
+            {
+                var url = conf.HttpUrl + HttpEndpoints.SendGroupMsg.GetDescription();
+                var data = new
+                {
+                    user_id = qq,
+                    message = msg
+                };
+                var res = await Tools.PostAsync<ApiResult>(url, data.ToJsonStr(), conf.Headers);
+                if (res == null) return 0;
+                if (res.Status == "failed") throw new Exception(res.Message);
+                var result = res.Data;
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 发送群聊消息
+        /// </summary>
+        /// <param name="conf"></param>
+        /// <param name="qq"></param>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public static async Task<long> SendGroupMsg(this Bot bot, long qq, MessageChain msg)
+        {
+            try
+            {
+                var conf = bot.Conn;
+                var url = conf.HttpUrl + HttpEndpoints.SendGroupMsg.GetDescription();
+                var data = new
+                {
+                    user_id = qq,
+                    message = msg
+                };
+                var res = await Tools.PostAsync<ApiResult>(url, data.ToJsonStr(), conf.Headers);
+                if (res == null) return 0;
+                if (res.Status == "failed") throw new Exception(res.Message);
+                var result = res.Data;
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 发送群聊消息
+        /// </summary>
+        /// <param name="conf"></param>
+        /// <param name="qq"></param>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public static async Task<long> SendGroupMsg(this ConnectConf conf, long qq, string msg)
+        {
+            try
+            {
+                var url = conf.HttpUrl + HttpEndpoints.SendGroupMsg.GetDescription();
+                var data = new
+                {
+                    user_id = qq,
+                    message = new MessageChain() { new TextMessage(msg) }
+                };
+                var res = await Tools.PostAsync<ApiResult>(url, data.ToJsonStr(), conf.Headers);
+                if (res == null) return 0;
+                if (res.Status == "failed") throw new Exception(res.Message);
+                var result = res.Data;
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 发送群聊消息
+        /// </summary>
+        /// <param name="conf"></param>
+        /// <param name="qq"></param>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public static async Task<long> SendGroupMsg(this Bot bot, long qq, string msg)
+        {
+            try
+            {
+                var conf = bot.Conn;
+                var url = conf.HttpUrl + HttpEndpoints.SendGroupMsg.GetDescription();
+                var data = new
+                {
+                    user_id = qq,
+                    message = new MessageChain() { new TextMessage(msg) }
+                };
+                var res = await Tools.PostAsync<ApiResult>(url, data.ToJsonStr(), conf.Headers);
+                if (res == null) return 0;
+                if (res.Status == "failed") throw new Exception(res.Message);
+                var result = res.Data;
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 发送消息
+        /// </summary>
+        /// <param name="mrb"></param>
+        /// <param name="type">group/private，否则根据传入的是qq还是groupQQ判断发送类型</param>
+        /// <param name="qq"></param>
+        /// <param name="groupQQ"></param>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public static async Task<long> SendMessage(this MessageReceiverBase mrb, MessageChain msg, long qq = 0, long groupQQ = 0, string type = "")
+        {
+            try
+            {
+                var conf = mrb.ConnectConf;
+                var url = conf.HttpUrl + HttpEndpoints.SendMsg.GetDescription();
+                var data = new
+                {
+                    message_type = type,
+                    user_id = qq,
+                    group_id = groupQQ,
+                    message = msg
+                };
+                var res = await Tools.PostAsync<ApiResult>(url, data.ToJsonStr(), conf.Headers);
+                if (res == null) return 0;
+                if (res.Status == "failed") throw new Exception(res.Message);
+                var result = res.Data;
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 发送消息
+        /// </summary>
+        /// <param name="mrb"></param>
+        /// <param name="type">group/private，否则根据传入的是qq还是groupQQ判断发送类型</param>
+        /// <param name="qq"></param>
+        /// <param name="groupQQ"></param>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public static async Task<long> SendMessage(this Bot bot, MessageChain msg, long qq = 0, long groupQQ = 0, string type = "")
+        {
+            try
+            {
+                var conf = bot.Conn;
+                var url = conf.HttpUrl + HttpEndpoints.SendMsg.GetDescription();
+                var data = new
+                {
+                    message_type = type,
+                    user_id = qq,
+                    group_id = groupQQ,
+                    message = msg
+                };
+                var res = await Tools.PostAsync<ApiResult>(url, data.ToJsonStr(), conf.Headers);
+                if (res == null) return 0;
+                if (res.Status == "failed") throw new Exception(res.Message);
+                var result = res.Data;
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 撤回消息
+        /// </summary>
+        /// <param name="conf"></param>
+        /// <param name="msgId"></param>
+        /// <returns></returns>
+        public static async Task<bool> MessageRecal(this ConnectConf conf, long msgId)
+        {
+            try
+            {
+                var url = conf.HttpUrl + HttpEndpoints.DeleteMsg.GetDescription();
+                var data = new
+                {
+                    message_id = msgId
+                };
+                var res = await Tools.PostAsync<ApiResult>(url, data.ToJsonStr(), conf.Headers);
+                if (res == null) return false;
+                if (res.Status == "failed") throw new Exception(res.Message);
+                var result = true;
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
         ///// <summary>
         ///// 撤回消息

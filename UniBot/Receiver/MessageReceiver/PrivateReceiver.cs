@@ -5,7 +5,7 @@ using static UniBot.Tools.JsonConvertTool;
 
 namespace UniBot.Receiver.MessageReceiver
 {
-    public class PrivateReceiver : MsgReceiverBase
+    public class PrivateReceiver : MessageReceiver
     {
         /// <summary>
         /// 消息类型
@@ -32,11 +32,6 @@ namespace UniBot.Receiver.MessageReceiver
         /// </summary>
         [JsonProperty("user_id")]
         public long SenderQQ { get; set; }
-
-        /// <summary>
-        /// 消息
-        /// </summary>
-        public MessageChain Message { get; set; } = new();
 
         /// <summary>
         /// 原始CQ消息码

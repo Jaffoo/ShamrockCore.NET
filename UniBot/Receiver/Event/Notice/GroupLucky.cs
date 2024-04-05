@@ -2,12 +2,12 @@
 using UniBot.Model;
 using static UniBot.Tools.JsonConvertTool;
 
-namespace UniBot.Receiver.Event.Notice
+namespace UniBot.Receiver.Event
 {
     /// <summary>
     /// 红包运气王
     /// </summary>
-    public class GroupLucky : MsgReceiverBase
+    public class GroupLucky : MessageReceiverBase
     {
         /// <summary>
         /// 通知类型

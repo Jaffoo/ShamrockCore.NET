@@ -1,16 +1,17 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using UniBot.Message.Chain;
 using UniBot.Model;
 using static UniBot.Tools.JsonConvertTool;
 
 namespace UniBot.Receiver
 {
-    public class MsgReceiverBase
+    public class MessageReceiverBase
     {
         /// <summary>
         /// 事件发生的时间戳
         /// </summary>
-        public long Time {  get; set; }
+        public long Time { get; set; }
 
         /// <summary>
         /// 收到事件的机器人 QQ
@@ -30,5 +31,11 @@ namespace UniBot.Receiver
         /// </summary>
         [JsonIgnore]
         public JObject? OriginalData { get; set; }
+
+        /// <summary>
+        /// 连接配置信息
+        /// </summary>
+        [JsonIgnore]
+        public ConnectConf ConnectConf { get; set; } = new();
     }
 }

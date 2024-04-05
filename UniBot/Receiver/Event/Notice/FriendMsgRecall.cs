@@ -2,12 +2,12 @@
 using UniBot.Model;
 using static UniBot.Tools.JsonConvertTool;
 
-namespace UniBot.Receiver.Event.Notice
+namespace UniBot.Receiver.Event
 {
     /// <summary>
     /// 好友消息撤回
     /// </summary>
-    public class FriendMsgRecall : MsgReceiverBase
+    public class FriendMsgRecall : MessageReceiverBase
     {
         /// <summary>
         /// 通知类型

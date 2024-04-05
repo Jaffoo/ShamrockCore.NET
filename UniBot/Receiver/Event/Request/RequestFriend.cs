@@ -2,12 +2,12 @@
 using UniBot.Model;
 using static UniBot.Tools.JsonConvertTool;
 
-namespace UniBot.Receiver.Event.Request
+namespace UniBot.Receiver.Event
 {
     /// <summary>
     /// 好友添加请求
     /// </summary>
-    public class RequestFriend : MsgReceiverBase
+    public class RequestFriend : MessageReceiverBase
     {
         /// <summary>
         /// 请求类型
