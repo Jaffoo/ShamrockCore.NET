@@ -15,7 +15,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 发送私聊消息
         /// </summary>
         /// <returns></returns>
-        public static async Task<long> SendPrivateMsg(this ConnectConf conf, long qq, MessageChain msg)
+        public static async Task<long> SendPrivateMsg(this Connect conf, long qq, MessageChain msg)
         {
             try
             {
@@ -43,7 +43,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 发送私聊消息
         /// </summary>
         /// <returns></returns>
-        public static async Task<long> SendPrivateMsg(this ConnectConf conf, long qq, string msg)
+        public static async Task<long> SendPrivateMsg(this Connect conf, long qq, string msg)
         {
             try
             {
@@ -70,7 +70,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 发送群聊消息
         /// </summary>
         /// <returns></returns>
-        public static async Task<long> SendGroupMsg(this ConnectConf conf, long qq, MessageChain msg)
+        public static async Task<long> SendGroupMsg(this Connect conf, long qq, MessageChain msg)
         {
             try
             {
@@ -97,7 +97,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 发送群聊消息
         /// </summary>
         /// <returns></returns>
-        public static async Task<long> SendGroupMsg(this ConnectConf conf, long qq, string msg)
+        public static async Task<long> SendGroupMsg(this Connect conf, long qq, string msg)
         {
             try
             {
@@ -128,7 +128,7 @@ namespace ShamrockCore.Data.HttpAPI
         {
             try
             {
-                var conf = mrb.ConnectConf;
+                var conf = mrb.Connect!;
                 var url = conf.HttpUrl + HttpEndpoints.SendMsg.GetDescription();
                 var data = new
                 {
@@ -154,7 +154,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 撤回消息
         /// </summary>
         /// <returns></returns>
-        public static async Task<bool> MessageRecal(this ConnectConf conf, long msgId)
+        public static async Task<bool> MessageRecal(this Connect conf, long msgId)
         {
             try
             {
@@ -179,7 +179,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 获取消息
         /// </summary>
         /// <returns></returns>
-        public static async Task<MessageInfo> GetMsg(this ConnectConf conf, long msgId)
+        public static async Task<MessageInfo> GetMsg(this Connect conf, long msgId)
         {
             try
             {
@@ -205,7 +205,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 获取合并转发消息
         /// </summary>
         /// <returns></returns>
-        public static async Task<MessageChain> GetForwardMsg(this ConnectConf conf, long id)
+        public static async Task<MessageChain> GetForwardMsg(this Connect conf, long id)
         {
             try
             {
@@ -231,7 +231,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 给好友点赞
         /// </summary>
         /// <returns></returns>
-        public static async Task<bool> SendLike(this ConnectConf conf, long qq, int times = 10)
+        public static async Task<bool> SendLike(this Connect conf, long qq, int times = 10)
         {
             try
             {
@@ -257,7 +257,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 群组踢人
         /// </summary>
         /// <returns></returns>
-        public static async Task<bool> SetGroupKick(this ConnectConf conf, long groupQQ, long qq, bool reject = false)
+        public static async Task<bool> SetGroupKick(this Connect conf, long groupQQ, long qq, bool reject = false)
         {
             try
             {
@@ -284,7 +284,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 群组单人禁言
         /// </summary>
         /// <returns></returns>
-        public static async Task<bool> SetGroupBan(this ConnectConf conf, long groupQQ, long qq, int duration = 30 * 60)
+        public static async Task<bool> SetGroupBan(this Connect conf, long groupQQ, long qq, int duration = 30 * 60)
         {
             try
             {
@@ -311,7 +311,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 群组匿名用户禁言
         /// </summary>
         /// <returns></returns>
-        public static async Task<bool> SetGroupAnonymousBan(this ConnectConf conf, long groupQQ, int duration = 30 * 60, Anonymous? anonymous = null, string flag = "")
+        public static async Task<bool> SetGroupAnonymousBan(this Connect conf, long groupQQ, int duration = 30 * 60, Anonymous? anonymous = null, string flag = "")
         {
             try
             {
@@ -339,7 +339,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 群组全员禁言
         /// </summary>
         /// <returns></returns>
-        public static async Task<bool> SetGroupWholeBan(this ConnectConf conf, long groupQQ, bool enable = true)
+        public static async Task<bool> SetGroupWholeBan(this Connect conf, long groupQQ, bool enable = true)
         {
             try
             {
@@ -365,7 +365,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 群组设置管理员
         /// </summary>
         /// <returns></returns>
-        public static async Task<bool> SetGroupAdmin(this ConnectConf conf, long groupQQ, long qq, bool enable = true)
+        public static async Task<bool> SetGroupAdmin(this Connect conf, long groupQQ, long qq, bool enable = true)
         {
             try
             {
@@ -392,7 +392,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 群组匿名
         /// </summary>
         /// <returns></returns>
-        public static async Task<bool> SetGroupAnonymous(this ConnectConf conf, long groupQQ, bool enable = true)
+        public static async Task<bool> SetGroupAnonymous(this Connect conf, long groupQQ, bool enable = true)
         {
             try
             {
@@ -418,7 +418,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 设置群名片（群备注）
         /// </summary>
         /// <returns></returns>
-        public static async Task<bool> SetGroupCard(this ConnectConf conf, long groupQQ, long qq, string card = "")
+        public static async Task<bool> SetGroupCard(this Connect conf, long groupQQ, long qq, string card = "")
         {
             try
             {
@@ -445,7 +445,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 设置群名
         /// </summary>
         /// <returns></returns>
-        public static async Task<bool> SetGroupName(this ConnectConf conf, long groupQQ, string name)
+        public static async Task<bool> SetGroupName(this Connect conf, long groupQQ, string name)
         {
             try
             {
@@ -471,7 +471,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 退出群组
         /// </summary>
         /// <returns></returns>
-        public static async Task<bool> SetGroupLeave(this ConnectConf conf, long groupQQ, bool dissolve)
+        public static async Task<bool> SetGroupLeave(this Connect conf, long groupQQ, bool dissolve)
         {
             try
             {
@@ -497,7 +497,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 设置群组专属头衔
         /// </summary>
         /// <returns></returns>
-        public static async Task<bool> SetGroupSpecialTitle(this ConnectConf conf, long groupQQ, long qq, string title = "", int duration = -1)
+        public static async Task<bool> SetGroupSpecialTitle(this Connect conf, long groupQQ, long qq, string title = "", int duration = -1)
         {
             try
             {
@@ -525,7 +525,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 处理加好友请求
         /// </summary>
         /// <returns></returns>
-        public static async Task<bool> SetFriendAddRequest(this ConnectConf conf, string flag, bool approve = true, string remark = "")
+        public static async Task<bool> SetFriendAddRequest(this Connect conf, string flag, bool approve = true, string remark = "")
         {
             try
             {
@@ -552,7 +552,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 处理加群请求／邀请
         /// </summary>
         /// <returns></returns>
-        public static async Task<bool> SetGroupAddRequest(this ConnectConf conf, string flag, RequestSubType type, bool approve = true, string reason = "")
+        public static async Task<bool> SetGroupAddRequest(this Connect conf, string flag, RequestSubType type, bool approve = true, string reason = "")
         {
             try
             {
@@ -580,7 +580,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 获取登录号信息
         /// </summary>
         /// <returns></returns>
-        public static async Task<UserBaseInfo> GetLoginInfo(this ConnectConf conf)
+        public static async Task<UserBaseInfo> GetLoginInfo(this Connect conf)
         {
             try
             {
@@ -602,7 +602,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 获取陌生人信息
         /// </summary>
         /// <returns></returns>
-        public static async Task<StrangerInfo> GetStrangerInfo(this ConnectConf conf, long qq, bool noCache = false)
+        public static async Task<StrangerInfo> GetStrangerInfo(this Connect conf, long qq, bool noCache = false)
         {
             try
             {
@@ -625,7 +625,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 获取好友列表
         /// </summary>
         /// <returns></returns>
-        public static async Task<List<FriendInfo>> GetFriendList(this ConnectConf conf)
+        public static async Task<List<FriendInfo>> GetFriendList(this Connect conf)
         {
             try
             {
@@ -635,7 +635,7 @@ namespace ShamrockCore.Data.HttpAPI
                 if (res.Status == "failed") throw new Exception(res.Message);
                 if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
                 var result = res.Data.ToModel<List<FriendInfo>>();
-                result.ForEach(x => x.ConnectConf = conf);
+                result.ForEach(x => x.Connect = conf);
                 return result;
             }
             catch (Exception)
@@ -648,7 +648,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 获取群信息
         /// </summary>
         /// <returns></returns>
-        public static async Task<GroupInfo> GetGroupInfo(this ConnectConf conf, long groupQQ, bool noCache = false)
+        public static async Task<GroupInfo> GetGroupInfo(this Connect conf, long groupQQ, bool noCache = false)
         {
             try
             {
@@ -659,7 +659,7 @@ namespace ShamrockCore.Data.HttpAPI
                 if (res.Status == "failed") throw new Exception(res.Message);
                 if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
                 var result = res.Data.ToModel<GroupInfo>();
-                result.ConnectConf = conf;
+                result.Connect = conf;
                 return result;
             }
             catch (Exception)
@@ -672,7 +672,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 获取群列表
         /// </summary>
         /// <returns></returns>
-        public static async Task<List<GroupInfo>> GetGroupList(this ConnectConf conf)
+        public static async Task<List<GroupInfo>> GetGroupList(this Connect conf)
         {
             try
             {
@@ -682,7 +682,7 @@ namespace ShamrockCore.Data.HttpAPI
                 if (res.Status == "failed") throw new Exception(res.Message);
                 if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
                 var result = res.Data.ToModel<List<GroupInfo>>();
-                result.ForEach(x => x.ConnectConf = conf);
+                result.ForEach(x => x.Connect = conf);
                 return result;
             }
             catch (Exception)
@@ -695,7 +695,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 获取群成员信息
         /// </summary>
         /// <returns></returns>
-        public static async Task<GroupMemberInfo> GetGroupMemberInfo(this ConnectConf conf, long groupQQ, long qq, bool noCache = false)
+        public static async Task<GroupMemberInfo> GetGroupMemberInfo(this Connect conf, long groupQQ, long qq, bool noCache = false)
         {
             try
             {
@@ -706,7 +706,7 @@ namespace ShamrockCore.Data.HttpAPI
                 if (res.Status == "failed") throw new Exception(res.Message);
                 if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
                 var result = res.Data.ToModel<GroupMemberInfo>();
-                result.ConnectConf = conf;
+                result.Connect = conf;
                 return result;
             }
             catch (Exception)
@@ -719,7 +719,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 获取群成员列表
         /// </summary>
         /// <returns></returns>
-        public static async Task<List<GroupMemberInfo>> GetGroupMemberList(this ConnectConf conf, long groupQQ)
+        public static async Task<List<GroupMemberInfo>> GetGroupMemberList(this Connect conf, long groupQQ)
         {
             try
             {
@@ -730,7 +730,7 @@ namespace ShamrockCore.Data.HttpAPI
                 if (res.Status == "failed") throw new Exception(res.Message);
                 if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
                 var result = res.Data.ToModel<List<GroupMemberInfo>>();
-                result.ForEach(x => x.ConnectConf = conf);
+                result.ForEach(x => x.Connect = conf);
                 return result;
             }
             catch (Exception)
@@ -743,7 +743,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 获取群荣誉信息
         /// </summary>
         /// <returns></returns>
-        public static async Task<GroupHonorInfo> GetGroupHonorInfo(this ConnectConf conf, long groupQQ)
+        public static async Task<GroupHonorInfo> GetGroupHonorInfo(this Connect conf, long groupQQ)
         {
             try
             {
@@ -784,7 +784,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 要使用此接口，通常需要安装 ffmpeg
         /// </summary>
         /// <returns></returns>
-        public static async Task<string> GetRecord(this ConnectConf conf, string file, string format)
+        public static async Task<string> GetRecord(this Connect conf, string file, string format)
         {
             try
             {
@@ -807,7 +807,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 获取图片
         /// </summary>
         /// <returns></returns>
-        public static async Task<string> GetImage(this ConnectConf conf, string file)
+        public static async Task<string> GetImage(this Connect conf, string file)
         {
             try
             {
@@ -830,7 +830,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 检查是否可以发送图片
         /// </summary>
         /// <returns></returns>
-        public static async Task<bool> CanSendImage(this ConnectConf conf)
+        public static async Task<bool> CanSendImage(this Connect conf)
         {
             try
             {
@@ -852,7 +852,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 检查是否可以发送语音
         /// </summary>
         /// <returns></returns>
-        public static async Task<bool> CanSendRecord(this ConnectConf conf)
+        public static async Task<bool> CanSendRecord(this Connect conf)
         {
             try
             {
@@ -874,7 +874,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 获取运行状态
         /// </summary>
         /// <returns></returns>
-        public static async Task<JObject> GetStatus(this ConnectConf conf)
+        public static async Task<JObject> GetStatus(this Connect conf)
         {
             try
             {
@@ -896,7 +896,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 获取版本信息
         /// </summary>
         /// <returns></returns>
-        public static async Task<JObject> GetVersion(this ConnectConf conf)
+        public static async Task<JObject> GetVersion(this Connect conf)
         {
             try
             {
@@ -918,7 +918,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 重启 OneBot 实现
         /// </summary>
         /// <returns></returns>
-        public static async Task<bool> Restart(this ConnectConf conf, int delay = 0)
+        public static async Task<bool> Restart(this Connect conf, int delay = 0)
         {
             try
             {
@@ -938,7 +938,7 @@ namespace ShamrockCore.Data.HttpAPI
         /// 清理缓存
         /// </summary>
         /// <returns></returns>
-        public static async Task<bool> CleanCache(this ConnectConf conf)
+        public static async Task<bool> CleanCache(this Connect conf)
         {
             try
             {

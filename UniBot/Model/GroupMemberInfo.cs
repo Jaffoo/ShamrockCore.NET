@@ -101,67 +101,67 @@ namespace UniBot.Model
         /// <param name="title">专属头衔，不填或空字符串表示删除专属头衔</param>
         /// <param name="time">专属头衔有效期，单位秒，-1 表示永久</param>
         /// <returns></returns>
-        public async Task<bool> SetTitle(string title, int time = -1) => await ConnectConf.SetGroupSpecialTitle(GroupQQ, QQ, title, time);
+        public async Task<bool> SetTitle(string title, int time = -1) => await Connect.SetGroupSpecialTitle(GroupQQ, QQ, title, time);
 
         /// <summary>
         /// 成员在群的昵称，不填或空字符串表示删除昵称，使用qq昵称
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public async Task<bool> SetNickname(string name) => await ConnectConf.SetGroupCard(GroupQQ, QQ, name);
+        public async Task<bool> SetNickname(string name) => await Connect.SetGroupCard(GroupQQ, QQ, name);
 
         /// <summary>
         /// 任命管理
         /// </summary>
         /// <returns></returns>
-        public async Task<bool> SetAdmin() => await ConnectConf.SetGroupAdmin(GroupQQ, QQ);
+        public async Task<bool> SetAdmin() => await Connect.SetGroupAdmin(GroupQQ, QQ);
 
         /// <summary>
         /// 卸任管理
         /// </summary>
         /// <returns></returns>
-        public async Task<bool> RemoveAdmin() => await ConnectConf.SetGroupAdmin(GroupQQ, QQ, false);
+        public async Task<bool> RemoveAdmin() => await Connect.SetGroupAdmin(GroupQQ, QQ, false);
 
         /// <summary>
         /// 禁言
         /// </summary>
         /// <param name="time">时间，单位秒</param>
         /// <returns></returns>
-        public async Task<bool> Ban(int time = 30 * 60) => await ConnectConf.SetGroupBan(GroupQQ, QQ, time);
+        public async Task<bool> Ban(int time = 30 * 60) => await Connect.SetGroupBan(GroupQQ, QQ, time);
 
         /// <summary>
         /// 取消禁言
         /// </summary>
         /// <returns></returns>
-        public async Task<bool> CacleBan() => await ConnectConf.SetGroupBan(GroupQQ, QQ, 0);
+        public async Task<bool> CacleBan() => await Connect.SetGroupBan(GroupQQ, QQ, 0);
 
         /// <summary>
         /// 踢出群聊
         /// </summary>
         /// <param name="reject">拒绝此人的加群请求</param>
         /// <returns></returns>
-        public async Task<bool> Kick(bool reject = false) => await ConnectConf.SetGroupKick(GroupQQ, QQ, reject);
+        public async Task<bool> Kick(bool reject = false) => await Connect.SetGroupKick(GroupQQ, QQ, reject);
 
         /// <summary>
         /// 点赞
         /// </summary>
         /// <param name="times">次数</param>
         /// <returns></returns>
-        public async Task<bool> Like(int times = 10) => await ConnectConf.SendLike(times);
+        public async Task<bool> Like(int times = 10) => await Connect.SendLike(times);
 
         /// <summary>
         /// 发送消息
         /// </summary>
         /// <param name="msg"></param>
         /// <returns></returns>
-        public async Task<long> SendMessage(MessageChain msg) => await ConnectConf.SendPrivateMsg(QQ, msg);
+        public async Task<long> SendMessage(MessageChain msg) => await Connect.SendPrivateMsg(QQ, msg);
 
         /// <summary>
         /// 发送消息
         /// </summary>
         /// <param name="msg"></param>
         /// <returns></returns>
-        public async Task<long> SendMessage(string msg) => await ConnectConf.SendPrivateMsg(QQ, msg);
+        public async Task<long> SendMessage(string msg) => await Connect.SendPrivateMsg(QQ, msg);
         #endregion
     }
 }

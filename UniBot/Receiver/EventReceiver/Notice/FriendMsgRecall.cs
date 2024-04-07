@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using ShamrockCore.Data.HttpAPI;
+using UniBot.Message.Chain;
 using UniBot.Model;
 using static UniBot.Tools.JsonConvertTool;
 
@@ -7,7 +9,7 @@ namespace UniBot.Receiver.EventReceiver
     /// <summary>
     /// 好友消息撤回
     /// </summary>
-    public class FriendMsgRecall : MessageReceiverBase
+    public class FriendMsgRecall : EventReceiver
     {
         /// <summary>
         /// 通知类型
@@ -27,5 +29,13 @@ namespace UniBot.Receiver.EventReceiver
         /// </summary>
         [JsonProperty("message_id")]
         public long MessageId { get; set; }
+
+        #region 扩展方法/属性
+        /// <summary>
+        /// 被撤回的消息
+        /// </summary>
+        [JsonIgnore]
+        public Lazy<MessageInfo> Message => new(() => Connect.GetMsg(MessageId).Result);
+        #endregion
     }
 }

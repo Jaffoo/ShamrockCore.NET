@@ -9,6 +9,7 @@ namespace UniBot.Message
     {
         public override Messages Type => Messages.Record;
 
+        public RecordMessage() { }
         /// <summary>
         /// 语音消息
         /// 发送方式三选一
@@ -81,6 +82,7 @@ namespace UniBot.Message
     /// </summary>
     public class RecordByUrl : RecordMessage
     {
+        public RecordByUrl() { }
         public RecordByUrl(string url, bool cache = true, bool proxy = true)
         {
             base.Data = new Body()
@@ -96,6 +98,7 @@ namespace UniBot.Message
     /// </summary>
     public class RecordByPath : RecordMessage
     {
+        public RecordByPath() { }
         public RecordByPath(string path)
         {
             base.Data = new Body()
@@ -109,6 +112,7 @@ namespace UniBot.Message
     /// </summary>
     public class RecordByBase64 : RecordMessage
     {
+        public RecordByBase64() { }
         public RecordByBase64(string base64)
         {
             base.Data = new Body()

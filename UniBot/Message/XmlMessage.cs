@@ -8,6 +8,8 @@ namespace UniBot.Message
     public class XmlMessage : MessageBase
     {
         public override Messages Type => Messages.Xml;
+
+        public XmlMessage() { }
         public XmlMessage(string xml)
         {
             Data = new Body()

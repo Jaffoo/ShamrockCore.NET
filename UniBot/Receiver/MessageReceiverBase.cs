@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using UniBot.Message.Chain;
 using UniBot.Model;
 using static UniBot.Tools.JsonConvertTool;
 
@@ -36,6 +35,6 @@ namespace UniBot.Receiver
         /// 连接配置信息
         /// </summary>
         [JsonIgnore]
-        public ConnectConf ConnectConf { get; set; } = new();
+        public Connect Connect { get; set; } = new("", 0, 0);
     }
 }

@@ -31,21 +31,21 @@ namespace UniBot.Model
         /// </summary>
         /// <param name="msg"></param>
         /// <returns></returns>
-        public async Task<long> SendMessage(MessageChain msg) => await ConnectConf.SendPrivateMsg(QQ, msg);
+        public async Task<long> SendMessage(MessageChain msg) => await Connect.SendPrivateMsg(QQ, msg);
 
         /// <summary>
         /// 发送消息
         /// </summary>
         /// <param name="msg"></param>
         /// <returns></returns>
-        public async Task<long> SendMessage(string msg) => await ConnectConf.SendPrivateMsg(QQ, msg);
+        public async Task<long> SendMessage(string msg) => await Connect.SendPrivateMsg(QQ, msg);
 
         /// <summary>
         /// 点赞
         /// </summary>
         /// <param name="times">次数</param>
         /// <returns></returns>
-        public async Task<bool> Like(int times = 10) => await ConnectConf.SendLike(times);
+        public async Task<bool> Like(int times = 10) => await Connect.SendLike(times);
         #endregion
     }
 }

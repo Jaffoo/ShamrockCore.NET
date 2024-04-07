@@ -8,6 +8,8 @@ namespace UniBot.Message
     public class LocationMessage : MessageBase
     {
         public override Messages Type => Messages.Location;
+
+        public LocationMessage() { }
         /// <summary>
         /// 位置
         /// </summary>

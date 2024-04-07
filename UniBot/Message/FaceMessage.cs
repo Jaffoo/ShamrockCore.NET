@@ -9,6 +9,7 @@ namespace UniBot.Message
     {
         public override Messages Type => Messages.Face;
 
+        public FaceMessage() { }
         public FaceMessage(int id)
         {
             base.Data = new Body()

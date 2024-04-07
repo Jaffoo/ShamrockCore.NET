@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using ShamrockCore.Data.HttpAPI;
 using UniBot.Model;
 using static UniBot.Tools.JsonConvertTool;
 
@@ -7,7 +8,7 @@ namespace UniBot.Receiver.EventReceiver
     /// <summary>
     /// 好友添加请求
     /// </summary>
-    public class RequestFriend : MessageReceiverBase
+    public class RequestFriend : EventReceiver
     {
         /// <summary>
         /// 请求类型
@@ -31,5 +32,21 @@ namespace UniBot.Receiver.EventReceiver
         /// 请求 flag，在调用处理请求的 API 时需要传入
         /// </summary>
         public string Flag { get; set; } = "";
+
+        #region 扩展方法/属性
+        /// <summary>
+        /// 同意
+        /// </summary>
+        /// <param name="remark">好友备注</param>
+        /// <returns></returns>
+        public async Task<bool> Agree(string remark = "") => await Connect.SetFriendAddRequest(QQ, true, remark);
+
+        /// <summary>
+        /// 拒绝
+        /// </summary>
+        /// <param name="remark">好友备注</param>
+        /// <returns></returns>
+        public async Task<bool> Reject() => await Connect.SetFriendAddRequest(QQ, false);
+        #endregion
     }
 }

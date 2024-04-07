@@ -7,7 +7,7 @@ namespace UniBot.Receiver.EventReceiver
     /// <summary>
     /// 生命周期
     /// </summary>
-    public class Lifecycle : MessageReceiverBase
+    public class Lifecycle : EventReceiver
     {
         /// <summary>
         /// 元事件类型

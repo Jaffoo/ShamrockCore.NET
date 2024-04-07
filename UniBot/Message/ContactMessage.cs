@@ -9,6 +9,7 @@ namespace UniBot.Message
     {
         public override Messages Type => Messages.Contact;
 
+        public ContactMessage() { }
         public ContactMessage(string type, string qq)
         {
             Data = new Body()
@@ -40,6 +41,7 @@ namespace UniBot.Message
     /// </summary>
     public class QQContact : ContactMessage
     {
+        public QQContact() { }
         public QQContact(string qq) : base("qq", qq)
         {
 
@@ -51,6 +53,7 @@ namespace UniBot.Message
     /// </summary>
     public class GroupContact : ContactMessage
     {
+        public GroupContact() { }
         public GroupContact(string qq) : base("group", qq)
         {
 

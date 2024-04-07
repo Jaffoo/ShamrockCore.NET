@@ -35,7 +35,7 @@ namespace UniBot.Model
         /// </summary>
         /// <param name="time"></param>
         /// <returns></returns>
-        public async Task<bool> Ban(int time = 30 * 60) => await ConnectConf.SetGroupAnonymousBan(flag: Flag, groupQQ: GroupQQ, duration: time);
+        public async Task<bool> Ban(int time = 30 * 60) => await Connect.SetGroupAnonymousBan(flag: Flag, groupQQ: GroupQQ, duration: time);
         #endregion
     }
 }

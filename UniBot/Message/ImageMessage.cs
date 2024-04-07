@@ -9,6 +9,7 @@ namespace UniBot.Message
     {
         public override Messages Type => Messages.Image;
 
+        public ImageMessage() { }
         /// <summary>
         /// 图片消息
         /// 发送方式三选一
@@ -80,6 +81,7 @@ namespace UniBot.Message
     /// </summary>
     public class ImageByUrl : ImageMessage
     {
+        public ImageByUrl() { }
         public ImageByUrl(string url, bool cache = true, bool proxy = true)
         {
             base.Data = new Body()
@@ -95,6 +97,7 @@ namespace UniBot.Message
     /// </summary>
     public class ImageByPath : ImageMessage
     {
+        public ImageByPath() { }
         public ImageByPath(string path)
         {
             base.Data = new Body()
@@ -108,6 +111,7 @@ namespace UniBot.Message
     /// </summary>
     public class ImageByBase64 : ImageMessage
     {
+        public ImageByBase64() { }
         public ImageByBase64(string base64)
         {
             base.Data = new Body()

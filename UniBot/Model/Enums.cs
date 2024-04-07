@@ -25,7 +25,12 @@ namespace UniBot.Model
         /// <summary>
         /// 请求事件
         /// </summary>
-        Request
+        Request,
+
+        /// <summary>
+        /// 未知类型
+        /// </summary>
+        Unknow
     }
 
     /// <summary>
@@ -132,6 +137,11 @@ namespace UniBot.Model
         /// JSON
         /// </summary>
         Json,
+
+        /// <summary>
+        /// 未知类型
+        /// </summary>
+        Unknow
     }
 
     /// <summary>
@@ -147,7 +157,12 @@ namespace UniBot.Model
         /// <summary>
         /// 群聊消息
         /// </summary>
-        Group
+        Group,
+
+        /// <summary>
+        /// 未知类型
+        /// </summary>
+        Unknow
     }
 
     /// <summary>
@@ -183,7 +198,17 @@ namespace UniBot.Model
         /// <summary>
         /// 群系统提示
         /// </summary>
-        Notice
+        Notice,
+
+        /// <summary>
+        /// 退群
+        /// </summary>
+        Leave,
+
+        /// <summary>
+        /// 未知类型
+        /// </summary>
+        Unknow
     }
 
     /// <summary>
@@ -194,23 +219,17 @@ namespace UniBot.Model
         /// <summary>
         /// 男性
         /// </summary>
-        [EnumMember(Value = "MALE")]
-        [Description("MALE")]
         Male,
 
         /// <summary>
         /// 女性
         /// </summary>
-        [EnumMember(Value = "FEMALE")]
-        [Description("FEMALE")]
         Female,
 
         /// <summary>
-        /// 未知
+        /// 未知类型
         /// </summary>
-        [EnumMember(Value = "UNKNOWN")]
-        [Description("UNKNOWN")]
-        Unknown
+        Unknow
     }
 
     /// <summary>
@@ -221,23 +240,22 @@ namespace UniBot.Model
         /// <summary>
         /// 群主
         /// </summary>
-        [EnumMember(Value = "OWNER")]
-        [Description("OWNER")]
         Owner,
 
         /// <summary>
         /// 管理员
         /// </summary>
-        [EnumMember(Value = "ADMINISTRATOR")]
-        [Description("ADMINISTRATOR")]
-        Administrator,
+        Admin,
 
         /// <summary>
         /// 群员
         /// </summary>
-        [EnumMember(Value = "MEMBER")]
-        [Description("MEMBER")]
-        Member
+        Member,
+
+        /// <summary>
+        /// 未知类型
+        /// </summary>
+        Unknow
     }
 
     /// <summary>
@@ -254,6 +272,11 @@ namespace UniBot.Model
         /// 群
         /// </summary>
         Group,
+
+        /// <summary>
+        /// 未知类型
+        /// </summary>
+        Unknow
     }
 
     /// <summary>
@@ -270,6 +293,11 @@ namespace UniBot.Model
         /// 邀请（被动）
         /// </summary>
         Invite,
+
+        /// <summary>
+        /// 未知类型
+        /// </summary>
+        Unknow
     }
 
     /// <summary>
@@ -330,6 +358,11 @@ namespace UniBot.Model
         /// </summary>
         [JsonProperty("notify")]
         Notify,
+
+        /// <summary>
+        /// 未知类型
+        /// </summary>
+        Unknow
     }
 
     /// <summary>
@@ -399,7 +432,12 @@ namespace UniBot.Model
         /// <summary>
         /// 快乐源泉
         /// </summary>
-        Emotion
+        Emotion,
+
+        /// <summary>
+        /// 未知类型
+        /// </summary>
+        Unknow
     }
 
     /// <summary>
@@ -417,7 +455,12 @@ namespace UniBot.Model
         /// 心跳
         /// </summary>
         [JsonProperty("heartbeat")]
-        HeartBeat
+        HeartBeat,
+
+        /// <summary>
+        /// 未知类型
+        /// </summary>
+        Unknow
     }
 
     /// <summary>
@@ -438,6 +481,99 @@ namespace UniBot.Model
         /// <summary>
         /// 连接成功
         /// </summary>
-        Connect
+        Connect,
+
+        /// <summary>
+        /// 未知类型
+        /// </summary>
+        Unknow
+    }
+
+    /// <summary>
+    /// 所有事件
+    /// </summary>
+    public enum EventType
+    {
+        /// <summary>
+        /// 好友申请
+        /// </summary>
+        [JsonProperty("friend")]
+        FriendRequest,
+
+        /// <summary>
+        /// 加群申请
+        /// </summary>
+        [JsonProperty("group")]
+        GroupRequest,
+
+        /// <summary>
+        /// 群文件上传
+        /// </summary>
+        [JsonProperty("group_upload")]
+        GroupUpload,
+
+        /// <summary>
+        /// 群管变动
+        /// </summary>
+        [JsonProperty("group_admin")]
+        GroupAdmin,
+
+        /// <summary>
+        /// 群成员减少
+        /// </summary>
+        [JsonProperty("group_decrease")]
+        GroupDecrease,
+
+        /// <summary>
+        /// 群成员增加
+        /// </summary>
+        [JsonProperty("group_increase")]
+        GroupIncrease,
+
+        /// <summary>
+        /// 群禁言
+        /// </summary>
+        [JsonProperty("group_ban")]
+        GroupBan,
+
+        /// <summary>
+        /// 好友添加
+        /// </summary>
+        [JsonProperty("friend_add")]
+        FriendAdd,
+
+        /// <summary>
+        /// 群消息撤回
+        /// </summary>
+        [JsonProperty("group_recall")]
+        GroupRecall,
+
+        /// <summary>
+        /// 好友消息撤回
+        /// </summary>
+        [JsonProperty("friend_recall")]
+        FriendRecall,
+
+        /// <summary>
+        /// 群内戳一戳/群红包运气王/群成员荣誉变更
+        /// </summary>
+        [JsonProperty("notify")]
+        Notify,
+        /// <summary>
+        /// 生命周期
+        /// </summary>
+        [JsonProperty("lifecycle")]
+        LifeCycle,
+
+        /// <summary>
+        /// 心跳
+        /// </summary>
+        [JsonProperty("heartbeat")]
+        HeartBeat,
+
+        /// <summary>
+        /// 未知类型
+        /// </summary>
+        Unknow
     }
 }

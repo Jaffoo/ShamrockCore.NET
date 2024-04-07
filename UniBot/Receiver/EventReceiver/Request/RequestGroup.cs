@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using ShamrockCore.Data.HttpAPI;
 using UniBot.Model;
 using static UniBot.Tools.JsonConvertTool;
 
@@ -7,7 +8,7 @@ namespace UniBot.Receiver.EventReceiver
     /// <summary>
     /// 加群请求／邀请
     /// </summary>
-    public class RequestGroup : MessageReceiverBase
+    public class RequestGroup : EventReceiver
     {
         /// <summary>
         /// 请求类型
@@ -44,5 +45,20 @@ namespace UniBot.Receiver.EventReceiver
         /// 请求 flag，在调用处理请求的 API 时需要传入
         /// </summary>
         public string Flag { get; set; } = "";
+
+        #region 扩展属性/方法
+        /// <summary>
+        /// 同意
+        /// </summary>
+        /// <returns></returns>
+        public async Task<bool> Agree() => await Connect.SetGroupAddRequest(Flag, RequestSubType);
+
+        /// <summary>
+        /// 拒绝
+        /// </summary>
+        /// <param name="reson">拒绝理由</param>
+        /// <returns></returns>
+        public async Task<bool> Reject(string reson="") => await Connect.SetGroupAddRequest(Flag, RequestSubType, false,reson);
+        #endregion
     }
 }

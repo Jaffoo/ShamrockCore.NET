@@ -446,5 +446,32 @@
             list.Add(new VideoByBase64(base64));
             return list;
         }
+
+        private long QQ = 0;
+        /// <summary>
+        /// 发送给好友
+        /// </summary>
+        public void Friend(long qq)
+        {
+            QQ = qq;
+        }
+
+        private long GroupQQ = 0;
+        /// <summary>
+        /// 发送到群
+        /// </summary>
+        public void Group(long groupQQ)
+        {
+            GroupQQ = groupQQ;
+        }
+
+        /// <summary>
+        /// 发送(如果同时调用了Friend方法和Group方法，则都会发送)
+        /// </summary>
+        public void Send(Bot bot)
+        {
+            if (QQ > 0) Task.Run(async () => await bot.SendPrivateMessage(QQ, list));
+            if (GroupQQ > 0) Task.Run(async () => await bot.SendGroupMessage(QQ, list));
+        }
     }
 }

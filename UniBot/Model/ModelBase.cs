@@ -8,6 +8,6 @@ namespace UniBot.Model
         /// 连接配置信息
         /// </summary>
         [JsonIgnore]
-        public ConnectConf ConnectConf { get; set; } = new();
+        public Connect Connect { get; set; } = new("", 0, 0);
     }
 }

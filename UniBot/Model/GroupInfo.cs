@@ -39,65 +39,65 @@ namespace UniBot.Model
         /// 群成员列表
         /// </summary>
         [JsonIgnore]
-        public Lazy<List<GroupMemberInfo>> Members => new(() => ConnectConf.GetGroupMemberList(GroupQQ).Result);
+        public Lazy<List<GroupMemberInfo>> Members => new(() => Connect.GetGroupMemberList(GroupQQ).Result);
 
         /// <summary>
         /// 群荣誉
         /// </summary>
         [JsonIgnore]
-        public Lazy<GroupHonorInfo> Honor => new(ConnectConf.GetGroupHonorInfo(GroupQQ).Result);
+        public Lazy<GroupHonorInfo> Honor => new(Connect.GetGroupHonorInfo(GroupQQ).Result);
 
         /// <summary>
         /// 发送消息
         /// </summary>
         /// <param name="msg"></param>
         /// <returns></returns>
-        public async Task<long> SendMessage(MessageChain msg) => await ConnectConf.SendGroupMsg(GroupQQ, msg);
+        public async Task<long> SendMessage(MessageChain msg) => await Connect.SendGroupMsg(GroupQQ, msg);
 
         /// <summary>
         /// 发送消息
         /// </summary>
         /// <param name="msg"></param>
         /// <returns></returns>
-        public async Task<long> SendMessage(string msg) => await ConnectConf.SendGroupMsg(GroupQQ, msg);
+        public async Task<long> SendMessage(string msg) => await Connect.SendGroupMsg(GroupQQ, msg);
 
         /// <summary>
         /// 全体禁言
         /// </summary>
         /// <returns></returns>
-        public async Task<bool> EnableGroupBan() => await ConnectConf.SetGroupWholeBan(GroupQQ);
+        public async Task<bool> EnableGroupBan() => await Connect.SetGroupWholeBan(GroupQQ);
 
         /// <summary>
         /// 取消全体禁言
         /// </summary>
         /// <returns></returns>
-        public async Task<bool> DisableGroupBan() => await ConnectConf.SetGroupWholeBan(GroupQQ, false);
+        public async Task<bool> DisableGroupBan() => await Connect.SetGroupWholeBan(GroupQQ, false);
 
         /// <summary>
         /// 允许匿名聊天
         /// </summary>
         /// <returns></returns>
-        public async Task<bool> EnableAnonymous() => await ConnectConf.SetGroupAnonymous(GroupQQ);
+        public async Task<bool> EnableAnonymous() => await Connect.SetGroupAnonymous(GroupQQ);
 
         /// <summary>
         /// 不允许匿名聊天
         /// </summary>
         /// <returns></returns>
-        public async Task<bool> DisableAnonymous() => await ConnectConf.SetGroupAnonymous(GroupQQ, false);
+        public async Task<bool> DisableAnonymous() => await Connect.SetGroupAnonymous(GroupQQ, false);
 
         /// <summary>
         /// 设置群名
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public async Task<bool> SetGroupName(string name) => await ConnectConf.SetGroupName(GroupQQ, name);
+        public async Task<bool> SetGroupName(string name) => await Connect.SetGroupName(GroupQQ, name);
 
         /// <summary>
         /// 退出群聊
         /// </summary>
         /// <param name="dissolve">是否解散，如果登录号是群主，则仅在此项为 true 时能够解散</param>
         /// <returns></returns>
-        public async Task<bool> LeaveGroup(bool dissolve = false) => await ConnectConf.SetGroupLeave(GroupQQ, dissolve);
+        public async Task<bool> LeaveGroup(bool dissolve = false) => await Connect.SetGroupLeave(GroupQQ, dissolve);
         #endregion
     }
 }

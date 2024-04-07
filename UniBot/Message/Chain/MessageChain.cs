@@ -1,9 +1,26 @@
-﻿using UniBot.Model;
+﻿using ShamrockCore.Data.HttpAPI;
+using UniBot.Model;
 
 namespace UniBot.Message.Chain
 {
     public class MessageChain : List<MessageBase>
     {
+        /// <summary>
+        /// 发送
+        /// </summary>
+        /// <param name="bot"></param>
+        /// <param name="qq">要发送的qq</param>
+        /// <param name="groupQQ">要发送的群</param>
+        /// <returns></returns>
+        public async Task<(long privateMsg, long groupMsg)> Send(Bot bot, long qq = 0, long groupQQ = 0)
+        {
+            long privateMsg = 0;
+            long groupMsg = 0;
+            if (qq > 0) privateMsg = await bot.Conn.SendPrivateMsg(qq, this);
+            if (groupQQ > 0) groupMsg = await bot.Conn.SendPrivateMsg(qq, this);
+            return (privateMsg, groupMsg);
+        }
+
         /// <summary>
         /// 获取文本链
         /// </summary>

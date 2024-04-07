@@ -9,6 +9,7 @@ namespace UniBot.Message
     {
         public override Messages Type => Messages.Poke;
 
+        public PokeMessage() { }
         public PokeMessage(int type, int id, string name = "")
         {
             Data = new Body()

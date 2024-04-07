@@ -8,6 +8,8 @@ namespace UniBot.Message
     public class ForwardMessage : MessageBase
     {
         public override Messages Type => Messages.Forward;
+
+        public ForwardMessage() { }
         public ForwardMessage(long forwardMsgId)
         {
             Data = new Body() { Id = forwardMsgId };

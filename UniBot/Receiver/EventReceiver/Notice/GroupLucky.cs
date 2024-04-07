@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using ShamrockCore.Data.HttpAPI;
 using UniBot.Model;
 using static UniBot.Tools.JsonConvertTool;
 
@@ -7,7 +8,7 @@ namespace UniBot.Receiver.EventReceiver
     /// <summary>
     /// 红包运气王
     /// </summary>
-    public class GroupLucky : MessageReceiverBase
+    public class GroupLucky : EventReceiver
     {
         /// <summary>
         /// 通知类型
@@ -40,5 +41,13 @@ namespace UniBot.Receiver.EventReceiver
         /// </summary>
         [JsonProperty("target_id")]
         public long LuckyQQ { get; set; }
+
+        #region 扩展属性/方法
+        /// <summary>
+        /// 运气王信息
+        /// </summary>
+        [JsonIgnore]
+        public Lazy<GroupMemberInfo> User => new(() => Connect.GetGroupMemberInfo(GroupQQ, QQ).Result);
+        #endregion
     }
 }

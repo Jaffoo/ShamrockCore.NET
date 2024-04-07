@@ -10,6 +10,7 @@ namespace UniBot.Message
     {
         public override Messages Type => Messages.Node;
 
+        public NodeMessage() { }
         /// <summary>
         /// 合并转发
         /// </summary>

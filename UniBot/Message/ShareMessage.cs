@@ -9,6 +9,7 @@ namespace UniBot.Message
     {
         public override Messages Type => Messages.Share;
 
+        public ShareMessage() { }
         public ShareMessage(string url, string title, string content = "", string image="")
         {
             Data = new Body()

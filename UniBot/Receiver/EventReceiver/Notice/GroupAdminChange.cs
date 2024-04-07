@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using ShamrockCore.Data.HttpAPI;
 using UniBot.Model;
 using static UniBot.Tools.JsonConvertTool;
 
@@ -7,7 +8,7 @@ namespace UniBot.Receiver.EventReceiver
     /// <summary>
     /// 群管理员变动
     /// </summary>
-    public class GroupAdminChange : MessageReceiverBase
+    public class GroupAdminChange : EventReceiver
     {
         /// <summary>
         /// 群号
@@ -27,5 +28,13 @@ namespace UniBot.Receiver.EventReceiver
         [JsonProperty("sub_type")]
         [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public NoticeSubType NoticeSubType { get; set; }
+
+        #region 扩展属性/方法
+        /// <summary>
+        /// 管理员信息
+        /// </summary>
+        [JsonIgnore]
+        public Lazy<GroupMemberInfo> Admin => new(() => Connect.GetGroupMemberInfo(GroupQQ, QQ).Result);
+        #endregion
     }
 }

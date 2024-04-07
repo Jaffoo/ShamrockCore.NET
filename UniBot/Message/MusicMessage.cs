@@ -9,6 +9,7 @@ namespace UniBot.Message
     {
         public override Messages Type => Messages.Music;
 
+        public MusicMessage() { }
         /// <summary>
         /// 音乐分享
         /// </summary>

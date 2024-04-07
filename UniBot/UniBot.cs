@@ -20,7 +20,7 @@ namespace UniBot
     {
         #region 全局变量/构造函数
         private WebsocketClient? _client;
-        public ConnectConf Conn;
+        public Connect Conn;
 
         /// <summary>
         /// 收到事件
@@ -44,7 +44,7 @@ namespace UniBot
         /// </summary>
         public IObservable<WebSocketCloseStatus> DisconnectionHappened { get; }
         private readonly Subject<WebSocketCloseStatus> _disconnectionHappened = new();
-        public Bot(ConnectConf conf)
+        public Bot(Connect conf)
         {
             Conn = conf;
             EventReceived = _eventReceivedSubject.AsObservable();
@@ -105,9 +105,20 @@ namespace UniBot
                     var server = new WebSocketServer(Conn.ReverseWsUrl);
                     server.Start(socket =>
                     {
+                        socket.OnOpen = () =>
+                        {
+                            if (string.IsNullOrWhiteSpace(Conn.Token)) return;
+                            var headers = socket.ConnectionInfo.Headers;
+                            var token = headers["Authorization"].ToString();
+                            if (token != Conn.Token)
+                            {
+                                socket.Send("Please provide a valid token.");
+                                socket.Close();
+                            }
+                        };
+
                         socket.OnMessage = message =>
                         {
-                            var token = socket.ConnectionInfo;
                             HandleData(message);
                         };
                     });
@@ -128,11 +139,19 @@ namespace UniBot
         {
             try
             {
-                var msg = JsonConvertTool.MessageReceiverHandel(data, Conn) ?? throw new InvalidDataException("数据无效！");
-                if (msg.PostType == PostType.Message)
+                MessageReceiverBase msg;
+                var a = data.Fetch("post_type");
+                var postType = data.Fetch("post_type");
+                if (postType == PostType.Message.ToString().ToLower())
+                {
+                    msg = JsonConvertTool.MessageReceiverHandel(data, Conn) ?? throw new InvalidDataException("数据无效！");
                     _messageReceivedSubject.OnNext(msg);
-                else if (msg.PostType == PostType.Notice || msg.PostType == PostType.Request || msg.PostType == PostType.MetaEvent)
+                }
+                else if (postType == PostType.Notice.ToString().ToLower() || postType == PostType.MetaEvent.ToString().ToLower() || PostType.Request.ToString().ToLower() == postType)
+                {
+                    msg = JsonConvertTool.EventReceiverHandel(data, Conn) ?? throw new InvalidDataException("数据无效！");
                     _eventReceivedSubject.OnNext(msg);
+                }
                 else
                     _unknownMessageReceived.OnNext(data);
             }

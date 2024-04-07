@@ -7,6 +7,9 @@ using UniBot.Message;
 using UniBot.Message.Chain;
 using UniBot.Receiver.MessageReceiver;
 using UniBot.Model;
+using UniBot.Receiver.EventReceiver;
+using System;
+using TBC.CommonLib;
 
 namespace UniBot.Tools
 {
@@ -66,6 +69,36 @@ namespace UniBot.Tools
 
         internal class LowercaseStringEnumConverter : StringEnumConverter
         {
+            public override object ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
+            {
+                string enumString = (string)reader.Value!;
+                var members = objectType.GetMembers();
+                var unknow = members.FirstOrDefault(x => x.MemberType == MemberTypes.Field&&x.Name.Contains("Unknow"));
+                if (Enum.TryParse(objectType, enumString, true, out object? parsedEnum))
+                {
+                    if (parsedEnum == null)
+                    {
+                        if (unknow != null)
+                            return Enum.TryParse(objectType, unknow.Name, true, out object? unknowEnum);
+                        else
+                        {
+                            var def = members.FirstOrDefault(x => x.MemberType == MemberTypes.Field && x.Name != "value__");
+                            return Enum.TryParse(objectType, def!.Name, true, out object? unknowEnum);
+                        }
+                    }
+                    return parsedEnum;
+                }
+                else
+                {
+                    if (unknow != null)
+                        return Enum.TryParse(objectType, unknow.Name, true, out object? unknowEnum);
+                    else
+                    {
+                        var def = members.FirstOrDefault(x => x.MemberType == MemberTypes.Field && x.Name != "value__");
+                        return Enum.TryParse(objectType, def!.Name, true, out object? unknowEnum);
+                    }
+                }
+            }
             public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
             {
                 if (value is Enum)
@@ -102,28 +135,32 @@ namespace UniBot.Tools
 
         private static readonly List<MessageBase> MessageBases = CreateInstance<MessageBase>("UniBot.Message");
         private static readonly List<MessageReceiver> MessageReceiverBases = CreateInstance<MessageReceiver>("UniBot.Receiver.MessageReceiver");
-        private static readonly List<MessageReceiverBase> EventReceiverBases = CreateInstance<MessageReceiverBase>("UniBot.Receiver.Event");
+        private static readonly List<EventReceiver> EventReceiverBases = CreateInstance<EventReceiver>("UniBot.Receiver.Event");
 
         /// <summary>
         /// 消息段处理
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        internal static void MessageHandel(MessageReceiver data, ConnectConf conf)
+        internal static void MessageHandel(MessageReceiver data, Connect conf)
         {
             try
             {
                 data.Message ??= JsonConvert.DeserializeObject<MessageChain>(data.OriginalData!["message"]!.ToString());
                 foreach (var item in MessageBases)
                 {
+                    Type dllType = item.GetType();
+                    if (dllType.Name == "MessageBase") continue;
+                    var bodyDll = dllType.GetNestedType("Body")!;
                     foreach (var msg in data.Message!)
                     {
                         if (msg.Type == item.Type)
                         {
-                            var tempData = (string)msg.Data!;
-                            msg.ConnectConf = conf;
+                            var tempData = ((JObject)msg.Data!).ToString()!;
+                            msg.Connect = conf;
                             msg.Data = null;
-                            msg.Data = JsonConvert.DeserializeObject(tempData, item.GetType());
+                            msg.Data = JsonConvert.DeserializeObject(tempData, bodyDll);
+                            break;
                         }
                     }
                 }
@@ -138,7 +175,7 @@ namespace UniBot.Tools
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        internal static MessageReceiver? EventReceiverHandel(string data, ConnectConf conf)
+        internal static MessageReceiver? EventReceiverHandel(string data, Connect conf)
         {
             try
             {
@@ -154,7 +191,7 @@ namespace UniBot.Tools
                 }
                 if (JsonConvert.DeserializeObject(data, type) is not MessageReceiver message) return null;
                 message.OriginalData = JObject.Parse(data);
-                message.ConnectConf = conf;
+                message.Connect = conf;
                 return message;
             }
             catch
@@ -170,7 +207,7 @@ namespace UniBot.Tools
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        internal static MessageReceiverBase? MessageReceiverHandel(string data, ConnectConf conf)
+        internal static MessageReceiverBase? MessageReceiverHandel(string data, Connect conf)
         {
             try
             {
@@ -181,12 +218,12 @@ namespace UniBot.Tools
                 foreach (var messageReceiver in MessageReceiverBases)
                 {
                     if (messageReceiver == null) continue;
-                    if (messageReceiver.PostType == raw.PostType)
+                    if (messageReceiver.MessageType == raw.MessageType)
                         type = messageReceiver.GetType();
                 }
                 if (JsonConvert.DeserializeObject(data, type) is not MessageReceiver message) return null;
                 message.OriginalData = JObject.Parse(data);
-                message.ConnectConf = conf;
+                message.Connect = conf;
                 MessageHandel(message, conf);
                 return message;
             }

@@ -8,6 +8,8 @@ namespace UniBot.Message
     public class JsonMessage : MessageBase
     {
         public override Messages Type => Messages.Json;
+
+        public JsonMessage() { }
         public JsonMessage(string json)
         {
             Data = new Body()

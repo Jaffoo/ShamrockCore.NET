@@ -9,6 +9,7 @@ namespace UniBot.Message
     {
         public override Messages Type => Messages.At;
 
+        public AtMessage() { }
         /// <summary>
         /// @某个人，all则是@全体成员
         /// </summary>

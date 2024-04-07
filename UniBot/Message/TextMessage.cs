@@ -9,6 +9,7 @@ namespace UniBot.Message
     {
         public override Messages Type => Messages.Text;
 
+        public TextMessage() { }
         public TextMessage(string content)
         {
             base.Data = new Body()

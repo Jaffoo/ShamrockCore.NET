@@ -9,6 +9,7 @@ namespace UniBot.Message
     {
         public override Messages Type => Messages.Video;
 
+        public VideoMessage() { }
         /// <summary>
         /// 语音消息
         /// 发送方式三选一
@@ -75,6 +76,7 @@ namespace UniBot.Message
     /// </summary>
     public class VideoByUrl : VideoMessage
     {
+        public VideoByUrl() { }
         public VideoByUrl(string url, bool cache = true, bool proxy = true)
         {
             base.Data = new Body()
@@ -90,6 +92,7 @@ namespace UniBot.Message
     /// </summary>
     public class VideoByPath : VideoMessage
     {
+        public VideoByPath() { }
         public VideoByPath(string path)
         {
             base.Data = new Body()
@@ -103,6 +106,7 @@ namespace UniBot.Message
     /// </summary>
     public class VideoByBase64 : VideoMessage
     {
+        public VideoByBase64() { }
         public VideoByBase64(string base64)
         {
             base.Data = new Body()

@@ -29,7 +29,10 @@ namespace UniBot.Model
         /// 年龄
         /// </summary>
         public int Age { get; set; }
+    }
 
+    public class GroupSender
+    {
         /// <summary>
         /// 群名片／备注
         /// </summary>

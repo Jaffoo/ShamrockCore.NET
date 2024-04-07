@@ -8,6 +8,8 @@ namespace UniBot.Message
     public class ReplyMessage : MessageBase
     {
         public override Messages Type => Messages.Reply;
+
+        public ReplyMessage() { }
         public ReplyMessage(long msgId)
         {
             Data = new Body() { Id = msgId };

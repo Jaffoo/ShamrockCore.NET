@@ -7,7 +7,7 @@ namespace UniBot.Receiver.EventReceiver
     /// <summary>
     /// 群文件上传
     /// </summary>
-    public class GroupFileUpload : MessageReceiverBase
+    public class GroupFileUpload : EventReceiver
     {
         /// <summary>
         /// 通知类型
