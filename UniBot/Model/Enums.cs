@@ -1,6 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System.ComponentModel;
-using System.Runtime.Serialization;
 
 namespace UniBot.Model
 {
