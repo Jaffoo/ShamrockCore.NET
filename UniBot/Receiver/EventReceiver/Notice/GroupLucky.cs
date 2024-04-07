@@ -2,12 +2,12 @@
 using UniBot.Model;
 using static UniBot.Tools.JsonConvertTool;
 
-namespace UniBot.Receiver.Event
+namespace UniBot.Receiver.EventReceiver
 {
     /// <summary>
-    /// 群成员荣誉变更
+    /// 红包运气王
     /// </summary>
-    public class GroupHonor : MessageReceiverBase
+    public class GroupLucky : MessageReceiverBase
     {
         /// <summary>
         /// 通知类型
@@ -24,7 +24,7 @@ namespace UniBot.Receiver.Event
         public NoticeSubType NoticeSubType { get; set; }
 
         /// <summary>
-        /// 成员 QQ 号
+        /// 红包发送者 QQ 号
         /// </summary>
         [JsonProperty("user_id")]
         public long QQ { get; set; }
@@ -36,10 +36,9 @@ namespace UniBot.Receiver.Event
         public long GroupQQ { get; set; }
 
         /// <summary>
-        /// 荣誉类型
+        /// 运气王 QQ 号
         /// </summary>
-        [JsonProperty("honor_type")]
-        [JsonConverter(typeof(LowercaseStringEnumConverter))]
-        public HonorType HonorType { get; set; }
+        [JsonProperty("target_id")]
+        public long LuckyQQ { get; set; }
     }
 }

@@ -2,12 +2,12 @@
 using UniBot.Model;
 using static UniBot.Tools.JsonConvertTool;
 
-namespace UniBot.Receiver.Event
+namespace UniBot.Receiver.EventReceiver
 {
     /// <summary>
     /// 生命周期
     /// </summary>
-    public class Lifecycle : MessageReceiverBase
+    public class HeartBeat : MessageReceiverBase
     {
         /// <summary>
         /// 元事件类型
@@ -17,11 +17,13 @@ namespace UniBot.Receiver.Event
         public MetaType MetaType { get; set; }
 
         /// <summary>
-        /// 元事件子类型
+        /// 状态信息
         /// </summary>
-        [JsonProperty("sub_type")]
-        [JsonConverter(typeof(LowercaseStringEnumConverter))]
-        public MetaSubType MetaSubType { get; set; }
         public object? Status { get; set; }
+
+        /// <summary>
+        /// 到下次心跳的间隔，单位毫秒
+        /// </summary>
+        public long Interval { get; set; }
     }
 }

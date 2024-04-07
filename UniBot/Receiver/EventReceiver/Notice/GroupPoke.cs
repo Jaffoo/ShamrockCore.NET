@@ -2,7 +2,7 @@
 using UniBot.Model;
 using static UniBot.Tools.JsonConvertTool;
 
-namespace UniBot.Receiver.Event
+namespace UniBot.Receiver.EventReceiver
 {
     /// <summary>
     /// 群戳一戳

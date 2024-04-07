@@ -2,12 +2,12 @@
 using UniBot.Model;
 using static UniBot.Tools.JsonConvertTool;
 
-namespace UniBot.Receiver.Event
+namespace UniBot.Receiver.EventReceiver
 {
     /// <summary>
-    /// 群文件上传
+    /// 群成员增加
     /// </summary>
-    public class GroupFileUpload : MessageReceiverBase
+    public class GroupMemberIncrease : MessageReceiverBase
     {
         /// <summary>
         /// 通知类型
@@ -17,20 +17,28 @@ namespace UniBot.Receiver.Event
         public NoticeType NoticeType { get; set; }
 
         /// <summary>
+        /// 通知子类型
+        /// </summary>
+        [JsonProperty("sub_type")]
+        [JsonConverter(typeof(LowercaseStringEnumConverter))]
+        public NoticeSubType NoticeSubType { get; set; }
+
+        /// <summary>
         /// 群号
         /// </summary>
         [JsonProperty("group_id")]
         public long GroupQQ { get; set; }
 
         /// <summary>
-        /// 上传 QQ 号
+        /// qq号
         /// </summary>
         [JsonProperty("user_id")]
         public long QQ { get; set; }
 
         /// <summary>
-        /// 文件
+        /// 操作人qq
         /// </summary>
-        public Model.FileInfo File { get; set; } = new();
+        [JsonProperty("operator_id")]
+        public long OperatorQQ { get; set; }
     }
 }

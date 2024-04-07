@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace UniBot.Model
+﻿namespace UniBot.Model
 {
     /// <summary>
     /// 请求响应类型
@@ -29,6 +23,6 @@ namespace UniBot.Model
         /// <summary>
         /// 数据
         /// </summary>
-        public dynamic? Data { get; set; }
+        public string? Data { get; set; }
     }
 }

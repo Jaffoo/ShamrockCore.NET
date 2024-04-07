@@ -2,9 +2,12 @@
 using UniBot.Model;
 using static UniBot.Tools.JsonConvertTool;
 
-namespace UniBot.Receiver.Event
+namespace UniBot.Receiver.EventReceiver
 {
-    public class FriendAdd : MessageReceiverBase
+    /// <summary>
+    /// 好友消息撤回
+    /// </summary>
+    public class FriendMsgRecall : MessageReceiverBase
     {
         /// <summary>
         /// 通知类型
@@ -14,9 +17,15 @@ namespace UniBot.Receiver.Event
         public NoticeType NoticeType { get; set; }
 
         /// <summary>
-        /// 新添加好友 QQ 号
+        /// 消息发送者 QQ 号
         /// </summary>
         [JsonProperty("user_id")]
         public long QQ { get; set; }
+
+        /// <summary>
+        /// 被撤回的消息 ID
+        /// </summary>
+        [JsonProperty("message_id")]
+        public long MessageId { get; set; }
     }
 }

@@ -6,6 +6,10 @@ using UniBot.Receiver;
 using Websocket.Client;
 using Fleck;
 using UniBot.Tools;
+using ShamrockCore.Data.HttpAPI;
+using Newtonsoft.Json.Linq;
+using UniBot.Message.Chain;
+using TBC.CommonLib;
 
 namespace UniBot
 {
@@ -137,5 +141,165 @@ namespace UniBot
                 throw;
             }
         }
+
+        #region 扩展方法/属性
+        /// <summary>
+        /// 好友列表
+        /// </summary>
+        public Lazy<List<FriendInfo>> Friends => new(() => Conn.GetFriendList().Result);
+
+        /// <summary>
+        /// 群列表
+        /// </summary>
+        public Lazy<List<GroupInfo>> Groups => new(() => Conn.GetGroupList().Result);
+
+        /// <summary>
+        /// onebot实现版本信息
+        /// </summary>
+        public Lazy<JObject> Version => new(() => Conn.GetVersion().Result);
+
+        /// <summary>
+        /// onebot实现状态信息
+        /// </summary>
+        public Lazy<JObject> Status => new(() => Conn.GetStatus().Result);
+
+        /// <summary>
+        /// 检查是否可以发送语音
+        /// </summary>
+        /// <returns></returns>
+        public async Task<bool> CanSendRecord() => await Conn.CanSendRecord();
+
+        /// <summary>
+        /// 检查是否可以发送图片
+        /// </summary>
+        /// <returns></returns>
+        public async Task<bool> CanSendImage() => await Conn.CanSendImage();
+
+        /// <summary>
+        /// 重启
+        /// </summary>
+        /// <returns></returns>
+        public async Task<bool> Restart(int delay = 0) => await Conn.Restart(delay);
+
+        /// <summary>
+        /// 清理缓存
+        /// </summary>
+        /// <returns></returns>
+        public async Task<bool> CleanCache() => await Conn.CleanCache();
+
+        #region 发送消息
+        /// <summary>
+        /// 发送私聊消息
+        /// </summary>
+        /// <param name="qq"></param>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public async Task<long> SendPrivateMessage(long qq, MessageChain msg) => await Conn.SendPrivateMsg(qq, msg);
+
+        /// <summary>
+        /// 发送私聊消息
+        /// </summary>
+        /// <param name="qq"></param>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public async Task<long> SendPrivateMessage(long qq, string msg) => await Conn.SendPrivateMsg(qq, msg);
+
+        /// <summary>
+        /// 发送私聊消息
+        /// </summary>
+        /// <param name="friend"></param>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public async Task<long> SendPrivateMessage(FriendInfo friend, MessageChain msg) => await Conn.SendPrivateMsg(friend.QQ, msg);
+
+        /// <summary>
+        /// 发送私聊消息
+        /// </summary>
+        /// <param name="friend"></param>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public async Task<long> SendPrivateMessage(FriendInfo friend, string msg) => await Conn.SendPrivateMsg(friend.QQ, msg);
+
+        /// <summary>
+        /// 发送群聊消息
+        /// </summary>
+        /// <param name="groupQQ"></param>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public async Task<long> SendGroupMessage(long groupQQ, MessageChain msg) => await Conn.SendGroupMsg(groupQQ, msg);
+
+        /// <summary>
+        /// 发送群聊消息
+        /// </summary>
+        /// <param name="groupQQ"></param>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public async Task<long> SendGroupMessage(long groupQQ, string msg) => await Conn.SendGroupMsg(groupQQ, msg);
+
+        /// <summary>
+        /// 发送群聊消息
+        /// </summary>
+        /// <param name="groupQQ"></param>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public async Task<long> SendGroupMessage(GroupInfo group, MessageChain msg) => await Conn.SendGroupMsg(group.GroupQQ, msg);
+
+        /// <summary>
+        /// 发送群聊消息
+        /// </summary>
+        /// <param name="groupQQ"></param>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public async Task<long> SendGroupMessage(GroupInfo group, string msg) => await Conn.SendGroupMsg(group.GroupQQ, msg);
+        #endregion
+
+        #region onebot实现的扩展api调用方法
+        /// <summary>
+        /// get请求
+        /// </summary>
+        /// <param name="apiEndpoint">请求端点</param>
+        /// <param name="paramStr">请求参数字符串（url格式拼接好）</param>
+        /// <returns>json格式字符串</returns>
+        /// <exception cref="InvalidDataException"></exception>
+        public async Task<string> GetAsync(string apiEndpoint, string paramStr = "")
+        {
+            try
+            {
+                var url = Conn.HttpUrl + apiEndpoint + paramStr;
+                var res = await TBC.CommonLib.Tools.GetAsync<ApiResult>(url, Conn.Headers);
+                if (res == null) throw new InvalidDataException("响应内容为空！");
+                if (res.Status == "failed") throw new Exception(res.Message);
+                return res.Data ?? "";
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// post请求
+        /// </summary>d
+        /// <param name="apiEndpoint">请求端点</param>
+        /// <param name="data">请求body数据(json字符串)</param>
+        /// <returns>json格式字符串</returns>
+        /// <exception cref="InvalidDataException"></exception>
+        public async Task<string> PostAsync(string apiEndpoint, string data)
+        {
+            try
+            {
+                var url = Conn.HttpUrl + apiEndpoint;
+                var res = await TBC.CommonLib.Tools.PostAsync<ApiResult>(url, data, Conn.Headers);
+                if (res == null) throw new InvalidDataException("响应内容为空！");
+                if (res.Status == "failed") throw new Exception(res.Message);
+                return res.Data ?? "";
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        #endregion
+        #endregion
     }
 }

@@ -3,7 +3,7 @@
 namespace UniBot.Message
 {
     /// <summary>
-    /// 掷骰子魔法表情
+    /// 匿名消息
     /// </summary>
     public class AnonymousMessage : MessageBase
     {

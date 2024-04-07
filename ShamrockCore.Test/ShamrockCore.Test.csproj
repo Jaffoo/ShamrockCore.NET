@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ShamrockCore\ShamrockCore.csproj" />
+    <ProjectReference Include="..\UniBot\UniBot.csproj" />
   </ItemGroup>
 
 </Project>

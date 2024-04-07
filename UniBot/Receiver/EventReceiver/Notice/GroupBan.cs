@@ -2,12 +2,12 @@
 using UniBot.Model;
 using static UniBot.Tools.JsonConvertTool;
 
-namespace UniBot.Receiver.Event
+namespace UniBot.Receiver.EventReceiver
 {
     /// <summary>
-    /// 群成员减少
+    /// 群禁言
     /// </summary>
-    public class GroupMemberDecrease : MessageReceiverBase
+    public class GroupBan : MessageReceiverBase
     {
         /// <summary>
         /// 通知类型
@@ -24,21 +24,26 @@ namespace UniBot.Receiver.Event
         public NoticeSubType NoticeSubType { get; set; }
 
         /// <summary>
+        /// 被禁言 QQ 号
+        /// </summary>
+        [JsonProperty("user_id")]
+        public long QQ { get; set; }
+
+        /// <summary>
         /// 群号
         /// </summary>
         [JsonProperty("group_id")]
         public long GroupQQ { get; set; }
 
         /// <summary>
-        /// qq号
+        /// 禁言时长（秒）
         /// </summary>
-        [JsonProperty("user_id")]
-        public long QQ { get; set; }
+        public long Duration { get; set; }
 
         /// <summary>
-        /// 操作者 QQ 号（如果是主动退群，则和 qq 相同）
+        /// 操作人qq
         /// </summary>
         [JsonProperty("operator_id")]
-        public virtual long OperatorQQ { get; set; }
+        public long OperatorQQ { get; set; }
     }
 }

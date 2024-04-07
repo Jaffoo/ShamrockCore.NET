@@ -2,12 +2,12 @@
 using UniBot.Model;
 using static UniBot.Tools.JsonConvertTool;
 
-namespace UniBot.Receiver.Event
+namespace UniBot.Receiver.EventReceiver
 {
     /// <summary>
-    /// 群消息撤回
+    /// 群成员荣誉变更
     /// </summary>
-    public class GroupMsgRecall : MessageReceiverBase
+    public class GroupHonor : MessageReceiverBase
     {
         /// <summary>
         /// 通知类型
@@ -17,7 +17,14 @@ namespace UniBot.Receiver.Event
         public NoticeType NoticeType { get; set; }
 
         /// <summary>
-        /// 消息发送者 QQ 号
+        /// 通知子类型
+        /// </summary>
+        [JsonProperty("sub_type")]
+        [JsonConverter(typeof(LowercaseStringEnumConverter))]
+        public NoticeSubType NoticeSubType { get; set; }
+
+        /// <summary>
+        /// 成员 QQ 号
         /// </summary>
         [JsonProperty("user_id")]
         public long QQ { get; set; }
@@ -29,15 +36,10 @@ namespace UniBot.Receiver.Event
         public long GroupQQ { get; set; }
 
         /// <summary>
-        /// 操作人qq
+        /// 荣誉类型
         /// </summary>
-        [JsonProperty("operator_id")]
-        public long OperatorQQ { get; set; }
-
-        /// <summary>
-        /// 被撤回的消息 ID
-        /// </summary>
-        [JsonProperty("message_id")]
-        public long MessageId { get; set; }
+        [JsonProperty("honor_type")]
+        [JsonConverter(typeof(LowercaseStringEnumConverter))]
+        public HonorType HonorType { get; set; }
     }
 }

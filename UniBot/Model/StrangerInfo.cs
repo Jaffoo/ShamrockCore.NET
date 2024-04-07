@@ -1,13 +1,12 @@
 ﻿using Newtonsoft.Json;
-using UniBot.Message.Chain;
 using static UniBot.Tools.JsonConvertTool;
 
 namespace UniBot.Model
 {
     /// <summary>
-    /// 陌生人信息
+    /// 基础信息
     /// </summary>
-    public class StrangerInfo
+    public class UserBaseInfo
     {
         /// <summary>
         /// qq
@@ -19,7 +18,13 @@ namespace UniBot.Model
         /// 昵称
         /// </summary>
         public string Nickname { get; set; } = "";
+    }
 
+    /// <summary>
+    /// 陌生人信息
+    /// </summary>
+    public class StrangerInfo : UserBaseInfo
+    {
         /// <summary>
         /// 性别
         /// </summary>

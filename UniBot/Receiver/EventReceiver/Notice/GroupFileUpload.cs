@@ -2,12 +2,12 @@
 using UniBot.Model;
 using static UniBot.Tools.JsonConvertTool;
 
-namespace UniBot.Receiver.Event
+namespace UniBot.Receiver.EventReceiver
 {
     /// <summary>
-    /// 好友消息撤回
+    /// 群文件上传
     /// </summary>
-    public class FriendMsgRecall : MessageReceiverBase
+    public class GroupFileUpload : MessageReceiverBase
     {
         /// <summary>
         /// 通知类型
@@ -17,15 +17,20 @@ namespace UniBot.Receiver.Event
         public NoticeType NoticeType { get; set; }
 
         /// <summary>
-        /// 消息发送者 QQ 号
+        /// 群号
+        /// </summary>
+        [JsonProperty("group_id")]
+        public long GroupQQ { get; set; }
+
+        /// <summary>
+        /// 上传 QQ 号
         /// </summary>
         [JsonProperty("user_id")]
         public long QQ { get; set; }
 
         /// <summary>
-        /// 被撤回的消息 ID
+        /// 文件
         /// </summary>
-        [JsonProperty("message_id")]
-        public long MessageId { get; set; }
+        public Model.FileInfo File { get; set; } = new();
     }
 }
