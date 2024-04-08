@@ -1,4 +1,4 @@
-﻿using ShamrockCore.Data.HttpAPI;
+﻿using UniBot.Api;
 using System.Text.Json.Serialization;
 
 namespace UniBot.Model

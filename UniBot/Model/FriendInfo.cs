@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
-using ShamrockCore.Data.HttpAPI;
+using UniBot.Api;
 using UniBot.Message.Chain;
+using static UniBot.Utils.JsonConvertTool;
 
 namespace UniBot.Model
 {
@@ -24,6 +25,25 @@ namespace UniBot.Model
         /// 备注
         /// </summary>
         public string Remark { get; set; } = "";
+
+        /// <summary>
+        /// 年龄
+        /// </summary>
+        [JsonProperty("age")]
+        public string Age { get; set; } = "";
+
+        /// <summary>
+        /// 等级
+        /// </summary>
+        [JsonProperty("level")]
+        public string Level { get; set; } = "";
+
+        /// <summary>
+        /// 性别
+        /// </summary>
+        [JsonConverter(typeof(LowercaseStringEnumConverter))]
+        [JsonProperty("sex")]
+        public Genders Sex { get; set; }
 
         #region 扩展方法/属性
         /// <summary>

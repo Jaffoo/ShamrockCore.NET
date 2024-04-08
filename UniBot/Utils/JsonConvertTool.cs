@@ -8,10 +8,8 @@ using UniBot.Message.Chain;
 using UniBot.Receiver.MessageReceiver;
 using UniBot.Model;
 using UniBot.Receiver.EventReceiver;
-using System;
-using TBC.CommonLib;
 
-namespace UniBot.Tools
+namespace UniBot.Utils
 {
     internal static class JsonConvertTool
     {
@@ -73,7 +71,7 @@ namespace UniBot.Tools
             {
                 string enumString = (string)reader.Value!;
                 var members = objectType.GetMembers();
-                var unknow = members.FirstOrDefault(x => x.MemberType == MemberTypes.Field&&x.Name.Contains("Unknow"));
+                var unknow = members.FirstOrDefault(x => x.MemberType == MemberTypes.Field&&x.Name.Contains("Unknown"));
                 if (Enum.TryParse(objectType, enumString, true, out object? parsedEnum))
                 {
                     if (parsedEnum == null)

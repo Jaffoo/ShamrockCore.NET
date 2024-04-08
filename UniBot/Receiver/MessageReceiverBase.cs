@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using UniBot.Model;
-using static UniBot.Tools.JsonConvertTool;
+using static UniBot.Utils.JsonConvertTool;
 
 namespace UniBot.Receiver
 {

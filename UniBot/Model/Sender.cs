@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using static UniBot.Tools.JsonConvertTool;
+using static UniBot.Utils.JsonConvertTool;
 
 namespace UniBot.Model
 {

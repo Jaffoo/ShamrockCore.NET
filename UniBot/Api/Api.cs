@@ -1,13 +1,12 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using TBC.CommonLib;
-using UniBot;
 using UniBot.Message;
 using UniBot.Message.Chain;
 using UniBot.Model;
 using UniBot.Receiver;
 
-namespace ShamrockCore.Data.HttpAPI
+namespace UniBot.Api
 {
     internal static class Api
     {
@@ -621,9 +620,7 @@ namespace ShamrockCore.Data.HttpAPI
             try
             {
                 var url = conf.HttpUrl + HttpEndpoints.GetFriendList.GetDescription();
-                var res1 = await Tools.GetAsync(url, conf.Headers);
-                var res = JsonConvert.DeserializeObject<ApiResult<List<FriendInfo>>>(res1);
-                if (res == null) throw new InvalidDataException("响应内容为空！");
+                var res = await Tools.GetAsync<ApiResult<List<FriendInfo>>>(url, conf.Headers);                if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
                 if (res.Data == null) throw new InvalidDataException("响应数据为空");
                 return res.Data;

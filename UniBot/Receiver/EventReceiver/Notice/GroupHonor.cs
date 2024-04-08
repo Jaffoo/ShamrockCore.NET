@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
-using ShamrockCore.Data.HttpAPI;
+using UniBot.Api;
 using UniBot.Model;
-using static UniBot.Tools.JsonConvertTool;
+using static UniBot.Utils.JsonConvertTool;
 
 namespace UniBot.Receiver.EventReceiver
 {

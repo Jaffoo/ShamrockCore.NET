@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace ShamrockCore.Data.HttpAPI
+namespace UniBot.Api
 {
     /// <summary>
     /// http请求端点

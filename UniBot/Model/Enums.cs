@@ -28,7 +28,7 @@ namespace UniBot.Model
         /// <summary>
         /// 未知类型
         /// </summary>
-        Unknow
+        Unknown
     }
 
     /// <summary>
@@ -139,7 +139,7 @@ namespace UniBot.Model
         /// <summary>
         /// 未知类型
         /// </summary>
-        Unknow
+        Unknown
     }
 
     /// <summary>
@@ -160,7 +160,7 @@ namespace UniBot.Model
         /// <summary>
         /// 未知类型
         /// </summary>
-        Unknow
+        Unknown
     }
 
     /// <summary>
@@ -206,7 +206,7 @@ namespace UniBot.Model
         /// <summary>
         /// 未知类型
         /// </summary>
-        Unknow
+        Unknown
     }
 
     /// <summary>
@@ -227,7 +227,7 @@ namespace UniBot.Model
         /// <summary>
         /// 未知类型
         /// </summary>
-        Unknow
+        Unknown
     }
 
     /// <summary>
@@ -253,7 +253,7 @@ namespace UniBot.Model
         /// <summary>
         /// 未知类型
         /// </summary>
-        Unknow
+        Unknown
     }
 
     /// <summary>
@@ -274,7 +274,7 @@ namespace UniBot.Model
         /// <summary>
         /// 未知类型
         /// </summary>
-        Unknow
+        Unknown
     }
 
     /// <summary>
@@ -295,7 +295,7 @@ namespace UniBot.Model
         /// <summary>
         /// 未知类型
         /// </summary>
-        Unknow
+        Unknown
     }
 
     /// <summary>
@@ -360,7 +360,7 @@ namespace UniBot.Model
         /// <summary>
         /// 未知类型
         /// </summary>
-        Unknow
+        Unknown
     }
 
     /// <summary>
@@ -409,7 +409,7 @@ namespace UniBot.Model
         /// <summary>
         /// 未知
         /// </summary>
-        Unknow = 99,
+        Unknown = 99,
     }
 
     /// <summary>
@@ -435,7 +435,7 @@ namespace UniBot.Model
         /// <summary>
         /// 未知类型
         /// </summary>
-        Unknow
+        Unknown
     }
 
     /// <summary>
@@ -458,7 +458,7 @@ namespace UniBot.Model
         /// <summary>
         /// 未知类型
         /// </summary>
-        Unknow
+        Unknown
     }
 
     /// <summary>
@@ -484,7 +484,7 @@ namespace UniBot.Model
         /// <summary>
         /// 未知类型
         /// </summary>
-        Unknow
+        Unknown
     }
 
     /// <summary>
@@ -572,6 +572,6 @@ namespace UniBot.Model
         /// <summary>
         /// 未知类型
         /// </summary>
-        Unknow
+        Unknown
     }
 }

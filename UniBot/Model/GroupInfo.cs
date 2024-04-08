@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using ShamrockCore.Data.HttpAPI;
+using UniBot.Api;
 using UniBot.Message.Chain;
 
 namespace UniBot.Model

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using UniBot.Message.Chain;
-using static UniBot.Tools.JsonConvertTool;
+using static UniBot.Utils.JsonConvertTool;
 
 namespace UniBot.Model
 {
