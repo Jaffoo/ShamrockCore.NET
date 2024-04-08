@@ -165,24 +165,23 @@ namespace UniBot
         /// <summary>
         /// 好友列表
         /// </summary>
-        public List<FriendInfo> Friends => LazyFriends.Value;
-        private Lazy<List<FriendInfo>> LazyFriends => new(() => Conn.GetFriendList().Result);
+        public List<FriendInfo> Friends => Conn.GetFriendList().Result;
 
 
         /// <summary>
         /// 群列表
         /// </summary>
-        public Lazy<List<GroupInfo>> Groups => new(() => Conn.GetGroupList().Result);
+        public List<GroupInfo> Groups => Conn.GetGroupList().Result;
 
         /// <summary>
         /// onebot实现版本信息
         /// </summary>
-        public Lazy<JObject> Version => new(() => Conn.GetVersion().Result);
+        public JObject Version => Conn.GetVersion().Result;
 
         /// <summary>
         /// onebot实现状态信息
         /// </summary>
-        public Lazy<JObject> Status => new(() => Conn.GetStatus().Result);
+        public JObject Status => Conn.GetStatus().Result;
 
         /// <summary>
         /// 检查是否可以发送语音

@@ -41,13 +41,5 @@ namespace UniBot.Receiver.EventReceiver
         /// </summary>
         [JsonProperty("operator_id")]
         public virtual long OperatorQQ { get; set; }
-
-        #region 扩展属性/方法
-        /// <summary>
-        /// 退群人信息
-        /// </summary>
-        [JsonIgnore]
-        public Lazy<GroupMemberInfo> User => new(() => Connect.GetGroupMemberInfo(GroupQQ, QQ).Result);
-        #endregion
     }
 }

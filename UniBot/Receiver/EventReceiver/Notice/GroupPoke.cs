@@ -47,13 +47,13 @@ namespace UniBot.Receiver.EventReceiver
         /// 戳一戳人信息
         /// </summary>
         [JsonIgnore]
-        public Lazy<GroupMemberInfo> Poke => new(() => Connect.GetGroupMemberInfo(GroupQQ, PokeQQ).Result);
+        public GroupMemberInfo Poke => Connect.GetGroupMemberInfo(GroupQQ, PokeQQ).Result;
 
         /// <summary>
         /// 被戳人信息
         /// </summary>
         [JsonIgnore]
-        public Lazy<GroupMemberInfo> Poked => new(() => Connect.GetGroupMemberInfo(GroupQQ, PokedQQ).Result);
+        public GroupMemberInfo Poked => Connect.GetGroupMemberInfo(GroupQQ, PokedQQ).Result;
         #endregion
     }
 }

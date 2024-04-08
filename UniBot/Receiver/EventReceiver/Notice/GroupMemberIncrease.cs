@@ -47,7 +47,7 @@ namespace UniBot.Receiver.EventReceiver
         /// 加群人信息
         /// </summary>
         [JsonIgnore]
-        public Lazy<GroupMemberInfo> User => new(() => Connect.GetGroupMemberInfo(GroupQQ, QQ).Result);
+        public GroupMemberInfo User => Connect.GetGroupMemberInfo(GroupQQ, QQ).Result;
         #endregion
     }
 }

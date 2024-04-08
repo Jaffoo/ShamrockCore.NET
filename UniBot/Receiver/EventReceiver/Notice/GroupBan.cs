@@ -52,7 +52,7 @@ namespace UniBot.Receiver.EventReceiver
         /// 被禁言人信息
         /// </summary>
         [JsonIgnore]
-        public Lazy<GroupMemberInfo> Banner => new(() => Connect.GetGroupMemberInfo(GroupQQ, QQ).Result);
+        public GroupMemberInfo Banner => Connect.GetGroupMemberInfo(GroupQQ, QQ).Result;
         #endregion
     }
 }

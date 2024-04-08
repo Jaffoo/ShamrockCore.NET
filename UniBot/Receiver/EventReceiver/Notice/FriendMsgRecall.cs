@@ -35,7 +35,7 @@ namespace UniBot.Receiver.EventReceiver
         /// 被撤回的消息
         /// </summary>
         [JsonIgnore]
-        public Lazy<MessageInfo> Message => new(() => Connect.GetMsg(MessageId).Result);
+        public MessageInfo Message => Connect.GetMsg(MessageId).Result;
         #endregion
     }
 }

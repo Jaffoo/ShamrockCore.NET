@@ -39,13 +39,13 @@ namespace UniBot.Model
         /// 群成员列表
         /// </summary>
         [JsonIgnore]
-        public Lazy<List<GroupMemberInfo>> Members => new(() => Connect.GetGroupMemberList(GroupQQ).Result);
+        public List<GroupMemberInfo> Members => Connect.GetGroupMemberList(GroupQQ).Result;
 
         /// <summary>
         /// 群荣誉
         /// </summary>
         [JsonIgnore]
-        public Lazy<GroupHonorInfo> Honor => new(Connect.GetGroupHonorInfo(GroupQQ).Result);
+        public GroupHonorInfo Honor => Connect.GetGroupHonorInfo(GroupQQ).Result;
 
         /// <summary>
         /// 发送消息

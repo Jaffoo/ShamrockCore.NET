@@ -25,14 +25,7 @@ namespace UniBot.Receiver.EventReceiver
         /// 好友信息
         /// </summary>
         [JsonIgnore]
-        public Lazy<FriendInfo?> Friend
-        {
-            get
-            {
-                var lazyFriend = new Lazy<FriendInfo?>(() => Connect.GetFriendList().Result.FirstOrDefault(x => x.QQ == QQ));
-                return lazyFriend;
-            }
-        }
+        public FriendInfo? Friend => Connect.GetFriendList().Result.FirstOrDefault(x => x.QQ == QQ);
         #endregion
     }
 }
