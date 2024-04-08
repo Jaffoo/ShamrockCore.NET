@@ -25,12 +25,11 @@ namespace ShamrockCore.Data.HttpAPI
                     user_id = qq,
                     message = msg
                 };
-                var res = await Tools.PostAsync<ApiResult>(url, data.ToJsonStr(), conf.Headers);
+                var res = await Tools.PostAsync<ApiResult<MessageInfoBase>>(url, data.ToJsonStr(), conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.Fetch<long>("message_id");
-                return result;
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                return res.Data.MessageId;
             }
             catch (Exception)
             {
@@ -53,12 +52,11 @@ namespace ShamrockCore.Data.HttpAPI
                     user_id = qq,
                     message = new MessageChain() { new TextMessage(msg) }
                 };
-                var res = await Tools.PostAsync<ApiResult>(url, data.ToJsonStr(), conf.Headers);
+                var res = await Tools.PostAsync<ApiResult<MessageInfoBase>>(url, data.ToJsonStr(), conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.Fetch<long>("message_id");
-                return result;
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                return res.Data.MessageId;
             }
             catch (Exception)
             {
@@ -80,12 +78,11 @@ namespace ShamrockCore.Data.HttpAPI
                     user_id = qq,
                     message = msg
                 };
-                var res = await Tools.PostAsync<ApiResult>(url, data.ToJsonStr(), conf.Headers);
+                var res = await Tools.PostAsync<ApiResult<MessageInfoBase>>(url, data.ToJsonStr(), conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.Fetch<long>("message_id");
-                return result;
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                return res.Data.MessageId;
             }
             catch (Exception)
             {
@@ -107,12 +104,11 @@ namespace ShamrockCore.Data.HttpAPI
                     user_id = qq,
                     message = new MessageChain() { new TextMessage(msg) }
                 };
-                var res = await Tools.PostAsync<ApiResult>(url, data.ToJsonStr(), conf.Headers);
+                var res = await Tools.PostAsync<ApiResult<MessageInfoBase>>(url, data.ToJsonStr(), conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.Fetch<long>("message_id");
-                return result;
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                return res.Data.MessageId;
             }
             catch (Exception)
             {
@@ -137,12 +133,11 @@ namespace ShamrockCore.Data.HttpAPI
                     group_id = groupQQ,
                     message = msg
                 };
-                var res = await Tools.PostAsync<ApiResult>(url, data.ToJsonStr(), conf.Headers);
+                var res = await Tools.PostAsync<ApiResult<MessageInfoBase>>(url, data.ToJsonStr(), conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.Fetch<long>("message_id");
-                return result;
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                return res.Data.MessageId;
             }
             catch (Exception)
             {
@@ -188,12 +183,11 @@ namespace ShamrockCore.Data.HttpAPI
                 {
                     message_id = msgId
                 };
-                var res = await Tools.PostAsync<ApiResult>(url, data.ToJsonStr(), conf.Headers);
+                var res = await Tools.PostAsync<ApiResult<MessageInfo>>(url, data.ToJsonStr(), conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.ToModel<MessageInfo>();
-                return result;
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                return res.Data;
             }
             catch (Exception)
             {
@@ -214,12 +208,11 @@ namespace ShamrockCore.Data.HttpAPI
                 {
                     id
                 };
-                var res = await Tools.PostAsync<ApiResult>(url, data.ToJsonStr(), conf.Headers);
+                var res = await Tools.PostAsync<ApiResult<MessageChain>>(url, data.ToJsonStr(), conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.ToModel<MessageChain>();
-                return result;
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                return res.Data;
             }
             catch (Exception)
             {
@@ -585,12 +578,11 @@ namespace ShamrockCore.Data.HttpAPI
             try
             {
                 var url = conf.HttpUrl + HttpEndpoints.GetLoginInfo.GetDescription();
-                var res = await Tools.GetAsync<ApiResult>(url, conf.Headers);
+                var res = await Tools.GetAsync<ApiResult<UserBaseInfo>>(url, conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.ToModel<UserBaseInfo>();
-                return result;
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                return res.Data;
             }
             catch (Exception)
             {
@@ -608,12 +600,11 @@ namespace ShamrockCore.Data.HttpAPI
             {
                 var url = conf.HttpUrl + HttpEndpoints.GetStrangerInfo.GetDescription();
                 url += $"?user_id={qq}&no_cache={noCache}";
-                var res = await Tools.GetAsync<ApiResult>(url, conf.Headers);
+                var res = await Tools.GetAsync<ApiResult<StrangerInfo>>(url, conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.ToModel<StrangerInfo>();
-                return result;
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                return res.Data;
             }
             catch (Exception)
             {
@@ -630,13 +621,12 @@ namespace ShamrockCore.Data.HttpAPI
             try
             {
                 var url = conf.HttpUrl + HttpEndpoints.GetFriendList.GetDescription();
-                var res = await Tools.GetAsync<ApiResult>(url, conf.Headers);
+                var res1 = await Tools.GetAsync(url, conf.Headers);
+                var res = JsonConvert.DeserializeObject<ApiResult<List<FriendInfo>>>(res1);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.ToModel<List<FriendInfo>>();
-                result.ForEach(x => x.Connect = conf);
-                return result;
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                return res.Data;
             }
             catch (Exception)
             {
@@ -654,13 +644,11 @@ namespace ShamrockCore.Data.HttpAPI
             {
                 var url = conf.HttpUrl + HttpEndpoints.GetGroupInfo.GetDescription();
                 url += $"?group_id={groupQQ}&no_cache={noCache}";
-                var res = await Tools.GetAsync<ApiResult>(url, conf.Headers);
+                var res = await Tools.GetAsync<ApiResult<GroupInfo>>(url, conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.ToModel<GroupInfo>();
-                result.Connect = conf;
-                return result;
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                return res.Data;
             }
             catch (Exception)
             {
@@ -677,13 +665,11 @@ namespace ShamrockCore.Data.HttpAPI
             try
             {
                 var url = conf.HttpUrl + HttpEndpoints.GetGroupList.GetDescription();
-                var res = await Tools.GetAsync<ApiResult>(url, conf.Headers);
+                var res = await Tools.GetAsync<ApiResult<List<GroupInfo>>>(url, conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.ToModel<List<GroupInfo>>();
-                result.ForEach(x => x.Connect = conf);
-                return result;
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                return res.Data;
             }
             catch (Exception)
             {
@@ -701,13 +687,11 @@ namespace ShamrockCore.Data.HttpAPI
             {
                 var url = conf.HttpUrl + HttpEndpoints.GetGroupMemberInfo.GetDescription();
                 url += $"?group_id={groupQQ}&user_id={qq}&no_cache={noCache}";
-                var res = await Tools.GetAsync<ApiResult>(url, conf.Headers);
+                var res = await Tools.GetAsync<ApiResult<GroupMemberInfo>>(url, conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.ToModel<GroupMemberInfo>();
-                result.Connect = conf;
-                return result;
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                return res.Data;
             }
             catch (Exception)
             {
@@ -725,13 +709,11 @@ namespace ShamrockCore.Data.HttpAPI
             {
                 var url = conf.HttpUrl + HttpEndpoints.GetGroupMemberList.GetDescription();
                 url += $"?group_id={groupQQ}";
-                var res = await Tools.GetAsync<ApiResult>(url, conf.Headers);
+                var res = await Tools.GetAsync<ApiResult<List<GroupMemberInfo>>>(url, conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.ToModel<List<GroupMemberInfo>>();
-                result.ForEach(x => x.Connect = conf);
-                return result;
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                return res.Data;
             }
             catch (Exception)
             {
@@ -749,12 +731,11 @@ namespace ShamrockCore.Data.HttpAPI
             {
                 var url = conf.HttpUrl + HttpEndpoints.GetGroupHonorInfo.GetDescription();
                 url += $"?group_id={groupQQ}";
-                var res = await Tools.GetAsync<ApiResult>(url, conf.Headers);
+                var res = await Tools.GetAsync<ApiResult<GroupHonorInfo>>(url, conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.ToModel<GroupHonorInfo>();
-                return result;
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                return res.Data;
             }
             catch (Exception)
             {
@@ -790,12 +771,11 @@ namespace ShamrockCore.Data.HttpAPI
             {
                 var url = conf.HttpUrl + HttpEndpoints.GetRecord.GetDescription();
                 url += $"?file={file}&out_format={format}";
-                var res = await Tools.GetAsync<ApiResult>(url, conf.Headers);
+                var res = await Tools.GetAsync<ApiResult<FileInfoBase>>(url, conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.Fetch("file");
-                return result;
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                return res.Data.File;
             }
             catch (Exception)
             {
@@ -813,12 +793,11 @@ namespace ShamrockCore.Data.HttpAPI
             {
                 var url = conf.HttpUrl + HttpEndpoints.GetImage.GetDescription();
                 url += $"?file={file}";
-                var res = await Tools.GetAsync<ApiResult>(url, conf.Headers);
+                var res = await Tools.GetAsync<ApiResult<FileInfoBase>>(url, conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.Fetch("file");
-                return result;
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                return res.Data.File;
             }
             catch (Exception)
             {
@@ -835,12 +814,11 @@ namespace ShamrockCore.Data.HttpAPI
             try
             {
                 var url = conf.HttpUrl + HttpEndpoints.CanSendImage.GetDescription();
-                var res = await Tools.GetAsync<ApiResult>(url, conf.Headers);
+                var res = await Tools.GetAsync<ApiResult<FileCanSend>>(url, conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.Fetch<bool>("yes");
-                return result;
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                return res.Data.Yes;
             }
             catch (Exception)
             {
@@ -857,12 +835,11 @@ namespace ShamrockCore.Data.HttpAPI
             try
             {
                 var url = conf.HttpUrl + HttpEndpoints.CanSendRecord.GetDescription();
-                var res = await Tools.GetAsync<ApiResult>(url, conf.Headers);
+                var res = await Tools.GetAsync<ApiResult<FileCanSend>>(url, conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.Fetch<bool>("yes");
-                return result;
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                return res.Data.Yes;
             }
             catch (Exception)
             {
@@ -879,11 +856,11 @@ namespace ShamrockCore.Data.HttpAPI
             try
             {
                 var url = conf.HttpUrl + HttpEndpoints.GetStatus.GetDescription();
-                var res = await Tools.GetAsync<ApiResult>(url, conf.Headers);
+                var res = await Tools.GetAsync<ApiResult<object>>(url, conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.ToJObject();
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                var result = res.Data.ToJsonStr().ToJObject();
                 return result;
             }
             catch (Exception)
@@ -901,11 +878,11 @@ namespace ShamrockCore.Data.HttpAPI
             try
             {
                 var url = conf.HttpUrl + HttpEndpoints.GetVersion.GetDescription();
-                var res = await Tools.GetAsync<ApiResult>(url, conf.Headers);
+                var res = await Tools.GetAsync<ApiResult<object>>(url, conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.ToJObject();
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                var result = res.Data.ToJsonStr().ToJObject();
                 return result;
             }
             catch (Exception)

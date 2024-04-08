@@ -3,6 +3,27 @@
     /// <summary>
     /// 文件
     /// </summary>
+    public class FileInfoBase
+    {
+        /// <summary>
+        /// 文件id
+        /// </summary>
+        public string File { get; set; } = "";
+    }
+    /// <summary>
+    /// 文件能否发送
+    /// </summary>
+    public class FileCanSend
+    {
+        /// <summary>
+        /// 文件能否发送
+        /// </summary>
+        public bool Yes { get; set; }
+    }
+
+    /// <summary>
+    /// 文件
+    /// </summary>
     public class FileInfo
     {
         /// <summary>

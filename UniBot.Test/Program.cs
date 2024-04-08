@@ -1,4 +1,5 @@
 ﻿using System.Reactive.Linq;
+using Newtonsoft.Json;
 using TBC.CommonLib;
 using UniBot;
 using UniBot.Model;
@@ -15,6 +16,8 @@ namespace UniBot.Test
             Connect connect = new("localhost", 3001, 3000);
             Bot bot = new(connect);
             await bot.StartAsync();
+            var friends = bot.Friends;
+            Console.WriteLine(JsonConvert.SerializeObject(friends));
             bot.MessageReceived.OfType<MessageReceiverBase>().Subscribe(async msg =>
             {
                 if (msg.PostType == PostType.Message)

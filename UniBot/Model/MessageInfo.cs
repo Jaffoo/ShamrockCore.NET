@@ -4,10 +4,18 @@ using static UniBot.Tools.JsonConvertTool;
 
 namespace UniBot.Model
 {
+    public class MessageInfoBase
+    {
+        /// <summary>
+        /// 消息id
+        /// </summary>
+        [JsonProperty("message_id")]
+        public long MessageId { get; set; }
+    }
     /// <summary>
     /// 消息信息
     /// </summary>
-    public class MessageInfo
+    public class MessageInfo: MessageInfoBase
     {
         /// <summary>
         /// 消息类型
@@ -15,12 +23,6 @@ namespace UniBot.Model
         [JsonProperty("message_type	")]
         [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public MessageType MessageType { get; set; }
-
-        /// <summary>
-        /// 消息id
-        /// </summary>
-        [JsonProperty("message_id")]
-        public long MessageId { get; set; }
 
         /// <summary>
         /// 消息真实id

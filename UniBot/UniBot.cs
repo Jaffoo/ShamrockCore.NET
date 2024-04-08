@@ -165,7 +165,9 @@ namespace UniBot
         /// <summary>
         /// 好友列表
         /// </summary>
-        public Lazy<List<FriendInfo>> Friends => new(() => Conn.GetFriendList().Result);
+        public List<FriendInfo> Friends => LazyFriends.Value;
+        private Lazy<List<FriendInfo>> LazyFriends => new(() => Conn.GetFriendList().Result);
+
 
         /// <summary>
         /// 群列表
@@ -297,6 +299,30 @@ namespace UniBot
         }
 
         /// <summary>
+        /// get请求
+        /// </summary>
+        /// <param name="apiEndpoint">请求端点</param>
+        /// <param name="paramStr">请求参数字符串（url格式拼接好）</param>
+        /// <returns>json格式字符串</returns>
+        /// <exception cref="InvalidDataException"></exception>
+        public async Task<T> GetAsync<T>(string apiEndpoint, string paramStr = "")
+        {
+            try
+            {
+                var url = Conn.HttpUrl + apiEndpoint + paramStr;
+                var res = await TBC.CommonLib.Tools.GetAsync<ApiResult<T>>(url, Conn.Headers);
+                if (res == null) throw new InvalidDataException("响应内容为空！");
+                if (res.Status == "failed") throw new Exception(res.Message);
+                if (res.Data == null) throw new InvalidDataException("响应数据为空！");
+                return res.Data;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
         /// post请求
         /// </summary>d
         /// <param name="apiEndpoint">请求端点</param>
@@ -312,6 +338,30 @@ namespace UniBot
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
                 return res.Data ?? "";
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// post请求
+        /// </summary>d
+        /// <param name="apiEndpoint">请求端点</param>
+        /// <param name="data">请求body数据(json字符串)</param>
+        /// <returns>json格式字符串</returns>
+        /// <exception cref="InvalidDataException"></exception>
+        public async Task<T> PostAsync<T>(string apiEndpoint, string data)
+        {
+            try
+            {
+                var url = Conn.HttpUrl + apiEndpoint;
+                var res = await TBC.CommonLib.Tools.PostAsync<ApiResult<T>>(url, data, Conn.Headers);
+                if (res == null) throw new InvalidDataException("响应内容为空！");
+                if (res.Status == "failed") throw new Exception(res.Message);
+                if (res.Data == null) throw new InvalidDataException("响应数据为空！");
+                return res.Data;
             }
             catch (Exception)
             {
