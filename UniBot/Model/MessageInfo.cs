@@ -12,6 +12,14 @@ namespace UniBot.Model
         [JsonProperty("message_id")]
         public long MessageId { get; set; }
     }
+    public class ForardMessageInfo
+    {
+        /// <summary>
+        /// 消息id
+        /// </summary>
+        [JsonProperty("forward_id")]
+        public long ForwardId { get; set; }
+    }
     /// <summary>
     /// 消息信息
     /// </summary>

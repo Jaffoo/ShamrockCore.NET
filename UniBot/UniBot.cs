@@ -149,14 +149,14 @@ namespace UniBot
         {
             try
             {
-                var postType = data.Fetch("post_type");
+                var postType = data.Fetch("post_type").Replace("_", "");
                 if (postType == PostType.Message.ToString().ToLower())
                 {
                     var msg = JsonConvertTool.MessageReceiverHandel(data, Conn) ?? throw new InvalidDataException("数据无效！");
                     _messageReceivedSubject.OnNext(msg);
                     _ReceivedSubject.OnNext(msg);
                 }
-                else if (postType == PostType.MetaEvent.ToString().ToLower())
+                else if (postType == PostType.MetaEvent.GetDescription().ToLower())
                 {
                     var msg = JsonConvertTool.MetaEventReceiverHandel(data, Conn) ?? throw new InvalidDataException("数据无效！");
                     _eventReceivedSubject.OnNext(msg);

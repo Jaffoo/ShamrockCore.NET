@@ -34,6 +34,13 @@ namespace UniBot.Receiver.MessageReceiver
         public async Task<long> SendMessage(string msg) => await Connect.SendPrivateMsg(SenderQQ, msg);
 
         /// <summary>
+        /// 发送合并转发(go-cqhttp的API，能否使用看onebot实现框架是否提供)
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public async Task<ForardMessageInfo> SendForwardMessage(MessageChain msg) => await Connect.SendPrivateForwardMsg(SenderQQ, msg);
+
+        /// <summary>
         /// 点赞
         /// </summary>
         /// <param name="times">次数</param>
