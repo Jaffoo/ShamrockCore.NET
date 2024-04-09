@@ -39,17 +39,12 @@ namespace UniBot.Utils
                 }
                 else
                 {
-                    if (unknow != null)
-                    {
-                        Enum.TryParse(objectType, unknow.Name, true, out object? unknowEnum);
-                        return unknowEnum;
-
-                    }
+                    if (unknow != null)  
+                        return Enum.Parse(objectType, unknow.Name);
                     else
                     {
                         var def = members.FirstOrDefault(x => x.MemberType == MemberTypes.Field && x.Name != "value__");
-                        Enum.TryParse(objectType, def!.Name, true, out object? unknowEnum);
-                        return unknowEnum;
+                        return Enum.Parse(objectType, def!.Name);
                     }
                 }
             }
