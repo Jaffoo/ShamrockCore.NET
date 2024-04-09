@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
-using UnifyBot.Api;
-using UnifyBot.Model;
-using static UniBot.Tools.JsonConvertTool;
+using UniBot.Api;
+using UniBot.Model;
+using static UniBot.Utils.JsonConvertTool;
 
-namespace UnifyBot.Receiver.EventReceiver.Request
+namespace UniBot.Receiver.EventReceiver.Request
 {
     /// <summary>
     /// 加群请求／邀请
@@ -11,11 +11,9 @@ namespace UnifyBot.Receiver.EventReceiver.Request
     public class RequestGroup : EventReceiver
     {
         /// <summary>
-        /// 请求类型
+        /// 通知类型
         /// </summary>
-        [JsonProperty("request_type")]
-        [JsonConverter(typeof(LowercaseStringEnumConverter))]
-        public RequestType RequestType { get; set; }
+        public override RequestType RequestEventType => RequestType.Group;
 
         /// <summary>
         /// 请求子类型

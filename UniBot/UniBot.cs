@@ -1,19 +1,19 @@
 ﻿using System.Net.WebSockets;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
+using UniBot.Model;
+using UniBot.Receiver;
 using Websocket.Client;
 using Fleck;
+using UniBot.Utils;
 using UniBot.Api;
 using Newtonsoft.Json.Linq;
+using UniBot.Message.Chain;
 using TBC.CommonLib;
-using UnifyBot.Receiver.MessageReceiver;
-using UnifyBot.Utils;
-using UnifyBot.Message.Chain;
-using UnifyBot.Model;
-using UnifyBot.Receiver;
-using UnifyBot.Receiver.EventReceiver;
+using UniBot.Receiver.EventReceiver;
+using UniBot.Receiver.MessageReceiver;
 
-namespace UnifyBot
+namespace UniBot
 {
     /// <summary>
     /// 主函数
@@ -308,7 +308,7 @@ namespace UnifyBot
             try
             {
                 var url = Conn.HttpUrl + apiEndpoint + paramStr;
-                var res = await Tools.GetAsync<ApiResult>(url, Conn.Headers);
+                var res = await TBC.CommonLib.Tools.GetAsync<ApiResult>(url, Conn.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
                 return res.Data ?? "";
@@ -331,7 +331,7 @@ namespace UnifyBot
             try
             {
                 var url = Conn.HttpUrl + apiEndpoint + paramStr;
-                var res = await Tools.GetAsync<ApiResult<T>>(url, Conn.Headers);
+                var res = await TBC.CommonLib.Tools.GetAsync<ApiResult<T>>(url, Conn.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
                 if (res.Data == null) throw new InvalidDataException("响应数据为空！");
@@ -355,7 +355,7 @@ namespace UnifyBot
             try
             {
                 var url = Conn.HttpUrl + apiEndpoint;
-                var res = await Tools.PostAsync<ApiResult>(url, data, Conn.Headers);
+                var res = await TBC.CommonLib.Tools.PostAsync<ApiResult>(url, data, Conn.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
                 return res.Data ?? "";
@@ -378,7 +378,7 @@ namespace UnifyBot
             try
             {
                 var url = Conn.HttpUrl + apiEndpoint;
-                var res = await Tools.PostAsync<ApiResult<T>>(url, data, Conn.Headers);
+                var res = await TBC.CommonLib.Tools.PostAsync<ApiResult<T>>(url, data, Conn.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
                 if (res.Data == null) throw new InvalidDataException("响应数据为空！");

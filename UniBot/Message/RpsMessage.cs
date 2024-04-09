@@ -1,6 +1,6 @@
-﻿using UnifyBot.Model;
+﻿using UniBot.Model;
 
-namespace UnifyBot.Message
+namespace UniBot.Message
 {
     /// <summary>
     /// 猜拳魔法表情

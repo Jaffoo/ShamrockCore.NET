@@ -1,7 +1,7 @@
-﻿using System.Text.Json.Serialization;
-using UnifyBot.Api;
+﻿using UniBot.Api;
+using System.Text.Json.Serialization;
 
-namespace UnifyBot.Model
+namespace UniBot.Model
 {
     /// <summary>
     /// 匿名信息

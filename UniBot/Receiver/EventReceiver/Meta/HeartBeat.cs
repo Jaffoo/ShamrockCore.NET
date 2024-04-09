@@ -1,8 +1,6 @@
-﻿using Newtonsoft.Json;
-using UnifyBot.Model;
-using static UniBot.Tools.JsonConvertTool;
+﻿using UniBot.Model;
 
-namespace UnifyBot.Receiver.EventReceiver.Meta
+namespace UniBot.Receiver.EventReceiver.Meta
 {
     /// <summary>
     /// 生命周期
@@ -12,9 +10,7 @@ namespace UnifyBot.Receiver.EventReceiver.Meta
         /// <summary>
         /// 元事件类型
         /// </summary>
-        [JsonProperty("meta_event_type")]
-        [JsonConverter(typeof(LowercaseStringEnumConverter))]
-        public MetaType MetaType { get; set; }
+        public override MetaType MetaEventType => MetaType.HeartBeat;
 
         /// <summary>
         /// 状态信息

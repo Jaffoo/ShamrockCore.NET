@@ -1,7 +1,7 @@
-﻿using UnifyBot.Message.Chain;
-using UnifyBot.Model;
+﻿using UniBot.Message.Chain;
+using UniBot.Model;
 
-namespace UnifyBot.Message
+namespace UniBot.Message
 {
     /// <summary>
     /// 合并转发

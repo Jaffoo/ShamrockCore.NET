@@ -1,17 +1,28 @@
 ﻿using Newtonsoft.Json;
 using UniBot.Model;
-using UnifyBot.Receiver;
-using static UniBot.Tools.JsonConvertTool;
+using static UniBot.Utils.JsonConvertTool;
 
-namespace UnifyBot.Receiver.EventReceiver
+namespace UniBot.Receiver.EventReceiver
 {
     public class EventReceiver : MessageReceiverBase
     {
         /// <summary>
         /// 元事件类型
         /// </summary>
-        [CustomJsonProperty("meta_event_type", "notice_type", "request_type")]
+        [JsonIgnore]
         [JsonConverter(typeof(LowercaseStringEnumConverter))]
-        public EventType EventType { get; set; }
+        public virtual MetaType MetaEventType { get; set; }
+        /// <summary>
+        /// 元事件类型
+        /// </summary>
+        [JsonProperty("notice_type")]
+        [JsonConverter(typeof(LowercaseStringEnumConverter))]
+        public virtual NoticeType NoticeEventType { get; set; }
+        /// <summary>
+        /// 元事件类型
+        /// </summary>
+        [JsonIgnore]
+        [JsonConverter(typeof(LowercaseStringEnumConverter))]
+        public virtual RequestType RequestEventType { get; set; }
     }
 }

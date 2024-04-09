@@ -1,8 +1,7 @@
 ﻿using Newtonsoft.Json;
-using UnifyBot.Model;
-using static UniBot.Tools.JsonConvertTool;
+using UniBot.Model;
 
-namespace UnifyBot.Receiver.EventReceiver.Notice
+namespace UniBot.Receiver.EventReceiver.Notice
 {
     /// <summary>
     /// 群文件上传
@@ -12,9 +11,7 @@ namespace UnifyBot.Receiver.EventReceiver.Notice
         /// <summary>
         /// 通知类型
         /// </summary>
-        [JsonProperty("notice_type")]
-        [JsonConverter(typeof(LowercaseStringEnumConverter))]
-        public NoticeType NoticeType { get; set; }
+        public override NoticeType NoticeEventType => NoticeType.GroupUpload;
 
         /// <summary>
         /// 群号

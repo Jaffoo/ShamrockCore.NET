@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
-using UnifyBot.Api;
-using UnifyBot.Model;
-using static UniBot.Tools.JsonConvertTool;
+using UniBot.Api;
+using UniBot.Model;
+using static UniBot.Utils.JsonConvertTool;
 
-namespace UnifyBot.Receiver.EventReceiver.Notice
+namespace UniBot.Receiver.EventReceiver.Notice
 {
     /// <summary>
     /// 群戳一戳
@@ -13,9 +13,7 @@ namespace UnifyBot.Receiver.EventReceiver.Notice
         /// <summary>
         /// 通知类型
         /// </summary>
-        [JsonProperty("notice_type")]
-        [JsonConverter(typeof(LowercaseStringEnumConverter))]
-        public NoticeType NoticeType { get; set; }
+        public override NoticeType NoticeEventType => NoticeType.Notify;
 
         /// <summary>
         /// 通知子类型
@@ -47,13 +45,13 @@ namespace UnifyBot.Receiver.EventReceiver.Notice
         /// 戳一戳人信息
         /// </summary>
         [JsonIgnore]
-        public Lazy<GroupMemberInfo> Poke => new(() => Connect.GetGroupMemberInfo(GroupQQ, PokeQQ).Result);
+        public GroupMemberInfo Poke => Connect.GetGroupMemberInfo(GroupQQ, PokeQQ).Result;
 
         /// <summary>
         /// 被戳人信息
         /// </summary>
         [JsonIgnore]
-        public Lazy<GroupMemberInfo> Poked => new(() => Connect.GetGroupMemberInfo(GroupQQ, PokedQQ).Result);
+        public GroupMemberInfo Poked => Connect.GetGroupMemberInfo(GroupQQ, PokedQQ).Result;
         #endregion
     }
 }

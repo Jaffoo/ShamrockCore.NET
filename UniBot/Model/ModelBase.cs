@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace UnifyBot.Model
+namespace UniBot.Model
 {
     public class ModelBase
     {

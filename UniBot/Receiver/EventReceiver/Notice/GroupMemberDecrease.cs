@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
-using UnifyBot.Api;
-using UnifyBot.Model;
-using static UniBot.Tools.JsonConvertTool;
+using UniBot.Api;
+using UniBot.Model;
+using static UniBot.Utils.JsonConvertTool;
 
-namespace UnifyBot.Receiver.EventReceiver.Notice
+namespace UniBot.Receiver.EventReceiver.Notice
 {
     /// <summary>
     /// 群成员减少
@@ -13,16 +13,14 @@ namespace UnifyBot.Receiver.EventReceiver.Notice
         /// <summary>
         /// 通知类型
         /// </summary>
-        [JsonProperty("notice_type")]
-        [JsonConverter(typeof(LowercaseStringEnumConverter))]
-        public NoticeType NoticeType { get; set; }
+        public override NoticeType NoticeEventType => NoticeType.GroupDecrease;
 
         /// <summary>
         /// 通知子类型
         /// </summary>
         [JsonProperty("sub_type")]
         [JsonConverter(typeof(LowercaseStringEnumConverter))]
-        public NoticeSubType NoticeSubType { get; set; }
+        public LeaveSubType NoticeSubType { get; set; }
 
         /// <summary>
         /// 群号
@@ -41,13 +39,5 @@ namespace UnifyBot.Receiver.EventReceiver.Notice
         /// </summary>
         [JsonProperty("operator_id")]
         public virtual long OperatorQQ { get; set; }
-
-        #region 扩展属性/方法
-        /// <summary>
-        /// 退群人信息
-        /// </summary>
-        [JsonIgnore]
-        public Lazy<GroupMemberInfo> User => new(() => Connect.GetGroupMemberInfo(GroupQQ, QQ).Result);
-        #endregion
     }
 }

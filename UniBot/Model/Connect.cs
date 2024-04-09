@@ -1,4 +1,4 @@
-﻿namespace UnifyBot.Model
+﻿namespace UniBot.Model
 {
     /// <summary>
     /// 连接初始化配置类
@@ -66,6 +66,8 @@
         {
             get
             {
+                if (string.IsNullOrWhiteSpace(Token))
+                    return new();
                 var header = new Dictionary<string, string>
                 {
                     { "Authorization", "Bearer " + Token }

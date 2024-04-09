@@ -1,6 +1,6 @@
-﻿using UnifyBot.Model;
+﻿using UniBot.Model;
 
-namespace UnifyBot.Message
+namespace UniBot.Message
 {
     /// <summary>
     /// 音乐分享
@@ -25,11 +25,11 @@ namespace UnifyBot.Message
         /// <summary>
         /// 自定义音乐分享
         /// </summary>
-        public MusicMessage(string url, string audio, string title, string content = "", string image = "")
+        public MusicMessage(string url,string audio,string title,string content="",string image="")
         {
             Data = new Body()
             {
-                Type = "custom",
+                Type="custom",
                 Url = url,
                 Audio = audio,
                 Title = title,

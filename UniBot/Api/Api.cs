@@ -1,16 +1,16 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using TBC.CommonLib;
-using UniBot;
 using UniBot.Message;
-using UnifyBot.Message.Chain;
-using UnifyBot.Model;
-using UnifyBot.Receiver;
+using UniBot.Message.Chain;
+using UniBot.Model;
+using UniBot.Receiver;
+using UniBot.Utils;
 
-namespace UnifyBot.Api
+namespace UniBot.Api
 {
     internal static class Api
     {
+        #region onebot11
         /// <summary>
         /// 发送私聊消息
         /// </summary>
@@ -25,12 +25,11 @@ namespace UnifyBot.Api
                     user_id = qq,
                     message = msg
                 };
-                var res = await Tools.PostAsync<ApiResult>(url, data.ToJsonStr(), conf.Headers);
+                var res = await Tools.PostAsync<ApiResult<MessageInfoBase>>(url, data.ToLowJsonStr(), conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.Fetch<long>("message_id");
-                return result;
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                return res.Data.MessageId;
             }
             catch (Exception)
             {
@@ -53,12 +52,11 @@ namespace UnifyBot.Api
                     user_id = qq,
                     message = new MessageChain() { new TextMessage(msg) }
                 };
-                var res = await Tools.PostAsync<ApiResult>(url, data.ToJsonStr(), conf.Headers);
+                var res = await Tools.PostAsync<ApiResult<MessageInfoBase>>(url, data.ToLowJsonStr(), conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.Fetch<long>("message_id");
-                return result;
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                return res.Data.MessageId;
             }
             catch (Exception)
             {
@@ -77,15 +75,14 @@ namespace UnifyBot.Api
                 var url = conf.HttpUrl + HttpEndpoints.SendGroupMsg.GetDescription();
                 var data = new
                 {
-                    user_id = qq,
+                    group_id = qq,
                     message = msg
                 };
-                var res = await Tools.PostAsync<ApiResult>(url, data.ToJsonStr(), conf.Headers);
+                var res = await Tools.PostAsync<ApiResult<MessageInfoBase>>(url, data.ToLowJsonStr(), conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.Fetch<long>("message_id");
-                return result;
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                return res.Data.MessageId;
             }
             catch (Exception)
             {
@@ -101,18 +98,18 @@ namespace UnifyBot.Api
         {
             try
             {
+                var message = new MessageChain() { new TextMessage(msg) };
                 var url = conf.HttpUrl + HttpEndpoints.SendGroupMsg.GetDescription();
                 var data = new
                 {
-                    user_id = qq,
-                    message = new MessageChain() { new TextMessage(msg) }
+                    group_id = qq,
+                    message
                 };
-                var res = await Tools.PostAsync<ApiResult>(url, data.ToJsonStr(), conf.Headers);
+                var res = await Tools.PostAsync<ApiResult<MessageInfoBase>>(url, data.ToLowJsonStr(), conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.Fetch<long>("message_id");
-                return result;
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                return res.Data.MessageId;
             }
             catch (Exception)
             {
@@ -137,12 +134,11 @@ namespace UnifyBot.Api
                     group_id = groupQQ,
                     message = msg
                 };
-                var res = await Tools.PostAsync<ApiResult>(url, data.ToJsonStr(), conf.Headers);
+                var res = await Tools.PostAsync<ApiResult<MessageInfoBase>>(url, data.ToJsonStr(), conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.Fetch<long>("message_id");
-                return result;
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                return res.Data.MessageId;
             }
             catch (Exception)
             {
@@ -188,12 +184,11 @@ namespace UnifyBot.Api
                 {
                     message_id = msgId
                 };
-                var res = await Tools.PostAsync<ApiResult>(url, data.ToJsonStr(), conf.Headers);
+                var res = await Tools.PostAsync<ApiResult<MessageInfo>>(url, data.ToJsonStr(), conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.ToModel<MessageInfo>();
-                return result;
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                return res.Data;
             }
             catch (Exception)
             {
@@ -214,12 +209,11 @@ namespace UnifyBot.Api
                 {
                     id
                 };
-                var res = await Tools.PostAsync<ApiResult>(url, data.ToJsonStr(), conf.Headers);
+                var res = await Tools.PostAsync<ApiResult<MessageChain>>(url, data.ToJsonStr(), conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.ToModel<MessageChain>();
-                return result;
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                return res.Data;
             }
             catch (Exception)
             {
@@ -585,12 +579,11 @@ namespace UnifyBot.Api
             try
             {
                 var url = conf.HttpUrl + HttpEndpoints.GetLoginInfo.GetDescription();
-                var res = await Tools.GetAsync<ApiResult>(url, conf.Headers);
+                var res = await Tools.GetAsync<ApiResult<UserBaseInfo>>(url, conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.ToModel<UserBaseInfo>();
-                return result;
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                return res.Data;
             }
             catch (Exception)
             {
@@ -608,12 +601,11 @@ namespace UnifyBot.Api
             {
                 var url = conf.HttpUrl + HttpEndpoints.GetStrangerInfo.GetDescription();
                 url += $"?user_id={qq}&no_cache={noCache}";
-                var res = await Tools.GetAsync<ApiResult>(url, conf.Headers);
+                var res = await Tools.GetAsync<ApiResult<StrangerInfo>>(url, conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.ToModel<StrangerInfo>();
-                return result;
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                return res.Data;
             }
             catch (Exception)
             {
@@ -630,13 +622,11 @@ namespace UnifyBot.Api
             try
             {
                 var url = conf.HttpUrl + HttpEndpoints.GetFriendList.GetDescription();
-                var res = await Tools.GetAsync<ApiResult>(url, conf.Headers);
-                if (res == null) throw new InvalidDataException("响应内容为空！");
+                var res = await Tools.GetAsync<ApiResult<List<FriendInfo>>>(url, conf.Headers); if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.ToModel<List<FriendInfo>>();
-                result.ForEach(x => x.Connect = conf);
-                return result;
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                res.Data.ForEach(x => x.Connect = conf);
+                return res.Data;
             }
             catch (Exception)
             {
@@ -654,13 +644,12 @@ namespace UnifyBot.Api
             {
                 var url = conf.HttpUrl + HttpEndpoints.GetGroupInfo.GetDescription();
                 url += $"?group_id={groupQQ}&no_cache={noCache}";
-                var res = await Tools.GetAsync<ApiResult>(url, conf.Headers);
+                var res = await Tools.GetAsync<ApiResult<GroupInfo>>(url, conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.ToModel<GroupInfo>();
-                result.Connect = conf;
-                return result;
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                res.Data.Connect = conf;
+                return res.Data;
             }
             catch (Exception)
             {
@@ -677,13 +666,12 @@ namespace UnifyBot.Api
             try
             {
                 var url = conf.HttpUrl + HttpEndpoints.GetGroupList.GetDescription();
-                var res = await Tools.GetAsync<ApiResult>(url, conf.Headers);
+                var res = await Tools.GetAsync<ApiResult<List<GroupInfo>>>(url, conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.ToModel<List<GroupInfo>>();
-                result.ForEach(x => x.Connect = conf);
-                return result;
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                res.Data.ForEach(x => x.Connect = conf);
+                return res.Data;
             }
             catch (Exception)
             {
@@ -701,13 +689,12 @@ namespace UnifyBot.Api
             {
                 var url = conf.HttpUrl + HttpEndpoints.GetGroupMemberInfo.GetDescription();
                 url += $"?group_id={groupQQ}&user_id={qq}&no_cache={noCache}";
-                var res = await Tools.GetAsync<ApiResult>(url, conf.Headers);
+                var res = await Tools.GetAsync<ApiResult<GroupMemberInfo>>(url, conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.ToModel<GroupMemberInfo>();
-                result.Connect = conf;
-                return result;
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                res.Data.Connect = conf;
+                return res.Data;
             }
             catch (Exception)
             {
@@ -725,13 +712,12 @@ namespace UnifyBot.Api
             {
                 var url = conf.HttpUrl + HttpEndpoints.GetGroupMemberList.GetDescription();
                 url += $"?group_id={groupQQ}";
-                var res = await Tools.GetAsync<ApiResult>(url, conf.Headers);
+                var res = await Tools.GetAsync<ApiResult<List<GroupMemberInfo>>>(url, conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.ToModel<List<GroupMemberInfo>>();
-                result.ForEach(x => x.Connect = conf);
-                return result;
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                res.Data.ForEach(x => x.Connect = conf);
+                return res.Data;
             }
             catch (Exception)
             {
@@ -749,12 +735,11 @@ namespace UnifyBot.Api
             {
                 var url = conf.HttpUrl + HttpEndpoints.GetGroupHonorInfo.GetDescription();
                 url += $"?group_id={groupQQ}";
-                var res = await Tools.GetAsync<ApiResult>(url, conf.Headers);
+                var res = await Tools.GetAsync<ApiResult<GroupHonorInfo>>(url, conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.ToModel<GroupHonorInfo>();
-                return result;
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                return res.Data;
             }
             catch (Exception)
             {
@@ -790,12 +775,11 @@ namespace UnifyBot.Api
             {
                 var url = conf.HttpUrl + HttpEndpoints.GetRecord.GetDescription();
                 url += $"?file={file}&out_format={format}";
-                var res = await Tools.GetAsync<ApiResult>(url, conf.Headers);
+                var res = await Tools.GetAsync<ApiResult<FileInfoBase>>(url, conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.Fetch("file");
-                return result;
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                return res.Data.File;
             }
             catch (Exception)
             {
@@ -813,12 +797,11 @@ namespace UnifyBot.Api
             {
                 var url = conf.HttpUrl + HttpEndpoints.GetImage.GetDescription();
                 url += $"?file={file}";
-                var res = await Tools.GetAsync<ApiResult>(url, conf.Headers);
+                var res = await Tools.GetAsync<ApiResult<FileInfoBase>>(url, conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.Fetch("file");
-                return result;
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                return res.Data.File;
             }
             catch (Exception)
             {
@@ -835,12 +818,11 @@ namespace UnifyBot.Api
             try
             {
                 var url = conf.HttpUrl + HttpEndpoints.CanSendImage.GetDescription();
-                var res = await Tools.GetAsync<ApiResult>(url, conf.Headers);
+                var res = await Tools.GetAsync<ApiResult<FileCanSend>>(url, conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.Fetch<bool>("yes");
-                return result;
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                return res.Data.Yes;
             }
             catch (Exception)
             {
@@ -857,12 +839,11 @@ namespace UnifyBot.Api
             try
             {
                 var url = conf.HttpUrl + HttpEndpoints.CanSendRecord.GetDescription();
-                var res = await Tools.GetAsync<ApiResult>(url, conf.Headers);
+                var res = await Tools.GetAsync<ApiResult<FileCanSend>>(url, conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.Fetch<bool>("yes");
-                return result;
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                return res.Data.Yes;
             }
             catch (Exception)
             {
@@ -879,11 +860,11 @@ namespace UnifyBot.Api
             try
             {
                 var url = conf.HttpUrl + HttpEndpoints.GetStatus.GetDescription();
-                var res = await Tools.GetAsync<ApiResult>(url, conf.Headers);
+                var res = await Tools.GetAsync<ApiResult<object>>(url, conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.ToJObject();
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                var result = res.Data.ToJsonStr().ToJObject();
                 return result;
             }
             catch (Exception)
@@ -901,11 +882,11 @@ namespace UnifyBot.Api
             try
             {
                 var url = conf.HttpUrl + HttpEndpoints.GetVersion.GetDescription();
-                var res = await Tools.GetAsync<ApiResult>(url, conf.Headers);
+                var res = await Tools.GetAsync<ApiResult<object>>(url, conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
-                if (string.IsNullOrWhiteSpace(res.Data)) throw new InvalidDataException("响应数据为空");
-                var result = res.Data.ToJObject();
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                var result = res.Data.ToJsonStr().ToJObject();
                 return result;
             }
             catch (Exception)
@@ -953,5 +934,60 @@ namespace UnifyBot.Api
                 throw;
             }
         }
+        #endregion
+
+        #region 扩展API
+        /// <summary>
+        /// 发送合并转发 ( 群聊 )
+        /// </summary>
+        /// <returns></returns>
+        public static async Task<ForardMessageInfo> SendGroupForwardMsg(this Connect conf, long qq, MessageChain message)
+        {
+            try
+            {
+                var url = conf.HttpUrl + HttpEndpoints.SendGroupForwardMsg.GetDescription();
+                var data = new
+                {
+                    group_id = qq,
+                    messages = message
+                };
+                var res = await Tools.PostAsync<ApiResult<ForardMessageInfo>>(url, data.ToLowJsonStr(), conf.Headers);
+                if (res == null) throw new InvalidDataException("响应内容为空！");
+                if (res.Status == "failed") throw new Exception(res.Message);
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                return res.Data;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 发送合并转发 ( 群聊 )
+        /// </summary>
+        /// <returns></returns>
+        public static async Task<ForardMessageInfo> SendPrivateForwardMsg(this Connect conf, long qq, MessageChain message)
+        {
+            try
+            {
+                var url = conf.HttpUrl + HttpEndpoints.SendPrivateForwardMsg.GetDescription();
+                var data = new
+                {
+                    user_id = qq,
+                    messages = message
+                };
+                var res = await Tools.PostAsync<ApiResult<ForardMessageInfo>>(url, data.ToLowJsonStr(), conf.Headers);
+                if (res == null) throw new InvalidDataException("响应内容为空！");
+                if (res.Status == "failed") throw new Exception(res.Message);
+                if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                return res.Data;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        #endregion
     }
 }
