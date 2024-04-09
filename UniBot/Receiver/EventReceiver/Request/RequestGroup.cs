@@ -13,7 +13,7 @@ namespace UniBot.Receiver.EventReceiver.Request
         /// <summary>
         /// 通知类型
         /// </summary>
-        public override RequestType RequestEventType { get; set; } = RequestType.Group;
+        public override RequestType RequestEventType => RequestType.Group;
 
         /// <summary>
         /// 请求子类型

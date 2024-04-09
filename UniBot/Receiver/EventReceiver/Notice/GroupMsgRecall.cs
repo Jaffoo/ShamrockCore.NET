@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using UniBot.Api;
 using UniBot.Model;
-using static UniBot.Utils.JsonConvertTool;
 
 namespace UniBot.Receiver.EventReceiver.Notice
 {
@@ -13,7 +12,7 @@ namespace UniBot.Receiver.EventReceiver.Notice
         /// <summary>
         /// 通知类型
         /// </summary>
-        public override NoticeType NoticeEventType { get; set; } = NoticeType.GroupRecall;
+        public override NoticeType NoticeEventType => NoticeType.GroupRecall;
 
         /// <summary>
         /// 消息发送者 QQ 号

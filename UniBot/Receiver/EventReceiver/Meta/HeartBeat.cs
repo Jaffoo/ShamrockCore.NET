@@ -10,7 +10,7 @@ namespace UniBot.Receiver.EventReceiver.Meta
         /// <summary>
         /// 元事件类型
         /// </summary>
-        public override MetaType MetaEventType { get; set; }= MetaType.HeartBeat;
+        public override MetaType MetaEventType => MetaType.HeartBeat;
 
         /// <summary>
         /// 状态信息

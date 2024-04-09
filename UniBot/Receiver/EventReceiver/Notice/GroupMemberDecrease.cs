@@ -13,7 +13,7 @@ namespace UniBot.Receiver.EventReceiver.Notice
         /// <summary>
         /// 通知类型
         /// </summary>
-        public override NoticeType NoticeEventType { get; set; } = NoticeType.GroupDecrease;
+        public override NoticeType NoticeEventType => NoticeType.GroupDecrease;
 
         /// <summary>
         /// 通知子类型

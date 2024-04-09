@@ -12,7 +12,7 @@ namespace UniBot.Receiver.EventReceiver.Meta
         /// <summary>
         /// 元事件类型
         /// </summary>
-        public override MetaType MetaEventType { get; set; } = MetaType.LifeCycle;
+        public override MetaType MetaEventType => MetaType.LifeCycle;
 
         /// <summary>
         /// 元事件子类型

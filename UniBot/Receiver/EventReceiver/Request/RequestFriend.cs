@@ -12,7 +12,7 @@ namespace UniBot.Receiver.EventReceiver.Request
         /// <summary>
         /// 通知类型
         /// </summary>
-        public new RequestType RequestEventType { get; set; } = RequestType.Friend;
+        public new RequestType RequestEventType => RequestType.Friend;
 
         /// <summary>
         /// 新添加好友 QQ 号

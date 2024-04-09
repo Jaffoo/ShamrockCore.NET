@@ -12,7 +12,7 @@ namespace UniBot.Receiver.EventReceiver.Notice
         /// <summary>
         /// 通知类型
         /// </summary>
-        public override NoticeType NoticeEventType { get; set; } = NoticeType.FriendRecall;
+        public override NoticeType NoticeEventType => NoticeType.FriendRecall;
 
         /// <summary>
         /// 消息发送者 QQ 号

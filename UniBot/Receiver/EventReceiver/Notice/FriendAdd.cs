@@ -9,7 +9,7 @@ namespace UniBot.Receiver.EventReceiver.Notice
         /// <summary>
         /// 通知类型
         /// </summary>
-        public override NoticeType NoticeEventType { get; set; }= NoticeType.FriendAdd;
+        public override NoticeType NoticeEventType => NoticeType.FriendAdd;
 
         /// <summary>
         /// 新添加好友 QQ 号
