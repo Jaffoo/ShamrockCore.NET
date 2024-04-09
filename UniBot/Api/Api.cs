@@ -1,12 +1,12 @@
 ﻿using Newtonsoft.Json.Linq;
 using TBC.CommonLib;
-using UniBot.Message;
-using UniBot.Message.Chain;
-using UniBot.Model;
-using UniBot.Receiver;
-using UniBot.Utils;
+using UnifyBot.Message;
+using UnifyBot.Message.Chain;
+using UnifyBot.Model;
+using UnifyBot.Receiver;
+using UnifyBot.Utils;
 
-namespace UniBot.Api
+namespace UnifyBot.Api
 {
     internal static class Api
     {

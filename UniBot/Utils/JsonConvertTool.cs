@@ -2,16 +2,16 @@
 using Newtonsoft.Json;
 using System.Reflection;
 using Newtonsoft.Json.Converters;
-using UniBot.Receiver;
-using UniBot.Message;
-using UniBot.Message.Chain;
-using UniBot.Receiver.MessageReceiver;
-using UniBot.Model;
-using UniBot.Receiver.EventReceiver;
+using UnifyBot.Receiver;
+using UnifyBot.Message;
+using UnifyBot.Message.Chain;
+using UnifyBot.Receiver.MessageReceiver;
+using UnifyBot.Model;
+using UnifyBot.Receiver.EventReceiver;
 using Newtonsoft.Json.Serialization;
-using UniBot.Receiver.EventReceiver.Notice;
+using UnifyBot.Receiver.EventReceiver.Notice;
 
-namespace UniBot.Utils
+namespace UnifyBot.Utils
 {
     internal static class JsonConvertTool
     {
@@ -82,11 +82,11 @@ namespace UniBot.Utils
             .Where(i => i != null).ToList()!;
         }
 
-        private static readonly List<MessageBase> MessageBases = CreateInstance<MessageBase>("UniBot.Message");
-        private static readonly List<MessageReceiver> MessageReceiverBases = CreateInstance<MessageReceiver>("UniBot.Receiver.MessageReceiver");
-        private static readonly List<EventReceiver> MetaEventReceiverBases = CreateInstance<EventReceiver>("UniBot.Receiver.EventReceiver.Meta");
-        private static readonly List<EventReceiver> NoticeEventReceiverBases = CreateInstance<EventReceiver>("UniBot.Receiver.EventReceiver.Notice");
-        private static readonly List<EventReceiver> RequestEventReceiverBases = CreateInstance<EventReceiver>("UniBot.Receiver.EventReceiver.Request");
+        private static readonly List<MessageBase> MessageBases = CreateInstance<MessageBase>("UnifyBot.Message");
+        private static readonly List<MessageReceiver> MessageReceiverBases = CreateInstance<MessageReceiver>("UnifyBot.Receiver.MessageReceiver");
+        private static readonly List<EventReceiver> MetaEventReceiverBases = CreateInstance<EventReceiver>("UnifyBot.Receiver.EventReceiver.Meta");
+        private static readonly List<EventReceiver> NoticeEventReceiverBases = CreateInstance<EventReceiver>("UnifyBot.Receiver.EventReceiver.Notice");
+        private static readonly List<EventReceiver> RequestEventReceiverBases = CreateInstance<EventReceiver>("UnifyBot.Receiver.EventReceiver.Request");
 
         /// <summary>
         /// 消息段处理

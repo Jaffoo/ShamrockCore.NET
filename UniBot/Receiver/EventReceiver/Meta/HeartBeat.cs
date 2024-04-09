@@ -1,6 +1,6 @@
-﻿using UniBot.Model;
+﻿using UnifyBot.Model;
 
-namespace UniBot.Receiver.EventReceiver.Meta
+namespace UnifyBot.Receiver.EventReceiver.Meta
 {
     /// <summary>
     /// 生命周期

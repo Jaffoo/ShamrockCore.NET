@@ -1,4 +1,4 @@
-# ShamrockCore.NET
+# ShamrockCore.NET（此版本不支持多bot，需要多bot，请使用UnifyBot(nuget同名)）
 
 注：OpenShamrock现处于快速开发阶段，此项目随OpenShamrock更新而更新，可能会更新不及时有bug，欢迎大家使用反馈，发现bug会快速修复。
 

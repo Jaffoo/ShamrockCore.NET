@@ -1,10 +1,7 @@
-﻿using System.Reactive.Linq;
-using TBC.CommonLib;
-using UniBot.Model;
-using UniBot.Receiver;
-using UniBot.Receiver.EventReceiver;
-using UniBot.Receiver.EventReceiver.Notice;
-using UniBot.Receiver.MessageReceiver;
+﻿using UnifyBot;
+using UnifyBot.Message;
+using UnifyBot.Message.Chain;
+using UnifyBot.Model;
 
 namespace UniBot.Test
 {
@@ -15,11 +12,14 @@ namespace UniBot.Test
             Connect connect = new("localhost", 3001, 3000);
             Bot bot = new(connect);
             await bot.StartAsync();
-            
-            bot.EventReceived.OfType<EventReceiver>().Subscribe(async msg =>
+            MessageChain msg = new()
             {
-                Console.WriteLine(msg.OriginalData.ToString());
-            });
+                new TextMessage("1"),
+                new ImageByUrl("https://www.zink.asia/upload/h3468-01.jpg"),
+                new TextMessage("3"),
+            };
+            await bot.SendPrivateForwardMessage(1737678289, msg);
+            await bot.SendGroupForwardMessage(341630390, msg);
             while (true)
             {
                 Thread.Sleep(10);

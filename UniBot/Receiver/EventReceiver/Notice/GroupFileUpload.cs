@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
-using UniBot.Model;
+using UnifyBot.Model;
 
-namespace UniBot.Receiver.EventReceiver.Notice
+namespace UnifyBot.Receiver.EventReceiver.Notice
 {
     /// <summary>
     /// 群文件上传

@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using UniBot.Model;
-using static UniBot.Utils.JsonConvertTool;
+using UnifyBot.Model;
+using static UnifyBot.Utils.JsonConvertTool;
 
-namespace UniBot.Receiver
+namespace UnifyBot.Receiver
 {
     public class MessageReceiverBase
     {

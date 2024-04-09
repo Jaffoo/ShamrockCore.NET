@@ -1,4 +1,4 @@
-﻿namespace UniBot.Message.Chain
+﻿namespace UnifyBot.Message.Chain
 {
     /// <summary>
     /// 构建消息连

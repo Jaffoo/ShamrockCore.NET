@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
-using UniBot.Message.Chain;
-using static UniBot.Utils.JsonConvertTool;
+using UnifyBot.Message.Chain;
+using static UnifyBot.Utils.JsonConvertTool;
 
-namespace UniBot.Model
+namespace UnifyBot.Model
 {
     public class MessageInfoBase
     {

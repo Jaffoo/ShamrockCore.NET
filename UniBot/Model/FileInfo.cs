@@ -1,4 +1,4 @@
-﻿namespace UniBot.Model
+﻿namespace UnifyBot.Model
 {
     /// <summary>
     /// 文件

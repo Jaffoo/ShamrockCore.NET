@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
-using UniBot.Api;
-using UniBot.Model;
-using static UniBot.Utils.JsonConvertTool;
+using UnifyBot.Api;
+using UnifyBot.Model;
+using static UnifyBot.Utils.JsonConvertTool;
 
-namespace UniBot.Receiver.EventReceiver.Notice
+namespace UnifyBot.Receiver.EventReceiver.Notice
 {
     /// <summary>
     /// 红包运气王

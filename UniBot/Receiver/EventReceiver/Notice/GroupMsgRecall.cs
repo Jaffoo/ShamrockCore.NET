@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
-using UniBot.Api;
-using UniBot.Model;
+using UnifyBot.Api;
+using UnifyBot.Model;
 
-namespace UniBot.Receiver.EventReceiver.Notice
+namespace UnifyBot.Receiver.EventReceiver.Notice
 {
     /// <summary>
     /// 群消息撤回

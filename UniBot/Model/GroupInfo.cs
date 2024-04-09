@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
-using UniBot.Api;
-using UniBot.Message;
-using UniBot.Message.Chain;
+using UnifyBot.Api;
+using UnifyBot.Message;
+using UnifyBot.Message.Chain;
 
-namespace UniBot.Model
+namespace UnifyBot.Model
 {
     /// <summary>
     /// 群信息

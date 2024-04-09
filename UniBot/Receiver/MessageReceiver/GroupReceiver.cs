@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
-using UniBot.Api;
-using UniBot.Message.Chain;
-using UniBot.Model;
+using UnifyBot.Api;
+using UnifyBot.Message.Chain;
+using UnifyBot.Model;
 
-namespace UniBot.Receiver.MessageReceiver
+namespace UnifyBot.Receiver.MessageReceiver
 {
     public class GroupReceiver : MessageReceiver
     {

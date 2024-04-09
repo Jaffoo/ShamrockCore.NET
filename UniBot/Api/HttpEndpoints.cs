@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace UniBot.Api
+namespace UnifyBot.Api
 {
     /// <summary>
     /// http请求端点

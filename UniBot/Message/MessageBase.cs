@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json.Converters;
 using Newtonsoft.Json;
-using UniBot.Model;
-using static UniBot.Utils.JsonConvertTool;
+using UnifyBot.Model;
+using static UnifyBot.Utils.JsonConvertTool;
 
-namespace UniBot.Message
+namespace UnifyBot.Message
 {
     public class MessageBase
     {

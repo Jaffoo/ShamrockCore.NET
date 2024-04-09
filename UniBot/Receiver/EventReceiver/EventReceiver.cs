@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
-using UniBot.Model;
-using static UniBot.Utils.JsonConvertTool;
+using UnifyBot.Model;
+using static UnifyBot.Utils.JsonConvertTool;
 
-namespace UniBot.Receiver.EventReceiver
+namespace UnifyBot.Receiver.EventReceiver
 {
     public class EventReceiver : MessageReceiverBase
     {

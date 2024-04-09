@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
-using UniBot.Model;
-using static UniBot.Utils.JsonConvertTool;
+using UnifyBot.Model;
+using static UnifyBot.Utils.JsonConvertTool;
 
-namespace UniBot.Receiver.EventReceiver.Meta
+namespace UnifyBot.Receiver.EventReceiver.Meta
 {
     /// <summary>
     /// 生命周期

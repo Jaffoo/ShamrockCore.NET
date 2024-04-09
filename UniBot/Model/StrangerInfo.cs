@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
-using static UniBot.Utils.JsonConvertTool;
+using static UnifyBot.Utils.JsonConvertTool;
 
-namespace UniBot.Model
+namespace UnifyBot.Model
 {
     /// <summary>
     /// 基础信息
