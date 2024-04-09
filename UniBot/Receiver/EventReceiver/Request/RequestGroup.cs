@@ -3,7 +3,7 @@ using UniBot.Api;
 using UniBot.Model;
 using static UniBot.Utils.JsonConvertTool;
 
-namespace UniBot.Receiver.EventReceiver
+namespace UniBot.Receiver.EventReceiver.Request
 {
     /// <summary>
     /// 加群请求／邀请
@@ -11,11 +11,9 @@ namespace UniBot.Receiver.EventReceiver
     public class RequestGroup : EventReceiver
     {
         /// <summary>
-        /// 请求类型
+        /// 通知类型
         /// </summary>
-        [JsonProperty("request_type")]
-        [JsonConverter(typeof(LowercaseStringEnumConverter))]
-        public RequestType RequestType { get; set; }
+        public override RequestType RequestEventType { get; set; } = RequestType.Group;
 
         /// <summary>
         /// 请求子类型
@@ -58,7 +56,7 @@ namespace UniBot.Receiver.EventReceiver
         /// </summary>
         /// <param name="reson">拒绝理由</param>
         /// <returns></returns>
-        public async Task<bool> Reject(string reson="") => await Connect.SetGroupAddRequest(Flag, RequestSubType, false,reson);
+        public async Task<bool> Reject(string reson = "") => await Connect.SetGroupAddRequest(Flag, RequestSubType, false, reson);
         #endregion
     }
 }

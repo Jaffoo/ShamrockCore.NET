@@ -30,7 +30,7 @@ namespace UniBot.Model
         /// <summary>
         /// 最大成员数
         /// </summary>
-        [JsonProperty("max_memeber_count")]
+        [JsonProperty("max_member_count")]
         public int MaxCount { get; set; }
 
         #region 扩展方法/属性

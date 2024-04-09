@@ -1,10 +1,8 @@
 ﻿using Newtonsoft.Json;
 using UniBot.Api;
-using UniBot.Message.Chain;
 using UniBot.Model;
-using static UniBot.Utils.JsonConvertTool;
 
-namespace UniBot.Receiver.EventReceiver
+namespace UniBot.Receiver.EventReceiver.Notice
 {
     /// <summary>
     /// 好友消息撤回
@@ -14,9 +12,7 @@ namespace UniBot.Receiver.EventReceiver
         /// <summary>
         /// 通知类型
         /// </summary>
-        [JsonProperty("notice_type")]
-        [JsonConverter(typeof(LowercaseStringEnumConverter))]
-        public NoticeType NoticeType { get; set; }
+        public override NoticeType NoticeEventType { get; set; } = NoticeType.FriendRecall;
 
         /// <summary>
         /// 消息发送者 QQ 号

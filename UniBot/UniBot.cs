@@ -10,6 +10,8 @@ using UniBot.Api;
 using Newtonsoft.Json.Linq;
 using UniBot.Message.Chain;
 using TBC.CommonLib;
+using UniBot.Receiver.EventReceiver;
+using UniBot.Receiver.MessageReceiver;
 
 namespace UniBot
 {
@@ -23,15 +25,22 @@ namespace UniBot
         public Connect Conn;
 
         /// <summary>
+        /// 所有
+        /// </summary>
+        public IObservable<MessageReceiverBase> Receiver { get; }
+        private readonly Subject<MessageReceiverBase> _ReceivedSubject = new();
+
+        /// <summary>
         /// 收到事件
         /// </summary>
-        public IObservable<MessageReceiverBase> EventReceived { get; }
-        private readonly Subject<MessageReceiverBase> _eventReceivedSubject = new();
+        public IObservable<EventReceiver> EventReceived { get; }
+        private readonly Subject<EventReceiver> _eventReceivedSubject = new();
+
         /// <summary>
         /// 收到消息
         /// </summary>
-        public IObservable<MessageReceiverBase> MessageReceived { get; }
-        private readonly Subject<MessageReceiverBase> _messageReceivedSubject = new();
+        public IObservable<MessageReceiver> MessageReceived { get; }
+        private readonly Subject<MessageReceiver> _messageReceivedSubject = new();
 
         /// <summary>
         /// 接收到未知类型的Websocket消息
@@ -47,6 +56,7 @@ namespace UniBot
         public Bot(Connect conf)
         {
             Conn = conf;
+            Receiver = _ReceivedSubject.AsObservable();
             EventReceived = _eventReceivedSubject.AsObservable();
             MessageReceived = _messageReceivedSubject.AsObservable();
             UnknownMessageReceived = _unknownMessageReceived.AsObservable();
@@ -139,18 +149,30 @@ namespace UniBot
         {
             try
             {
-                MessageReceiverBase msg;
-                var a = data.Fetch("post_type");
                 var postType = data.Fetch("post_type");
                 if (postType == PostType.Message.ToString().ToLower())
                 {
-                    msg = JsonConvertTool.MessageReceiverHandel(data, Conn) ?? throw new InvalidDataException("数据无效！");
+                    var msg = JsonConvertTool.MessageReceiverHandel(data, Conn) ?? throw new InvalidDataException("数据无效！");
                     _messageReceivedSubject.OnNext(msg);
+                    _ReceivedSubject.OnNext(msg);
                 }
-                else if (postType == PostType.Notice.ToString().ToLower() || postType == PostType.MetaEvent.ToString().ToLower() || PostType.Request.ToString().ToLower() == postType)
+                else if (postType == PostType.MetaEvent.ToString().ToLower())
                 {
-                    msg = JsonConvertTool.EventReceiverHandel(data, Conn) ?? throw new InvalidDataException("数据无效！");
+                    var msg = JsonConvertTool.MetaEventReceiverHandel(data, Conn) ?? throw new InvalidDataException("数据无效！");
                     _eventReceivedSubject.OnNext(msg);
+                    _ReceivedSubject.OnNext(msg);
+                }
+                else if (postType == PostType.Notice.ToString().ToLower())
+                {
+                    var msg = JsonConvertTool.NoticeEventReceiverHandel(data, Conn) ?? throw new InvalidDataException("数据无效！");
+                    _eventReceivedSubject.OnNext(msg);
+                    _ReceivedSubject.OnNext(msg);
+                }
+                else if (PostType.Request.ToString().ToLower() == postType)
+                {
+                    var msg = JsonConvertTool.RequestEventReceiverHandel(data, Conn) ?? throw new InvalidDataException("数据无效！");
+                    _eventReceivedSubject.OnNext(msg);
+                    _ReceivedSubject.OnNext(msg);
                 }
                 else
                     _unknownMessageReceived.OnNext(data);

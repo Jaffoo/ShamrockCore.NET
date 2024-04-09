@@ -3,13 +3,18 @@ using UniBot.Api;
 using UniBot.Model;
 using static UniBot.Utils.JsonConvertTool;
 
-namespace UniBot.Receiver.EventReceiver
+namespace UniBot.Receiver.EventReceiver.Notice
 {
     /// <summary>
     /// 群管理员变动
     /// </summary>
     public class GroupAdminChange : EventReceiver
     {
+        /// <summary>
+        /// 通知类型
+        /// </summary>
+        public override NoticeType NoticeEventType { get; set; } = NoticeType.GroupAdmin;
+
         /// <summary>
         /// 群号
         /// </summary>

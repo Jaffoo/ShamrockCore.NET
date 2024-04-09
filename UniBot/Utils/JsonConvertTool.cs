@@ -8,70 +8,21 @@ using UniBot.Message.Chain;
 using UniBot.Receiver.MessageReceiver;
 using UniBot.Model;
 using UniBot.Receiver.EventReceiver;
+using Newtonsoft.Json.Serialization;
+using UniBot.Receiver.EventReceiver.Notice;
 
 namespace UniBot.Utils
 {
     internal static class JsonConvertTool
     {
-        /// <summary>
-        /// 自定义json序列化特性标注
-        /// </summary>
-        [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-        internal class CustomJsonPropertyAttribute : Attribute
-        {
-            public string[] FieldNames { get; }
-
-            public CustomJsonPropertyAttribute(params string[] fieldNames)
-            {
-                FieldNames = fieldNames;
-            }
-        }
-        /// <summary>
-        /// 一个类属性可以对应多个json字段，但只会反序列化一个
-        /// </summary>
-        internal class CustomJsonConverter : JsonConverter
-        {
-            public override bool CanConvert(Type objectType)
-            {
-                return objectType.GetCustomAttributes(typeof(CustomJsonPropertyAttribute), true).Length > 0;
-            }
-
-            public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
-            {
-                JObject jsonObject = JObject.Load(reader);
-
-                PropertyInfo[] properties = objectType.GetProperties();
-                foreach (var property in properties)
-                {
-                    var attribute = (CustomJsonPropertyAttribute?)property.GetCustomAttribute(typeof(CustomJsonPropertyAttribute));
-                    if (attribute != null)
-                    {
-                        foreach (var fieldName in attribute.FieldNames)
-                        {
-                            if (jsonObject[fieldName] != null)
-                            {
-                                return jsonObject[fieldName]?.Value<string>();
-                            }
-                        }
-                    }
-                }
-
-                return null;
-            }
-
-            public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
-            {
-                throw new NotImplementedException();
-            }
-        }
-
         internal class LowercaseStringEnumConverter : StringEnumConverter
         {
             public override object ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
             {
                 string enumString = (string)reader.Value!;
                 var members = objectType.GetMembers();
-                var unknow = members.FirstOrDefault(x => x.MemberType == MemberTypes.Field&&x.Name.Contains("Unknown"));
+                var unknow = members.FirstOrDefault(x => x.MemberType == MemberTypes.Field && x.Name.Contains("Unknown"));
+                if (enumString.Contains('_')) enumString = enumString.Replace("_", "");
                 if (Enum.TryParse(objectType, enumString, true, out object? parsedEnum))
                 {
                     if (parsedEnum == null)
@@ -133,7 +84,9 @@ namespace UniBot.Utils
 
         private static readonly List<MessageBase> MessageBases = CreateInstance<MessageBase>("UniBot.Message");
         private static readonly List<MessageReceiver> MessageReceiverBases = CreateInstance<MessageReceiver>("UniBot.Receiver.MessageReceiver");
-        private static readonly List<EventReceiver> EventReceiverBases = CreateInstance<EventReceiver>("UniBot.Receiver.Event");
+        private static readonly List<EventReceiver> MetaEventReceiverBases = CreateInstance<EventReceiver>("UniBot.Receiver.EventReceiver.Meta");
+        private static readonly List<EventReceiver> NoticeEventReceiverBases = CreateInstance<EventReceiver>("UniBot.Receiver.EventReceiver.Notice");
+        private static readonly List<EventReceiver> RequestEventReceiverBases = CreateInstance<EventReceiver>("UniBot.Receiver.EventReceiver.Request");
 
         /// <summary>
         /// 消息段处理
@@ -154,10 +107,10 @@ namespace UniBot.Utils
                     {
                         if (msg.Type == item.Type)
                         {
-                            var tempData = ((JObject)msg.Data!).ToString()!;
                             msg.Connect = conf;
-                            msg.Data = null;
-                            msg.Data = JsonConvert.DeserializeObject(tempData, bodyDll);
+                            //var tempData = ((JObject)msg.Data!).ToString()!;
+                            //msg.Data = null;
+                            //msg.Data = JsonConvert.DeserializeObject(tempData, bodyDll);
                             break;
                         }
                     }
@@ -165,38 +118,110 @@ namespace UniBot.Utils
             }
             catch
             {
+                Console.WriteLine(data);
                 throw;
             }
         }
+
         /// <summary>
         /// 接收事件处理
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        internal static MessageReceiver? EventReceiverHandel(string data, Connect conf)
+        internal static EventReceiver? MetaEventReceiverHandel(string data, Connect conf)
         {
             try
             {
-                var raw = JsonConvert.DeserializeObject<MessageReceiver>(data);
+                var raw = JsonConvert.DeserializeObject<EventReceiver>(data);
                 if (raw == null) return null;
                 raw!.OriginalData = JObject.Parse(data);
                 Type type = raw.GetType();
-                foreach (var messageReceiver in EventReceiverBases)
+                foreach (var messageReceiver in MetaEventReceiverBases)
                 {
                     if (messageReceiver == null) continue;
-                    if (messageReceiver.PostType == raw.PostType)
+                    if (messageReceiver.MetaEventType == raw.MetaEventType)
+                    {
                         type = messageReceiver.GetType();
+                        break;
+                    }
                 }
-                if (JsonConvert.DeserializeObject(data, type) is not MessageReceiver message) return null;
+                if (JsonConvert.DeserializeObject(data, type) is not EventReceiver message) return null;
                 message.OriginalData = JObject.Parse(data);
                 message.Connect = conf;
                 return message;
             }
-            catch
+            catch (Exception)
             {
-                var re = JsonConvert.DeserializeObject<MessageReceiver>(data);
-                re!.OriginalData = JObject.Parse(data);
-                return re;
+                Console.WriteLine(data);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 接收事件处理
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        internal static EventReceiver? RequestEventReceiverHandel(string data, Connect conf)
+        {
+            try
+            {
+                var raw = JsonConvert.DeserializeObject<EventReceiver>(data);
+                if (raw == null) return null;
+                raw!.OriginalData = JObject.Parse(data);
+                Type type = raw.GetType();
+                foreach (var messageReceiver in RequestEventReceiverBases)
+                {
+                    if (messageReceiver == null) continue;
+                    if (messageReceiver.RequestEventType == raw.RequestEventType)
+                    {
+                        type = messageReceiver.GetType();
+                        break;
+                    }
+                }
+                if (JsonConvert.DeserializeObject(data, type) is not EventReceiver message) return null;
+                message.OriginalData = JObject.Parse(data);
+                message.Connect = conf;
+                return message;
+            }
+            catch (Exception)
+            {
+                Console.WriteLine(data);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 接收事件处理
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        internal static EventReceiver? NoticeEventReceiverHandel(string data, Connect conf)
+        {
+            try
+            {
+                var raw = JsonConvert.DeserializeObject<EventReceiver>(data);
+                if (raw == null) return null;
+                raw!.OriginalData = JObject.Parse(data);
+                Type type = raw.GetType();
+                foreach (var messageReceiver in NoticeEventReceiverBases)
+                {
+                    if (messageReceiver == null) continue;
+                    if (messageReceiver.NoticeEventType == raw.NoticeEventType)
+                    {
+                        type = messageReceiver.GetType();
+                        break;
+                    }
+                }
+                if (JsonConvert.DeserializeObject(data, type) is not EventReceiver message) return null;
+                message.OriginalData = JObject.Parse(data);
+                message.Connect = conf;
+                return message;
+            }
+            catch (Exception)
+            {
+                Console.WriteLine(data);
+                throw;
             }
         }
 
@@ -205,7 +230,7 @@ namespace UniBot.Utils
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        internal static MessageReceiverBase? MessageReceiverHandel(string data, Connect conf)
+        internal static MessageReceiver? MessageReceiverHandel(string data, Connect conf)
         {
             try
             {
@@ -217,7 +242,10 @@ namespace UniBot.Utils
                 {
                     if (messageReceiver == null) continue;
                     if (messageReceiver.MessageType == raw.MessageType)
+                    {
                         type = messageReceiver.GetType();
+                        break;
+                    }
                 }
                 if (JsonConvert.DeserializeObject(data, type) is not MessageReceiver message) return null;
                 message.OriginalData = JObject.Parse(data);
@@ -225,12 +253,24 @@ namespace UniBot.Utils
                 MessageHandel(message, conf);
                 return message;
             }
-            catch
+            catch (Exception)
             {
-                var re = JsonConvert.DeserializeObject<MessageReceiverBase>(data);
-                re!.OriginalData = JObject.Parse(data);
-                return re;
+                Console.WriteLine(data);
+                throw;
             }
+        }
+
+        internal static string ToLowJsonStr(this object obj)
+        {
+            var settings = new JsonSerializerSettings
+            {
+                ContractResolver = new DefaultContractResolver
+                {
+                    NamingStrategy = new CamelCaseNamingStrategy()
+                }
+            };
+
+            return JsonConvert.SerializeObject(obj, settings);
         }
     }
 }

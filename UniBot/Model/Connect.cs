@@ -66,6 +66,8 @@
         {
             get
             {
+                if (string.IsNullOrWhiteSpace(Token))
+                    return new();
                 var header = new Dictionary<string, string>
                 {
                     { "Authorization", "Bearer " + Token }

@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using System.Runtime.Serialization;
+using static UniBot.Utils.JsonConvertTool;
 
 namespace UniBot.Model
 {
@@ -39,101 +41,121 @@ namespace UniBot.Model
         /// <summary>
         /// 文本
         /// </summary>
+        [EnumMember(Value = "text")]
         Text,
 
         /// <summary>
         /// 表情
         /// </summary>
+        [EnumMember(Value = "face")]
         Face,
 
         /// <summary>
         /// 图片
         /// </summary>
+        [EnumMember(Value = "image")]
         Image,
 
         /// <summary>
         /// 语音
         /// </summary>
+        [EnumMember(Value = "record")]
         Record,
 
         /// <summary>
         /// 短视频
         /// </summary>
+        [EnumMember(Value = "video")]
         Video,
 
         /// <summary>
         /// @某人
         /// </summary>
+        [EnumMember(Value = "at")]
         At,
 
         /// <summary>
         /// 猜拳魔法表情
         /// </summary>
+        [EnumMember(Value = "rps")]
         Rps,
 
         /// <summary>
         /// 掷骰子魔法表情
         /// </summary>
+        [EnumMember(Value = "dice")]
         Dice,
 
         /// <summary>
         /// 窗口抖动（戳一戳）
         /// </summary>
+        [EnumMember(Value = "shake")]
         Shake,
 
         /// <summary>
         /// 戳一戳
         /// </summary>
+        [EnumMember(Value = "poke")]
         Poke,
 
         /// <summary>
         /// 匿名发消息
         /// </summary>
+        [EnumMember(Value = "anonymous")]
         Anonymous,
 
         /// <summary>
         /// 连接分享
         /// </summary>
+        [EnumMember(Value = "share")]
         Share,
 
         /// <summary>
         /// 推荐好友/推荐群
         /// </summary>
+        [EnumMember(Value = "contact")]
         Contact,
 
         /// <summary>
         /// 位置
         /// </summary>
+        [EnumMember(Value = "location")]
         Location,
 
         /// <summary>
         /// 音乐分享/自定义分享
         /// </summary>
+        [EnumMember(Value = "music")]
         Music,
 
         /// <summary>
         /// 回复
         /// </summary>
+        [EnumMember(Value = "reply")]
         Reply,
 
         /// <summary>
         /// 合并转发
         /// </summary>
+        [EnumMember(Value = "forward")]
         Forward,
 
         /// <summary>
         /// 合并转发节点/自定义节点
         /// </summary>
+        [EnumMember(Value = "node")]
         Node,
 
         /// <summary>
         /// xml
         /// </summary>
+        [EnumMember(Value = "xml")]
         Xml,
 
         /// <summary>
         /// JSON
         /// </summary>
+        [EnumMember(Value = "json")]
         Json,
 
         /// <summary>
@@ -299,6 +321,28 @@ namespace UniBot.Model
     }
 
     /// <summary>
+    /// 离开子类型
+    /// </summary>
+    public enum LeaveSubType
+    {
+        /// <summary>
+        /// 主动
+        /// </summary>
+        Leave,
+
+        /// <summary>
+        /// 被踢
+        /// </summary>
+        Kick,
+
+        /// <summary>
+        /// 登录号被踢
+        /// </summary>
+        [JsonProperty("kick_me")]
+        KickMe
+    }
+
+    /// <summary>
     /// 通知类型
     /// </summary>
     public enum NoticeType
@@ -343,6 +387,7 @@ namespace UniBot.Model
         /// 群消息撤回
         /// </summary>
         [JsonProperty("group_recall")]
+        [EnumMember(Value = "group_recall")]
         GroupRecall,
 
         /// <summary>
@@ -480,94 +525,6 @@ namespace UniBot.Model
         /// 连接成功
         /// </summary>
         Connect,
-
-        /// <summary>
-        /// 未知类型
-        /// </summary>
-        Unknown
-    }
-
-    /// <summary>
-    /// 所有事件
-    /// </summary>
-    public enum EventType
-    {
-        /// <summary>
-        /// 好友申请
-        /// </summary>
-        [JsonProperty("friend")]
-        FriendRequest,
-
-        /// <summary>
-        /// 加群申请
-        /// </summary>
-        [JsonProperty("group")]
-        GroupRequest,
-
-        /// <summary>
-        /// 群文件上传
-        /// </summary>
-        [JsonProperty("group_upload")]
-        GroupUpload,
-
-        /// <summary>
-        /// 群管变动
-        /// </summary>
-        [JsonProperty("group_admin")]
-        GroupAdmin,
-
-        /// <summary>
-        /// 群成员减少
-        /// </summary>
-        [JsonProperty("group_decrease")]
-        GroupDecrease,
-
-        /// <summary>
-        /// 群成员增加
-        /// </summary>
-        [JsonProperty("group_increase")]
-        GroupIncrease,
-
-        /// <summary>
-        /// 群禁言
-        /// </summary>
-        [JsonProperty("group_ban")]
-        GroupBan,
-
-        /// <summary>
-        /// 好友添加
-        /// </summary>
-        [JsonProperty("friend_add")]
-        FriendAdd,
-
-        /// <summary>
-        /// 群消息撤回
-        /// </summary>
-        [JsonProperty("group_recall")]
-        GroupRecall,
-
-        /// <summary>
-        /// 好友消息撤回
-        /// </summary>
-        [JsonProperty("friend_recall")]
-        FriendRecall,
-
-        /// <summary>
-        /// 群内戳一戳/群红包运气王/群成员荣誉变更
-        /// </summary>
-        [JsonProperty("notify")]
-        Notify,
-        /// <summary>
-        /// 生命周期
-        /// </summary>
-        [JsonProperty("lifecycle")]
-        LifeCycle,
-
-        /// <summary>
-        /// 心跳
-        /// </summary>
-        [JsonProperty("heartbeat")]
-        HeartBeat,
 
         /// <summary>
         /// 未知类型

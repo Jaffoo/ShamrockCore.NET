@@ -2,7 +2,7 @@
 using UniBot.Model;
 using static UniBot.Utils.JsonConvertTool;
 
-namespace UniBot.Receiver.EventReceiver
+namespace UniBot.Receiver.EventReceiver.Meta
 {
     /// <summary>
     /// 生命周期
@@ -12,9 +12,7 @@ namespace UniBot.Receiver.EventReceiver
         /// <summary>
         /// 元事件类型
         /// </summary>
-        [JsonProperty("meta_event_type")]
-        [JsonConverter(typeof(LowercaseStringEnumConverter))]
-        public MetaType MetaType { get; set; }
+        public override MetaType MetaEventType { get; set; } = MetaType.LifeCycle;
 
         /// <summary>
         /// 元事件子类型

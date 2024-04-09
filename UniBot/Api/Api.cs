@@ -1,10 +1,10 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using TBC.CommonLib;
 using UniBot.Message;
 using UniBot.Message.Chain;
 using UniBot.Model;
 using UniBot.Receiver;
+using UniBot.Utils;
 
 namespace UniBot.Api
 {
@@ -24,7 +24,7 @@ namespace UniBot.Api
                     user_id = qq,
                     message = msg
                 };
-                var res = await Tools.PostAsync<ApiResult<MessageInfoBase>>(url, data.ToJsonStr(), conf.Headers);
+                var res = await Tools.PostAsync<ApiResult<MessageInfoBase>>(url, data.ToLowJsonStr(), conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
                 if (res.Data == null) throw new InvalidDataException("响应数据为空");
@@ -51,7 +51,7 @@ namespace UniBot.Api
                     user_id = qq,
                     message = new MessageChain() { new TextMessage(msg) }
                 };
-                var res = await Tools.PostAsync<ApiResult<MessageInfoBase>>(url, data.ToJsonStr(), conf.Headers);
+                var res = await Tools.PostAsync<ApiResult<MessageInfoBase>>(url, data.ToLowJsonStr(), conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
                 if (res.Data == null) throw new InvalidDataException("响应数据为空");
@@ -74,10 +74,10 @@ namespace UniBot.Api
                 var url = conf.HttpUrl + HttpEndpoints.SendGroupMsg.GetDescription();
                 var data = new
                 {
-                    user_id = qq,
+                    group_id = qq,
                     message = msg
                 };
-                var res = await Tools.PostAsync<ApiResult<MessageInfoBase>>(url, data.ToJsonStr(), conf.Headers);
+                var res = await Tools.PostAsync<ApiResult<MessageInfoBase>>(url, data.ToLowJsonStr(), conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
                 if (res.Data == null) throw new InvalidDataException("响应数据为空");
@@ -97,13 +97,14 @@ namespace UniBot.Api
         {
             try
             {
+                var message = new MessageChain() { new TextMessage(msg) };
                 var url = conf.HttpUrl + HttpEndpoints.SendGroupMsg.GetDescription();
                 var data = new
                 {
-                    user_id = qq,
-                    message = new MessageChain() { new TextMessage(msg) }
+                    group_id = qq,
+                    message
                 };
-                var res = await Tools.PostAsync<ApiResult<MessageInfoBase>>(url, data.ToJsonStr(), conf.Headers);
+                var res = await Tools.PostAsync<ApiResult<MessageInfoBase>>(url, data.ToLowJsonStr(), conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
                 if (res.Data == null) throw new InvalidDataException("响应数据为空");
@@ -620,9 +621,10 @@ namespace UniBot.Api
             try
             {
                 var url = conf.HttpUrl + HttpEndpoints.GetFriendList.GetDescription();
-                var res = await Tools.GetAsync<ApiResult<List<FriendInfo>>>(url, conf.Headers);                if (res == null) throw new InvalidDataException("响应内容为空！");
+                var res = await Tools.GetAsync<ApiResult<List<FriendInfo>>>(url, conf.Headers); if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
                 if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                res.Data.ForEach(x => x.Connect = conf);
                 return res.Data;
             }
             catch (Exception)
@@ -645,6 +647,7 @@ namespace UniBot.Api
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
                 if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                res.Data.Connect = conf;
                 return res.Data;
             }
             catch (Exception)
@@ -666,6 +669,7 @@ namespace UniBot.Api
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
                 if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                res.Data.ForEach(x => x.Connect = conf);
                 return res.Data;
             }
             catch (Exception)
@@ -688,6 +692,7 @@ namespace UniBot.Api
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
                 if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                res.Data.Connect = conf;
                 return res.Data;
             }
             catch (Exception)
@@ -710,6 +715,7 @@ namespace UniBot.Api
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
                 if (res.Data == null) throw new InvalidDataException("响应数据为空");
+                res.Data.ForEach(x => x.Connect = conf);
                 return res.Data;
             }
             catch (Exception)
