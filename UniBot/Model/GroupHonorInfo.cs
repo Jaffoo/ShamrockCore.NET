@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace UniBot.Model
+namespace UnifyBot.Model
 {
     /// <summary>
     /// 群荣誉信息

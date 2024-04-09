@@ -1,29 +1,13 @@
 ﻿using Newtonsoft.Json;
-using UniBot.Message.Chain;
-using static UniBot.Utils.JsonConvertTool;
+using UnifyBot.Message.Chain;
+using static UniBot.Tools.JsonConvertTool;
 
-namespace UniBot.Model
+namespace UnifyBot.Model
 {
-    public class MessageInfoBase
-    {
-        /// <summary>
-        /// 消息id
-        /// </summary>
-        [JsonProperty("message_id")]
-        public long MessageId { get; set; }
-    }
-    public class ForardMessageInfo
-    {
-        /// <summary>
-        /// 消息id
-        /// </summary>
-        [JsonProperty("forward_id")]
-        public long ForwardId { get; set; }
-    }
     /// <summary>
     /// 消息信息
     /// </summary>
-    public class MessageInfo: MessageInfoBase
+    public class MessageInfo
     {
         /// <summary>
         /// 消息类型
@@ -31,6 +15,12 @@ namespace UniBot.Model
         [JsonProperty("message_type	")]
         [JsonConverter(typeof(LowercaseStringEnumConverter))]
         public MessageType MessageType { get; set; }
+
+        /// <summary>
+        /// 消息id
+        /// </summary>
+        [JsonProperty("message_id")]
+        public long MessageId { get; set; }
 
         /// <summary>
         /// 消息真实id

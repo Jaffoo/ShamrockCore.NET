@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
-using UniBot.Api;
-using UniBot.Message.Chain;
-using UniBot.Model;
+using UnifyBot.Api;
+using UnifyBot.Message.Chain;
+using UnifyBot.Model;
 
-namespace UniBot.Receiver.MessageReceiver
+namespace UnifyBot.Receiver.MessageReceiver
 {
     public class GroupReceiver : MessageReceiver
     {
@@ -34,7 +34,7 @@ namespace UniBot.Receiver.MessageReceiver
         /// 群信息
         /// </summary>
         [JsonIgnore]
-        public GroupInfo Group => Connect.GetGroupInfo(GroupQQ).Result;
+        public Lazy<GroupInfo> Group => new(() => Connect.GetGroupInfo(GroupQQ).Result);
 
         /// <summary>
         /// 发送消息
@@ -50,12 +50,6 @@ namespace UniBot.Receiver.MessageReceiver
         /// <returns></returns>
         public async Task<long> SendMessage(string msg) => await Connect.SendGroupMsg(GroupQQ, msg);
 
-        /// <summary>
-        /// 发送合并转发(go-cqhttp的API，能否使用看onebot实现框架是否提供)
-        /// </summary>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        public async Task<ForardMessageInfo> SendForwardMessage(MessageChain msg) => await Connect.SendGroupForwardMsg(GroupQQ, msg);
         #endregion
     }
 }

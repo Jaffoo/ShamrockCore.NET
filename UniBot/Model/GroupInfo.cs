@@ -1,9 +1,8 @@
 ﻿using Newtonsoft.Json;
-using UniBot.Api;
-using UniBot.Message;
-using UniBot.Message.Chain;
+using UnifyBot.Api;
+using UnifyBot.Message.Chain;
 
-namespace UniBot.Model
+namespace UnifyBot.Model
 {
     /// <summary>
     /// 群信息
@@ -31,7 +30,7 @@ namespace UniBot.Model
         /// <summary>
         /// 最大成员数
         /// </summary>
-        [JsonProperty("max_member_count")]
+        [JsonProperty("max_memeber_count")]
         public int MaxCount { get; set; }
 
         #region 扩展方法/属性
@@ -40,13 +39,13 @@ namespace UniBot.Model
         /// 群成员列表
         /// </summary>
         [JsonIgnore]
-        public List<GroupMemberInfo> Members => Connect.GetGroupMemberList(GroupQQ).Result;
+        public Lazy<List<GroupMemberInfo>> Members => new(() => Connect.GetGroupMemberList(GroupQQ).Result);
 
         /// <summary>
         /// 群荣誉
         /// </summary>
         [JsonIgnore]
-        public GroupHonorInfo Honor => Connect.GetGroupHonorInfo(GroupQQ).Result;
+        public Lazy<GroupHonorInfo> Honor => new(Connect.GetGroupHonorInfo(GroupQQ).Result);
 
         /// <summary>
         /// 发送消息
@@ -61,13 +60,6 @@ namespace UniBot.Model
         /// <param name="msg"></param>
         /// <returns></returns>
         public async Task<long> SendMessage(string msg) => await Connect.SendGroupMsg(GroupQQ, msg);
-
-        /// <summary>
-        /// 发送合并转发(go-cqhttp的API，能否使用看onebot实现框架是否提供)
-        /// </summary>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        public async Task<ForardMessageInfo> SendForwardMessage(MessageChain msg) => await Connect.SendGroupForwardMsg(GroupQQ, msg);
 
         /// <summary>
         /// 全体禁言

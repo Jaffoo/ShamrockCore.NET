@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System.Runtime.Serialization;
-using static UniBot.Utils.JsonConvertTool;
+using static UnifyBot.Utils.JsonConvertTool;
 
-namespace UniBot.Model
+namespace UnifyBot.Model
 {
     public enum PostType
     {

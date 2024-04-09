@@ -1,8 +1,9 @@
 ﻿using Newtonsoft.Json;
-using UniBot.Api;
-using UniBot.Model;
+using UnifyBot.Api;
+using UnifyBot.Model;
+using static UniBot.Tools.JsonConvertTool;
 
-namespace UniBot.Receiver.EventReceiver.Request
+namespace UnifyBot.Receiver.EventReceiver.Request
 {
     /// <summary>
     /// 好友添加请求
@@ -10,9 +11,11 @@ namespace UniBot.Receiver.EventReceiver.Request
     public class RequestFriend : EventReceiver
     {
         /// <summary>
-        /// 通知类型
+        /// 请求类型
         /// </summary>
-        public new RequestType RequestEventType => RequestType.Friend;
+        [JsonProperty("request_type")]
+        [JsonConverter(typeof(LowercaseStringEnumConverter))]
+        public RequestType RequestType { get; set; }
 
         /// <summary>
         /// 新添加好友 QQ 号

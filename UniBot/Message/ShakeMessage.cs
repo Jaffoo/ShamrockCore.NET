@@ -1,6 +1,6 @@
-﻿using UniBot.Model;
+﻿using UnifyBot.Model;
 
-namespace UniBot.Message
+namespace UnifyBot.Message
 {
     /// <summary>
     /// 窗口抖动（戳一戳）

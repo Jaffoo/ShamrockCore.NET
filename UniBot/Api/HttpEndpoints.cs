@@ -1,13 +1,12 @@
 ﻿using System.ComponentModel;
 
-namespace UniBot.Api
+namespace UnifyBot.Api
 {
     /// <summary>
     /// http请求端点
     /// </summary>
     internal enum HttpEndpoints
     {
-        #region onebot11
         /// <summary>
         /// 发送私聊消息
         /// </summary>
@@ -198,18 +197,5 @@ namespace UniBot.Api
         /// 清理缓存
         /// </summary>
         [Description("clean_cache")] CleanCache,
-        #endregion
-
-        #region 扩展API
-        /// <summary>
-        /// 发送合并转发 ( 群聊 )
-        /// </summary>
-        [Description("send_group_forward_msg")] SendGroupForwardMsg,
-
-        /// <summary>
-        /// 发送合并转发 ( 好友 )
-        /// </summary>
-        [Description("send_private_forward_msg")] SendPrivateForwardMsg,
-        #endregion
     }
 }

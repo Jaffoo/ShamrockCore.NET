@@ -1,10 +1,11 @@
 ﻿using System.Reactive.Linq;
 using TBC.CommonLib;
-using UniBot.Model;
 using UniBot.Receiver;
-using UniBot.Receiver.EventReceiver;
 using UniBot.Receiver.EventReceiver.Notice;
-using UniBot.Receiver.MessageReceiver;
+using UnifyBot;
+using UnifyBot.Model;
+using UnifyBot.Receiver.EventReceiver;
+using UnifyBot.Receiver.MessageReceiver;
 
 namespace UniBot.Test
 {
@@ -15,7 +16,11 @@ namespace UniBot.Test
             Connect connect = new("localhost", 3001, 3000);
             Bot bot = new(connect);
             await bot.StartAsync();
-            
+
+            bot.MessageReceived.OfType<MessageReceiver>().Subscribe(async msg =>
+            {
+                Console.WriteLine(msg.OriginalData.ToString());
+            });
             bot.EventReceived.OfType<EventReceiver>().Subscribe(async msg =>
             {
                 Console.WriteLine(msg.OriginalData.ToString());

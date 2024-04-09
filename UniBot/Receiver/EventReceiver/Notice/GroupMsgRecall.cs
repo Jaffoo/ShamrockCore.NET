@@ -1,8 +1,9 @@
 ﻿using Newtonsoft.Json;
-using UniBot.Api;
-using UniBot.Model;
+using UnifyBot.Api;
+using UnifyBot.Model;
+using static UniBot.Tools.JsonConvertTool;
 
-namespace UniBot.Receiver.EventReceiver.Notice
+namespace UnifyBot.Receiver.EventReceiver.Notice
 {
     /// <summary>
     /// 群消息撤回
@@ -12,7 +13,9 @@ namespace UniBot.Receiver.EventReceiver.Notice
         /// <summary>
         /// 通知类型
         /// </summary>
-        public override NoticeType NoticeEventType => NoticeType.GroupRecall;
+        [JsonProperty("notice_type")]
+        [JsonConverter(typeof(LowercaseStringEnumConverter))]
+        public NoticeType NoticeType { get; set; }
 
         /// <summary>
         /// 消息发送者 QQ 号
@@ -43,7 +46,7 @@ namespace UniBot.Receiver.EventReceiver.Notice
         /// 消息
         /// </summary>
         [JsonIgnore]
-        public MessageInfo Message => Connect.GetMsg(MessageId).Result;
+        public Lazy<MessageInfo> Message => new(() => Connect.GetMsg(MessageId).Result);
         #endregion
     }
 }

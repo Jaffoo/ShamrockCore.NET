@@ -1,7 +1,8 @@
-﻿using UniBot.Api;
-using UniBot.Model;
+﻿using UnifyBot;
+using UnifyBot.Api;
+using UnifyBot.Model;
 
-namespace UniBot.Message.Chain
+namespace UnifyBot.Message.Chain
 {
     public class MessageChain : List<MessageBase>
     {

@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
-using UniBot.Api;
-using UniBot.Message.Chain;
-using UniBot.Model;
-using static UniBot.Utils.JsonConvertTool;
+using UnifyBot.Api;
+using UnifyBot.Message.Chain;
+using UnifyBot.Model;
+using static UniBot.Tools.JsonConvertTool;
 
-namespace UniBot.Receiver.MessageReceiver
+namespace UnifyBot.Receiver.MessageReceiver
 {
     public class MessageReceiver : MessageReceiverBase
     {
@@ -48,7 +48,7 @@ namespace UniBot.Receiver.MessageReceiver
         /// <summary>
         /// 消息
         /// </summary>
-        public virtual MessageChain? Message { get; set; } = null;  
+        public virtual MessageChain? Message { get; set; } = null;
 
         #region 扩展方法/属性
         /// <summary>

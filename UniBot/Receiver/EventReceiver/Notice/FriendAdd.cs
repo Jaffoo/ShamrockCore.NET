@@ -1,15 +1,18 @@
 ﻿using Newtonsoft.Json;
-using UniBot.Api;
-using UniBot.Model;
+using ShamrockCore.Data.HttpAPI;
+using UnifyBot.Model;
+using static UniBot.Tools.JsonConvertTool;
 
-namespace UniBot.Receiver.EventReceiver.Notice
+namespace UnifyBot.Receiver.EventReceiver.Notice
 {
     public class FriendAdd : EventReceiver
     {
         /// <summary>
         /// 通知类型
         /// </summary>
-        public override NoticeType NoticeEventType => NoticeType.FriendAdd;
+        [JsonProperty("notice_type")]
+        [JsonConverter(typeof(LowercaseStringEnumConverter))]
+        public NoticeType NoticeType { get; set; }
 
         /// <summary>
         /// 新添加好友 QQ 号
@@ -22,7 +25,14 @@ namespace UniBot.Receiver.EventReceiver.Notice
         /// 好友信息
         /// </summary>
         [JsonIgnore]
-        public FriendInfo? Friend => Connect.GetFriendList().Result.FirstOrDefault(x => x.QQ == QQ);
+        public Lazy<FriendInfo?> Friend
+        {
+            get
+            {
+                var lazyFriend = new Lazy<FriendInfo?>(() => Connect.GetFriendList().Result.FirstOrDefault(x => x.QQ == QQ));
+                return lazyFriend;
+            }
+        }
         #endregion
     }
 }

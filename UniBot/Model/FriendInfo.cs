@@ -1,9 +1,8 @@
 ﻿using Newtonsoft.Json;
-using UniBot.Api;
-using UniBot.Message.Chain;
-using static UniBot.Utils.JsonConvertTool;
+using UnifyBot.Api;
+using UnifyBot.Message.Chain;
 
-namespace UniBot.Model
+namespace UnifyBot.Model
 {
     /// <summary>
     /// 好友信息
@@ -26,25 +25,6 @@ namespace UniBot.Model
         /// </summary>
         public string Remark { get; set; } = "";
 
-        /// <summary>
-        /// 年龄
-        /// </summary>
-        [JsonProperty("age")]
-        public string Age { get; set; } = "";
-
-        /// <summary>
-        /// 等级
-        /// </summary>
-        [JsonProperty("level")]
-        public string Level { get; set; } = "";
-
-        /// <summary>
-        /// 性别
-        /// </summary>
-        [JsonConverter(typeof(LowercaseStringEnumConverter))]
-        [JsonProperty("sex")]
-        public Genders Sex { get; set; }
-
         #region 扩展方法/属性
         /// <summary>
         /// 发送消息
@@ -59,13 +39,6 @@ namespace UniBot.Model
         /// <param name="msg"></param>
         /// <returns></returns>
         public async Task<long> SendMessage(string msg) => await Connect.SendPrivateMsg(QQ, msg);
-
-        /// <summary>
-        /// 发送合并转发(go-cqhttp的API，能否使用看onebot实现框架是否提供)
-        /// </summary>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        public async Task<ForardMessageInfo> SendForwardMessage(MessageChain msg) => await Connect.SendPrivateForwardMsg(QQ, msg);
 
         /// <summary>
         /// 点赞

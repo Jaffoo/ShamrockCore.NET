@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
-using UniBot.Api;
-using UniBot.Model;
-using static UniBot.Utils.JsonConvertTool;
+using ShamrockCore.Data.HttpAPI;
+using UnifyBot.Model;
+using static UniBot.Tools.JsonConvertTool;
 
-namespace UniBot.Receiver.EventReceiver.Notice
+namespace UnifyBot.Receiver.EventReceiver.Notice
 {
     /// <summary>
     /// 群成员荣誉变更
@@ -13,7 +13,9 @@ namespace UniBot.Receiver.EventReceiver.Notice
         /// <summary>
         /// 通知类型
         /// </summary>
-        public override NoticeType NoticeEventType => NoticeType.Notify;
+        [JsonProperty("notice_type")]
+        [JsonConverter(typeof(LowercaseStringEnumConverter))]
+        public NoticeType NoticeType { get; set; }
 
         /// <summary>
         /// 通知子类型
@@ -46,7 +48,7 @@ namespace UniBot.Receiver.EventReceiver.Notice
         /// 荣誉人信息
         /// </summary>
         [JsonIgnore]
-        public GroupMemberInfo User => Connect.GetGroupMemberInfo(GroupQQ, QQ).Result;
+        public Lazy<GroupMemberInfo> User => new(() => Connect.GetGroupMemberInfo(GroupQQ, QQ).Result);
         #endregion
     }
 }

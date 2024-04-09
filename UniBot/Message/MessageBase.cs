@@ -1,9 +1,8 @@
 ﻿using Newtonsoft.Json.Converters;
 using Newtonsoft.Json;
-using UniBot.Model;
-using static UniBot.Utils.JsonConvertTool;
+using UnifyBot.Model;
 
-namespace UniBot.Message
+namespace UnifyBot.Message
 {
     public class MessageBase
     {
@@ -11,7 +10,7 @@ namespace UniBot.Message
         /// 消息类型
         /// </summary>
         [JsonProperty("type")]
-        [JsonConverter(typeof(LowercaseStringEnumConverter))]
+        [JsonConverter(typeof(StringEnumConverter))]
         public virtual Messages Type { get; set; }
 
         /// <summary>
@@ -24,6 +23,6 @@ namespace UniBot.Message
         /// 配置信息
         /// </summary>
         [JsonIgnore]
-        internal Connect Connect { get; set; } = new("", 0, 0);
+        public Connect Connect { get; set; } = new("", 0, 0);
     }
 }

@@ -1,6 +1,6 @@
-﻿using UniBot.Model;
+﻿using UnifyBot.Model;
 
-namespace UniBot.Message
+namespace UnifyBot.Message
 {
     /// <summary>
     /// 掷骰子魔法表情
@@ -10,7 +10,7 @@ namespace UniBot.Message
         public override Messages Type => Messages.Share;
 
         public ShareMessage() { }
-        public ShareMessage(string url, string title, string content = "", string image="")
+        public ShareMessage(string url, string title, string content = "", string image = "")
         {
             Data = new Body()
             {
