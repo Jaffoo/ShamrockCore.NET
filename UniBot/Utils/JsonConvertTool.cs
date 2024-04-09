@@ -28,11 +28,11 @@ namespace UniBot.Utils
                     if (parsedEnum == null)
                     {
                         if (unknow != null)
-                            return Enum.TryParse(objectType, unknow.Name, true, out object? unknowEnum);
+                            return Enum.Parse(objectType, unknow.Name);
                         else
                         {
                             var def = members.FirstOrDefault(x => x.MemberType == MemberTypes.Field && x.Name != "value__");
-                            return Enum.TryParse(objectType, def!.Name, true, out object? unknowEnum);
+                            return Enum.Parse(objectType, def!.Name);
                         }
                     }
                     return parsedEnum;
