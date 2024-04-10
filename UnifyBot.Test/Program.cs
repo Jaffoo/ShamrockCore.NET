@@ -16,6 +16,19 @@ namespace UniBot.Test
             await bot.StartAsync();
             bot.MessageReceived.OfType<MessageReceiver>()
                 .Subscribe(async msg => Console.WriteLine(msg.OriginalData.ToString()));
+            await new MessageChain()
+            {
+            new NodeMessage(1615842006,"测试","字符串")
+            }
+            .SendGroup(bot, 341630390);
+
+            await new MessageChain()
+            {
+            new NodeMessage(1615842006,"测试",new MessageChain() { new TextMessage("消息段") })
+            }
+           .SendGroup(bot, 341630390);
+
+            await new MessageChainBuild().Node(1615842006, "测试", new MessageChain() { new TextMessage("我测你码") }).SendGroup(bot, 341630390);
             while (true)
             {
                 Thread.Sleep(10);

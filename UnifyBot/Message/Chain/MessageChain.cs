@@ -6,19 +6,27 @@ namespace UnifyBot.Message.Chain
     public class MessageChain : List<MessageBase>
     {
         /// <summary>
+        /// 发送群
+        /// </summary>
+        /// <param name="bot"></param>
+        /// <param name="groupQQ">要发送的群</param>
+        /// <returns></returns>
+        public async Task<long> SendGroup(Bot bot, long groupQQ = 0)
+        {
+            long groupMsg = await bot.Conn.SendGroupMsg(groupQQ, this);
+            return groupMsg;
+        }
+
+        /// <summary>
         /// 发送
         /// </summary>
         /// <param name="bot"></param>
         /// <param name="qq">要发送的qq</param>
-        /// <param name="groupQQ">要发送的群</param>
         /// <returns></returns>
-        public async Task<(long privateMsg, long groupMsg)> Send(Bot bot, long qq = 0, long groupQQ = 0)
+        public async Task<long> SendPrivate(Bot bot, long qq = 0)
         {
-            long privateMsg = 0;
-            long groupMsg = 0;
-            if (qq > 0) privateMsg = await bot.Conn.SendPrivateMsg(qq, this);
-            if (groupQQ > 0) groupMsg = await bot.Conn.SendPrivateMsg(qq, this);
-            return (privateMsg, groupMsg);
+            long privateMsg = await bot.Conn.SendPrivateMsg(qq, this);
+            return privateMsg;
         }
 
         /// <summary>

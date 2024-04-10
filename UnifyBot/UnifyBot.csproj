@@ -12,8 +12,9 @@
     <Copyright>无</Copyright>
     <PackageProjectUrl>https://github.com/Jaffoo/ShamrockCore.NET</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageReleaseNotes>完全基于onebot11协议实现，支持多bot实例化。</PackageReleaseNotes>
+    <PackageReleaseNotes>修复bug</PackageReleaseNotes>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

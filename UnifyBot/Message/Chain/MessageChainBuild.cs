@@ -1,4 +1,6 @@
-﻿namespace UnifyBot.Message.Chain
+﻿using UnifyBot.Api;
+
+namespace UnifyBot.Message.Chain
 {
     /// <summary>
     /// 构建消息连
@@ -20,19 +22,19 @@
         /// 构建消息
         /// </summary>
         /// <returns></returns>
-        public MessageChain Build()
+        public MessageChainBuild Build()
         {
-            return list;
+            return this;
         }
 
         /// <summary>
         /// 匿名发送消息
         /// </summary>
         /// <returns></returns>
-        public MessageChain Anonymous()
+        public MessageChainBuild Anonymous()
         {
             list.Add(new AnonymousMessage());
-            return list;
+            return this;
         }
 
         /// <summary>
@@ -40,17 +42,17 @@
         /// </summary>
         /// <param name="qq"></param>
         /// <returns></returns>
-        public MessageChain At(string qq)
+        public MessageChainBuild At(string qq)
         {
             list.Add(new AtMessage(qq));
-            return list;
+            return this;
         }
 
         /// <summary>
         /// at全体成员
         /// </summary>
         /// <returns></returns>
-        public MessageChain AtAll()
+        public MessageChainBuild AtAll()
         {
             return At("all");
         }
@@ -59,90 +61,90 @@
         /// 掷骰子魔法表情
         /// </summary>
         /// <returns></returns>
-        public MessageChain Dice()
+        public MessageChainBuild Dice()
         {
             list.Add(new DiceMessage());
-            return At("all");
+            return this;
         }
 
         /// <summary>
         /// 表情消息
         /// </summary>
         /// <returns></returns>
-        public MessageChain Face(int id)
+        public MessageChainBuild Face(int id)
         {
             list.Add(new FaceMessage(id));
-            return list;
+            return this;
         }
 
         /// <summary>
         /// 合并转发
         /// </summary>
         /// <returns></returns>
-        public MessageChain Forward(long forwardId)
+        public MessageChainBuild Forward(long forwardId)
         {
             list.Add(new ForwardMessage(forwardId));
-            return list;
+            return this;
         }
 
         /// <summary>
         /// 图片消息
         /// </summary>
         /// <returns></returns>
-        public MessageChain ImageByUrl(string url, bool cache = true, bool proxy = true)
+        public MessageChainBuild ImageByUrl(string url, bool cache = true, bool proxy = true)
         {
             list.Add(new ImageByUrl(url, cache, proxy));
-            return list;
+            return this;
         }
 
         /// <summary>
         /// 图片消息
         /// </summary>
         /// <returns></returns>
-        public MessageChain ImageByPath(string path)
+        public MessageChainBuild ImageByPath(string path)
         {
             list.Add(new ImageByPath(path));
-            return list;
+            return this;
         }
 
         /// <summary>
         /// 图片消息
         /// </summary>
         /// <returns></returns>
-        public MessageChain ImageByBase64(string base64)
+        public MessageChainBuild ImageByBase64(string base64)
         {
             list.Add(new ImageByBase64(base64));
-            return list;
+            return this;
         }
 
         /// <summary>
         /// json
         /// </summary>
         /// <returns></returns>
-        public MessageChain Json(string json)
+        public MessageChainBuild Json(string json)
         {
             list.Add(new JsonMessage(json));
-            return list;
+            return this;
         }
 
         /// <summary>
         /// xml
         /// </summary>
         /// <returns></returns>
-        public MessageChain Xml(string xml)
+        public MessageChainBuild Xml(string xml)
         {
             list.Add(new XmlMessage(xml));
-            return list;
+            return this;
         }
 
         /// <summary>
         /// 位置
         /// </summary>
         /// <returns></returns>
-        public MessageChain Location(double lat, double lon, string title = "", string content = "")
+        public MessageChainBuild Location(double lat, double lon, string title = "", string content = "")
         {
             list.Add(new LocationMessage(lat, lon, title, content));
-            return list;
+            return this;
         }
 
         /// <summary>
@@ -151,327 +153,336 @@
         /// <param name="musicId"></param>
         /// <param name="type">qq-qq音乐，163-网易云，xm-虾米</param>
         /// <returns></returns>
-        public MessageChain Music(string musicId, string type = "qq")
+        public MessageChainBuild Music(string musicId, string type = "qq")
         {
             list.Add(new MusicMessage(musicId, type));
-            return list;
+            return this;
         }
 
         /// <summary>
         /// 音乐
         /// </summary>
         /// <returns></returns>
-        public MessageChain MusicCustom(string url, string audio, string title, string content = "", string image = "")
+        public MessageChainBuild MusicCustom(string url, string audio, string title, string content = "", string image = "")
         {
             list.Add(new MusicMessage(url, audio, title, content, image));
-            return list;
+            return this;
         }
 
         /// <summary>
         /// 节点合并转发
         /// </summary>
         /// <returns></returns>
-        public MessageChain Node(long msgId)
+        public MessageChainBuild Node(long msgId)
         {
             list.Add(new NodeMessage(msgId));
-            return list;
+            return this;
+        }
+
+        /// <summary>
+        /// 节点合并转发
+        /// </summary>
+        /// <returns></returns>
+        public MessageChainBuild Node(long qq, string nickname, string msg)
+        {
+            list.Add(new NodeMessage(qq, nickname, msg));
+            return this;
+        }
+
+        /// <summary>
+        /// 节点合并转发
+        /// </summary>
+        /// <returns></returns>
+        public MessageChainBuild Node(long qq, string nickname, MessageChain msg)
+        {
+            list.Add(new NodeMessage(qq, nickname, msg));
+            return this;
         }
 
         /// <summary>
         /// 戳一戳
         /// </summary>
         /// <returns></returns>
-        public MessageChain Poke()
+        public MessageChainBuild Poke()
         {
             list.Add(new Poke());
-            return list;
+            return this;
         }
 
         /// <summary>
         /// 比心
         /// </summary>
         /// <returns></returns>
-        public MessageChain ShowLove()
+        public MessageChainBuild ShowLove()
         {
             list.Add(new ShowLove());
-            return list;
+            return this;
         }
 
         /// <summary>
         /// 点赞
         /// </summary>
         /// <returns></returns>
-        public MessageChain Like()
+        public MessageChainBuild Like()
         {
             list.Add(new Like());
-            return list;
+            return this;
         }
 
         /// <summary>
         /// 心碎
         /// </summary>
         /// <returns></returns>
-        public MessageChain Heartbroken()
+        public MessageChainBuild Heartbroken()
         {
             list.Add(new Heartbroken());
-            return list;
+            return this;
         }
 
         /// <summary>
         /// 666
         /// </summary>
         /// <returns></returns>
-        public MessageChain SixSixSix()
+        public MessageChainBuild SixSixSix()
         {
             list.Add(new SixSixSix());
-            return list;
+            return this;
         }
 
         /// <summary>
         /// 放大招
         /// </summary>
         /// <returns></returns>
-        public MessageChain FangDaZhao()
+        public MessageChainBuild FangDaZhao()
         {
             list.Add(new FangDaZhao());
-            return list;
+            return this;
         }
 
         /// <summary>
         /// 宝贝球 (SVIP)
         /// </summary>
         /// <returns></returns>
-        public MessageChain BaoBeiQiu()
+        public MessageChainBuild BaoBeiQiu()
         {
             list.Add(new BaoBeiQiu());
-            return list;
+            return this;
         }
 
         /// <summary>
         /// 玫瑰花 (SVIP) 
         /// </summary>
         /// <returns></returns>
-        public MessageChain Rose()
+        public MessageChainBuild Rose()
         {
             list.Add(new Rose());
-            return list;
+            return this;
         }
 
         /// <summary>
         /// 召唤术 (SVIP) 
         /// </summary>
         /// <returns></returns>
-        public MessageChain ZhaoHuanShu()
+        public MessageChainBuild ZhaoHuanShu()
         {
             list.Add(new ZhaoHuanShu());
-            return list;
+            return this;
         }
 
         /// <summary>
         /// 让你皮 (SVIP) 
         /// </summary>
         /// <returns></returns>
-        public MessageChain RangNiPi()
+        public MessageChainBuild RangNiPi()
         {
             list.Add(new RangNiPi());
-            return list;
+            return this;
         }
 
         /// <summary>
         /// 结印 (SVIP) 
         /// </summary>
         /// <returns></returns>
-        public MessageChain JieYin()
+        public MessageChainBuild JieYin()
         {
             list.Add(new JieYin());
-            return list;
+            return this;
         }
 
         /// <summary>
         /// 手雷 (SVIP) 
         /// </summary>
         /// <returns></returns>
-        public MessageChain ShouLei()
+        public MessageChainBuild ShouLei()
         {
             list.Add(new ShouLei());
-            return list;
+            return this;
         }
 
         /// <summary>
         /// 勾引 (SVIP) 
         /// </summary>
         /// <returns></returns>
-        public MessageChain GouYin()
+        public MessageChainBuild GouYin()
         {
             list.Add(new GouYin());
-            return list;
+            return this;
         }
 
         /// <summary>
         /// 抓一下 (SVIP) 
         /// </summary>
         /// <returns></returns>
-        public MessageChain ZhuaYiXia()
+        public MessageChainBuild ZhuaYiXia()
         {
             list.Add(new ZhuaYiXia());
-            return list;
+            return this;
         }
 
         /// <summary>
         /// 碎屏 (SVIP) 
         /// </summary>
         /// <returns></returns>
-        public MessageChain SuiPing()
+        public MessageChainBuild SuiPing()
         {
             list.Add(new SuiPing());
-            return list;
+            return this;
         }
 
         /// <summary>
         /// 敲门 (SVIP) 
         /// </summary>
         /// <returns></returns>
-        public MessageChain QiaoMen()
+        public MessageChainBuild QiaoMen()
         {
             list.Add(new QiaoMen());
-            return list;
+            return this;
         }
 
         /// <summary>
         /// 发语音
         /// </summary>
         /// <returns></returns>
-        public MessageChain RecordByUrl(string url, bool cache = true, bool proxy = true)
+        public MessageChainBuild RecordByUrl(string url, bool cache = true, bool proxy = true)
         {
             list.Add(new RecordByUrl(url, cache, proxy));
-            return list;
+            return this;
         }
 
         /// <summary>
         /// 发语音
         /// </summary>
         /// <returns></returns>
-        public MessageChain RecordByPath(string path)
+        public MessageChainBuild RecordByPath(string path)
         {
             list.Add(new RecordByPath(path));
-            return list;
+            return this;
         }
 
         /// <summary>
         /// 发语音
         /// </summary>
         /// <returns></returns>
-        public MessageChain RecordByBase64(string base64)
+        public MessageChainBuild RecordByBase64(string base64)
         {
             list.Add(new RecordByBase64(base64));
-            return list;
+            return this;
         }
 
         /// <summary>
         /// 回复
         /// </summary>
         /// <returns></returns>
-        public MessageChain Reply(long msgId)
+        public MessageChainBuild Reply(long msgId)
         {
             list.Add(new ReplyMessage(msgId));
-            return list;
+            return this;
         }
 
         /// <summary>
         /// 猜拳魔法表情
         /// </summary>
         /// <returns></returns>
-        public MessageChain Rps()
+        public MessageChainBuild Rps()
         {
             list.Add(new RpsMessage());
-            return list;
+            return this;
         }
 
         /// <summary>
         /// 窗口抖动（戳一戳）
         /// </summary>
         /// <returns></returns>
-        public MessageChain Shake()
+        public MessageChainBuild Shake()
         {
             list.Add(new ShakeMessage());
-            return list;
+            return this;
         }
 
         /// <summary>
         /// 连接分享
         /// </summary>
         /// <returns></returns>
-        public MessageChain Share(string url, string title, string content = "", string image = "")
+        public MessageChainBuild Share(string url, string title, string content = "", string image = "")
         {
             list.Add(new ShareMessage(url, title, content, image));
-            return list;
+            return this;
         }
 
         /// <summary>
         /// 文本消息
         /// </summary>
         /// <returns></returns>
-        public MessageChain Text(string content)
+        public MessageChainBuild Text(string content)
         {
             list.Add(new TextMessage(content));
-            return list;
+            return this;
         }
 
         /// <summary>
         /// 视频
         /// </summary>
         /// <returns></returns>
-        public MessageChain VideoByUrl(string url, bool cache = true, bool proxy = true)
+        public MessageChainBuild VideoByUrl(string url, bool cache = true, bool proxy = true)
         {
             list.Add(new VideoByUrl(url, cache, proxy));
-            return list;
+            return this;
         }
 
         /// <summary>
         /// 视频
         /// </summary>
         /// <returns></returns>
-        public MessageChain VideoByPath(string path)
+        public MessageChainBuild VideoByPath(string path)
         {
             list.Add(new VideoByPath(path));
-            return list;
+            return this;
         }
 
         /// <summary>
         /// 视频
         /// </summary>
         /// <returns></returns>
-        public MessageChain VideoByBase64(string base64)
+        public MessageChainBuild VideoByBase64(string base64)
         {
             list.Add(new VideoByBase64(base64));
-            return list;
-        }
-
-        private long QQ = 0;
-        /// <summary>
-        /// 发送给好友
-        /// </summary>
-        public void Friend(long qq)
-        {
-            QQ = qq;
-        }
-
-        private long GroupQQ = 0;
-        /// <summary>
-        /// 发送到群
-        /// </summary>
-        public void Group(long groupQQ)
-        {
-            GroupQQ = groupQQ;
+            return this;
         }
 
         /// <summary>
-        /// 发送(如果同时调用了Friend方法和Group方法，则都会发送)
+        /// 发送群
         /// </summary>
-        public void Send(Bot bot)
+        public async Task<long> SendGroup(Bot bot, long groupQQ)
         {
-            if (QQ > 0) Task.Run(async () => await bot.SendPrivateMessage(QQ, list));
-            if (GroupQQ > 0) Task.Run(async () => await bot.SendGroupMessage(QQ, list));
+            return await bot.Conn.SendGroupMsg(groupQQ, list);
+        }
+
+        /// <summary>
+        /// 发送好友
+        /// </summary>
+        public async Task<long> SendPrivate(Bot bot, long qq)
+        {
+            return await bot.Conn.SendPrivateMsg(qq, list);
         }
     }
 }

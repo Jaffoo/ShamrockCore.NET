@@ -1,4 +1,5 @@
-﻿using UnifyBot.Message.Chain;
+﻿using Newtonsoft.Json;
+using UnifyBot.Message.Chain;
 using UnifyBot.Model;
 
 namespace UnifyBot.Message
@@ -11,6 +12,7 @@ namespace UnifyBot.Message
         public override Messages Type => Messages.Node;
 
         public NodeMessage() { }
+
         /// <summary>
         /// 合并转发
         /// </summary>
@@ -59,6 +61,7 @@ namespace UnifyBot.Message
             /// <summary>
             /// 发送者 QQ 号
             /// </summary>
+            [JsonProperty("user_id")]
             public long QQ { get; set; }
 
             /// <summary>
