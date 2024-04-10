@@ -1,4 +1,6 @@
-﻿using UnifyBot.Model;
+﻿using Newtonsoft.Json;
+using TBC.CommonLib;
+using UnifyBot.Model;
 
 namespace UnifyBot.Message
 {
@@ -7,7 +9,7 @@ namespace UnifyBot.Message
     /// </summary>
     public class RecordMessage : MessageBase
     {
-        public override Messages Type => Messages.Record;
+        public new Body Data => ((string)JsonConvert.SerializeObject(base.Data)).ToModel<Body>();
 
         public RecordMessage() { }
         /// <summary>
@@ -80,12 +82,14 @@ namespace UnifyBot.Message
     // <summary>
     /// 通过url发送图片
     /// </summary>
-    public class RecordByUrl : RecordMessage
+    public class RecordByUrl : MessageBase
     {
+        public override Messages Type => Messages.Record;
+        public new RecordMessage.Body Data => ((string)JsonConvert.SerializeObject(base.Data)).ToModel<RecordMessage.Body>();
         public RecordByUrl() { }
         public RecordByUrl(string url, bool cache = true, bool proxy = true)
         {
-            base.Data = new Body()
+            base.Data = new RecordMessage.Body()
             {
                 File = url,
                 Cache = cache,
@@ -96,12 +100,14 @@ namespace UnifyBot.Message
     /// <summary>
     /// 通过文件路径发送图片
     /// </summary>
-    public class RecordByPath : RecordMessage
+    public class RecordByPath : MessageBase
     {
+        public override Messages Type => Messages.Record;
+        public new RecordMessage.Body Data => ((string)JsonConvert.SerializeObject(base.Data)).ToModel<RecordMessage.Body>();
         public RecordByPath() { }
         public RecordByPath(string path)
         {
-            base.Data = new Body()
+            base.Data = new RecordMessage.Body()
             {
                 File = path
             };
@@ -110,12 +116,14 @@ namespace UnifyBot.Message
     /// <summary>
     /// 通过Base64发送图片
     /// </summary>
-    public class RecordByBase64 : RecordMessage
+    public class RecordByBase64 : MessageBase
     {
+        public override Messages Type => Messages.Record;
+        public new RecordMessage.Body Data => ((string)JsonConvert.SerializeObject(base.Data)).ToModel<RecordMessage.Body>();
         public RecordByBase64() { }
         public RecordByBase64(string base64)
         {
-            base.Data = new Body()
+            base.Data = new RecordMessage.Body()
             {
                 File = base64
             };

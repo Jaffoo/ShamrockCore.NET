@@ -1,4 +1,6 @@
-﻿using UnifyBot.Model;
+﻿using Newtonsoft.Json;
+using TBC.CommonLib;
+using UnifyBot.Model;
 
 namespace UnifyBot.Message
 {
@@ -8,6 +10,7 @@ namespace UnifyBot.Message
     public class LocationMessage : MessageBase
     {
         public override Messages Type => Messages.Location;
+        public new Body Data => ((string)JsonConvert.SerializeObject(base.Data)).ToModel<Body>();
 
         public LocationMessage() { }
         /// <summary>
@@ -15,7 +18,7 @@ namespace UnifyBot.Message
         /// </summary>
         public LocationMessage(double lat, double lon, string title = "", string content = "")
         {
-            Data = new Body()
+            base.Data = new Body()
             {
                 Lat = lat,
                 Lon = lon,

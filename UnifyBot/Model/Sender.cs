@@ -31,7 +31,10 @@ namespace UnifyBot.Model
         public int Age { get; set; }
     }
 
-    public class GroupSender
+    /// <summary>
+    /// 信息发送人
+    /// </summary>
+    public class GroupSender : Sender
     {
         /// <summary>
         /// 群名片／备注

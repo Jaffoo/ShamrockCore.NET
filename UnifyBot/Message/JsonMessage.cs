@@ -1,4 +1,6 @@
-﻿using UnifyBot.Model;
+﻿using Newtonsoft.Json;
+using TBC.CommonLib;
+using UnifyBot.Model;
 
 namespace UnifyBot.Message
 {
@@ -8,11 +10,12 @@ namespace UnifyBot.Message
     public class JsonMessage : MessageBase
     {
         public override Messages Type => Messages.Json;
+        public new Body Data => ((string)JsonConvert.SerializeObject(base.Data)).ToModel<Body>();
 
         public JsonMessage() { }
         public JsonMessage(string json)
         {
-            Data = new Body()
+            base.Data = new Body()
             {
                 Data = json
             };

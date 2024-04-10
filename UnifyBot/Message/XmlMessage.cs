@@ -1,4 +1,6 @@
-﻿using UnifyBot.Model;
+﻿using Newtonsoft.Json;
+using TBC.CommonLib;
+using UnifyBot.Model;
 
 namespace UnifyBot.Message
 {
@@ -8,11 +10,12 @@ namespace UnifyBot.Message
     public class XmlMessage : MessageBase
     {
         public override Messages Type => Messages.Xml;
+        public new Body Data => ((string)JsonConvert.SerializeObject(base.Data)).ToModel<Body>();
 
         public XmlMessage() { }
         public XmlMessage(string xml)
         {
-            Data = new Body()
+            base.Data = new Body()
             {
                 Data = xml
             };

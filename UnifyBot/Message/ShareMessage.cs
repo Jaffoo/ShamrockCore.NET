@@ -1,4 +1,6 @@
-﻿using UnifyBot.Model;
+﻿using Newtonsoft.Json;
+using TBC.CommonLib;
+using UnifyBot.Model;
 
 namespace UnifyBot.Message
 {
@@ -8,11 +10,12 @@ namespace UnifyBot.Message
     public class ShareMessage : MessageBase
     {
         public override Messages Type => Messages.Share;
+        public new Body Data => ((string)JsonConvert.SerializeObject(base.Data)).ToModel<Body>();
 
         public ShareMessage() { }
         public ShareMessage(string url, string title, string content = "", string image="")
         {
-            Data = new Body()
+            base.Data = new Body()
             {
                 Url = url,
                 Title = title,

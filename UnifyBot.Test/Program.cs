@@ -1,4 +1,5 @@
 ﻿using System.Reactive.Linq;
+using TBC.CommonLib;
 using UnifyBot;
 using UnifyBot.Message;
 using UnifyBot.Message.Chain;
@@ -15,20 +16,19 @@ namespace UniBot.Test
             Bot bot = new(connect);
             await bot.StartAsync();
             bot.MessageReceived.OfType<MessageReceiver>()
-                .Subscribe(async msg => Console.WriteLine(msg.OriginalData.ToString()));
-            await new MessageChain()
-            {
-            new NodeMessage(1615842006,"测试","字符串")
-            }
-            .SendGroup(bot, 341630390);
+                .Subscribe(async msg =>
+                {
+                    foreach (var item in msg.Message)
+                    {
+                        if (item.Type == Messages.Text)
+                        {
+                            var text = item as TextMessage;
+                            var ntext = (TextMessage)item;
+                            Console.WriteLine("文本消息测试：" + text.Data.Text);
+                        }
+                    }
+                });
 
-            await new MessageChain()
-            {
-            new NodeMessage(1615842006,"测试",new MessageChain() { new TextMessage("消息段") })
-            }
-           .SendGroup(bot, 341630390);
-
-            await new MessageChainBuild().Node(1615842006, "测试", new MessageChain() { new TextMessage("我测你码") }).SendGroup(bot, 341630390);
             while (true)
             {
                 Thread.Sleep(10);

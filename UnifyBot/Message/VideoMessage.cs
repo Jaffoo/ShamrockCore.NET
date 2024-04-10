@@ -1,4 +1,6 @@
-﻿using UnifyBot.Model;
+﻿using Newtonsoft.Json;
+using TBC.CommonLib;
+using UnifyBot.Model;
 
 namespace UnifyBot.Message
 {
@@ -8,6 +10,7 @@ namespace UnifyBot.Message
     public class VideoMessage : MessageBase
     {
         public override Messages Type => Messages.Video;
+        public new Body Data => ((string)JsonConvert.SerializeObject(base.Data)).ToModel<Body>();
 
         public VideoMessage() { }
         /// <summary>
@@ -74,12 +77,14 @@ namespace UnifyBot.Message
     // <summary>
     /// 通过url发送图片
     /// </summary>
-    public class VideoByUrl : VideoMessage
+    public class VideoByUrl : MessageBase
     {
+        public override Messages Type => Messages.Video;
+        public new VideoMessage.Body Data => ((string)JsonConvert.SerializeObject(base.Data)).ToModel<VideoMessage.Body>();
         public VideoByUrl() { }
         public VideoByUrl(string url, bool cache = true, bool proxy = true)
         {
-            base.Data = new Body()
+            base.Data = new VideoMessage.Body()
             {
                 File = url,
                 Cache = cache,
@@ -90,12 +95,14 @@ namespace UnifyBot.Message
     /// <summary>
     /// 通过文件路径发送图片
     /// </summary>
-    public class VideoByPath : VideoMessage
+    public class VideoByPath : MessageBase
     {
+        public override Messages Type => Messages.Video;
+        public new VideoMessage.Body Data => ((string)JsonConvert.SerializeObject(base.Data)).ToModel<VideoMessage.Body>();
         public VideoByPath() { }
         public VideoByPath(string path)
         {
-            base.Data = new Body()
+            base.Data = new VideoMessage.Body()
             {
                 File = path
             };
@@ -104,12 +111,14 @@ namespace UnifyBot.Message
     /// <summary>
     /// 通过Base64发送图片
     /// </summary>
-    public class VideoByBase64 : VideoMessage
+    public class VideoByBase64 : MessageBase
     {
+        public override Messages Type => Messages.Video;
+        public new VideoMessage.Body Data => ((string)JsonConvert.SerializeObject(base.Data)).ToModel<VideoMessage.Body>();
         public VideoByBase64() { }
         public VideoByBase64(string base64)
         {
-            base.Data = new Body()
+            base.Data = new VideoMessage.Body()
             {
                 File = base64
             };

@@ -1,4 +1,6 @@
-﻿using UnifyBot.Model;
+﻿using Newtonsoft.Json;
+using TBC.CommonLib;
+using UnifyBot.Model;
 
 namespace UnifyBot.Message
 {
@@ -8,6 +10,7 @@ namespace UnifyBot.Message
     public class AtMessage : MessageBase
     {
         public override Messages Type => Messages.At;
+        public new Body Data => ((string)JsonConvert.SerializeObject(base.Data)).ToModel<Body>();
 
         public AtMessage() { }
         /// <summary>
@@ -21,7 +24,6 @@ namespace UnifyBot.Message
                 QQ = qq
             };
         }
-
         /// <summary>
         /// 消息体
         /// </summary>

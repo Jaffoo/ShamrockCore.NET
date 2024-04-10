@@ -1,4 +1,6 @@
-﻿using UnifyBot.Model;
+﻿using Newtonsoft.Json;
+using TBC.CommonLib;
+using UnifyBot.Model;
 
 namespace UnifyBot.Message
 {
@@ -8,6 +10,7 @@ namespace UnifyBot.Message
     public class MusicMessage : MessageBase
     {
         public override Messages Type => Messages.Music;
+        public new Body Data => ((string)JsonConvert.SerializeObject(base.Data)).ToModel<Body>();
 
         public MusicMessage() { }
         /// <summary>
@@ -15,7 +18,7 @@ namespace UnifyBot.Message
         /// </summary>
         public MusicMessage(string musicId, string type = "qq")
         {
-            Data = new Body()
+            base.Data = new Body()
             {
                 Id = musicId,
                 Type = type
@@ -27,7 +30,7 @@ namespace UnifyBot.Message
         /// </summary>
         public MusicMessage(string url,string audio,string title,string content="",string image="")
         {
-            Data = new Body()
+            base.Data = new Body()
             {
                 Type="custom",
                 Url = url,

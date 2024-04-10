@@ -1,4 +1,6 @@
-﻿using UnifyBot.Model;
+﻿using Newtonsoft.Json;
+using TBC.CommonLib;
+using UnifyBot.Model;
 
 namespace UnifyBot.Message
 {
@@ -8,11 +10,12 @@ namespace UnifyBot.Message
     public class PokeMessage : MessageBase
     {
         public override Messages Type => Messages.Poke;
+        public new Body Data => ((string)JsonConvert.SerializeObject(base.Data)).ToModel<Body>();
 
         public PokeMessage() { }
         public PokeMessage(int type, int id, string name = "")
         {
-            Data = new Body()
+            base.Data = new Body()
             {
                 Id = id,
                 Name = name,

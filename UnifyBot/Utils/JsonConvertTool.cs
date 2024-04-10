@@ -10,6 +10,7 @@ using UnifyBot.Model;
 using UnifyBot.Receiver.EventReceiver;
 using Newtonsoft.Json.Serialization;
 using UnifyBot.Receiver.EventReceiver.Notice;
+using TBC.CommonLib;
 
 namespace UnifyBot.Utils
 {
@@ -39,7 +40,7 @@ namespace UnifyBot.Utils
                 }
                 else
                 {
-                    if (unknow != null)  
+                    if (unknow != null)
                         return Enum.Parse(objectType, unknow.Name);
                     else
                     {
@@ -103,14 +104,14 @@ namespace UnifyBot.Utils
                     Type dllType = item.GetType();
                     if (dllType.Name == "MessageBase") continue;
                     var bodyDll = dllType.GetNestedType("Body")!;
-                    foreach (var msg in data.Message!)
+                    for (int i = 0; i < data.Message!.Count; i++)
                     {
+                        var msg = data.Message![i];
                         if (msg.Type == item.Type)
                         {
-                            msg.Connect = conf;
-                            //var tempData = ((JObject)msg.Data!).ToString()!;
-                            //msg.Data = null;
-                            //msg.Data = JsonConvert.DeserializeObject(tempData, bodyDll);
+                            var msgStr = msg.ToJsonStr();
+                            var mb = JsonConvert.DeserializeObject(msgStr, dllType) as MessageBase;
+                            data.Message![i] = mb;
                             break;
                         }
                     }

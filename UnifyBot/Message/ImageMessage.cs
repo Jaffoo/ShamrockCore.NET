@@ -1,4 +1,6 @@
-﻿using UnifyBot.Model;
+﻿using Newtonsoft.Json;
+using TBC.CommonLib;
+using UnifyBot.Model;
 
 namespace UnifyBot.Message
 {
@@ -8,6 +10,7 @@ namespace UnifyBot.Message
     public class ImageMessage : MessageBase
     {
         public override Messages Type => Messages.Image;
+        public new Body Data => ((string)JsonConvert.SerializeObject(base.Data)).ToModel<Body>();
 
         public ImageMessage() { }
         /// <summary>
@@ -79,12 +82,15 @@ namespace UnifyBot.Message
     /// <summary>
     /// 通过url发送图片
     /// </summary>
-    public class ImageByUrl : ImageMessage
+    public class ImageByUrl : MessageBase
     {
+        public override Messages Type => Messages.Image;
+        public new ImageMessage.Body Data => ((string)JsonConvert.SerializeObject(base.Data)).ToModel<ImageMessage.Body>();
+
         public ImageByUrl() { }
         public ImageByUrl(string url, bool cache = true, bool proxy = true)
         {
-            base.Data = new Body()
+            base.Data = new ImageMessage.Body()
             {
                 File = url,
                 Cache = cache,
@@ -95,12 +101,15 @@ namespace UnifyBot.Message
     /// <summary>
     /// 通过文件路径发送图片
     /// </summary>
-    public class ImageByPath : ImageMessage
+    public class ImageByPath : MessageBase
     {
+        public override Messages Type => Messages.Image;
+        public new ImageMessage.Body Data => ((string)JsonConvert.SerializeObject(base.Data)).ToModel<ImageMessage.Body>();
+
         public ImageByPath() { }
         public ImageByPath(string path)
         {
-            base.Data = new Body()
+            base.Data = new ImageMessage.Body()
             {
                 File = path
             };
@@ -109,12 +118,15 @@ namespace UnifyBot.Message
     /// <summary>
     /// 通过Base64发送图片
     /// </summary>
-    public class ImageByBase64 : ImageMessage
+    public class ImageByBase64 : MessageBase
     {
+        public override Messages Type => Messages.Image;
+        public new ImageMessage.Body Data => ((string)JsonConvert.SerializeObject(base.Data)).ToModel<ImageMessage.Body>();
+
         public ImageByBase64() { }
         public ImageByBase64(string base64)
         {
-            base.Data = new Body()
+            base.Data = new ImageMessage.Body()
             {
                 File = base64
             };

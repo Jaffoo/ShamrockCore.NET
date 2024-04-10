@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using TBC.CommonLib;
 using UnifyBot.Message.Chain;
 using UnifyBot.Model;
 
@@ -10,6 +11,7 @@ namespace UnifyBot.Message
     public class NodeMessage : MessageBase
     {
         public override Messages Type => Messages.Node;
+        public new Body Data => ((string)JsonConvert.SerializeObject(base.Data)).ToModel<Body>();
 
         public NodeMessage() { }
 
@@ -19,7 +21,7 @@ namespace UnifyBot.Message
         /// <param name="msgId"></param>
         public NodeMessage(long msgId)
         {
-            Data = new Body() { Id = msgId };
+            base.Data = new Body() { Id = msgId };
         }
 
         /// <summary>
@@ -32,7 +34,7 @@ namespace UnifyBot.Message
             {
                 new TextMessage(msg)
             };
-            Data = new Body()
+            base.Data = new Body()
             {
                 QQ = qq,
                 Nickname = nickname,
@@ -45,7 +47,7 @@ namespace UnifyBot.Message
         /// </summary>
         public NodeMessage(long qq, string nickname, MessageChain msg)
         {
-            Data = new Body() { QQ = qq, Nickname = nickname, Content = msg };
+            base.Data = new Body() { QQ = qq, Nickname = nickname, Content = msg };
         }
 
         /// <summary>

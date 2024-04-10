@@ -1,4 +1,6 @@
-﻿using UnifyBot.Model;
+﻿using Newtonsoft.Json;
+using TBC.CommonLib;
+using UnifyBot.Model;
 
 namespace UnifyBot.Message
 {
@@ -8,11 +10,12 @@ namespace UnifyBot.Message
     public class ForwardMessage : MessageBase
     {
         public override Messages Type => Messages.Forward;
+        public new Body Data => ((string)JsonConvert.SerializeObject(base.Data)).ToModel<Body>();
 
         public ForwardMessage() { }
         public ForwardMessage(long forwardMsgId)
         {
-            Data = new Body() { Id = forwardMsgId };
+            base.Data = new Body() { Id = forwardMsgId };
         }
 
         /// <summary>
