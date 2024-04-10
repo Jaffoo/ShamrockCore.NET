@@ -22,9 +22,9 @@ namespace UnifyBot.Message.Chain
         /// 构建消息
         /// </summary>
         /// <returns></returns>
-        public MessageChainBuild Build()
+        public MessageChain Build()
         {
-            return this;
+            return list;
         }
 
         /// <summary>
