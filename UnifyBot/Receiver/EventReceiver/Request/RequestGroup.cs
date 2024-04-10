@@ -46,6 +46,12 @@ namespace UnifyBot.Receiver.EventReceiver.Request
 
         #region 扩展属性/方法
         /// <summary>
+        /// 群信息
+        /// </summary>
+        [JsonIgnore]
+        public GroupInfo Group => Connect.GetGroupInfo(GroupQQ).Result;
+        
+        /// <summary>
         /// 同意
         /// </summary>
         /// <returns></returns>
