@@ -16,7 +16,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCopyrightAttribute("无")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("基于onebot11协议的sdk，支持多实例机器人。")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+09a6b57603727a06c2f5d71bcda8e021022a12c4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b4b5a8c5ee8c628dc59307843b57a5e3955a6b01")]
 [assembly: System.Reflection.AssemblyProductAttribute("UnifyBot")]
 [assembly: System.Reflection.AssemblyTitleAttribute("UnifyBot")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -9,7 +9,7 @@
 /ShamrockCore/obj/**
 /ShamrockCore.Test
 /ShamrockCore.Test/**
-/UniBot/bin/**
-/UniBot/obj/**
-/UniBot.Test/bin/**
-/UniBot.Test/obj/**
+/UnifyBot/bin/**
+/UnifyBot/obj/**
+/UnifyBot.Test
+/UnifyBot.Test/**

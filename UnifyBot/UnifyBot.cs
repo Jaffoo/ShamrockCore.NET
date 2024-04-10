@@ -293,38 +293,6 @@ namespace UnifyBot
         /// <param name="msg"></param>
         /// <returns></returns>
         public async Task<long> SendGroupMessage(GroupInfo group, string msg) => await Conn.SendGroupMsg(group.GroupQQ, msg);
-
-        /// <summary>
-        /// 发送群聊合并消息
-        /// </summary>
-        /// <param name="groupQQ"></param>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        public async Task<ForardMessageInfo> SendGroupForwardMessage(long groupQQ, MessageChain msg) => await Conn.SendGroupForwardMsg(groupQQ, msg);
-
-        /// <summary>
-        /// 发送群聊合并消息
-        /// </summary>
-        /// <param name="group"></param>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        public async Task<ForardMessageInfo> SendGroupForwardMessage(GroupInfo group, MessageChain msg) => await Conn.SendGroupForwardMsg(group.GroupQQ, msg);
-
-        /// <summary>
-        /// 发送私聊合并消息
-        /// </summary>
-        /// <param name="qq"></param>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        public async Task<ForardMessageInfo> SendPrivateForwardMessage(long qq, MessageChain msg) => await Conn.SendPrivateForwardMsg(qq, msg);
-
-        /// <summary>
-        /// 发送私聊合并消息
-        /// </summary>
-        /// <param name="friend"></param>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        public async Task<ForardMessageInfo> SendPrivateForwardMessage(FriendInfo friend, MessageChain msg) => await Conn.SendPrivateForwardMsg(friend.QQ, msg);
         #endregion
 
         #region onebot实现的扩展api调用方法

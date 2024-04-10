@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UniBot\UnifyBot.csproj" />
+    <ProjectReference Include="..\UnifyBot\UnifyBot.csproj" />
   </ItemGroup>
 
 </Project>

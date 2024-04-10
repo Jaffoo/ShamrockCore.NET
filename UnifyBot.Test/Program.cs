@@ -1,7 +1,9 @@
-﻿using UnifyBot;
+﻿using System.Reactive.Linq;
+using UnifyBot;
 using UnifyBot.Message;
 using UnifyBot.Message.Chain;
 using UnifyBot.Model;
+using UnifyBot.Receiver.MessageReceiver;
 
 namespace UniBot.Test
 {
@@ -12,14 +14,8 @@ namespace UniBot.Test
             Connect connect = new("localhost", 3001, 3000);
             Bot bot = new(connect);
             await bot.StartAsync();
-            MessageChain msg = new()
-            {
-                new TextMessage("1"),
-                new ImageByUrl("https://www.zink.asia/upload/h3468-01.jpg"),
-                new TextMessage("3"),
-            };
-            await bot.SendPrivateForwardMessage(1737678289, msg);
-            await bot.SendGroupForwardMessage(341630390, msg);
+            bot.MessageReceived.OfType<MessageReceiver>()
+                .Subscribe(async msg => Console.WriteLine(msg.OriginalData.ToString()));
             while (true)
             {
                 Thread.Sleep(10);

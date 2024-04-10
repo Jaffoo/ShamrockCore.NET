@@ -201,15 +201,6 @@ namespace UnifyBot.Api
         #endregion
 
         #region 扩展API
-        /// <summary>
-        /// 发送合并转发 ( 群聊 )
-        /// </summary>
-        [Description("send_group_forward_msg")] SendGroupForwardMsg,
-
-        /// <summary>
-        /// 发送合并转发 ( 好友 )
-        /// </summary>
-        [Description("send_private_forward_msg")] SendPrivateForwardMsg,
         #endregion
     }
 }

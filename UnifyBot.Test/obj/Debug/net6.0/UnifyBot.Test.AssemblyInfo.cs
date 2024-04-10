@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("UnifyBot.Test")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dac18bdd89506f632d40ed1b84ac8eb21aa844a7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b4b5a8c5ee8c628dc59307843b57a5e3955a6b01")]
 [assembly: System.Reflection.AssemblyProductAttribute("UnifyBot.Test")]
 [assembly: System.Reflection.AssemblyTitleAttribute("UnifyBot.Test")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

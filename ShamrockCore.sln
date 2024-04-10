@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShamrockCore", "ShamrockCor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShamrockCore.Test", "ShamrockCore.Test\ShamrockCore.Test.csproj", "{07796205-F0ED-467E-AC12-91D80FE18143}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnifyBot", "UniBot\UnifyBot.csproj", "{EDB9CA1E-FF11-42CD-A933-3425386D051B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnifyBot", "UnifyBot\UnifyBot.csproj", "{EDB9CA1E-FF11-42CD-A933-3425386D051B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnifyBot.Test", "UniBot.Test\UnifyBot.Test.csproj", "{6ECAE1D6-F96C-4ADD-B8E4-021D6CA9889E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnifyBot.Test", "UnifyBot.Test\UnifyBot.Test.csproj", "{6ECAE1D6-F96C-4ADD-B8E4-021D6CA9889E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

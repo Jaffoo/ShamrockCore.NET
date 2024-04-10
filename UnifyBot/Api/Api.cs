@@ -937,57 +937,6 @@ namespace UnifyBot.Api
         #endregion
 
         #region 扩展API
-        /// <summary>
-        /// 发送合并转发 ( 群聊 )
-        /// </summary>
-        /// <returns></returns>
-        public static async Task<ForardMessageInfo> SendGroupForwardMsg(this Connect conf, long qq, MessageChain message)
-        {
-            try
-            {
-                var url = conf.HttpUrl + HttpEndpoints.SendGroupForwardMsg.GetDescription();
-                var data = new
-                {
-                    group_id = qq,
-                    messages = message
-                };
-                var res = await Tools.PostAsync<ApiResult<ForardMessageInfo>>(url, data.ToLowJsonStr(), conf.Headers);
-                if (res == null) throw new InvalidDataException("响应内容为空！");
-                if (res.Status == "failed") throw new Exception(res.Message);
-                if (res.Data == null) throw new InvalidDataException("响应数据为空");
-                return res.Data;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// 发送合并转发 ( 群聊 )
-        /// </summary>
-        /// <returns></returns>
-        public static async Task<ForardMessageInfo> SendPrivateForwardMsg(this Connect conf, long qq, MessageChain message)
-        {
-            try
-            {
-                var url = conf.HttpUrl + HttpEndpoints.SendPrivateForwardMsg.GetDescription();
-                var data = new
-                {
-                    user_id = qq,
-                    messages = message
-                };
-                var res = await Tools.PostAsync<ApiResult<ForardMessageInfo>>(url, data.ToLowJsonStr(), conf.Headers);
-                if (res == null) throw new InvalidDataException("响应内容为空！");
-                if (res.Status == "failed") throw new Exception(res.Message);
-                if (res.Data == null) throw new InvalidDataException("响应数据为空");
-                return res.Data;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
         #endregion
     }
 }
