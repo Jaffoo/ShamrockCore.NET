@@ -9,6 +9,7 @@ namespace UnifyBot.Message
     /// </summary>
     public class RecordMessage : MessageBase
     {
+        public override Messages Type => Messages.Record;
         public new Body Data => ((string)JsonConvert.SerializeObject(base.Data)).ToModel<Body>();
 
         public RecordMessage() { }

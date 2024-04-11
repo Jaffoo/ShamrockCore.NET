@@ -23,12 +23,11 @@ namespace UniBot.Test
                         if (item.Type == Messages.Text)
                         {
                             var text = item as TextMessage;
-                            var ntext = (TextMessage)item;
                             Console.WriteLine("文本消息测试：" + text.Data.Text);
                         }
                     }
                 });
-
+          
             while (true)
             {
                 Thread.Sleep(10);

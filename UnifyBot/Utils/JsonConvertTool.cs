@@ -2,14 +2,12 @@
 using Newtonsoft.Json;
 using System.Reflection;
 using Newtonsoft.Json.Converters;
-using UnifyBot.Receiver;
 using UnifyBot.Message;
 using UnifyBot.Message.Chain;
 using UnifyBot.Receiver.MessageReceiver;
 using UnifyBot.Model;
 using UnifyBot.Receiver.EventReceiver;
 using Newtonsoft.Json.Serialization;
-using UnifyBot.Receiver.EventReceiver.Notice;
 using TBC.CommonLib;
 
 namespace UnifyBot.Utils
@@ -68,16 +66,16 @@ namespace UnifyBot.Utils
             return Assembly
             .GetExecutingAssembly()
             .GetTypes()
-            .Where(type => type.FullName != null)
-            .Where(type => type.FullName!.Contains(@namespace))
-            .Where(type => !type.IsAbstract)
-            .Select(type =>
+            .Where(x => x.FullName != null)
+            .Where(x => x.FullName!.Contains(@namespace))
+            .Where(x => x.Name.Contains("Message"))
+            .Where(x => !x.IsAbstract)
+            .Select(x =>
             {
-                if (Activator.CreateInstance(type) is T instance)
+                if (Activator.CreateInstance(x) is T instance)
                 {
                     return instance;
                 }
-
                 return null;
             })
             .Where(i => i != null).ToList()!;
@@ -109,8 +107,9 @@ namespace UnifyBot.Utils
                         var msg = data.Message![i];
                         if (msg.Type == item.Type)
                         {
+                            if (msg == null) continue;
                             var msgStr = msg.ToJsonStr();
-                            var mb = JsonConvert.DeserializeObject(msgStr, dllType) as MessageBase;
+                            if (JsonConvert.DeserializeObject(msgStr, dllType) is not MessageBase mb) throw new Exception();
                             data.Message![i] = mb;
                             break;
                         }
