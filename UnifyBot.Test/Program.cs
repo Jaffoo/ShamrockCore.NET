@@ -12,21 +12,10 @@ namespace UniBot.Test
     {
         static async Task Main(string[] args)
         {
-            Connect connect = new("localhost", 3001, 3000);
+            Connect connect = new("localhost1", 3001, 3000);
             Bot bot = new(connect);
             await bot.StartAsync();
-            bot.MessageReceived.OfType<MessageReceiver>()
-                .Subscribe(async msg =>
-                {
-                    foreach (var item in msg.Message)
-                    {
-                        if (item.Type == Messages.Text)
-                        {
-                            var text = item as TextMessage;
-                            Console.WriteLine("文本消息测试：" + text.Data.Text);
-                        }
-                    }
-                });
+            
           
             while (true)
             {

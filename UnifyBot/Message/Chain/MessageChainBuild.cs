@@ -1,4 +1,5 @@
 ﻿using UnifyBot.Api;
+using UnifyBot.Model;
 
 namespace UnifyBot.Message.Chain
 {
@@ -478,11 +479,29 @@ namespace UnifyBot.Message.Chain
         }
 
         /// <summary>
+        /// 发送群
+        /// </summary>
+        public async Task<long> SendGroup(GroupInfo group)
+        {
+            if (group.Connect.CanConnetBot) return await group.Connect.SendGroupMsg(group.GroupQQ, list);
+            else throw new Exception("尽量不要手动实例化GroupInfo对象，如果非要这么做，实例化后将此对象中的Connect属性值用Bot.Conn赋值!");
+        }
+
+        /// <summary>
         /// 发送好友
         /// </summary>
         public async Task<long> SendPrivate(Bot bot, long qq)
         {
             return await bot.Conn.SendPrivateMsg(qq, list);
+        }
+
+        /// <summary>
+        /// 发送好友
+        /// </summary>
+        public async Task<long> SendPrivate(FriendInfo friend)
+        {
+            if (friend.Connect.CanConnetBot) return await friend.Connect.SendPrivateMsg(friend.QQ, list);
+            else throw new Exception("尽量不要手动实例化FriendInfo对象，如果非要这么做，实例化后将此对象中的Connect属性值用Bot.Conn赋值!");
         }
     }
 }

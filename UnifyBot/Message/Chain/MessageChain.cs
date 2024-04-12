@@ -11,14 +11,29 @@ namespace UnifyBot.Message.Chain
         /// <param name="bot"></param>
         /// <param name="groupQQ">要发送的群</param>
         /// <returns></returns>
-        public async Task<long> SendGroup(Bot bot, long groupQQ = 0)
+        public async Task<long> SendGroup(Bot bot, long groupQQ)
         {
             long groupMsg = await bot.Conn.SendGroupMsg(groupQQ, this);
             return groupMsg;
         }
 
         /// <summary>
-        /// 发送
+        /// 发送群
+        /// </summary>>
+        /// <param name="group">要发送的群</param>
+        /// <returns></returns>
+        public async Task<long> SendGroup(GroupInfo group)
+        {
+            if (group.Connect.CanConnetBot)
+            {
+                long groupMsg = await group.Connect.SendGroupMsg(group.GroupQQ, this);
+                return groupMsg;
+            }
+            else throw new Exception("尽量不要手动实例化GroupInfo对象，如果非要这么做，实例化后将此对象中的Connect属性值用Bot.Conn赋值!");
+        }
+
+        /// <summary>
+        /// 发送好友
         /// </summary>
         /// <param name="bot"></param>
         /// <param name="qq">要发送的qq</param>
@@ -27,6 +42,21 @@ namespace UnifyBot.Message.Chain
         {
             long privateMsg = await bot.Conn.SendPrivateMsg(qq, this);
             return privateMsg;
+        }
+
+        /// <summary>
+        /// 发送好友
+        /// </summary>
+        /// <param name="friend">要发送的qq</param>
+        /// <returns></returns>
+        public async Task<long> SendPrivate(FriendInfo friend)
+        {
+            if (friend.Connect.CanConnetBot)
+            {
+                long privateMsg = await friend.Connect.SendPrivateMsg(friend.QQ, this);
+                return privateMsg;
+            }
+            else throw new Exception("尽量不要手动实例化FriendInfo对象，如果非要这么做，实例化后将此对象中的Connect属性值用Bot.Conn赋值!");
         }
 
         /// <summary>

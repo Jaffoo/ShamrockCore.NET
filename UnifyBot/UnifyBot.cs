@@ -66,7 +66,8 @@ namespace UnifyBot
 
         public async Task StartAsync()
         {
-            await Init();
+            if (Conn.CanConnetBot) await Init();
+            else throw new Exception("QQ连接测试失败，请检查连接配置！");
         }
 
         /// <summary>

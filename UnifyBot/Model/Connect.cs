@@ -1,4 +1,8 @@
-﻿namespace UnifyBot.Model
+﻿using Newtonsoft.Json.Linq;
+using System.Text.RegularExpressions;
+using TBC.CommonLib;
+
+namespace UnifyBot.Model
 {
     /// <summary>
     /// 连接初始化配置类
@@ -73,6 +77,31 @@
                     { "Authorization", "Bearer " + Token }
                 };
                 return header;
+            }
+        }
+
+        /// <summary>
+        /// 验证是否能连接bot
+        /// </summary>
+        public bool CanConnetBot
+        {
+            get
+            {
+                string pattern = @"^((https|http|ftp|rtsp|mms|ws|wss)?:\/\/)[^\s]+";
+                var isUrl = Regex.IsMatch(HttpUrl, pattern);
+                if (!isUrl) return false;
+                isUrl = Regex.IsMatch(WsReverse ? ReverseWsUrl : WsUrl, pattern);
+                if (!isUrl) return false;
+                try
+                {
+                    var res = Tools.GetAsync(HttpUrl).Result;
+                    if (string.IsNullOrWhiteSpace(res)) return false;
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
             }
         }
     }
