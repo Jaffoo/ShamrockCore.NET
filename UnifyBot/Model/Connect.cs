@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Net.WebSockets;
 using System.Text.RegularExpressions;
 using TBC.CommonLib;
 
@@ -94,8 +94,17 @@ namespace UnifyBot.Model
                 if (!isUrl) return false;
                 try
                 {
+                    //检查http
                     var res = Tools.GetAsync(HttpUrl).Result;
                     if (string.IsNullOrWhiteSpace(res)) return false;
+
+                    //检查ws
+                    if (!WsReverse)
+                    {
+                        ClientWebSocket webSocket = new();
+                        webSocket.ConnectAsync(new Uri(WsUrl), CancellationToken.None).Wait();
+                        if (webSocket.State != WebSocketState.Open) return false;
+                    }
                     return true;
                 }
                 catch

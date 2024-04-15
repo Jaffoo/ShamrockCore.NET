@@ -18,11 +18,12 @@ namespace UnifyBot
     /// <summary>
     /// 主函数
     /// </summary>
-    public class Bot:IDisposable
+    public class Bot : IDisposable
     {
         #region 全局变量/构造函数
         private WebsocketClient? _client;
-        public Connect Conn;
+        private WebSocketServer? _server;
+        public Connect Conn { get; set; }
         private bool disposedValue;
 
         /// <summary>
@@ -114,8 +115,8 @@ namespace UnifyBot
                 }
                 if (Conn.WsReverse)
                 {
-                    var server = new WebSocketServer(Conn.ReverseWsUrl);
-                    server.Start(socket =>
+                    _server = new WebSocketServer(Conn.ReverseWsUrl);
+                    _server.Start(socket =>
                     {
                         socket.OnOpen = () =>
                         {
@@ -403,6 +404,9 @@ namespace UnifyBot
                 if (disposing)
                 {
                     // TODO: 释放托管状态(托管对象)
+                    _client?.Dispose();
+                    _server?.Dispose();
+                    Conn = new("", 0, 0);
                 }
 
                 // TODO: 释放未托管的资源(未托管的对象)并重写终结器
