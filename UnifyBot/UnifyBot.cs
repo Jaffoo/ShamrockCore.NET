@@ -18,11 +18,12 @@ namespace UnifyBot
     /// <summary>
     /// 主函数
     /// </summary>
-    public class Bot
+    public class Bot:IDisposable
     {
         #region 全局变量/构造函数
         private WebsocketClient? _client;
         public Connect Conn;
+        private bool disposedValue;
 
         /// <summary>
         /// 所有
@@ -379,7 +380,7 @@ namespace UnifyBot
             try
             {
                 var url = Conn.HttpUrl + apiEndpoint;
-                var res = await TBC.CommonLib.Tools.PostAsync<ApiResult<T>>(url, data, Conn.Headers);
+                var res = await Tools.PostAsync<ApiResult<T>>(url, data, Conn.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
                 if (res.Data == null) throw new InvalidDataException("响应数据为空！");
@@ -389,6 +390,39 @@ namespace UnifyBot
             {
                 throw;
             }
+        }
+
+        /// <summary>
+        /// 资源释放
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    // TODO: 释放托管状态(托管对象)
+                }
+
+                // TODO: 释放未托管的资源(未托管的对象)并重写终结器
+                // TODO: 将大型字段设置为 null
+                disposedValue = true;
+            }
+        }
+
+        // // TODO: 仅当“Dispose(bool disposing)”拥有用于释放未托管资源的代码时才替代终结器
+        // ~Bot()
+        // {
+        //     // 不要更改此代码。请将清理代码放入“Dispose(bool disposing)”方法中
+        //     Dispose(disposing: false);
+        // }
+
+        public void Dispose()
+        {
+            // 不要更改此代码。请将清理代码放入“Dispose(bool disposing)”方法中
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
         #endregion
         #endregion
