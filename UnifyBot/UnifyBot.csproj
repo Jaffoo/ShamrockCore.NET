@@ -8,13 +8,13 @@
     <Title>Base on onebot v11</Title>
     <Authors>Jaffoo</Authors>
     <Company>none</Company>
-    <Description>统一协议的机器人框架，基于onebot11协议的sdk，支持多实例机器人。</Description>
+    <Description>统一机器人，基于onebot11协议的sdk，支持多实例机器人。</Description>
     <Copyright>无</Copyright>
     <PackageProjectUrl>https://github.com/Jaffoo/ShamrockCore.NET</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageReleaseNotes>添加资源释放，可以调用Bot.Dispose()方法释放bot</PackageReleaseNotes>
+    <PackageReleaseNotes>修复某些消息类型监听不到的bug</PackageReleaseNotes>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Version>1.1.4.1</Version>
+    <Version>1.1.5</Version>
   </PropertyGroup>
 
   <ItemGroup>

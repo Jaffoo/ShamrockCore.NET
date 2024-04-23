@@ -27,12 +27,6 @@ namespace UnifyBot
         private bool disposedValue;
 
         /// <summary>
-        /// 所有
-        /// </summary>
-        public IObservable<MessageReceiverBase> Receiver { get; }
-        private readonly Subject<MessageReceiverBase> _ReceivedSubject = new();
-
-        /// <summary>
         /// 收到事件
         /// </summary>
         public IObservable<EventReceiver> EventReceived { get; }
@@ -58,7 +52,6 @@ namespace UnifyBot
         public Bot(Connect conf)
         {
             Conn = conf;
-            Receiver = _ReceivedSubject.AsObservable();
             EventReceived = _eventReceivedSubject.AsObservable();
             MessageReceived = _messageReceivedSubject.AsObservable();
             UnknownMessageReceived = _unknownMessageReceived.AsObservable();
@@ -157,25 +150,21 @@ namespace UnifyBot
                 {
                     var msg = JsonConvertTool.MessageReceiverHandel(data, Conn) ?? throw new InvalidDataException("数据无效！");
                     _messageReceivedSubject.OnNext(msg);
-                    _ReceivedSubject.OnNext(msg);
                 }
                 else if (postType == PostType.MetaEvent.GetDescription().ToLower())
                 {
                     var msg = JsonConvertTool.MetaEventReceiverHandel(data, Conn) ?? throw new InvalidDataException("数据无效！");
                     _eventReceivedSubject.OnNext(msg);
-                    _ReceivedSubject.OnNext(msg);
                 }
                 else if (postType == PostType.Notice.ToString().ToLower())
                 {
                     var msg = JsonConvertTool.NoticeEventReceiverHandel(data, Conn) ?? throw new InvalidDataException("数据无效！");
                     _eventReceivedSubject.OnNext(msg);
-                    _ReceivedSubject.OnNext(msg);
                 }
                 else if (PostType.Request.ToString().ToLower() == postType)
                 {
                     var msg = JsonConvertTool.RequestEventReceiverHandel(data, Conn) ?? throw new InvalidDataException("数据无效！");
                     _eventReceivedSubject.OnNext(msg);
-                    _ReceivedSubject.OnNext(msg);
                 }
                 else
                     _unknownMessageReceived.OnNext(data);

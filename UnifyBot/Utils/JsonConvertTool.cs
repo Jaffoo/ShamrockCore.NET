@@ -61,14 +61,14 @@ namespace UnifyBot.Utils
             }
         }
 
-        private static List<T> CreateInstance<T>(string @namespace) where T : class
+        private static List<T> CreateInstance<T>(string @namespace,string where = "") where T : class
         {
             return Assembly
             .GetExecutingAssembly()
             .GetTypes()
             .Where(x => x.FullName != null)
             .Where(x => x.FullName!.Contains(@namespace))
-            .Where(x => x.Name.Contains("Message"))
+            .Where(x => x.Name.Contains(where))
             .Where(x => !x.IsAbstract)
             .Select(x =>
             {
@@ -81,7 +81,7 @@ namespace UnifyBot.Utils
             .Where(i => i != null).ToList()!;
         }
 
-        private static readonly List<MessageBase> MessageBases = CreateInstance<MessageBase>("UnifyBot.Message");
+        private static readonly List<MessageBase> MessageBases = CreateInstance<MessageBase>("UnifyBot.Message", "Message");
         private static readonly List<MessageReceiver> MessageReceiverBases = CreateInstance<MessageReceiver>("UnifyBot.Receiver.MessageReceiver");
         private static readonly List<EventReceiver> MetaEventReceiverBases = CreateInstance<EventReceiver>("UnifyBot.Receiver.EventReceiver.Meta");
         private static readonly List<EventReceiver> NoticeEventReceiverBases = CreateInstance<EventReceiver>("UnifyBot.Receiver.EventReceiver.Notice");
@@ -244,6 +244,8 @@ namespace UnifyBot.Utils
                     if (messageReceiver.MessageType == raw.MessageType)
                     {
                         type = messageReceiver.GetType();
+                        if (type.Name.Contains("MessageReceiver")) 
+                            continue;
                         break;
                     }
                 }
