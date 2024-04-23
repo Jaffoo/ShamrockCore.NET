@@ -12,9 +12,9 @@
     <Copyright>无</Copyright>
     <PackageProjectUrl>https://github.com/Jaffoo/ShamrockCore.NET</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageReleaseNotes>修复某些消息类型监听不到的bug</PackageReleaseNotes>
+    <PackageReleaseNotes>修复某些消息类型监听不到的bug；修复消息链获取第一条文本异常的bug</PackageReleaseNotes>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Version>1.1.5</Version>
+    <Version>1.1.5.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

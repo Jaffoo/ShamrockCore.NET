@@ -1,4 +1,6 @@
-﻿using UnifyBot.Api;
+﻿using Newtonsoft.Json;
+using TBC.CommonLib;
+using UnifyBot.Api;
 using UnifyBot.Model;
 
 namespace UnifyBot.Message.Chain
@@ -86,7 +88,9 @@ namespace UnifyBot.Message.Chain
                 var firstChain = this.FirstOrDefault(t => t.Type == Messages.Text && t.Data != null);
                 if (firstChain == null) return "";
                 if (firstChain.Data == null) return "";
-                return (string)firstChain.Data.Txt;
+                var msg =(string)JsonConvert.SerializeObject(firstChain.Data);
+                var text = msg.ToModel<TextMessage.Body>();
+                return text.Text;
             }
             catch (Exception)
             {
