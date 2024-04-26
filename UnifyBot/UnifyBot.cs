@@ -108,23 +108,45 @@ namespace UnifyBot
                 }
                 if (Conn.WsReverse)
                 {
+                    // 创建一个新的WebSocket服务器实例，使用Conn.ReverseWsUrl作为监听地址
                     _server = new WebSocketServer(Conn.ReverseWsUrl);
+
+                    // 启动WebSocket服务器，并设置客户端消息处理回调函数
                     _server.Start(socket =>
                     {
-                        socket.OnOpen = () =>
+                        socket.OnError = error =>
                         {
-                            if (string.IsNullOrWhiteSpace(Conn.Token)) return;
-                            var headers = socket.ConnectionInfo.Headers;
-                            var token = headers["Authorization"].ToString();
-                            if (token != Conn.Token)
-                            {
-                                socket.Send("Please provide a valid token.");
-                                socket.Close();
-                            }
+                            socket.Send(error.Message);
                         };
 
+                        // 定义客户端发送消息时的处理逻辑
                         socket.OnMessage = message =>
                         {
+                            // 如果服务器端存在非空且非仅包含空白字符的Conn.Token
+                            if (!string.IsNullOrWhiteSpace(Conn.Token))
+                            {
+                                // 获取客户端连接的头部信息
+                                var headers = socket.ConnectionInfo.Headers;
+
+                                // 从头部信息中提取客户端提供的Token
+                                var clientToken = headers["Authorization"].ToString();
+
+                                // 检查客户端提供的Token与服务器端预期Token是否匹配
+                                if (clientToken != Conn.Token)
+                                {
+                                    // 若Token不匹配，发送错误消息给客户端，并停止进一步处理本次消息
+                                    var error = new
+                                    {
+                                        status = "error",
+                                        code = 401,
+                                        msg = "未授权",
+                                    };
+                                    socket.Send(error.ToJsonStr());
+                                    return;
+                                }
+                            }
+
+                            // 若Token验证通过（或无需验证），调用HandleData函数处理接收到的消息
                             HandleData(message);
                         };
                     });
