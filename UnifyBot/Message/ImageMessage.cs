@@ -18,18 +18,16 @@ namespace UnifyBot.Message
         /// 发送方式三选一
         /// 都传入优先级 file>base64>url
         /// </summary>
-        public ImageMessage(string file = "", string base64 = "", string url = "", bool cache = true, bool proxy = true)
+        public ImageMessage(string file = "", string base64 = "", string url = "", ImageType type = 0, bool cache = true, bool proxy = true)
         {
             base.Data = new Body()
             {
                 Proxy = proxy,
                 Cache = cache,
+                Type = type.GetDescription(),
             };
             if (!string.IsNullOrWhiteSpace(file))
-            {
-                if (!file.Contains("file:///")) file = "file:///" + file;
                 base.Data.File = file;
-            }
             else if (!string.IsNullOrWhiteSpace(base64))
             {
                 if (!file.Contains("base64://")) base64 = "base64://" + base64;
@@ -88,13 +86,14 @@ namespace UnifyBot.Message
         public new ImageMessage.Body Data => ((string)JsonConvert.SerializeObject(base.Data)).ToModel<ImageMessage.Body>();
 
         public ImageByUrl() { }
-        public ImageByUrl(string url, bool cache = true, bool proxy = true)
+        public ImageByUrl(string url, ImageType type = 0, bool cache = true, bool proxy = true)
         {
             base.Data = new ImageMessage.Body()
             {
                 File = url,
                 Cache = cache,
-                Proxy = proxy
+                Proxy = proxy,
+                Type = type.GetDescription()
             };
         }
     }
@@ -107,11 +106,12 @@ namespace UnifyBot.Message
         public new ImageMessage.Body Data => ((string)JsonConvert.SerializeObject(base.Data)).ToModel<ImageMessage.Body>();
 
         public ImageByPath() { }
-        public ImageByPath(string path)
+        public ImageByPath(string path, ImageType type = 0)
         {
             base.Data = new ImageMessage.Body()
             {
-                File = path
+                File = path,
+                Type = type.GetDescription()
             };
         }
     }
@@ -124,11 +124,12 @@ namespace UnifyBot.Message
         public new ImageMessage.Body Data => ((string)JsonConvert.SerializeObject(base.Data)).ToModel<ImageMessage.Body>();
 
         public ImageByBase64() { }
-        public ImageByBase64(string base64)
+        public ImageByBase64(string base64, ImageType type = 0)
         {
             base.Data = new ImageMessage.Body()
             {
-                File = base64
+                File = base64,
+                Type = type.GetDescription()
             };
         }
     }

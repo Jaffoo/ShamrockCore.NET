@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
+using System.ComponentModel;
 using System.Runtime.Serialization;
-using static UnifyBot.Utils.JsonConvertTool;
 
 namespace UnifyBot.Model
 {
@@ -530,5 +530,20 @@ namespace UnifyBot.Model
         /// 未知类型
         /// </summary>
         Unknown
+    }
+
+    public enum ImageType
+    {
+        /// <summary>
+        /// 普通
+        /// </summary>
+        [Description("")]
+        Nomal,
+
+        /// <summary>
+        /// 闪照
+        /// </summary>
+        [Description("flash")]
+        Flash,
     }
 }

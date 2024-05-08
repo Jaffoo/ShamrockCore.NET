@@ -92,9 +92,9 @@ namespace UnifyBot.Message.Chain
         /// 图片消息
         /// </summary>
         /// <returns></returns>
-        public MessageChainBuild ImageByUrl(string url, bool cache = true, bool proxy = true)
+        public MessageChainBuild ImageByUrl(string url, ImageType type = 0, bool cache = true, bool proxy = true)
         {
-            list.Add(new ImageByUrl(url, cache, proxy));
+            list.Add(new ImageByUrl(url, type, cache, proxy));
             return this;
         }
 
@@ -102,9 +102,9 @@ namespace UnifyBot.Message.Chain
         /// 图片消息
         /// </summary>
         /// <returns></returns>
-        public MessageChainBuild ImageByPath(string path)
+        public MessageChainBuild ImageByPath(string path, ImageType type = 0)
         {
-            list.Add(new ImageByPath(path));
+            list.Add(new ImageByPath(path, type));
             return this;
         }
 
@@ -112,9 +112,9 @@ namespace UnifyBot.Message.Chain
         /// 图片消息
         /// </summary>
         /// <returns></returns>
-        public MessageChainBuild ImageByBase64(string base64)
+        public MessageChainBuild ImageByBase64(string base64, ImageType type = 0)
         {
-            list.Add(new ImageByBase64(base64));
+            list.Add(new ImageByBase64(base64, type));
             return this;
         }
 
