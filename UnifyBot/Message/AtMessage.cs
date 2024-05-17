@@ -13,6 +13,19 @@ namespace UnifyBot.Message
         public new Body Data => ((string)JsonConvert.SerializeObject(base.Data)).ToModel<Body>();
 
         public AtMessage() { }
+
+        /// <summary>
+        /// @某个人，all则是@全体成员
+        /// </summary>
+        /// <param name="qq"></param>
+        public AtMessage(long qq)
+        {
+            base.Data = new Body()
+            {
+                QQ = qq.ToString()
+            };
+        }
+
         /// <summary>
         /// @某个人，all则是@全体成员
         /// </summary>
@@ -24,6 +37,7 @@ namespace UnifyBot.Message
                 QQ = qq
             };
         }
+
         /// <summary>
         /// 消息体
         /// </summary>

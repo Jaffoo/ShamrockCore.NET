@@ -15,9 +15,52 @@ namespace UnifyBot.Model
         /// <param name="host">host</param>
         /// <param name="wsPort">websocket端口</param>
         /// <param name="httpPort">http端口</param>
-        /// <param name="ssReverse">启用反向ws</param>
+        public Connect(string host, int wsPort, int httpPort)
+        {
+            Host = host;
+            WsPort = wsPort;
+            HttpPort = httpPort;
+        }
+
+        /// <summary>
+        /// 连接初始化配置类
+        /// </summary>
+        /// <param name="host">host</param>
+        /// <param name="wsPort">websocket端口</param>
+        /// <param name="httpPort">http端口</param>
+        /// <param name="wsReverse">启用反向ws</param>
+        public Connect(string host, int wsPort, int httpPort, bool wsReverse)
+        {
+            Host = host;
+            WsPort = wsPort;
+            HttpPort = httpPort;
+            WsReverse = wsReverse;
+        }
+
+        /// <summary>
+        /// 连接初始化配置类
+        /// </summary>
+        /// <param name="host">host</param>
+        /// <param name="wsPort">websocket端口</param>
+        /// <param name="httpPort">http端口</param>
         /// <param name="token">token</param>
-        public Connect(string host, int wsPort, int httpPort, bool wsReverse = false, string token = "")
+        public Connect(string host, int wsPort, int httpPort, string token)
+        {
+            Host = host;
+            WsPort = wsPort;
+            HttpPort = httpPort;
+            Token = token;
+        }
+
+        /// <summary>
+        /// 连接初始化配置类
+        /// </summary>
+        /// <param name="host">host</param>
+        /// <param name="wsPort">websocket端口</param>
+        /// <param name="httpPort">http端口</param>
+        /// <param name="wsReverse">启用反向ws</param>
+        /// <param name="token">token</param>
+        public Connect(string host, int wsPort, int httpPort, bool wsReverse, string token)
         {
             Host = host;
             WsPort = wsPort;

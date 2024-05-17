@@ -50,6 +50,17 @@ namespace UnifyBot.Message.Chain
         }
 
         /// <summary>
+        /// at消息
+        /// </summary>
+        /// <param name="qq"></param>
+        /// <returns></returns>
+        public MessageChainBuild At(long qq)
+        {
+            list.Add(new AtMessage(qq));
+            return this;
+        }
+
+        /// <summary>
         /// at全体成员
         /// </summary>
         /// <returns></returns>
