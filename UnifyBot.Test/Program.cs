@@ -14,7 +14,7 @@ namespace UniBot.Test
     {
         static async Task Main(string[] args)
         {
-            Connect connect = new("154.201.76.32", 3001, 3000,"5266");
+            Connect connect = new("localhost", 3001, 3000,"111");
             Bot bot = new(connect);
             await bot.StartAsync();
             #region 消息
