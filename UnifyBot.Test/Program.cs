@@ -5,6 +5,7 @@ using UnifyBot.Model;
 using UnifyBot.Receiver;
 using UnifyBot.Receiver.EventReceiver;
 using UnifyBot.Receiver.EventReceiver.Notice;
+using UnifyBot.Receiver.EventReceiver.Request;
 using UnifyBot.Receiver.MessageReceiver;
 
 namespace UniBot.Test
@@ -13,7 +14,7 @@ namespace UniBot.Test
     {
         static async Task Main(string[] args)
         {
-            Connect connect = new("127.0.0.1", 3001, 3000);
+            Connect connect = new("154.201.76.32", 3001, 3000,"5266");
             Bot bot = new(connect);
             await bot.StartAsync();
             #region 消息
@@ -51,10 +52,11 @@ namespace UniBot.Test
                 //只能接收到事件（所有类型）
                 Console.WriteLine(x.ToJsonStr());
             });
-            bot.EventReceived.OfType<FriendAdd>().Subscribe(x =>
+            bot.EventReceived.OfType<RequestFriend>().Subscribe(async x =>
             {
                 //只能接收到特定事件（传入什么类型就是什么事件）
                 Console.WriteLine(x.ToJsonStr());
+                await x.Agree();
             });
             #endregion
             while (true)

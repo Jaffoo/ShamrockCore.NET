@@ -36,14 +36,14 @@ namespace UnifyBot.Receiver.EventReceiver.Request
         /// </summary>
         /// <param name="remark">好友备注</param>
         /// <returns></returns>
-        public async Task<bool> Agree(string remark = "") => await Connect.SetFriendAddRequest(QQ, true, remark);
+        public async Task<bool> Agree(string remark = "") => await Connect.SetFriendAddRequest(Flag, true, remark);
 
         /// <summary>
         /// 拒绝
         /// </summary>
         /// <param name="remark">好友备注</param>
         /// <returns></returns>
-        public async Task<bool> Reject() => await Connect.SetFriendAddRequest(QQ, false);
+        public async Task<bool> Reject() => await Connect.SetFriendAddRequest(Flag, false);
         #endregion
     }
 }

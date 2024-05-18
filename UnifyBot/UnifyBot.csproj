@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -12,9 +12,9 @@
     <Copyright>无</Copyright>
     <PackageProjectUrl>https://github.com/Jaffoo/ShamrockCore.NET</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageReleaseNotes>修复某些消息类型监听不到的bug；修复消息链获取第一条文本异常的bug</PackageReleaseNotes>
+    <PackageReleaseNotes>由于此项目中其他包版本引用不兼容的问题，所以此框架从.NET6升级为.NET8</PackageReleaseNotes>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Version>1.1.5.1</Version>
+    <Version>1.1.6</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -32,7 +32,7 @@
     <PackageReference Include="Fleck" Version="1.2.0" />
     <PackageReference Include="Flurl" Version="4.0.0" />
     <PackageReference Include="Flurl.Http" Version="4.0.2" />
-    <PackageReference Include="TBC.CommonLib" Version="1.0.7" />
+    <PackageReference Include="TBC.CommonLib" Version="1.1.1" />
     <PackageReference Include="Websocket.Client" Version="5.1.1" />
   </ItemGroup>
 
