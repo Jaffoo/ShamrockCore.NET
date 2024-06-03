@@ -482,6 +482,26 @@ namespace UnifyBot.Message.Chain
         }
 
         /// <summary>
+        /// 推荐好友
+        /// </summary>
+        /// <returns></returns>
+        public MessageChainBuild ContactFriend(long qq)
+        {
+            list.Add(new QQContact(qq));
+            return this;
+        }
+
+        /// <summary>
+        /// 推荐群
+        /// </summary>
+        /// <returns></returns>
+        public MessageChainBuild ContactGroup(long qq)
+        {
+            list.Add(new GroupContact(qq));
+            return this;
+        }
+
+        /// <summary>
         /// 发送群
         /// </summary>
         public async Task<long> SendGroup(Bot bot, long groupQQ)

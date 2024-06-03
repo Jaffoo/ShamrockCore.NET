@@ -5,7 +5,7 @@ using UnifyBot.Model;
 namespace UnifyBot.Message
 {
     /// <summary>
-    /// 掷骰子魔法表情
+    /// 连接分享
     /// </summary>
     public class ShareMessage : MessageBase
     {

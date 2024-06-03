@@ -133,7 +133,7 @@ namespace UnifyBot.Model
         /// 取消禁言
         /// </summary>
         /// <returns></returns>
-        public async Task<bool> CacleBan() => await Connect.SetGroupBan(GroupQQ, QQ, 0);
+        public async Task<bool> CancelBan() => await Connect.SetGroupBan(GroupQQ, QQ, 0);
 
         /// <summary>
         /// 踢出群聊

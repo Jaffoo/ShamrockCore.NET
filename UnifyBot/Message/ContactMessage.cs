@@ -5,7 +5,7 @@ using UnifyBot.Model;
 namespace UnifyBot.Message
 {
     /// <summary>
-    /// 掷骰子魔法表情
+    /// 推荐好友
     /// </summary>
     public class ContactMessage : MessageBase
     {
@@ -13,7 +13,7 @@ namespace UnifyBot.Message
         public new Body Data => ((string)JsonConvert.SerializeObject(base.Data)).ToModel<Body>();
 
         public ContactMessage() { }
-        public ContactMessage(string type, string qq)
+        public ContactMessage(string type, long qq)
         {
             base.Data = new Body()
             {
@@ -35,7 +35,7 @@ namespace UnifyBot.Message
             /// <summary>
             /// 被推荐人/群的 QQ 号
             /// </summary>
-            public string Id { get; set; } = "";
+            public long Id { get; set; }
         }
     }
 
@@ -45,7 +45,7 @@ namespace UnifyBot.Message
     public class QQContact : ContactMessage
     {
         public QQContact() { }
-        public QQContact(string qq) : base("qq", qq)
+        public QQContact(long qq) : base("qq", qq)
         {
 
         }
@@ -57,7 +57,7 @@ namespace UnifyBot.Message
     public class GroupContact : ContactMessage
     {
         public GroupContact() { }
-        public GroupContact(string qq) : base("group", qq)
+        public GroupContact(long qq) : base("group", qq)
         {
 
         }

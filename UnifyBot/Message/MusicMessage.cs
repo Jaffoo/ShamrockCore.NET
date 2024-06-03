@@ -28,11 +28,11 @@ namespace UnifyBot.Message
         /// <summary>
         /// 自定义音乐分享
         /// </summary>
-        public MusicMessage(string url,string audio,string title,string content="",string image="")
+        public MusicMessage(string url, string audio, string title, string content = "", string image = "")
         {
             base.Data = new Body()
             {
-                Type="custom",
+                Type = "custom",
                 Url = url,
                 Audio = audio,
                 Title = title,
