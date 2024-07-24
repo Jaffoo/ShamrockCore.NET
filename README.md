@@ -7,5 +7,5 @@
 
 [UnifyBot文档](https://jaffoo.github.io/UnifyBot/doc/)
 
-如果发现问题请提交issue或者[加群](https://qm.qq.com/q/4QholhWSyA)，（群内提问效率更高哦）；
+如果发现问题请提交issue。
 同时欢迎大家提交PR帮助项目的完善。
