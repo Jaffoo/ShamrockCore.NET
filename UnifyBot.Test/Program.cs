@@ -14,9 +14,11 @@ namespace UniBot.Test
     {
         static async Task Main(string[] args)
         {
-            Connect connect = new("localhost", 3001, 3000,"111");
+            Connect connect = new("192.168.1.101", 3001, 3000);
             Bot bot = new(connect);
             await bot.StartAsync();
+            if (bot.Conn.CanConnetBot)
+                Console.WriteLine("连接成功");
             #region 消息
             bot.MessageReceived.OfType<MessageReceiverBase>().Subscribe(x =>
             {
