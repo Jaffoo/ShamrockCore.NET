@@ -138,7 +138,7 @@ namespace UnifyBot.Model
                 try
                 {
                     //检查http
-                    var res = Tools.GetAsync(HttpUrl).Result;
+                    var res = Tools.GetAsync(HttpUrl,Headers).Result;
                     if (string.IsNullOrWhiteSpace(res)) return false;
 
                     //检查ws
