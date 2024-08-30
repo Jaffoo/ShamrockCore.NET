@@ -27,7 +27,6 @@ namespace UnifyBot.Message
             };
             if (!string.IsNullOrWhiteSpace(file))
             {
-                if (!file.Contains("file:///")) file = "file:///" + file;
                 Data.File = file;
             }
             else if (!string.IsNullOrWhiteSpace(base64))
@@ -46,8 +45,8 @@ namespace UnifyBot.Message
         {
             /// <summary>
             /// 图片路径
-            /// 绝对路径，例如 file:///C:\\Users\Richard\Pictures\1.mp3
-            /// 网络 URL，例如 http://i1.piimg.com/567571/fdd6e7b6d93f1ef0.mp3
+            /// 绝对路径，例如 /home/1.mp4,C:\\1.mp4
+            /// 网络 URL，例如 http://xxx.xxx.com/1.mp4
             /// Base64 编码，例如 base64://xxxxxx=
             /// </summary>
             public string File { get; set; } = "";

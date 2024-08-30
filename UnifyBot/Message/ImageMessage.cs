@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Buffers.Text;
 using TBC.CommonLib;
 using UnifyBot.Model;
 
@@ -44,8 +45,8 @@ namespace UnifyBot.Message
         {
             /// <summary>
             /// 图片路径
-            /// 绝对路径，例如 file:///C:\\Users\Richard\Pictures\1.png
-            /// 网络 URL，例如 http://i1.piimg.com/567571/fdd6e7b6d93f1ef0.jpg
+            /// 绝对路径，/home/1.png,C:\\1.png
+            /// 网络 URL，例如 https://www.baidu.com/img/flexible/logo/pc/result.png
             /// Base64 编码，例如 base64://xxxxxx=
             /// </summary>
             public string File { get; set; } = "";
@@ -126,6 +127,7 @@ namespace UnifyBot.Message
         public ImageByBase64() { }
         public ImageByBase64(string base64, ImageType type = 0)
         {
+            if (!base64.Contains("base64://")) base64 = "base64://" + base64;
             base.Data = new ImageMessage.Body()
             {
                 File = base64,

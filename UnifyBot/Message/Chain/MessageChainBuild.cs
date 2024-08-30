@@ -11,7 +11,7 @@ namespace UnifyBot.Message.Chain
         private readonly MessageChain list;
         public MessageChainBuild()
         {
-            list = new();
+            list = [];
         }
 
         public MessageChainBuild(MessageChain chain)

@@ -1,6 +1,7 @@
 ﻿using System.Reactive.Linq;
 using TBC.CommonLib;
 using UnifyBot;
+using UnifyBot.Message.Chain;
 using UnifyBot.Model;
 using UnifyBot.Receiver;
 using UnifyBot.Receiver.EventReceiver;
@@ -12,9 +13,9 @@ namespace UniBot.Test
 {
     internal class Program
     {
-        static async Task Main(string[] args)
+        static async Task Main()
         {
-            Connect connect = new("localhost", 3001, 3000,"111");
+            Connect connect = new("192.168.1.101", 3001, 3000, "523366");
             Bot bot = new(connect);
             await bot.StartAsync();
             #region 消息

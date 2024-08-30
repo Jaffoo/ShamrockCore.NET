@@ -12,9 +12,9 @@
     <Copyright>无</Copyright>
     <PackageProjectUrl>https://github.com/Jaffoo/ShamrockCore.NET</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageReleaseNotes>修复bug</PackageReleaseNotes>
+    <PackageReleaseNotes>优化图片，视频，语言发送逻辑，发送base64可以不添加前缀，直接获取发送</PackageReleaseNotes>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Version>1.1.8</Version>
+    <Version>1.1.9</Version>
   </PropertyGroup>
 
   <ItemGroup>
