@@ -30,11 +30,11 @@
 
   <ItemGroup>
     <PackageReference Include="Fleck" Version="1.2.0" />
-    <PackageReference Include="Flurl" Version="3.0.7" />
-    <PackageReference Include="Flurl.Http" Version="3.2.4" />
+    <PackageReference Include="Flurl" Version="4.0.0" />
+    <PackageReference Include="Flurl.Http" Version="4.0.2" />
     <PackageReference Include="Manganese" Version="1.2.9" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="Websocket.Client" Version="5.0.0" />
+    <PackageReference Include="Websocket.Client" Version="5.1.2" />
   </ItemGroup>
 
 </Project>
