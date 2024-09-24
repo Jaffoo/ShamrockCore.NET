@@ -14,7 +14,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageReleaseNotes>优化图片，视频，语言发送逻辑，发送base64可以不添加前缀，直接获取发送</PackageReleaseNotes>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Version>1.2.1</Version>
+    <Version>1.2.1.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -32,7 +32,7 @@
     <PackageReference Include="Fleck" Version="1.2.0" />
     <PackageReference Include="Flurl" Version="4.0.0" />
     <PackageReference Include="Flurl.Http" Version="4.0.2" />
-    <PackageReference Include="TBC.CommonLib" Version="1.1.4" />
+    <PackageReference Include="TBC.CommonLib" Version="1.1.4.1" />
     <PackageReference Include="Websocket.Client" Version="5.1.2" />
   </ItemGroup>
 
