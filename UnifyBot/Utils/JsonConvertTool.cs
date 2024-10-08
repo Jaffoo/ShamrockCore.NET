@@ -61,7 +61,7 @@ namespace UnifyBot.Utils
             }
         }
 
-        private static List<T> CreateInstance<T>(string @namespace,string where = "") where T : class
+        private static List<T> CreateInstance<T>(string @namespace, string where = "") where T : class
         {
             return Assembly
             .GetExecutingAssembly()
@@ -96,7 +96,7 @@ namespace UnifyBot.Utils
         {
             try
             {
-                data.Message ??= JsonConvert.DeserializeObject<MessageChain>(data.OriginalData!["message"]!.ToString());
+                data.Message = JsonConvert.DeserializeObject<MessageChain>(data.OriginalData!["message"]!.ToString()) ?? throw new InvalidDataException("消息段解析失败");
                 foreach (var item in MessageBases)
                 {
                     Type dllType = item.GetType();
@@ -244,7 +244,7 @@ namespace UnifyBot.Utils
                     if (messageReceiver.MessageType == raw.MessageType)
                     {
                         type = messageReceiver.GetType();
-                        if (type.Name.Contains("MessageReceiver")) 
+                        if (type.Name.Contains("MessageReceiver"))
                             continue;
                         break;
                     }

@@ -23,7 +23,7 @@ namespace UnifyBot.Api
                 var data = new
                 {
                     user_id = qq,
-                    message = msg
+                    message = msg.LineFeed(),
                 };
                 var res = await Tools.PostAsync<ApiResult<MessageInfoBase>>(url, data.ToLowJsonStr(), conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
@@ -50,7 +50,7 @@ namespace UnifyBot.Api
                 var data = new
                 {
                     user_id = qq,
-                    message = new MessageChain() { new TextMessage(msg) }
+                    message = new MessageChain() { new TextMessage(msg) }.LineFeed(),
                 };
                 var res = await Tools.PostAsync<ApiResult<MessageInfoBase>>(url, data.ToLowJsonStr(), conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
@@ -76,7 +76,7 @@ namespace UnifyBot.Api
                 var data = new
                 {
                     group_id = qq,
-                    message = msg
+                    message = msg.LineFeed(),
                 };
                 var res = await Tools.PostAsync<ApiResult<MessageInfoBase>>(url, data.ToLowJsonStr(), conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
@@ -103,7 +103,7 @@ namespace UnifyBot.Api
                 var data = new
                 {
                     group_id = qq,
-                    message
+                    message = message.LineFeed(),
                 };
                 var res = await Tools.PostAsync<ApiResult<MessageInfoBase>>(url, data.ToLowJsonStr(), conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
@@ -132,7 +132,7 @@ namespace UnifyBot.Api
                     message_type = type,
                     user_id = qq,
                     group_id = groupQQ,
-                    message = msg
+                    message = msg.LineFeed(),
                 };
                 var res = await Tools.PostAsync<ApiResult<MessageInfoBase>>(url, data.ToJsonStr(), conf.Headers);
                 if (res == null) throw new InvalidDataException("响应内容为空！");
@@ -936,7 +936,18 @@ namespace UnifyBot.Api
         }
         #endregion
 
-        #region 扩展API
-        #endregion
+        /// <summary>
+        /// 每个文本内容换行
+        /// </summary>
+        private static MessageChain LineFeed(this MessageChain msg)
+        {
+            msg.ForEach(x =>
+            {
+                if (x.Type == Messages.Text)
+                    if (x.Data != null)
+                        x.Data.Text += "\n";
+            });
+            return msg;
+        }
     }
 }

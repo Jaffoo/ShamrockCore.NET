@@ -48,7 +48,7 @@ namespace UnifyBot.Receiver.MessageReceiver
         /// <summary>
         /// 消息
         /// </summary>
-        public virtual MessageChain? Message { get; set; } = null;  
+        public virtual required MessageChain Message { get; set; }
 
         #region 扩展方法/属性
         /// <summary>

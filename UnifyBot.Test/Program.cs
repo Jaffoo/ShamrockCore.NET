@@ -15,9 +15,10 @@ namespace UniBot.Test
     {
         static async Task Main()
         {
-            Connect connect = new("192.168.1.101", 3001, 3000, "523366");
+            Connect connect = new("localhost", 3001, 3000);
             Bot bot = new(connect);
             await bot.StartAsync();
+            await new MessageChainBuild().Text("你").Text("好").SendPrivate(bot, 1737678289);
             #region 消息
             bot.MessageReceived.OfType<MessageReceiverBase>().Subscribe(x =>
             {
@@ -60,6 +61,7 @@ namespace UniBot.Test
                 await x.Agree();
             });
             #endregion
+
             while (true)
             {
                 Thread.Sleep(10);

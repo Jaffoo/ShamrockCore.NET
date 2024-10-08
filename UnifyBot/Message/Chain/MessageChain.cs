@@ -88,7 +88,7 @@ namespace UnifyBot.Message.Chain
                 var firstChain = this.FirstOrDefault(t => t.Type == Messages.Text && t.Data != null);
                 if (firstChain == null) return "";
                 if (firstChain.Data == null) return "";
-                var msg =(string)JsonConvert.SerializeObject(firstChain.Data);
+                var msg = (string)JsonConvert.SerializeObject(firstChain.Data);
                 var text = msg.ToModel<TextMessage.Body>();
                 return text.Text;
             }
