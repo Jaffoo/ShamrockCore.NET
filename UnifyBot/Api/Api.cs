@@ -941,12 +941,9 @@ namespace UnifyBot.Api
         /// </summary>
         private static MessageChain LineFeed(this MessageChain msg)
         {
-            msg.ForEach(x =>
-            {
-                if (x.Type == Messages.Text)
-                    if (x.Data != null)
-                        x.Data.Text += "\n";
-            });
+            for (int i = 0; i < msg.Count - 1; i++)
+                if (msg[i].Type == Messages.Text && msg[i].Data != null)
+                    msg[i].Data!.Text += "\n";
             return msg;
         }
     }
