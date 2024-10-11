@@ -1,6 +1,6 @@
 # ShamrockCore.NET
-### ShamrockCore为单例模式，故而在同一个程序中不支持多bot；ShamrockCore现在处于半停止开发阶段。
-### 强烈建议使用UnifyBot，标准onebot11实现，不再是单例模式，支持多bot，用法基本一致与shamrockcore一致（nuget搜UnifyBot）。
+### ShamrockCore为单例模式，故而在同一个程序中不支持多bot；ShamrockCore现在处于半停止开发阶段。（不完全标准的onebot11）
+### 强烈建议使用UnifyBot，基于onebot11协议实现，不再是单例模式，支持多bot，用法基本一致与shamrockcore一致（nuget搜UnifyBot）。
 
 ## 食用文档：
 [ShamrockCore文档](https://jaffoo.github.io/ShamrockCore/doc/)
