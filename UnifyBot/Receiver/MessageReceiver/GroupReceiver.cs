@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Threading.Tasks;
 using UnifyBot.Api;
 using UnifyBot.Message.Chain;
 using UnifyBot.Model;
@@ -22,12 +23,12 @@ namespace UnifyBot.Receiver.MessageReceiver
         /// <summary>
         /// 匿名信息，如果不是匿名消息则为 null
         /// </summary>
-        public Anonymous Anonymous { get { return new() { Connect = Connect, GroupQQ = GroupQQ }; } set { } }
+        public Anonymous Anonymous { get { return new Anonymous() { Connect = Connect, GroupQQ = GroupQQ }; } set { } }
 
         /// <summary>
         /// 发送人
         /// </summary>
-        public GroupSender Sender { get; set; } = new();
+        public GroupSender Sender { get; set; } = new GroupSender();
 
         #region 扩展方法/属性
         /// <summary>

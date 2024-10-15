@@ -1,20 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <Nullable>enable</Nullable>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Title>Base on onebot v11</Title>
+    <Version>1.2.2.1</Version>
     <Authors>Jaffoo</Authors>
+    <Product>$(AssemblyName)</Product>
     <Company>none</Company>
     <Description>统一机器人，基于onebot11协议的sdk，支持多实例机器人。</Description>
-    <Copyright>无</Copyright>
     <PackageProjectUrl>https://github.com/Jaffoo/ShamrockCore.NET</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageReleaseNotes>修复每次调用文本发送自动在末尾加上换行，除了最后一个不加</PackageReleaseNotes>
+    <PackageReleaseNotes>更改依赖，.net 8 -&gt; .net standern2.1</PackageReleaseNotes>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Version>1.2.2.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -30,9 +27,9 @@
 
   <ItemGroup>
     <PackageReference Include="Fleck" Version="1.2.0" />
-    <PackageReference Include="Flurl" Version="4.0.0" />
-    <PackageReference Include="Flurl.Http" Version="4.0.2" />
-    <PackageReference Include="TBC.CommonLib" Version="1.1.4.2" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="TBC.CommonLib" Version="1.2.0" />
     <PackageReference Include="Websocket.Client" Version="5.1.2" />
   </ItemGroup>
 

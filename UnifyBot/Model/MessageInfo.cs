@@ -41,11 +41,11 @@ namespace UnifyBot.Model
         /// <summary>
         /// 发送人信息
         /// </summary>
-        public Sender Sender { get; set; } = new();
+        public Sender Sender { get; set; } = new Sender();
 
         /// <summary>
         /// 消息内容
         /// </summary>
-        public MessageChain Message { get; set; } = new();
+        public MessageChain? Message { get; set; }
     }
 }

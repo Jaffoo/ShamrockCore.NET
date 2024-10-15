@@ -28,6 +28,6 @@ namespace UnifyBot.Receiver.EventReceiver.Notice
         /// <summary>
         /// 文件
         /// </summary>
-        public Model.FileInfo File { get; set; } = new();
+        public Model.FileInfo File { get; set; } = new FileInfo();
     }
 }

@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json.Converters;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using UnifyBot.Model;
 using static UnifyBot.Utils.JsonConvertTool;
 
@@ -24,6 +23,6 @@ namespace UnifyBot.Message
         /// 配置信息
         /// </summary>
         [JsonIgnore]
-        internal Connect Connect { get; set; } = new("", 0, 0);
+        internal Connect Connect { get; set; } = new Connect("", 0, 0);
     }
 }

@@ -1,4 +1,6 @@
-﻿using UnifyBot.Api;
+﻿using System;
+using System.Threading.Tasks;
+using UnifyBot.Api;
 using UnifyBot.Model;
 
 namespace UnifyBot.Message.Chain
@@ -11,7 +13,7 @@ namespace UnifyBot.Message.Chain
         private readonly MessageChain list;
         public MessageChainBuild()
         {
-            list = [];
+            list = new MessageChain();
         }
 
         public MessageChainBuild(MessageChain chain)

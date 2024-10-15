@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Threading.Tasks;
 using UnifyBot.Api;
 using UnifyBot.Message.Chain;
 using UnifyBot.Model;
@@ -48,7 +49,7 @@ namespace UnifyBot.Receiver.MessageReceiver
         /// <summary>
         /// 消息
         /// </summary>
-        public virtual required MessageChain Message { get; set; }
+        public virtual MessageChain Message { get; set; } = new MessageChain();
 
         #region 扩展方法/属性
         /// <summary>

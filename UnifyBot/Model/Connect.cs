@@ -1,5 +1,8 @@
-﻿using System.Net.WebSockets;
+﻿using System;
+using System.Collections.Generic;
+using System.Net.WebSockets;
 using System.Text.RegularExpressions;
+using System.Threading;
 using TBC.CommonLib;
 
 namespace UnifyBot.Model
@@ -114,7 +117,7 @@ namespace UnifyBot.Model
             get
             {
                 if (string.IsNullOrWhiteSpace(Token))
-                    return new();
+                    return new Dictionary<string, string>();
                 var header = new Dictionary<string, string>
                 {
                     { "Authorization", "Bearer " + Token }
@@ -144,7 +147,7 @@ namespace UnifyBot.Model
                     //检查ws
                     if (!WsReverse)
                     {
-                        ClientWebSocket webSocket = new();
+                        ClientWebSocket webSocket = new ClientWebSocket();
                         webSocket.ConnectAsync(new Uri(WsUrl), CancellationToken.None).Wait();
                         if (webSocket.State != WebSocketState.Open) return false;
                     }

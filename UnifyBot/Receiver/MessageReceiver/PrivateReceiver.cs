@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Threading.Tasks;
 using UnifyBot.Api;
 using UnifyBot.Message.Chain;
 using UnifyBot.Model;
@@ -16,7 +17,7 @@ namespace UnifyBot.Receiver.MessageReceiver
         /// <summary>
         /// 发送人
         /// </summary>
-        public Sender Sender { get; set; } = new();
+        public Sender Sender { get; set; } = new Sender();
 
         #region 扩展方法/属性
         /// <summary>

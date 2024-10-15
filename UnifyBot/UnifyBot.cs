@@ -2,7 +2,6 @@
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using UnifyBot.Model;
-using UnifyBot.Receiver;
 using Websocket.Client;
 using Fleck;
 using UnifyBot.Utils;
@@ -12,6 +11,11 @@ using UnifyBot.Message.Chain;
 using TBC.CommonLib;
 using UnifyBot.Receiver.EventReceiver;
 using UnifyBot.Receiver.MessageReceiver;
+using System;
+using System.Threading.Tasks;
+using System.Threading;
+using System.IO;
+using System.Collections.Generic;
 
 namespace UnifyBot
 {
@@ -30,25 +34,25 @@ namespace UnifyBot
         /// 收到事件
         /// </summary>
         public IObservable<EventReceiver> EventReceived { get; }
-        private readonly Subject<EventReceiver> _eventReceivedSubject = new();
+        private readonly Subject<EventReceiver> _eventReceivedSubject = new Subject<EventReceiver>();
 
         /// <summary>
         /// 收到消息
         /// </summary>
         public IObservable<MessageReceiver> MessageReceived { get; }
-        private readonly Subject<MessageReceiver> _messageReceivedSubject = new();
+        private readonly Subject<MessageReceiver> _messageReceivedSubject = new Subject<MessageReceiver>();
 
         /// <summary>
         /// 接收到未知类型的Websocket消息
         /// </summary>
         public IObservable<string> UnknownMessageReceived { get; }
-        private readonly Subject<string> _unknownMessageReceived = new();
+        private readonly Subject<string> _unknownMessageReceived = new Subject<string>();
 
         /// <summary>
         /// Websocket断开连接
         /// </summary>
         public IObservable<WebSocketCloseStatus> DisconnectionHappened { get; }
-        private readonly Subject<WebSocketCloseStatus> _disconnectionHappened = new();
+        private readonly Subject<WebSocketCloseStatus> _disconnectionHappened = new Subject<WebSocketCloseStatus>();
         public Bot(Connect conf)
         {
             Conn = conf;
@@ -417,7 +421,7 @@ namespace UnifyBot
                     // TODO: 释放托管状态(托管对象)
                     _client?.Dispose();
                     _server?.Dispose();
-                    Conn = new("", 0, 0);
+                    Conn = new Connect("", 0, 0);
                 }
 
                 // TODO: 释放未托管的资源(未托管的对象)并重写终结器

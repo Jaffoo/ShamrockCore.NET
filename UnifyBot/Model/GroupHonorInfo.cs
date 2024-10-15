@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace UnifyBot.Model
 {
@@ -17,37 +18,37 @@ namespace UnifyBot.Model
         /// 当前龙王
         /// </summary>
         [JsonProperty("current_talkative")]
-        public DragonKing CurentDragon { get; set; } = new();
+        public DragonKing CurentDragon { get; set; } = new DragonKing();
 
         /// <summary>
         /// 历史龙王
         /// </summary>
         [JsonProperty("talkative_list")]
-        public List<DragonKing> OldDragon { get; set; } = new();
+        public List<DragonKing> OldDragon { get; set; } = new List<DragonKing>();
 
         /// <summary>
         /// 群聊之火
         /// </summary>
         [JsonProperty("performer_list")]
-        public List<ActiveInfo> PerformerList { get; set; } = new();
+        public List<ActiveInfo> PerformerList { get; set; } = new List<ActiveInfo>();
 
         /// <summary>
         /// 群聊炽焰
         /// </summary>
         [JsonProperty("legend_list")]
-        public List<ActiveInfo> LegendList { get; set; } = new();
+        public List<ActiveInfo> LegendList { get; set; } = new List<ActiveInfo>();
 
         /// <summary>
         /// 冒尖小春笋
         /// </summary>
         [JsonProperty("strong_newbie_list")]
-        public List<ActiveInfo> StrongNewbieLIst { get; set; } = new();
+        public List<ActiveInfo> StrongNewbieLIst { get; set; } = new List<ActiveInfo>();
 
         /// <summary>
         /// 快乐之源
         /// </summary>
         [JsonProperty("emotion_list")]
-        public List<ActiveInfo> EmotionList { get; set; } = new();
+        public List<ActiveInfo> EmotionList { get; set; } = new List<ActiveInfo>();
     }
 
     /// <summary>

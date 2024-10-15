@@ -1,4 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 using TBC.CommonLib;
 using UnifyBot.Message;
 using UnifyBot.Message.Chain;

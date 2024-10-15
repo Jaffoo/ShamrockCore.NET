@@ -9,6 +9,10 @@ using UnifyBot.Model;
 using UnifyBot.Receiver.EventReceiver;
 using Newtonsoft.Json.Serialization;
 using TBC.CommonLib;
+using System;
+using System.Linq;
+using System.Collections.Generic;
+using System.IO;
 
 namespace UnifyBot.Utils
 {
@@ -102,14 +106,14 @@ namespace UnifyBot.Utils
                     Type dllType = item.GetType();
                     if (dllType.Name == "MessageBase") continue;
                     var bodyDll = dllType.GetNestedType("Body")!;
-                    for (int i = 0; i < data.Message!.Count; i++)
+                    for (int i = 0; i < data.Message.Count; i++)
                     {
                         var msg = data.Message![i];
                         if (msg.Type == item.Type)
                         {
                             if (msg == null) continue;
                             var msgStr = msg.ToJsonStr();
-                            if (JsonConvert.DeserializeObject(msgStr, dllType) is not MessageBase mb) throw new Exception();
+                            if (!(JsonConvert.DeserializeObject(msgStr, dllType) is MessageBase mb)) throw new Exception();
                             data.Message![i] = mb;
                             break;
                         }
@@ -145,7 +149,7 @@ namespace UnifyBot.Utils
                         break;
                     }
                 }
-                if (JsonConvert.DeserializeObject(data, type) is not EventReceiver message) return null;
+                if (!(JsonConvert.DeserializeObject(data, type) is EventReceiver message)) return null;
                 message.OriginalData = JObject.Parse(data);
                 message.Connect = conf;
                 return message;
@@ -179,7 +183,7 @@ namespace UnifyBot.Utils
                         break;
                     }
                 }
-                if (JsonConvert.DeserializeObject(data, type) is not EventReceiver message) return null;
+                if (!(JsonConvert.DeserializeObject(data, type) is EventReceiver message)) return null;
                 message.OriginalData = JObject.Parse(data);
                 message.Connect = conf;
                 return message;
@@ -213,7 +217,7 @@ namespace UnifyBot.Utils
                         break;
                     }
                 }
-                if (JsonConvert.DeserializeObject(data, type) is not EventReceiver message) return null;
+                if (!(JsonConvert.DeserializeObject(data, type) is EventReceiver message)) return null;
                 message.OriginalData = JObject.Parse(data);
                 message.Connect = conf;
                 return message;
@@ -249,7 +253,7 @@ namespace UnifyBot.Utils
                         break;
                     }
                 }
-                if (JsonConvert.DeserializeObject(data, type) is not MessageReceiver message) return null;
+                if (!(JsonConvert.DeserializeObject(data, type) is MessageReceiver message)) return null;
                 message.OriginalData = JObject.Parse(data);
                 message.Connect = conf;
                 MessageHandel(message, conf);

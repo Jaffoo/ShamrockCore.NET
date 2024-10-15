@@ -35,6 +35,6 @@ namespace UnifyBot.Receiver
         /// 连接配置信息
         /// </summary>
         [JsonIgnore]
-        public Connect Connect { get; set; } = new("", 0, 0);
+        public Connect Connect { get; set; } = new Connect("", 0, 0);
     }
 }

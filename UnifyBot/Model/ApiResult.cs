@@ -3,7 +3,7 @@
     /// <summary>
     /// 请求响应类型
     /// </summary>
-    internal record ApiResult<T>
+    internal class ApiResult<T> where T : class
     {
         /// <summary>
         /// 状态，ok 为成功|failed 为失败
@@ -28,7 +28,7 @@
     /// <summary>
     /// 请求响应类型
     /// </summary>
-    internal record ApiResult
+    internal class ApiResult
     {
         /// <summary>
         /// 状态，ok 为成功|failed 为失败
