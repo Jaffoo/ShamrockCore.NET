@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <Nullable>enable</Nullable>
-    <Version>1.2.2.1</Version>
+    <Version>1.3</Version>
     <Authors>Jaffoo</Authors>
     <Product>$(AssemblyName)</Product>
     <Company>none</Company>
