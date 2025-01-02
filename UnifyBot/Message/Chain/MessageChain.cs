@@ -73,7 +73,15 @@ namespace UnifyBot.Message.Chain
         {
             try
             {
-                return this.Where(t => t.Type == Messages.Text && t.Data != null).Select(t => (string)t.Data!.Text).ToList();
+                var where = this.Where(t => t.Type == Messages.Text && t.Data != null);
+                var res = where.Select(t =>
+                {
+                    var msg = (string)JsonConvert.SerializeObject(t.Data);
+                    var model = msg.ToModel<TextMessage.Body>();
+                    return model.Text;
+                }).ToList();
+
+                return res;
             }
             catch (Exception)
             {
@@ -87,19 +95,7 @@ namespace UnifyBot.Message.Chain
         /// <returns></returns>
         public string GetPlainText()
         {
-            try
-            {
-                var firstChain = this.FirstOrDefault(t => t.Type == Messages.Text && t.Data != null);
-                if (firstChain == null) return "";
-                if (firstChain.Data == null) return "";
-                var msg = (string)JsonConvert.SerializeObject(firstChain.Data);
-                var text = msg.ToModel<TextMessage.Body>();
-                return text.Text;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return GetTextChain().FirstOrDefault();
         }
 
         /// <summary>
