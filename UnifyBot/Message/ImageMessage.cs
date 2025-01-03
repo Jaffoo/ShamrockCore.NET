@@ -59,7 +59,7 @@ namespace UnifyBot.Message
             /// <summary>
             /// 图片 URL
             /// </summary>
-            public string Url { get; set; } = "";
+            public string? Url { get; set; } 
 
             /// <summary>
             /// 只在通过网络 URL 发送时有效，表示是否使用已缓存的文件，默认true
