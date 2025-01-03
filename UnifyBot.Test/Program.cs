@@ -15,10 +15,9 @@ namespace UniBot.Test
     {
         static async Task Main()
         {
-            Connect connect = new("localhost", 3001, 3000);
+            Connect connect = new("www.zink.asia", 3001, 3000,"523366");
             Bot bot = new(connect);
             await bot.StartAsync();
-            await new MessageChainBuild().Text("你").Text("好").SendPrivate(bot, 1737678289);
             #region 消息
             bot.MessageReceived.OfType<MessageReceiverBase>().Subscribe(x =>
             {
