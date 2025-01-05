@@ -8,7 +8,6 @@ using UnifyBot.Receiver.MessageReceiver;
 using UnifyBot.Model;
 using UnifyBot.Receiver.EventReceiver;
 using Newtonsoft.Json.Serialization;
-using TBC.CommonLib;
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -96,7 +95,7 @@ namespace UnifyBot.Utils
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        internal static void MessageHandel(MessageReceiver data, Connect conf)
+        internal static void MessageHandel(MessageReceiver data)
         {
             try
             {
@@ -256,7 +255,7 @@ namespace UnifyBot.Utils
                 if (!(JsonConvert.DeserializeObject(data, type) is MessageReceiver message)) return null;
                 message.OriginalData = JObject.Parse(data);
                 message.Connect = conf;
-                MessageHandel(message, conf);
+                MessageHandel(message);
                 return message;
             }
             catch (Exception)

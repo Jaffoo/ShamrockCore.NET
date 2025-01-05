@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net.WebSockets;
 using System.Text.RegularExpressions;
 using System.Threading;
-using TBC.CommonLib;
+using UnifyBot.Utils;
 
 namespace UnifyBot.Model
 {

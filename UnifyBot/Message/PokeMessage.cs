@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using TBC.CommonLib;
+using UnifyBot.Utils;
 using UnifyBot.Model;
 
 namespace UnifyBot.Message

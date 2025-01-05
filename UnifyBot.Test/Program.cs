@@ -1,15 +1,12 @@
 ﻿using System.Reactive.Linq;
-using TBC.CommonLib;
-using UnifyBot;
-using UnifyBot.Message.Chain;
+using UnifyBot.Utils;
 using UnifyBot.Model;
 using UnifyBot.Receiver;
 using UnifyBot.Receiver.EventReceiver;
-using UnifyBot.Receiver.EventReceiver.Notice;
 using UnifyBot.Receiver.EventReceiver.Request;
 using UnifyBot.Receiver.MessageReceiver;
 
-namespace UniBot.Test
+namespace UnifyBot.Test
 {
     internal class Program
     {

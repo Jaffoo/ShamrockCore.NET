@@ -8,7 +8,6 @@ using UnifyBot.Utils;
 using UnifyBot.Api;
 using Newtonsoft.Json.Linq;
 using UnifyBot.Message.Chain;
-using TBC.CommonLib;
 using UnifyBot.Receiver.EventReceiver;
 using UnifyBot.Receiver.MessageReceiver;
 using System;
@@ -326,8 +325,7 @@ namespace UnifyBot
             try
             {
                 var url = Conn.HttpUrl + apiEndpoint + paramStr;
-                var res = await TBC.CommonLib.Tools.GetAsync<ApiResult>(url, Conn.Headers);
-                if (res == null) throw new InvalidDataException("响应内容为空！");
+                var res = await Tools.GetAsync<ApiResult>(url, Conn.Headers) ?? throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
                 return res.Data ?? "";
             }
@@ -349,8 +347,7 @@ namespace UnifyBot
             try
             {
                 var url = Conn.HttpUrl + apiEndpoint + paramStr;
-                var res = await Tools.GetAsync<ApiResult<T>>(url, Conn.Headers);
-                if (res == null) throw new InvalidDataException("响应内容为空！");
+                var res = await Tools.GetAsync<ApiResult<T>>(url, Conn.Headers) ?? throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
                 if (res.Data == null) throw new InvalidDataException("响应数据为空！");
                 return res.Data;
@@ -373,8 +370,7 @@ namespace UnifyBot
             try
             {
                 var url = Conn.HttpUrl + apiEndpoint;
-                var res = await TBC.CommonLib.Tools.PostAsync<ApiResult>(url, data, Conn.Headers);
-                if (res == null) throw new InvalidDataException("响应内容为空！");
+                var res = await Tools.PostAsync<ApiResult>(url, data, Conn.Headers) ?? throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
                 return res.Data ?? "";
             }
@@ -396,8 +392,7 @@ namespace UnifyBot
             try
             {
                 var url = Conn.HttpUrl + apiEndpoint;
-                var res = await Tools.PostAsync<ApiResult<T>>(url, data, Conn.Headers);
-                if (res == null) throw new InvalidDataException("响应内容为空！");
+                var res = await Tools.PostAsync<ApiResult<T>>(url, data, Conn.Headers) ?? throw new InvalidDataException("响应内容为空！");
                 if (res.Status == "failed") throw new Exception(res.Message);
                 if (res.Data == null) throw new InvalidDataException("响应数据为空！");
                 return res.Data;

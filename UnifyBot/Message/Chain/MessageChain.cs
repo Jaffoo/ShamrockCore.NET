@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TBC.CommonLib;
 using UnifyBot.Api;
 using UnifyBot.Model;
+using UnifyBot.Utils;
 
 namespace UnifyBot.Message.Chain
 {
