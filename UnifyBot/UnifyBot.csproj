@@ -3,14 +3,14 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <Nullable>enable</Nullable>
-    <Version>1.3.3.1</Version>
+    <Version>1.3.4</Version>
     <Authors>Jaffoo</Authors>
     <Product>$(AssemblyName)</Product>
     <Company>none</Company>
     <Description>统一机器人，基于onebot11协议的sdk，支持多实例机器人。</Description>
     <PackageProjectUrl>https://github.com/Jaffoo/ShamrockCore.NET</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageReleaseNotes>更改依赖，.net 8 -&gt; .net standern2.1</PackageReleaseNotes>
+    <PackageReleaseNotes>修复入群申请事件接收不到的bug</PackageReleaseNotes>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 

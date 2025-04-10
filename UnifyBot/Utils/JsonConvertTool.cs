@@ -142,7 +142,7 @@ namespace UnifyBot.Utils
                 foreach (var messageReceiver in MetaEventReceiverBases)
                 {
                     if (messageReceiver == null) continue;
-                    if (messageReceiver.MetaEventType == raw.MetaEventType)
+                    if (messageReceiver.MetaEventType.ToString().ToLower() == raw.OriginalData["meta_event_type"]!.ToString().ToLower())
                     {
                         type = messageReceiver.GetType();
                         break;
@@ -171,12 +171,12 @@ namespace UnifyBot.Utils
             {
                 var raw = JsonConvert.DeserializeObject<EventReceiver>(data);
                 if (raw == null) return null;
-                raw!.OriginalData = JObject.Parse(data);
+                raw.OriginalData = JObject.Parse(data);
                 Type type = raw.GetType();
                 foreach (var messageReceiver in RequestEventReceiverBases)
                 {
                     if (messageReceiver == null) continue;
-                    if (messageReceiver.RequestEventType == raw.RequestEventType)
+                    if (messageReceiver.RequestEventType.ToString().ToLower() == raw.OriginalData["request_type"]!.ToString().ToLower())
                     {
                         type = messageReceiver.GetType();
                         break;
@@ -210,7 +210,7 @@ namespace UnifyBot.Utils
                 foreach (var messageReceiver in NoticeEventReceiverBases)
                 {
                     if (messageReceiver == null) continue;
-                    if (messageReceiver.NoticeEventType == raw.NoticeEventType)
+                    if (messageReceiver.NoticeEventType.ToString().ToLower() == raw.OriginalData["notice_type"]!.ToString().ToLower())
                     {
                         type = messageReceiver.GetType();
                         break;
