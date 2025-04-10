@@ -38,7 +38,7 @@ namespace UnifyBot.Receiver.EventReceiver.Request
         /// <summary>
         /// 验证信息
         /// </summary>
-        public string Common { get; set; } = "";
+        public string Comment { get; set; } = "";
 
         /// <summary>
         /// 请求 flag，在调用处理请求的 API 时需要传入
