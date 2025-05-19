@@ -30,7 +30,7 @@ namespace UnifyBot.Message
                 base.Data.File = file;
             else if (!string.IsNullOrWhiteSpace(base64))
             {
-                if (!file.Contains("base64://")) base64 = "base64://" + base64;
+                if (!base64.Contains("base64://")) base64 = "base64://" + base64;
                 base.Data.File = base64;
             }
             else if (!string.IsNullOrWhiteSpace(url))
